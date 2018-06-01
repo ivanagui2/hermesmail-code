@@ -189,14 +189,6 @@ DSRightView::OnInitialUpdate()
 {
     C3DFormView::OnInitialUpdate();
 
-	// Shareware: Register that we want to know of feature changes
-	QCSharewareManager *pSWM = QCSharewareManager::GetSharewareManager();
-	ASSERT(pSWM);
-	if (pSWM)
-	{
-		pSWM->QCCommandDirector::Register((QICommandClient*)this);
-	}
-
     m_PB_NewDatabase.EnableWindow(TRUE);
     m_PB_ModifyDatabase.EnableWindow(FALSE);
     m_PB_DeleteDatabase.EnableWindow(FALSE);
@@ -512,28 +504,6 @@ DSRightView::OnDatabasesClk(NMHDR *pNMHDR, LRESULT *pResult)
 	}
     }
 
-	// Shareware: In reduced feature mode, you can only select one database
-	QCSharewareManager *pSWM = QCSharewareManager::GetSharewareManager();
-	ASSERT(pSWM);
-	if ((pSWM) && (pSWM->UsingFullFeatureSet() == false))
-	{
-		// REDUCED-FEATURE MODE
-
-		// Allow only one database to be selected at one time
-		// If an item is selected, unselect all other items
-		if(nState == 2)
-		{
-			int nItemCnt = m_LC_Databases.GetItemCount();
-			for (int cnt = 0; cnt < nItemCnt; cnt++) 
-			{
-				if(cnt != index) 
-				{
-					m_LC_Databases.SetItemState(cnt, INDEXTOSTATEIMAGEMASK(1), 
-						LVIS_STATEIMAGEMASK);	//unselect
-				}
-			}
-		}
-	}
     
 	DSMainSplitterWnd *pDSMSW = static_cast<DSMainSplitterWnd *>(GetParent());
     DSLeftView        *pDSLV  = static_cast<DSLeftView *>
@@ -813,14 +783,6 @@ DSRightView::OnSize(UINT nType, int cx, int cy)
 void
 DSRightView::OnDestroy()
 {
-	// Shareware: Unregister ourselves from notifications
-	QCSharewareManager *pSWM = QCSharewareManager::GetSharewareManager();
-	ASSERT(pSWM);
-	if (pSWM)
-	{
-		pSWM->UnRegister(this);
-	}
-
     PrepareForDestruction();
     C3DFormView::OnDestroy();
 }
@@ -951,34 +913,10 @@ DSRightView::AddDatabases()
 			ASSERT(pDS->pQuery);
 			nSelected++;
 
-			// Shareware: In reduced feature mode, you can only select one database
-			QCSharewareManager *pSWM = QCSharewareManager::GetSharewareManager();
-			ASSERT(pSWM);
-			if ((pSWM) && (pSWM->UsingFullFeatureSet() == true))
-			{
-				// FULL-FEATURE MODE
-				hErr = pDS->pQuery->AddDatabase((IDSDatabase *)
-								(::GetListItemLPARAM(pv, i)));
-				if (FAILED(hErr))
-					return(hErr);
-			}
-			else
-			{
-				// REDUCED-FEATURE MODE
-				// Allow only one database; Unselected any other selected databases
-				if(nSelected == 1)
-				{
-					hErr = pDS->pQuery->AddDatabase((IDSDatabase *)
-									(::GetListItemLPARAM(pv, i)));
-					if (FAILED(hErr)) 
-						return(hErr);
-				}
-				else
-				{
-					m_LC_Databases.SetItemState(i, INDEXTOSTATEIMAGEMASK(1), 
-							LVIS_STATEIMAGEMASK);	//unselect
-				}
-			}
+			hErr = pDS->pQuery->AddDatabase((IDSDatabase *)
+							(::GetListItemLPARAM(pv, i)));
+			if (FAILED(hErr))
+				return(hErr);
 		}
     }
 
@@ -1300,46 +1238,7 @@ ShouldUpdateIni(int code)
 }
 
 void
-DSRightView::Notify(QCCommandObject*	pCommand,
-						COMMAND_ACTION_TYPE	theAction,
-						void*				pData)
-{
-	if (theAction == CA_SWM_CHANGE_FEATURE) 
-	{
 
-		// Shareware: In reduced feature mode, you can only select one database
-		QCSharewareManager *pSWM = QCSharewareManager::GetSharewareManager();
-		ASSERT(pSWM);
-		if ((pSWM) && (pSWM->UsingFullFeatureSet() == false))
-		{
-			// So the user has just changed from FULL to REDUCED
-			// Make sure only one DB is selected
-
-			int iCount = m_LC_Databases.GetItemCount();
-			bool bPrevSel = false;
-
-			for (int i = 0; i < iCount; i++) 
-			{
-				UINT nState = m_LC_Databases.GetItemState(i, LVIS_STATEIMAGEMASK);
-				nState >>= 12;
-				nState--;
-				if (nState) // If nState is > 0, then this item is selected
-				{
-					if (bPrevSel)
-					{
-						// This is the second or higher selcted, so unselect it
-						m_LC_Databases.SetItemState(i, INDEXTOSTATEIMAGEMASK(1), 
-								LVIS_STATEIMAGEMASK);	//unselect
-					}
-					else
-					{
-						bPrevSel = true;
-					}
-				}
-			}
-		}
-	}
-}
 
 
 bool   DSRightView::InitShortcuts()

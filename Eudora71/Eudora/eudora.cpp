@@ -204,16 +204,6 @@ bool g_bDisableUIDL = false;
 extern "C" void PgMultimediaShutdown();
 
 
-//	By not making this method a member of CEudoraApp, we avoid needing to include
-//	QCSharewareManager.h in eudora.h (for SharewareModeType enum).
-void AskUserToConfirmRegCodeAtStartup(
-	const char *		szFirstName,
-	const char *		szLastName,
-	const char *		szNewRegCode,
-	SharewareModeType	regMode,
-	bool				bEudoraNeedsPaidRegistration);
-
-
 //
 // The Eudora DDE Server object.
 //
@@ -255,263 +245,6 @@ void CEudoraApp::OnTipOfTheDay()
 	
 	::SetIniShort(IDS_INI_SHOW_TIP_OF_THE_DAY, short(dlg.GetShowAtStartup()));
 	::SetIniShort(IDS_INI_CURRENT_TIP_OF_THE_DAY, short(dlg.GetCurrentTip()));
-}
-
-//	Displays dialog asking user to confirm the reg code that was found in
-//	RegCode.dat at startup.
-void AskUserToConfirmRegCodeAtStartup(
-	const char *		szFirstName,
-	const char *		szLastName,
-	const char *		szNewRegCode,
-	SharewareModeType	regMode,
-	bool				bEudoraNeedsPaidRegistration)
-{
-	CRegistrationCodeDlg	dlg( szFirstName, szLastName, szNewRegCode,
-								 IDS_REG_DIALOG_MSG_TITLE_THANKS, IDS_REG_DIALOG_MSG_AUTO );
-	int		nResult = dlg.DoModal();
-	if ( (nResult == IDOK) && (regMode == SWM_MODE_PRO) &&
-		 QCSharewareManager::AreRegCodesEqual(szNewRegCode, dlg.m_Code) )
-	{
-		//	The user confirmed the paid reg code that we read from RegCode.dat.
-		//	Set the paid registration nag flag appropriately
-		//	(i.e. on if "Eudora-Needs-Registration: yes" was present) so that
-		//	we know whether or not to nag paid users.
-		QCSharewareManager::SetNeedsPaidRegistrationNag(bEudoraNeedsPaidRegistration);
-	}
-}
-
-//	Process RegCode.dat at startup
-//	RegCode processing:
-//	* Prefers a RegCode.dat in the EudoraDir (where the INI file, etc. are located)
-//	* Requires paid reg code if there was a bad one at startup
-//	* Only allows reg code if the month value is greater than *or equal* the
-//	  reg code, if any, that the user already has for the current mode
-//
-//	Distributor ID processing prefers the RegCode.dat in the ExecutableDir (if present).
-void CEudoraApp::OnCheckRegCodeFile()
-{
-	//	Register from "RegCode.dat" if it exists, its information is good, and
-	//	its information differs from the current registration information
-	CString		szRegInfoStartupFileName;
-	GetRegInfoFilePath(szRegInfoStartupFileName);
-
-	bool				bWasBadProRegCodeAtStartup = QCSharewareManager::WasBadProRegCodeAtStartup();
-	bool				bWasExpiredProRegCodeAtStartup = QCSharewareManager::WasExpiredProRegCodeAtStartup();
-	bool				bGoodRegInfo = false;
-	bool				bGotGoodRegInfo = false;
-	SharewareModeType	regMode = SWM_MODE_ADWARE;
-	CString				szFirstName, szLastName, szNewRegCode;
-	CString				szDistributorID = "";
-	CString				szPrevDistributorID = "";
-	bool				bEudoraNeedsPaidRegistration;
-	int					newRegCodeMonth, currentRegCodeMonth;
-	SharewareModeType	regModeInRegistry = SWM_MODE_ADWARE;
-	CString				szFirstNameFromRegistry, szLastNameFromRegistry, szRegCodeFromRegistry;
-	bool				bRegCodeFromRegistryGood = false;
-
-	if ( !QCSharewareManager::IsPaidModeOK() )
-	{
-		HKEY	hKey;
-
-		//	Check the registry for a paid mode reg code
-		if ( ::RegOpenKeyEx(HKEY_CURRENT_USER, _T("Software\\Qualcomm\\Eudora\\Check"), 0, KEY_READ, &hKey) == ERROR_SUCCESS )
-		{
-			char	szData[512];
-			DWORD	dwKeyDataType;
-			DWORD	dwDataBufSize;
-
-			//	Get the first name
-			dwDataBufSize = sizeof(szData);
-			bRegCodeFromRegistryGood = 
-				( ::RegQueryValueEx(hKey, _T("FName"), NULL, &dwKeyDataType, (LPBYTE) &szData, &dwDataBufSize) == ERROR_SUCCESS ) &&
-				(dwKeyDataType == REG_SZ);
-			if (bRegCodeFromRegistryGood)
-				szFirstNameFromRegistry = szData;
-
-			//	Get the last name
-			if (bRegCodeFromRegistryGood)
-			{
-				dwDataBufSize = sizeof(szData);
-				bRegCodeFromRegistryGood = 
-					( ::RegQueryValueEx(hKey, _T("LName"), NULL, &dwKeyDataType, (LPBYTE) &szData, &dwDataBufSize) == ERROR_SUCCESS ) &&
-					(dwKeyDataType == REG_SZ);
-				if (bRegCodeFromRegistryGood)
-					szLastNameFromRegistry = szData;
-			}
-
-			//	Get the reg code
-			if (bRegCodeFromRegistryGood)
-			{
-				dwDataBufSize = sizeof(szData);
-				bRegCodeFromRegistryGood = 
-					( ::RegQueryValueEx(hKey, _T("RCode"), NULL, &dwKeyDataType, (LPBYTE) &szData, &dwDataBufSize) == ERROR_SUCCESS ) &&
-					(dwKeyDataType == REG_SZ);
-				if (bRegCodeFromRegistryGood)
-					szRegCodeFromRegistry = szData;
-			}
-
-			if (bRegCodeFromRegistryGood)
-			{
-				//	Check to see if the information in the registry is valid and if it's a paid reg code
-				bRegCodeFromRegistryGood =
-					QCSharewareManager::IsValidRegistrationInfo( szFirstNameFromRegistry, szLastNameFromRegistry,
-																 szRegCodeFromRegistry, &regModeInRegistry, NULL) &&
-					(regModeInRegistry == SWM_MODE_PRO);
-			}
-
-			::RegCloseKey(hKey);
-		}
-	}
-
-	//	Check for RegCode.dat in at most two locations, the EudoraDir (where the INI file, etc. are
-	//	located) and ExecutableDir. The below loop will execute 1-2 times (depending on whether or
-	//	not the ExecutableDir is different from the EudoraDir). A second pass will run even if
-	//	we found a good reg code in the first pass, because we prefer distributor IDs from the
-	//	second location.
-	for (short i = 0; i < 2; i++)
-	{
-		if ( ::FileExistsMT(szRegInfoStartupFileName) )
-		{
-			//	Get the reg code, and distributor ID
-			bGoodRegInfo = RegInfoReader::GetInfoFromRegCodeStartupFile(
-								szRegInfoStartupFileName, szFirstName, szLastName, szNewRegCode,
-								szDistributorID, regMode, bEudoraNeedsPaidRegistration, &newRegCodeMonth );
-			
-			//	Only bother continuing with reg code processing if a
-			//	previous pass didn't come up with good reg info
-			if (!bGotGoodRegInfo)
-			{
-				//	If the reg code is good, check to see if we really want it.
-				if (bGoodRegInfo)
-				{
-					if (bWasBadProRegCodeAtStartup || bWasExpiredProRegCodeAtStartup || bRegCodeFromRegistryGood)
-					{
-						//	We only want a paid reg code (bad or expired paid reg code at startup or we're
-						//	not paid registered and the registry has a paid reg code).
-						bGoodRegInfo = (regMode == SWM_MODE_PRO);
-					}
-					else if ( QCSharewareManager::IsRegisteredForMode(regMode, &currentRegCodeMonth) )
-					{
-						//	There's already a good reg code for this mode. Only register with the new reg
-						//	code if the month is greater than *or equal* to the reg code we already have.
-						//	Anything can override 255, because it indicates a 4.x upgrade. Any other
-						//	month value will be valid for at least as long as an upgrade reg code.
-						bGoodRegInfo = (newRegCodeMonth >= currentRegCodeMonth) || (currentRegCodeMonth == 255);
-					}
-				}
-
-				if (bGoodRegInfo)
-				{
-					bGotGoodRegInfo = true;
-
-					//	Verify that the reg code is new to us. If it's not we don't display the dialog,
-					//	but we still won't use the other RegCode.dat (bGotGoodRegInfo = true above)
-					//	for it's reg code (if any) because we don't want a reg code in the executable
-					//	directory to override the reg code in the INI directory.
-					LPCTSTR		szCurrentRegCode = QCSharewareManager::GetRegCodeForMode(regMode);
-					if ( (szCurrentRegCode == NULL) || !QCSharewareManager::AreRegCodesEqual(szNewRegCode, szCurrentRegCode) )
-					{
-						AskUserToConfirmRegCodeAtStartup( szFirstName, szLastName, szNewRegCode,
-														  regMode, bEudoraNeedsPaidRegistration );
-					}
-					else if ( (regMode == SWM_MODE_PRO) && bEudoraNeedsPaidRegistration &&
-						      !QCSharewareManager::GetCheckedForMissingCRLF() )
-					{
-						//	We now handle files that don't end with CRLF. It previously was a problem
-						//	for box pro users - we were erroneously getting a false value for
-						//	bEudoraNeedsPaidRegistration (the yes in "Eudora-Needs-Registration: yes"
-						//	couldn't be recognized).
-						//
-						//	If we're here it's an issue and we haven't checked for the problem yet.
-						//	Check for a trailing CRLF, and if there isn't any then turn on the
-						//	NeedsPaidRegistrationNag flag.
-						JJFile			regInfoFile;
-
-						if ( SUCCEEDED(regInfoFile.Open(szRegInfoStartupFileName, O_RDONLY)) )
-						{
-							HRESULT		result = regInfoFile.Seek(-2, SEEK_END);
-
-							if (result == S_OK)
-							{
-								long	lNumBytesRead;
-								char	szLastTwoChars[2];
-								
-								result = regInfoFile.RawRead(szLastTwoChars, 2, &lNumBytesRead);
-
-								if ( (result == S_OK) && (lNumBytesRead == 2) )
-								{
-									//	If the last two characters are not CRLF,
-									//	then turn on the NeedsPaidRegistrationNag flag
-									if ( (szLastTwoChars[0] != '\r') || (szLastTwoChars[1] != '\n') )
-										QCSharewareManager::SetNeedsPaidRegistrationNag(bEudoraNeedsPaidRegistration);
-								}
-							}
-
-							regInfoFile.Close();
-
-							QCSharewareManager::SetCheckedForMissingCRLF(true);
-						}
-					}
-				}
-			}
-		}
-
-		if (i == 0)
-		{
-			//	If the alternate path is not different, then don't bother with a second pass.
-			if ( !GetRegInfoFileAlternatePath(szRegInfoStartupFileName) )
-				break;
-
-			//	We're doing a second pass, so save the first distributor ID
-			szPrevDistributorID = szDistributorID;
-		}
-	}
-
-	//	For the purposes of distributor ID, we don't care if the reg code was correct
-	//	or not (or even if the "Eudora-File-Type" line was missing or incorrect).
-	bool	bCurrentDistributorIDGood = !szDistributorID.IsEmpty();
-
-	if ( bCurrentDistributorIDGood || !szPrevDistributorID.IsEmpty() )
-	{
-		//	One of the two distributor IDs was good. Prefer the current distributor ID,
-		//	which prefers the 
-		if (bCurrentDistributorIDGood)
-			SetIniString(IDS_INI_DISTRIBUTOR, szDistributorID);
-		else
-			SetIniString(IDS_INI_DISTRIBUTOR, szPrevDistributorID);
-
-		// Make sure distributor ID is saved in ini right now.
-		FlushINIFile();
-	}
-
-	if (!bGotGoodRegInfo)
-	{
-		if (bWasExpiredProRegCodeAtStartup)
-		{
-			// There was an expired paid mode reg code at startup, and we didn't get a
-			// replacement from RegCode.dat or the registry. Display the Repay to allow
-			// advise the user of this situation.
-			CRepayDlg dlg;
-			dlg.DoModal();
-		}
-		else if (bRegCodeFromRegistryGood)
-		{
-			//	We didn't get any other reg code, but there was a good one in the registry
-			AskUserToConfirmRegCodeAtStartup( szFirstNameFromRegistry, szLastNameFromRegistry, szRegCodeFromRegistry,
-											  regModeInRegistry, false );
-		}
-		else if (bWasBadProRegCodeAtStartup)
-		{
-			//	There was a bad pro reg code at startup, and we didn't get a replacement from
-			//	RegCode.dat or the registry. Display the registation code dialog to allow the
-			//	user to correct this.
-			CRegistrationCodeDlg	dlg( QCSharewareManager::GetFirstNameForMode(SWM_MODE_PRO),
-										 QCSharewareManager::GetLastNameForMode(SWM_MODE_PRO),
-										 QCSharewareManager::GetRegCodeForMode(SWM_MODE_PRO),
-										 IDS_REG_DIALOG_MSG_TITLE_INVALID, IDS_REG_DIALOG_MSG_INVALID );
-			dlg.DoModal();
-		}
-	}
 }
 
 void CEudoraApp::OnGetHelp()
@@ -578,21 +311,6 @@ void CEudoraApp::OnReportABug()
 		if (GetIniShort(IDS_INI_WORD_WRAP))		compDoc->m_Sum->SetFlag(MSF_WORD_WRAP);
 		if (GetIniShort(IDS_INI_TABS_IN_BODY))	compDoc->m_Sum->SetFlag(MSF_TABS_IN_BODY);
 		if (GetIniShort(IDS_INI_KEEP_COPIES))	compDoc->m_Sum->SetFlag(MSF_KEEP_COPIES);
-
-		// Add the reg code to the extra headers.
-		compDoc->m_ExtraHeaders += "eudora-reg-code: ";
-		compDoc->m_ExtraHeaders += QCSharewareManager::GetRegCodeForCurrentMode();
-		compDoc->m_ExtraHeaders += "\r\n";
-
-		// Add the reg first name to the extra headers.
-		compDoc->m_ExtraHeaders += "eudora-reg-first-name: ";
-		compDoc->m_ExtraHeaders += QCSharewareManager::GetFirstNameForCurrentMode();
-		compDoc->m_ExtraHeaders += "\r\n";
-
-		// Add the reg last name to the extra headers.
-		compDoc->m_ExtraHeaders += "eudora-reg-last-name: ";
-		compDoc->m_ExtraHeaders += QCSharewareManager::GetLastNameForCurrentMode();
-		compDoc->m_ExtraHeaders += "\r\n";
 
 		// Show the message.
 		compDoc->m_Sum->Display();
@@ -1118,12 +836,6 @@ BOOL CEudoraApp::InitInstance()
 
 	LoadStdProfileSettings();  // Load standard INI file options (including MRU)
 
-	// Initialize the Shareware Manager -- must be destroyed when done.
-	// This needs to happen before creating the splash screen because the
-	// splash screen displays what mode the user is in.
-	if (!QCSharewareManager::Initialize())
-		return (FALSE);
-
 	//
 	// Splash screen if wanted.
 	//
@@ -1590,24 +1302,6 @@ BOOL CEudoraApp::InitInstance()
 
 	RegisterURLSchemes();
 
-	if (!GetIniShort(IDS_INI_SEEN_INTRO))
-	{
-		// Put up the intro dialog IF it's not the box/ESD build (heaven
-		// forbid they see any mention of ads!).
-		if (!QCSharewareManager::IsBoxBuild())
-		{
-			switch (AlertDialog(IDD_INTRODUCTION, PAID_MODE_DEMO_DAYS))
-			{
-				case IDC_ABOUT:
-					LaunchURLWithQuery(NULL, ACTION_INTRO, NULL);
-					break;
-				case IDC_PAR_CHANGE_REGISTRATION:
-					CRegistrationCodeDlg ecDlg;
-					ecDlg.DoModal() ; 
-					break;
- 			}
-		}
-
 		SetIniShort(IDS_INI_SEEN_INTRO, TRUE);
 		FlushINIFile();
 	}
@@ -1969,11 +1663,9 @@ int CEudoraApp::ExitInstance()
 
 	// Clean up the directors/managers
 	VERIFY(QCLabelDirector::Destroy());
-	VERIFY(QCSharewareManager::Destroy());
 	VERIFY( ContentConcentrator::Destroy() );
 	VERIFY( SearchManager::Destroy() );
 	VERIFY( LinkHistoryManager::Destroy() );
-	VERIFY(CNagManager::Destroy());
 
 	CAuditEvents* AE = CAuditEvents::GetAuditEvents();
 	if (AE)
@@ -2563,33 +2255,6 @@ BOOL CEudoraApp::IdleCalculateMood()
 }
 
 
-BOOL CEudoraApp::IdleSwitchToSponsoredMode()
-{
-	BOOL	bDidSomething = FALSE;
-	
-	// See if we have a pending switch to sponsored mode.
-	time_t expTime;
-	if (QCSharewareManager::GetAdwareSwitchTime(&expTime) && (time(NULL) > expTime))
-	{
-		// Use the same idleness criterion we use for the nags.
-		if (m_nCurrentIdlePeriod > min((unsigned long) GetIniShort(IDS_INI_NAG_IDLE_SECS), (unsigned long) 120))
-		{
-			// Need to switch, and we've been idle long enough, so let's do it.
-			QCSharewareManager* pSWM = GetSharewareManager();
-			if (pSWM)
-			{
-				pSWM->SetMode(SWM_MODE_ADWARE, false, NULL);
-				pSWM->ClearAdwareSwitchTime();
-
-				bDidSomething = TRUE;
-			}
-		}
-	}
-
-	return bDidSomething;
-}
-
-
 BOOL CEudoraApp::IdleCheckNetscapeInteraction()
 {
 	BOOL	bDidSomething = FALSE;
@@ -2835,20 +2500,17 @@ BOOL CEudoraApp::OnIdle( LONG lCount )
 		{
 			switch (s_nIdleTaskIndex)
 			{
+			
 				case 0:
-					bDidSomething |= IdleUpdateFaceTime();
-					break;
-
-				case 1:
 					bDidSomething |= IdleProcessIMAPQueues(true/*bHighPriorityOnly*/);
 					break;
 
-				case 2:
+				case 1:
 					// Call the Search Manager
 					bDidSomething |= SearchManager::Instance()->Idle(m_nCurrentIdlePeriod, false);
 					break;
 
-				case 3:
+				case 2:
 					// Call the Plugin Idle Function making sure it's required first
 					if (m_TransManager && CTranslatorManager::m_PluginIdle)
 					{
@@ -2857,50 +2519,36 @@ BOOL CEudoraApp::OnIdle( LONG lCount )
 					}
 					break;
 
-				case 4:
+				case 3:
 					bDidSomething |= IdleSortMailboxes();
 					break;
 
-				case 5:
+				case 4:
 					bDidSomething |= IdleWriteModifiedTocs();
 					break;
 
-				case 6:
+				case 5:
 					bDidSomething |= IdleAutoSave();
 					break;
 
-				case 7:
+				case 6:
 					bDidSomething |= IdleCheckMail();
 					break;
 
-				case 8:
+				case 7:
 					bDidSomething |= IdleSendMail();
 					break;
 
-				case 9:
+				case 8:
 					bDidSomething |= IdleTaskManagerPostProcessing();
 					break;
 
-				case 10:
+				case 9:
 					// Call the Link History Manager
 					bDidSomething |= LinkHistoryManager::Instance()->Idle(m_nStartCurrentIdleProcessing, m_nCurrentIdlePeriod);
 					break;
 
-				case 11:
-					// Call the Nag Manager if the appropriate number of
-					// idle seconds have passed (with a 120 second maximum).
-					if ( m_nCurrentIdlePeriod > min((unsigned long)GetIniShort(IDS_INI_NAG_IDLE_SECS), (unsigned long)120) )
-					{
-						CNagManager::GetNagManager()->DoCheckNags(NAG_AT_IDLE);
-						bDidSomething |= TRUE;
-					}
-					break;
-
-				case 12:
-					bDidSomething |= IdleSwitchToSponsoredMode();
-					break;
-
-				case 13:
+				case 10:
 					if (m_nCurrentIdleFaceTime > 30)
 					{
 						ReclaimTOCs();
@@ -2908,15 +2556,15 @@ BOOL CEudoraApp::OnIdle( LONG lCount )
 					}
 					break;
 
-				case 14:
+				case 11:
 					bDidSomething |= IdleCheckOwnership();
 					break;
 
-				case 15:
+				case 12:
 					bDidSomething |= IdleCheckNetscapeInteraction();
 					break;
 
-				case 16:
+				case 13:
 					bDidSomething |= IdleLogTocDiscrepancies();
 					break;
 			}
@@ -2925,7 +2573,7 @@ BOOL CEudoraApp::OnIdle( LONG lCount )
 			s_nIdleTaskIndex %= kNumMainTasks;
 
 			//	Continue looping while:
-			//	* We didn't hit the stop task (so we know we didn't idled everything yet)
+			//	* We didn't hit the stop task (so we know we didn't idle everything yet)
 			//	* Nothing returned that it did something yet OR there's still more time available
 			//
 			//	Important to continue looping even if there's technically no more loop time

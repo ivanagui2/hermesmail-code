@@ -2700,24 +2700,6 @@ void CCompMessageDoc::ReadSystemInfo(CString &sAttach, CString &sBody)
 	CString csWININETVersion;
 	ReadPlatform(sPlatform, sVersion, &sMachineType, &sProcessor, &sTotalPhys,&csMSHTMLVersion, &csWININETVersion);
 
-	CString sMode;
-	int nMode = GetSharewareMode();
-	switch (nMode)
-	{
-		case SWM_MODE_ADWARE:
-			sMode = CRString(IDS_MODE_SPONSORED);
-			break;
-		case SWM_MODE_LIGHT:
-			sMode = CRString(IDS_MODE_LIGHT);
-			break;
-		case SWM_MODE_PRO:
-			sMode = CRString(IDS_MODE_PAID);
-			break;
-		default:
-			sMode.Format("%d", nMode);
-			break;
-	}
-
 	sBody.Format( CRString(IDS_SYSINFO_BODY),
 					(LPCTSTR)sPlatform,
 					(LPCTSTR)sMachineType,
@@ -2725,8 +2707,6 @@ void CCompMessageDoc::ReadSystemInfo(CString &sAttach, CString &sBody)
 					(LPCTSTR)sProcessor,
 					(LPCTSTR)sTotalPhys,
 					(LPCTSTR)CRString(IDS_VERSION),
-					(LPCTSTR)sMode,
-					QCSharewareManager::GetRegCodeForCurrentMode(),
 					(LPCTSTR)csMSHTMLVersion,
 					(LPCTSTR)csWININETVersion);
 }
@@ -3492,31 +3472,24 @@ LPARAM	lParam)			// WM_CONTEXTMENU screen coordinates
 									(UINT) CMainFrame::QCGetMainFrame()->GetEditInsertRecipientMenu()->GetSafeHmenu(), 
 									CRString(IDS_INSERT_RECIPIENT));
 
-		// Only allow FCC in FULL FEATURE version.
-		if (UsingFullFeatureSet())
-		{
-			// Insert the FCC sub-menu.  This is actually just the Transfer menu.
-			// We use it so that we don't have to create another big ol' menu, and we
-			// get the benefits of dynamic menu creation that the Transfer menu does
-			// already.  Because we're reusing the Transfer menu not to do transfers,
-			// we have to set a flag so that the Transfer actions don't occur.
-			m_bDoingFccContextMenu = TRUE;
-			tempPopupMenu.InsertMenu(MP_INSERT_RECIP, MF_BYPOSITION | MF_POPUP,
-										(UINT) CMainFrame::QCGetMainFrame()->GetTransferMenu()->GetSafeHmenu(), 
-										CRString(IDS_FCC));
-		}
+		// Insert the FCC sub-menu.  This is actually just the Transfer menu.
+		// We use it so that we don't have to create another big ol' menu, and we
+		// get the benefits of dynamic menu creation that the Transfer menu does
+		// already.  Because we're reusing the Transfer menu not to do transfers,
+		// we have to set a flag so that the Transfer actions don't occur.
+		m_bDoingFccContextMenu = TRUE;
+		tempPopupMenu.InsertMenu(MP_INSERT_RECIP, MF_BYPOSITION | MF_POPUP,
+									(UINT) CMainFrame::QCGetMainFrame()->GetTransferMenu()->GetSafeHmenu(), 
+									CRString(IDS_FCC));
+	}
 
-		// Only allow Change Personality in FULL FEATURE version.
 		int nChangePersonaPosition = -1;
-		if (UsingFullFeatureSet())
-		{
-			// Insert the Change Persona sub-menu
-			nChangePersonaPosition = tempPopupMenu.GetMenuItemCount() - 1;
-			tempPopupMenu.InsertMenu(	nChangePersonaPosition,
-										MF_BYPOSITION | MF_POPUP,
-										(UINT) CMainFrame::QCGetMainFrame()->GetMessageChangePersonalityMenu()->GetSafeHmenu(),
-										CRString( IDS_CHANGE_PERSONA ) );
-		}
+		// Insert the Change Persona sub-menu
+		nChangePersonaPosition = tempPopupMenu.GetMenuItemCount() - 1;
+		tempPopupMenu.InsertMenu(	nChangePersonaPosition,
+									MF_BYPOSITION | MF_POPUP,
+									(UINT) CMainFrame::QCGetMainFrame()->GetMessageChangePersonalityMenu()->GetSafeHmenu(),
+									CRString( IDS_CHANGE_PERSONA ) );
 
 		// Insert the Message Plug-Ins sub-menu.
 		int nMessagePluginsPosition = tempPopupMenu.GetMenuItemCount();
@@ -3565,37 +3538,28 @@ LPARAM	lParam)			// WM_CONTEXTMENU screen coordinates
 
 void CCompMessageDoc::InsertFCCInBCC(QCMailboxCommand* pCommand)
 {
-	// Shareware: Only allow FCC in FULL FEATURE version.
-	if (UsingFullFeatureSet())
+	CString	szNewBCC;
+	char*	pBCCString;
+
+	if( pCommand == NULL )
 	{
-		// FULL FEATURE mode
-		CString	szNewBCC;
-		char*	pBCCString;
-
-		if( pCommand == NULL )
-		{
-			ASSERT( 0 );
-			return;
-		}
-
-		szNewBCC = g_theMailboxDirector.BuildNamedPath( pCommand );
-		szNewBCC = "\x83\\" + szNewBCC;
-
-		pBCCString = ( char* ) GetHeaderLine(HEADER_BCC); 
-
-		if( ::SafeStrlenMT( pBCCString ) )
-		{
-			szNewBCC = "," + szNewBCC;
-			szNewBCC = pBCCString + szNewBCC;
-		}
-			
-		SetHeaderLine( HEADER_BCC, szNewBCC );
-		SetModifiedFlag( TRUE );
+		ASSERT( 0 );
+		return;
 	}
-	else
+
+	szNewBCC = g_theMailboxDirector.BuildNamedPath( pCommand );
+	szNewBCC = "\x83\\" + szNewBCC;
+
+	pBCCString = ( char* ) GetHeaderLine(HEADER_BCC); 
+
+	if( ::SafeStrlenMT( pBCCString ) )
 	{
-		ASSERT(0); // No FCC in REDUCED FEATURE mode
+		szNewBCC = "," + szNewBCC;
+		szNewBCC = pBCCString + szNewBCC;
 	}
+		
+	SetHeaderLine( HEADER_BCC, szNewBCC );
+	SetModifiedFlag( TRUE );
 }
 
 
@@ -3638,42 +3602,18 @@ BOOL CCompMessageDoc::OnDynamicCommand(UINT uID)
 			// This originated from a FCC menu select
 			if (theAction == CA_TRANSFER_NEW)
 			{
-				// Only allow FCC in FULL FEATURE version.
-				if (UsingFullFeatureSet())
-				{
-					// FULL FEATURE mode
-					ASSERT_KINDOF(QCMailboxCommand, pCommand);
+				ASSERT_KINDOF(QCMailboxCommand, pCommand);
 
-					pCommand = g_theMailboxDirector.CreateTargetMailbox((QCMailboxCommand*)pCommand, FALSE);
-					if (!pCommand)
-						return TRUE;
-					else
-					{
-						// Change the action to Transfer so we can do the actual FCC below
-						theAction = CA_TRANSFER_TO;
-					}
-				}
-				else
-				{
-					ASSERT(0); // Should not get here -- FCC disabled in REDUCED FEATURE mode
-					return FALSE;
-				}
-			}
+				pCommand = g_theMailboxDirector.CreateTargetMailbox((QCMailboxCommand*)pCommand, FALSE);
+				if (!pCommand)
+					return TRUE;
+		}
 
 			if (theAction == CA_TRANSFER_TO)
 			{
-				// Shareware: Only allow FCC in FULL FEATURE version.
-				if (UsingFullFeatureSet())
-				{
-					ASSERT_KINDOF(QCMailboxCommand, pCommand);
-					InsertFCCInBCC((QCMailboxCommand*)pCommand);
-					return TRUE;
-				}
-				else
-				{
-					ASSERT(0); // Should not get here -- FCC disabled in REDUCED FEATURE mode
-					return FALSE;
-				}
+				ASSERT_KINDOF(QCMailboxCommand, pCommand);
+				InsertFCCInBCC((QCMailboxCommand*)pCommand);
+				return TRUE;
 			}
 		}
 	}

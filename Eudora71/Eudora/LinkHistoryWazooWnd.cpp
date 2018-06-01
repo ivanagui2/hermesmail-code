@@ -377,23 +377,6 @@ void CLinkHistoryWazooWnd::UpdateButtonsEnabledStates()
 
 
 // ---------------------------------------------------------------------------
-//		* Notify													[Public]
-// ---------------------------------------------------------------------------
-//	Notify us when program changes state between Light, Pro, and Adware.
-
-void CLinkHistoryWazooWnd::Notify(
-	QCCommandObject*		/*pObject*/,
-	COMMAND_ACTION_TYPE		theAction,
-	void *					pData)
-{
-	if (theAction == CA_SWM_CHANGE_FEATURE)
-	{
-		UpdateButtonsEnabledStates();
-	}
-}
-
-
-// ---------------------------------------------------------------------------
 //		* OnItemChange											[Protected]
 // ---------------------------------------------------------------------------
 //	Override (message mapped) to change button enabling.

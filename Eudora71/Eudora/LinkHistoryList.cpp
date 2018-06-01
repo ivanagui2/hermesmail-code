@@ -422,47 +422,6 @@ bool CLinkHistoryList::ResortItemsIfSortedByDate()
 
 
 // ---------------------------------------------------------------------------
-//		* Notify													[Public]
-// ---------------------------------------------------------------------------
-//	Notify us when program changes state between Light, Pro, and Adware.
-
-void CLinkHistoryList::Notify(
-	QCCommandObject*		/*pObject*/,
-	COMMAND_ACTION_TYPE		theAction,
-	void *					pData)
-{
-	if (theAction == CA_SWM_CHANGE_FEATURE)
-	{
-		bool	bIsFullFeatureSet = UsingFullFeatureSet();
-
-		//	Were we using the full feature set? When in doubt assume the opposite of
-		//	the current usage so that we make sure the list contains the correct info
-		//	(i.e. list of items or "not in free" message).
-		bool	bWasFullFeatureSet = (pData == NULL) ? !bIsFullFeatureSet :
-									 (*reinterpret_cast<SharewareModeType *>(pData) != SWM_MODE_LIGHT);
-
-		if (bWasFullFeatureSet != bIsFullFeatureSet)
-		{
-			if (bIsFullFeatureSet)
-			{
-				Invalidate();
-				GetListCtrl().DeleteAllItems();
-
-				//	Notify the Link History Manager that we're
-				//	ready for it to fill us with URLs
-				LinkHistoryManager::Instance()->NotifyLHViewReady();
-			}
-			else
-			{
-				DisplayFeatureNotInFreeMessage();
-			}
-		}
-	}
-}
-
-
-
-// ---------------------------------------------------------------------------
 //		* OnColumnClick											[Protected]
 // ---------------------------------------------------------------------------
 //	Override (message mapped) to respond to the user clicking on

@@ -25,10 +25,6 @@ DAMAGE. */
 
 #include "resource.h"
 #include "DockBar.h"
-#include "AdWazooBar.h"
-#include "QCSharewareManager.h"
-
-#include "DebugNewHelpers.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // QCDockBar

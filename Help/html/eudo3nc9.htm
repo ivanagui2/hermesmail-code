@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text/html; charset=Windows-1252">
+<TITLE>Filter Criteria (The Match Area)</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000">
+
+<OBJECT TYPE="application/x-oleobject" CLASSID="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+	<PARAM NAME="Keyword" VALUE="Filter Criteria (The Match Area)">
+	<PARAM NAME="Keyword" VALUE="Junk Score as a filter criteria">
+</OBJECT>
+
+<H2><A NAME="filter_criteria_(the_match_area)"></A>Filter Criteria (The Match Area)</H2>
+
+<P>Each filter in the Filters window can use one or two "terms" as its criteria, connecting them as appropriate with the conjunction drop-down.</P>
+
+<P>Use the <B>Header</B> field to specify which message header items you want the filter to search. You can select an option from the drop-down menu or enter one yourself (this is helpful if you want to use a header item that does not appear on the menu, such as X-Priority). The selections are as follows:</P>
+
+<P>•To:</P>
+
+<P>•From:</P>
+
+<P>•Subject:</P>
+
+<P>•Cc:</P>
+
+<P>•Reply-To:</P>
+
+<P>•&lt;Any Header&gt;</P>
+
+<P>•&lt;Body&gt;</P>
+
+<P>•&lt;Any Recipient&gt;</P>
+
+<P>•&lt;Personality&gt;</P>
+
+<P>•&lt;Junk Score&gt;</P>
+
+<P>The &lt;Any Header&gt; option searches all message headers (including hidden headers that are shown with the <B>BLAH BLAH BLAH</B> option). The &lt;Body&gt; option searches the message body. The &lt;Any Recipient&gt; option searches all possible recipient items (To, Cc, Bcc). The &lt;Personality&gt; option searches the name of the personality (email account) associated with the message.</P>
+
+<P>Use the <B>Match Type </B>drop-down to control how the header item is matched with the text string in the text field. The match options are as follows:</P>
+
+<P><B>contains </B>or<B> doesn’t contain —</B><B>—</B><B> </B>If the specified header item contains or does not contain the text string, filter the message.</P>
+
+<P><B>is </B>or<B> is not —</B><B>—</B><B> </B>If the specified header item is or is not an exact match of the text string, filter the message.</P>
+
+<P><B>starts with </B>or<B> ends with —</B><B>—</B><B> </B>If the specified header item starts with or ends with the text string, filter the message. The <B>starts with</B> item refers to the first non-whitespace character after the colon, so any spaces after the colon are ignored.</P>
+
+<P><B>appears</B> or <B>doesn’t appear —</B><B>—</B><B> </B>If the header item appears or does not appear in the message, filter the message (the text field is ignored). This is useful for filtering messages based only on the types of fields they contain. Example: Some messages contain a<B> Reply-To </B>header; some don’t.</P>
+
+<P><B>intersects nickname —</B><B>—</B><B> </B>If the text string is included in a nickname (whether it is a full address or a nickname within the nickname), filter the message.</P>
+
+<P><B>doesn’t intersect nickname</B>—If the text string is not included in a nickname, whether it is a full address or a nickname within the nickname, filter the message.</P>
+
+<P><B>intersects address book</B>—If the text string or nickname is included in any one of your address books, whether it is a full address or a nickname within the nickname, filter the message. In other words, the filter looks in all of your address books for <I>all</I> nicknames. If the nickname that appears in the header of the message is in the address book, Eudora filters the message accordingly. This match criterion is good to use if you wish all messages that are not from the entries in your address book to go in other mailboxes. This is an alternate method to control SPAM. </P>
+
+<P><B>doesn’t intersect address book</B>—If the text string or nickname is not included in an address book, whether it is a full address or a nickname within the nickname, filter the message. </P>
+
+<P><B>matches regexp (case sensitive) </B>(Sponsored and Paid modes only)—If the specific item matches the regular      expressions characters with case sensitivity, filter those messages. See <A HREF="eudo2ub7.htm">Regular Expressions.</A> </P>
+
+<P><I>Note. Regular Expressions is an advanced and complex method of searching for text. </I></P>
+
+<P>Regular Expression is a search string that uses special characters to match text characters. For example, if you are filtering messages sent to you by two people, choose From in the first drop-down options list, then choose matches regexp, then type their usernames between parentheses separated by a vertical slash, for example <CODE>(bobclark)|(janedoe) </CODE>in the text box. Eudora searches and displays all messages from these two people.  For more information on regular expressions, refer to the readme.txt file in your Eudora folder. </P>
+
+<P><B>matches regexp</B>—If the specific item matches the regular expressions characters, filter those messages. </P>
+
+<P>Use the <B>Text</B> fields to specify the text strings that the filter is searching for.</P>
+
+<P><I>Note:It is recommended that the contents of this field be kept as specific and brief as possible. The greater the complexity, the less likelihood of a match.</I></P>
+
+<P>Do not enter a header label in the <B>Text</B> field as part of the text string (e.g., <B>To</B>, <B>From</B>, <B>Bcc</B>). For example, to filter all messages from <B>Justine</B>, do not enter <B>From: Justine</B> in the Text field. Rather, select <B>From</B> in the Header field, and enter simply <B>Justine</B> in the Text field (choosing "contains" from the <B>Matching</B> drop-down list to link the two terms. </P>
+
+<P>The conjunction options are as follows:</P>
+
+<P><B>ignore —</B>—  Ignore the second term; if the message matches the first term, filter the message.</P>
+
+<P><B>and —</B><B>—</B><B> </B>If the message matches <I>both</I> the first and second terms (but not just one alone), filter it.</P>
+
+<P><B>or —</B>—  If the message matches either term (or both), filter it.</P>
+
+<P><B>unless —</B><B>—</B><B> </B> If the message matches the first term, filter it <I>unless</I> the message also matches the second term, in which case <I>do not</I> filter it. (This lets you exclude certain variations of the first term.) </P>
+
+<P><B>is greater than —</B><B>—</B><B> </B> If  "Junk Score" is selected in the Header field, filter the message if the Junk score is higher than the amount entered in the following field. For more information on Junk scoring, go to <A HREF="eudo7c1j.htm">Junk Mailbox Options Window.</A> </P>
+
+<P><B>is less than —</B><B>—</B><B> </B> If  "Junk Score" is selected in the Header field, filter the message if the Junk score is less than the amount entered in the following field.</P>
+
+</BODY>
+</HTML>

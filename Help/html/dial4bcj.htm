@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text/html; charset=Windows-1252">
+<TITLE>Filters</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000">
+
+<OBJECT TYPE="application/x-oleobject" CLASSID="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+	<PARAM NAME="Keyword" VALUE="Filters">
+</OBJECT>
+
+<P><B><A NAME="hidr_filters"></A><SUP></SUP>Filters</B></P>
+
+<P>The Make Filter dialog box lets you create quick, simple filters that perform one operation—a mail transfer based on one match condition—a piece of header information. The Filters window lets you create more complex, powerful filters that use multiple match conditions and perform multiple filter actions. (You can also use the Filters window to create simple filters such as those created by the Make Filter dialog box.)</P>
+
+<P><I>Note: To toggle from the left and right window panes, press F6.</I></P>
+
+<P>To create or modify a detailed filter, do the following:</P>
+
+<P>1. Click the <B>New</B> button or select an existing filter.</P>
+
+<P>2. Choose the options for how you want the filter to be used, as an automatic filter to be invoked on any <B>Incoming </B>and/or <B>Outgoing </B>mail, and as a <B>Manual </B>filter that can be invoked when you choose <B>Filter Messages </B>from the <B>Special</B> menu. Any combination of these options works.</P>
+
+<P>3. Define the criteria for the filter; use the header item pop-ups and the text fields to specify which header items should include a particular string of text. You can define two related terms for the criteria so that your filter is as specific as possible. </P>
+
+<P>4. Define the action or actions to be taken on messages that fit the and save the filters. </P>
+
+<P>Some filter actions have an associated icon. For these actions, Eudora places the action icon next to the filter in the filters list. Up to five icons can appear per filter.</P>
+
+<P>The Actions options are as follows:</P>
+
+<P><B>None</B> —— No action.</P>
+
+<P><B>Make Status</B> —— Assigns the selected status to message summaries.</P>
+
+<P><B>Make Priority</B> —— Assigns the selected priority level to messages. If you select a set level, messages are set to that priority. If you select Raise or Lower, messages are raised or lowered one priority level based on their pre-filter level.</P>
+
+<P><B>Make Label</B> (Sponsored and Paid modes only)—— Assigns the selected label to messages. Label colors and names are set in the Labels options panel.</P>
+
+<P><B>Make Personality </B>(Sponsored and Paid modes only) —— Assigns the selected personality to messages. For outgoing messages, the message is sent from the assigned personality. For incoming messages, all your responses to the message will be from the assigned personality until you change the personality associated with the incoming message or your response.</P>
+
+<P><B>Make Subject</B> —— Assigns the new subject to message summaries (does not affect the subject in the message itself). If you choose this option, the entire subject of the message is replaced with the new subject. Use the "&amp;" symbol to stand for the old subject if you want to add the new subject to the old subject. For example, entering New Subject [was &amp;] results in New Subject [was Old Subject].</P>
+
+<P><B>Play Sound</B> —— Plays the selected sound when messages are filtered.</P>
+
+<P><B>Speak</B> (Sponsored and Paid modes only)—— A voice makes you aware when a certain email message is retrieved. The voice can read the name of the sender and the subject line of the message, if you so choose. Also, you can select the type of voice you prefer from a drop-down list that appears. After you select Speak, the Who and Subject fields and a drop-down voice list appear. If these fields are grayed out, you must install Microsoft’s Text to Speech Engine applications. Click www.microsoft.com/IIT/download/speechengines.htm </P>
+
+<P><B>Open</B> (Sponsored and Paid modes only)—— Opens the Mailbox and/or Message when a message is received. If you set a previous action to filter messages into a mailbox, then that mailbox is opened.</P>
+
+<P><B>Print </B>(Sponsored and Paid modes only)—— Prints one copy of each message.</P>
+
+<P><B>Notify User</B> (Sponsored and Paid modes only)—— Notifies you As Normal and/or In Report when messages are received. The As Normal option notifies you based on the options you have selected in the Getting Attention options panel. The In Report option notifies you by opening the Filter Report window and displaying in that window a filter report that details what filter actions have been done. </P>
+
+<P><B>Notify Application</B> —— Notifies the selected application when messages are received, and provides information from the message. Specify the application to use and the part of the message to be included.</P>
+
+<P>Use the Browse button to select an application, or enter the command line yourself. The command line should include the path to the executable, any options, and the following substitution variables, all separated by blank spaces:</P>
+
+<P>%1Date<BR>
+%2To<BR>
+%3From<BR>
+%4Subject<BR>
+%5Cc<BR>
+%6The entire message</P>
+
+<P>For example, the command line to send the subject of a message to a pager might look like this:</P>
+
+<PRE><CODE>    C:\apps\pager.exe -c %4</CODE></PRE>
+
+<P><B>Forward To</B> (Sponsored and Paid modes only)—— Forwards messages to the email address given. Forwarded messages are placed in the queue in the Out mailbox, and sent the next time you send queued messages.</P>
+
+<P><B>Redirect To</B> (Sponsored and Paid modes only)——  Redirects messages to the email address given. Redirected messages are placed in the queue in the Out mailbox, and sent the next time you send queued messages.</P>
+
+<P><B>Reply with</B> —— Replies to messages with the selected stationery message. Replies are placed in the queue in the Out mailbox and sent the next time you send queued messages. One typical use of this action is to reply to specific senders with stationery telling them that you’re on vacation: "I’m out till the 10th. I’ll reply to your message when I get back." </P>
+
+<P><B>Server Options</B> (Sponsored and Paid modes only)—— Sets the message’s server status to Fetch and/or Delete (incoming server only). The Fetch option specifies that the entire message be transferred from the server the next time mail is checked, and the Delete option specifies that the message be deleted from the server the next time mail is checked. If you select both, the message will be transferred and deleted.</P>
+
+<P><B>Copy To</B> —— Copies messages to the selected mailbox.</P>
+
+<P><B>Transfer To</B> —— Transfers messages to the selected mailbox.</P>
+
+<P><B>Skip Rest</B> —— Stops filtering for the message (the message is not matched to the rest of the filters in the filter list).</P>
+
+<P>When the filters are invoked (automatically or manually), each message is matched against each filter in order from top to bottom. If the message meets a filter’s criteria, the actions are done as specified until there are no more actions, then the message is matched against the next filter. If at any point a <B>Skip Rest</B> action is done, nothing else is done with that message, and the next message is filtered.</P>
+
+<P>You can change the width of the filters list to create more or less space for your list. To do this, put the arrow over the bar to the right of the list and drag the line to the left or right. </P>
+
+</BODY>
+</HTML>

@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text/html; charset=Windows-1252">
+<TITLE>Account Settings Dialog</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000">
+
+<OBJECT TYPE="application/x-oleobject" CLASSID="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+	<PARAM NAME="Keyword" VALUE="Personalities: setting up using the Account Settings dialog">
+	<PARAM NAME="Keyword" VALUE="Account Settings Dialog">
+	<PARAM NAME="Keyword" VALUE="Setting up a personality using the Account Settings dialog">
+</OBJECT>
+
+<P><A NAME="account_settings_dialog"></A><B>Account Settings Dialog</B></P>
+
+<P>(Sponsored and Paid modes only)</P>
+
+<P>This tabbed dialog box appears when you select <B>Skip directly to advanced account setup</B> from the New Account Wizard Account Settings window, or when you choose <B>Properties</B> from the drop-down context menu (right-click) in the <B>Personalities </B>window. When you display the dialog box, enter the information in the fields. If you are modifying an existing personality, the fields are filled in with the information associated with the personality you have selected.</P>
+
+<P>After you make your changes in the dialog box, click <B>OK</B> to save them, <B>Cancel</B> to discard them, or <B>Help</B> for more help.</P>
+
+<P>Any changes you make to your dominant personality in this dialog box are also changed where they are mirrored in relevant options of the Options dialog box. The same is true in reverse; changes you make in the Options dialog box are carried over here, when you next open this dialog box.</P>
+
+<H2>Generic Properties Panel</H2>
+
+<P>This dialog box window contains the general characteristics associated with this personality.</P>
+
+<P>Following are the field descriptions for Generic Properties panel.</P>
+
+<P><B>Personality Name</B>—This is a label that shows the name assigned to the personality being modified (for example, Business or My PC Account). &lt;Dominant&gt; indicates your dominant personality.</P>
+
+<P>Your dominant personality is your principal email account; it’s the personality Eudora uses whenever you don’t specify otherwise, and it’s also the personality associated with all mail stored before you began using alternate personalities.</P>
+
+<P>Note that the name shown here may be different from the Real Name associated with the personality (see below).</P>
+
+<P><B>Traits</B>:</P>
+
+<P><B>Real Name</B>—This is the real name assigned to this personality—generally a first and last name. The text you enter here is included in the From field of all your outgoing messages from this personality and identifies the source to your recipients.</P>
+
+<P><B>Email Address</B>—This is the return email address used in outgoing messages and recipients’ replies for this personality, if this address is different from the personality’s incoming mail account. The address you enter here is included in the From field of all your outgoing messages from this personality, and when a recipient replies to a message from this personality, the reply is sent to this address. If you do not enter an address in this field, Eudora uses the personality’s incoming mail account as the return address. Incoming mail accounts are usually of the form <I>loginname@incomingmailserver</I>. For example, suppose your incoming mail account is <I>rclark@worldmail.myfirm.com</I> but your return address is <I>rclark@myfirm.com</I> — slightly different. You would then enter <I>rclark@myfirm.com</I> in this field.</P>
+
+<P><I>Note:If you do enter an address in this field, first test the address to be sure that mail sent to it is indeed delivered to you. If you use an invalid return address, no one will be able to reply to mail sent from this personality.</I></P>
+
+<P><B>User Name</B>—This is the name you use to login to this email account, for accounts that require a user login. For example, in the incoming mail account <I>rclark@worldmail.myfirm.com</I>, the user name is <I>rclark</I>. The part after the "@" sign is the name of the incoming mail server. See <A HREF="eudo8rp3.htm">Incoming Mail Options Window</A>.</P>
+
+<P><B>SMTP Server</B>—This is the name of the outgoing-mail server for this personality. SMTP stands for Simple Mail Transfer Protocol. Outgoing messages you send are routed through this server. If the computer that this personality’s incoming mail account selected also runs an SMTP server, you can leave this field blank. See <A HREF="eudo1fp3.htm">Sending Mail Options Window</A>.</P>
+
+<P><B>Allow authentication</B>— Eudora can log in to an SMTP server when sending mail, just like it does for receiving mail. Not all SMTP servers require or allow such authentication. Eudora will attempt authentication to servers that allow it. The preferred SMTP authentication method is CRAM-MD5. If CRAM-MD5 is not available, LOGIN or PLAIN will automatically be used.</P>
+
+<P><B>Default Domain</B>—This is the domain name that Eudora automatically adds to an unqualified name addressed in messages sent from this personality. An unqualified name is a name that doesn’t have an "@" sign followed by a domain name. This can be used to save time when addressing large numbers of messages to users in the same domain. Also, different personalities can be used to send messages to different domains. For example, you can use one personality to send work-related messages to the domain <I>myfirm.com</I>, and another personality to send personal messages to the domain in your home email address, or to your school account (for example, myschool.edu).</P>
+
+<P><B>Default Stationery</B>—The default stationery to use for all outgoing messages sent from this personality. Select a stationery file from the drop-down menu, or select &lt;No Default&gt; for no default stationery. For more details about using stationery with alternate personalities, see <A HREF="eudo2qyh.htm">Linking a Signature and Stationery to a Personality</A> and <A HREF="eudo4mnr.htm">Composing Mail Options Window</A>. </P>
+
+<P><B>Default Signature</B>—This sets the default signature to use for all outgoing messages sent from this personality, but only when you are not using stationery — that is, only when the Default Stationery drop-down menu (above) is set to &lt;NoDefault&gt;. If you have chosen a stationery file, then the signature used when that stationery file was saved overrides your setting here.</P>
+
+<P>Select a signature from this drop-down menu, or select &lt;No Default&gt; for no default signature. If you select a signature, Eudora automatically attaches that signature to the end of all outgoing messages sent from this personality. You can always change the signature in a particular outgoing message using the Signature drop-down in the composition window. For more details about using signatures with alternate personalities, see <A HREF="eudo5ahx.htm">Using a Signature</A> and <A HREF="eudo4mnr.htm">Composing Mail Options Window</A>.</P>
+
+<P><B>Check Mail</B>—If this is selected, mail checking is activated for this personality in the following ways:</P>
+
+<P><font face="Symbol">·</FONT>If you have specified a number in the <B>Check for mail every _ minutes</B> option in the Checking Mail options window, then when automatic mail-checks are performed at these intervals, mail for this personality is checked as well.</P>
+
+<P><font face="Symbol">·</FONT>Each time you do a manual check for mail, by choosing the <B>Check Mail</B> command from the <B>File</B> menu or via another method, mail is checked for this personality as well.</P>
+
+<P>If this option is deselected, mail for this personality is not checked during manual or automatic mail checks, except that you can override the setting and still check for the personality’s mail using the Mail Transfer Options window or using the "Check Mail" command from the Personalities window’s drop-down context menu (right-click).</P>
+
+<P><B>Secure Sockets when Sending—</B>—You can choose how you wish to use SSL with this personality when sending messages by choosing one of the options in the SSL drop-down menu. The following are the SSL options when sending mail.</P>
+
+<P><B>Never</B>— Do not use SSL for server authentication and mail transfer security, even if SSL is available on the server. </P>
+
+<P><B>If Available STARTTLS</B> (default)— Use SSL for server authentication and mail transfer security by having Eudora automatically invoke the STARTTLS command method to start SSL, that is, if the server supports STARTTLS. If your server doesn’t support STARTTLS, mail transfers will occur successfully, but they will not be secured with SSL.</P>
+
+<P><B>Required, Alternate Port</B>— Use SSL for server authentication and mail transfer security by having Eudora automatically use the older style alternate port method for starting SSL. If your server does not support SSL on the appropriate ports, mail transfers will fail. </P>
+
+<P><B>Required STARTTLS</B>— Use SSL for server authentication and mail transfer security by having Eudora automatically invoke the STARTTLS command method to start SSL. If your server does not support STARTTLS, mail transfers will fail. </P>
+
+<P><I><B>Important.</B> If you use SSL and cannot make a connection when receiving or sending mail, you may need to check with your ISP to update any invalid SSL certificates. However, to override any issues with SSL when retrieving or sending mail, choose </I>Never <I>from the drop-down menu to make a successful connection.</I></P>
+
+<P><B>Last SSL info—</B>—To display the most current information for an SSL connection between a server and Eudora since the last time you started Eudora, click<B> Last SSL info</B>. The Eudora SSL Connection Information Manager window appears with SLL and certificate information. </P>
+
+<P><I><B>Caution:</B> If you display the SSL information windows, make certain you don’t change any of the field information unless you are familiar with SSL.</I></P>
+
+<H2>Incoming Mail Panel</H2>
+
+<P>This panel contains settings that identify and configure the incoming mail server to be used in receiving mail for this account.</P>
+
+<P><B>When Configuration = POP</B>:</P>
+
+<P>Following are field descriptions for the Incoming Mail panel (POP configuration):</P>
+
+<P><B>Server</B>—This is the name of the incoming-mail server for this personality. All incoming messages to this personality are routed through this server.</P>
+
+<P><B>Configuration</B>—This indicates which email protocol the incoming mail server uses: POP (Post Office Protocol) or IMAP (Internet Message Access Protocol). Ask your email administrator which one to use, if you are not sure.</P>
+
+<P>The settings in the rest of this panel depend on whether you’ve chosen POP or IMAP in this field. Settings for both configurations are described below.</P>
+
+<P><B>Leave mail on server</B>—If this is selected, then during mail checks, incoming mail for this personality is left on the incoming mail server and a copy is transferred to your computer. If this is deselected, then when mail is checked, incoming mail for this personality is deleted from the incoming mail server after it is transferred to your computer. For more details, see <U>Managing your Mail on a POP Server.</U></P>
+
+<P><B>Delete from server after _ days</B>—This option has a check box for selecting or deselecting and an edit box for specifying the number of days mail that was left on the POP server should be saved before being deleted. It is a good idea not to leave copies of your messages on the POP server indefinitely because this will create mail storage problems on the server.</P>
+
+<P><B>Delete from server when emptied from Trash</B>—If this is selected, any messages that are deleted from your Trash mailbox are also deleted from the POP server. For details, see <A HREF="eudo8kku.htm">Managing your Mail on a POP Server.</A></P>
+
+<P><B>Skip messages over _ K in size</B>—If this is selected, messages over the specified size are downloaded only in part. These messages include the first few lines, and a statement that says the message is not complete. This can be useful on slow connections. If you enter zero, all messages are downloaded. For details, see <A HREF="eudo8kku.htm">Managing your Mail on a POP Server.</A></P>
+
+<P><B>Authentication style</B>—This specifies which POP account authentication technology to use for this personality: Passwords, Kerberos, APOP, or RPA. Ask your email administrator which one to use. If you use Eudora at home, most likely your Authentication Style is Password. CompuServe users should use the RPA authentication method.</P>
+
+<P><B>Secure Sockets when Receiving—</B>—You can choose how you wish to use SSL for this personality when receiving messages by choosing one of the options in the SSL drop-down menu. The following are the SSL options when receiving mail.</P>
+
+<P><B>Never</B>— Do not use SSL for server authentication and mail transfer security, even if SSL is available on the server. </P>
+
+<P><B>If Available STARTTLS</B> (default)— Use SSL for server authentication and mail transfer security by having Eudora automatically invoke the STARTTLS command method to start SSL, that is, if the server supports STARTTLS. If your server doesn’t support STARTTLS, mail transfers will occur successfully, but they will not be secured with SSL.</P>
+
+<P><B>Required, Alternate Port</B>— Use SSL for server authentication and mail transfer security by having Eudora automatically use the older style alternate port method for starting SSL. If your server does not support SSL on the appropriate ports, mail transfers will fail. </P>
+
+<P><B>Required STARTTLS</B>— Use SSL for server authentication and mail transfer security by having Eudora automatically invoke the STARTTLS command method to start SSL. If your server does not support STARTTLS, mail transfers will fail. </P>
+
+<P><I><B>Important.</B> If you use SSL and cannot make a connection when receiving or sending mail, you may need to check with your ISP to update any invalid SSL certificates. However, to override any issues with SSL when retrieving or sending mail, choose </I>Never <I>from the drop-down menu to make a successful connection.</I></P>
+
+<P><B>Last SSL info—</B>—To display the most current information for an SSL connection between a server and Eudora since the last time you started Eudora, click<B> Last SSL info</B>. The Eudora SSL Connection Information Manager window appears with SLL and certificate information. </P>
+
+<P><I><B>Caution:</B> If you display the SSL information windows, make certain you don’t change any of the field information unless you are familiar with SSL.</I></P>
+
+<P><B>When Configuration = IMAP:</B></P>
+
+<P>Following are field descriptions for the Incoming Mail dialog box (IMAP configuration):</P>
+
+<P><B>IMAP Mailbox Location Prefix</B>—This specifies the mailbox location prefix that IMAP will use when locating your mailboxes on the incoming mail server. An example prefix is /usr/mail. Ask your email administrator what to enter here, if you are not sure.</P>
+
+<P><B>For new mail, download</B>—These two settings let you control the way incoming mail is downloaded from the IMAP server.</P>
+
+<P><B>Minimal Headers Only</B>—If this setting is selected, only a limited set of message headers is downloaded for each incoming message. If this setting is deselected, the full set of message headers is downloaded for each incoming message.</P>
+
+<P><B>Full message except attachments over _ K</B>—If this setting is selected and a number is entered in the edit box, then any attachments larger than the specified size will not be downloaded with the message. If you enter 0 in the text box, all attachments regardless of size are retrieved.</P>
+
+<P><B>Authentication style</B>—This specifies which IMAP account authentication technology to use for this personality: Passwords, Kerberos, or CramMD5. Ask your email administrator which one to use.</P>
+
+<P><B>Secure Sockets when Receiving</B> (same as for POP)</P>
+
+</BODY>
+</HTML>

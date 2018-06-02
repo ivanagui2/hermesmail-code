@@ -28,7 +28,6 @@ DAMAGE. */
 
 
 #include "WazooBar.h"
-#include "AdWazooBar.h"
 #include "WazooBarMgr.h"
 #include "workbook.h"
 #include "TaskStatusView.h"
@@ -55,9 +54,6 @@ DAMAGE. */
 
 #include "WebWazooWnd.h"
 //#define INCLUDE_WEB_WAZOO
-
-#include "DebugNewHelpers.h"
-
 
 //
 // Static member data.

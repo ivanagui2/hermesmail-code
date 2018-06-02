@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text/html; charset=Windows-1252">
+<TITLE>Regular Expressions</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000">
+
+<OBJECT TYPE="application/x-oleobject" CLASSID="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+	<PARAM NAME="Keyword" VALUE="Regular Expressions">
+	<PARAM NAME="Keyword" VALUE="RegEx">
+</OBJECT>
+
+<H2><A NAME="regular_expressions"></A>Regular Expressions (Sponsored and Paid modes only)</H2>
+
+<P>When searching for messages or defining a filter in Eudora, an option you can use is regular expressions. Following is a description of regular expressions and how they are used in Eudora.</P>
+
+<P>There are two functions in Eudora where you can use regular expressions:</P>
+
+<P><font face="Wingdings">§</FONT><B>Filters window—</B>— Located in the drop-down list where you indicate the relationship between a mail header and a piece of text (for example, the "Subject" contains Eudora, "Any Recipient" is joe@xyz.com, and so on). There are two regular expression criteria in that list, namely "matches RegEx" and "matches RegEx (case insensitive)."</P>
+
+<P><font face="Wingdings">§</FONT><B>Find Messages window—</B>— Located in the center drop-down list. The option "matches regexp" appears. In the Find Messages window, regexp is not case sensitive.</P>
+
+<P>There are various standard implementations of regular expressions, but Eudora uses the POSIX implementation. Following are symbols that are supported in Eudora.</P>
+
+<TABLE border=1 cols=2 frame=box rules=all width=735>
+
+<TR VALIGN="top">
+<TD width=13%>Width1Width3Width1440Width3Width9576<B>.</B></TD>
+<TD width=87%>(period) represents any one character.Width1Width3Width1440Width3Width9576</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=13%><B>[ ]</B></TD>
+<TD width=87%>(brackets) contain a set of characters from which a match can be made.  It corresponds to one character in the search string.Width1Width3Width1440Width3Width9576</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=13%>
+<H1>\</H1>
+</TD>
+<TD width=87%>(backslash) is an escape character which means that the next character will not have a special meaning.Width1Width3Width1440Width3Width9576</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=13%>
+<H1>*</H1>
+</TD>
+<TD width=87%>(asterisk) is a multiplier.  It will match zero or more of the previous character.  (Note that it's not a wildcard character as in file names.)Width1Width3Width1440Width3Width9576</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=13%>
+<H1>?</H1>
+</TD>
+<TD width=87%>(question mark) is a multiplier.  It will match zero or one of the previous character.  (Note that it's not a wildcard character as in file names.)Width1Width3Width1440Width3Width9576</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=13%><B>+</B></TD>
+<TD width=87%>(plus) is a multiplier.  It will match one or more of the previous character.Width1Width3Width1440Width3Width9576</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=13%>
+<H1>{ }</H1>
+</TD>
+<TD width=87%>(squiggly brackets) contain a number which specifies an exact number of the previous character.Width1Width3Width1440Width3Width9576</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=13%>
+<H1>[^]</H1>
+</TD>
+<TD width=87%>(brackets containing caret and other characters) means any characters except the character(s) after the caret symbol in the brackets.Width1Width3Width1440Width3Width9576</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=13%>
+<H1>^</H1>
+</TD>
+<TD width=87%> (caret) is the start of the line.Width1Width3Width1440Width3Width9576</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=13%>
+<H1>$</H1>
+</TD>
+<TD width=87%>(dollar) is the end of the line.Width1Width3Width1440Width3Width9576</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=13%>
+<H1>\&lt;</H1>
+</TD>
+<TD width=87%>represents the start of a word.Width1Width3Width1440Width3Width9576</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=13%>
+<H1>\&gt;</H1>
+</TD>
+<TD width=87%>represents the end of a word.Width1Width3Width1440Width3Width9576</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=13%><B>[:alpha:]</B></TD>
+<TD width=87%>represents any alphabetic letter.Width1Width3Width1440Width3Width9576</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=13%>
+<H1>[:digit:]</H1>
+</TD>
+<TD width=87%>represents any single-digit number.Width1Width3Width1440Width3Width9576</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=13%>
+<H1>[:blank:]</H1>
+</TD>
+<TD width=87%>represents a space or tab.Width1Width3Width1440Width3Width9576</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=13%>
+<H1>|</H1>
+</TD>
+<TD width=87%>(pipe) is OR.  It requires that the joined expressions have parentheses around them.Width1Width3Width1440Width3Width9576</TD>
+</TR>
+</TABLE><BR>
+
+<P>Here are a few examples:</P>
+
+<TABLE border=1 cols=2 frame=box rules=all width=608>
+
+<TR VALIGN="top">
+<TD width=15%>Width1Width3Width1440Width3Width7675<B>E.*a</B>     </TD>
+<TD width=85%>matches Eudora, Etcetera, EaWidth1Width3Width1440Width3Width7675</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=15%><B>ho+p</B>     </TD>
+<TD width=85%>matches hop, hoop, hoooop, but not hpWidth1Width3Width1440Width3Width7675</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=15%><B>etc\.</B>    </TD>
+<TD width=85%>matches etc. but not etcWidth1Width3Width1440Width3Width7675</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=15%><B>e.a</B>      </TD>
+<TD width=85%>matches eta, eda, e1a; it only matches Eta if the matching is case-insensitiveWidth1Width3Width1440Width3Width7675</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=15%><B>[eE].a</B>   </TD>
+<TD width=85%>matches eta and EtaWidth1Width3Width1440Width3Width7675</TD>
+</TR>
+</TABLE><BR>
+
+</BODY>
+</HTML>

@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text/html; charset=Windows-1252">
+<TITLE>Configuring Group Change Notifications</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000">
+
+<OBJECT TYPE="application/x-oleobject" CLASSID="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+	<PARAM NAME="Keyword" VALUE="Configuring Group Change Notifications">
+	<PARAM NAME="Keyword" VALUE="ESP: configuring group change notifications">
+</OBJECT>
+
+<H2><A NAME="configuring_group_change_notifications"></A>Configuring Group Change Notifications</H2>
+
+<P>You can specify the role you want to play in the group, which determines whether or not you can send or receive updates to the shared folder. When you’ve determined your ESP role, you can then decide how you want ESP to handle updates to the shared folder and group membership.</P>
+
+<P>1.From the <B>Tools</B> menu, choose <B>ESP Groups</B>. The ESP Groups window appears.</P>
+
+<P>2.In the left column, choose the Group name whose change notifications you want to set for your role. </P>
+
+<P>3.Click the <B>Notifications </B>tab. The Notifications dialog box appears.</P>
+
+<P>4.Click one of the following in the <I>Role</I> area: </P>
+
+<P><font face="Wingdings">§</FONT><B>Full Membership</B> (user sends and receives updates). This allows you to receive from and send files to the group, either automatically or manually.</P>
+
+<P><font face="Wingdings">§</FONT><B>Broadcasting Member </B>(user only sends updates, ignores any incoming updates). This you to only send files to the group, either automatically or manually. Incoming files are ignored.</P>
+
+<P><font face="Wingdings">§</FONT><B>Receiving Member</B> (user never sends updates, but processes incoming updates). This allows you to only receive files from the group. Any changes you make to the shared folder are ignored.</P>
+
+<P><font face="Wingdings">§</FONT><B>Custom Member </B>(use the settings in the Advanced tab). Go to step 6.</P>
+
+<P>The<B> Full Member </B>role is the default.</P>
+
+<P>5.In the <I>Notifications</I> area, do the following:</P>
+
+<P><font face="Wingdings">§</FONT>If you want ESP to notify you when updates are coming into your shared folder, check the <B>Ask before processing any updates INCOMING TO my shared folder</B> box. This box is checked by default. </P>
+
+<P><font face="Wingdings">§</FONT>If you want ESP to notify you when updates are going out of your shared folder, check the <B>Ask before processing any updates OUTGOING FROM my shared folder</B> box. This box is checked by default.</P>
+
+<P><font face="Wingdings">§</FONT>If you want ESP to monitor any of the group actions, check the <B>Log any group actions</B> box. The box is checked by default. A log file is created and placed in a subfolder in the Eudora folder.</P>
+
+<P><font face="Wingdings">§</FONT>If you want ESP to notify you prior to changes in the group’s membership, check the <B>Ask before responding to a membership update</B> box. The box is checked by default.</P>
+
+<P><font face="Wingdings">§</FONT>If you want ESP to record all changes to group membership, check the <B>Log any membership update</B> box. A log file is created and placed in a subfolder in the Eudora folder. The box is checked by default.</P>
+
+<P>If you chose <B>Custom Member</B> as your role, you must click the <B>Advanced</B> tab to display the Advanced dialog box to configure your role settings. In this dialog box, you are required to make various decisions about how you want ESP to handle modifications to the shared folder. It also enables you to choose how ESP should track group membership. </P>
+
+<P>6.In the <I>Shared Folder Action (Custom Member)</I> area, do the following:</P>
+
+<P><font face="Wingdings">§</FONT>Determine which type of incoming or outgoing items—<B>New Items</B>, <B>Updated</B>, or <B>Deleted Items—</B>you want ESP to handle.</P>
+
+<P><font face="Wingdings">§</FONT>From the drop-down lists, choose one of the following:</P>
+
+<P><font face="Wingdings">§</FONT>To have ESP notify you before specific files in the shared folder are added, updated or deleted, choose <B>Ask first</B>.</P>
+
+<P><font face="Wingdings">§</FONT>To have ESP modify specific files in the share folder automatically, choose <BR>
+<B>Do file updates</B>.</P>
+
+<P><font face="Wingdings">§</FONT>To have Eudora ignore proposed updates to specific files in the shared folder automatically, choose <B>Ignore file updates</B>.</P>
+
+<P>7.If you want Eudora to record the activity for each type of incoming or outgoing item, check the <B>Log</B> box. </P>
+
+<P>The system default options from the drop-down menus for all incoming and outgoing menus correspond to the last chosen options you selected in the Notifications dialog box. The Role buttons combined with the <I>Ask before processing any updates INCOMING TO my shared folder</I> and <I>Ask before processing any updates OUTGOING FROM my shared folder</I> are then equal to the choices in the drop-down menus. The Advanced tab dialog box allows you to add, update, and delete settings independently of each other. Whereas in the Notifications dialog box, while simpler, keeps the settings locked. For example, you could use the Advanced tab dialog box to specify that you want to be asked when a delete occurs, but not when additions and updates occur. </P>
+
+<P>8.To set a group password, click <B>Set Shared Secret</B>. The Set Shared Secret dialog box appears.</P>
+
+<P>9.In the text box, enter a secret word or phrase that will be known only to you and the other members in your group. You will need to share the secret word or phrase with the other group members. The secret word or phrase is used to make the transmission of file changes more secure so that ESP can verify any incoming file changes were actually sent by a group member.</P>
+
+<P>If your shared secret does not match the shared secret of other group members, you will get a security error when you receive file changes from them. So if you choose to use a shared secret word or phrase for improved security, be sure that all group members set the <B>exact</B> same shared secret word or phrase. The secret word or phrase is case-sensitive. </P>
+
+<P>10.When finished, click <B>OK</B>. </P>
+
+</BODY>
+</HTML>

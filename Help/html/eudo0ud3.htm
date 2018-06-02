@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text/html; charset=Windows-1252">
+<TITLE>Date Display Options Window</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000">
+
+<OBJECT TYPE="application/x-oleobject" CLASSID="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+	<PARAM NAME="Keyword" VALUE="Options: date display">
+	<PARAM NAME="Keyword" VALUE="Date Display Options Window">
+</OBJECT>
+
+<H2><A NAME="date_display_options_window"></A>Date Display Options Window</H2>
+
+<P>The Date Display Options determine how message dates are displayed in the Date column of mailbox window message summaries.</P>
+
+<P>To display the Date Display options window, do the following:</P>
+
+<P>1. From the <B>Tools</B> menu, select <B>Options</B>.</P>
+
+<P>2. Scroll and click <B>Date Display</B>. The Date Display options window appears.</P>
+
+<P>Listed below are field descriptions for Date Display:</P>
+
+<P><B>Display dates using</B> —— This specifies what time zone to use to display dates. </P>
+
+<P><B>Sender’s timezone</B> —— If on, messages are displayed with the sender’s time and date, as determined by the sender’s time zone. </P>
+
+<P><B>Local timezone</B> —— If on, messages are displayed with your time and date, based on your local time zone.</P>
+
+<P><B>Date formats</B> [default: Fixed] —— These options and fields specify how to display message dates whether with a fixed or an age-sensitive format and the specific formatting for the selected option. A fixed format means that all dates are displayed under the same formatting rule. An age-sensitive format means that message dates are displayed differently depending on how old the messages are. Formatting is entered in the text fields using the format key at the bottom of the Date Display Options window (discussed further below).</P>
+
+<P><B>Fixed </B>[defaults: %1 %2 %4] —<B>—</B><B> </B>If this is on, all message dates are displayed using the formatting entered in the edit field, based on the formatting key (see below). The default format (%1%2%4) specifies that all message dates will be in this format: message time followed by message date followed by message time zone (but only if the message did not originate from your local time zone). Example: 02:56PM11/21/97-0800.</P>
+
+<P><B>Age-sensitive</B> —<B>—</B><B> </B>If this is on, message dates are displayed differently based on the age of the messages. The three age categories are RECENT, OLD, and ANCIENT. The age of a message is measured from the date and time at which the message was composed or sent, based on the sender’s email package, and this depends on your setting for the Display dates using option. RECENT messages are all those that are "younger" than the hours you specify in the Hours to be OLD field. ANCIENT messages are all those that are older than the "expiration time" entered in the Hours to be ANCIENT field. OLD messages are all those whose age falls between that of RECENT and ANCIENT messages: they are older than the number of hours specified in the Hours to be OLD field, but younger than the number of hours specified in the Hours to be ANCIENT field. The date display format for all messages falling in the RECENT, OLD, and ANCIENT categories is determined by your entry in the RECENT format, OLD format, and ANCIENT format fields, respectively.</P>
+
+<P><B>RECENT format</B> [default: %1] —<B>—</B><B> </B>Your entry in this field determines the format in which the dates of RECENT messages are displayed. RECENT messages are all those younger than the number in the Hours to be OLD field. The default RECENT format of %1 and the default Hours to be OLD of 24 means that all messages from the past 24 hours are displayed with the time.</P>
+
+<P><B>Hours to be OLD</B> [default: 24] —<B>—</B><B> </B>Your entry in this field determines the point at which RECENT messages become OLD messages. The default entry of 24 hours means that messages become OLD after one day.</P>
+
+<P><B>OLD format</B> [default: %3] —<B>—</B><B> </B>Your entry in this field determines the format in which the dates of OLD messages are displayed. OLD messages are those that are older than the Hours to be OLD but younger than the Hours to be ANCIENT. The default OLD format of %3, the default Hours to be OLD of 24, and the default Hours to be ANCIENT of 168 means that all messages older than one day and younger than one week are displayed with the day of the week.</P>
+
+<P><B>Hours to be ANCIENT</B> [default: 168] —<B>—</B><B> </B>Your entry in this field determines the point at which OLD messages become ANCIENT messages. The default entry of 168 hours means that messages become ANCIENT after a week.</P>
+
+<P><B>ANCIENT format</B> [default: %2] —<B>—</B><B> </B>Your entry in this field determines the format in which the dates of ANCIENT messages are displayed. ANCIENT messages are all those older than the number in the Hours to be ANCIENT field. The default entry of %2 and the default Hours to be ANCIENT of 168 means that all those messages older than a week are displayed with the date.</P>
+
+<P><B>Format Key</B> —<B>—</B><B> </B>Use the format key to determine how to program entries in the Fixed field and the format fields (RECENT, OLD, and ANCIENT) of this Options window. In each field, enter %1 to stand for the Time, enter %2 to stand for the Date, enter %3 to stand for the Day of the week, and enter %4 to stand for the Time zone, but only if the message did not originate from the local time zone. Separate each entry with a space to improve readability of the display output: for example, %1%2%4.</P>
+
+</BODY>
+</HTML>

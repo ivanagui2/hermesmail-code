@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text/html; charset=Windows-1252">
+<TITLE>Match Type (Filters window)</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000">
+
+<OBJECT TYPE="application/x-oleobject" CLASSID="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+	<PARAM NAME="Keyword" VALUE="Match Type (Filters window)">
+</OBJECT>
+
+<P><B><A NAME="hidc_verb0"></A><A NAME="hidc_verb1"></A><SUP></SUP>Match</B></P>
+
+<P>Specifies the type of match the filter performs when comparing the character string to the specified header.</P>
+
+<P><B>contains </B>or<B> does not contain</B><BR>
+If the specified header item contains or does not contain the text string, filter the message.</P>
+
+<P><B>is </B>or<B> is not<BR>
+</B>If the specified header item is or is not a complete match of the text string, filter the message.</P>
+
+<P><B>starts with </B>or<B> ends with</B><BR>
+If the specified header item starts with or ends with the text string, filter the message. The <B>starts with</B> item refers to the first non-whitespace character after the colon, so any spaces after the colon are ignored.</P>
+
+<P><B>appears </B>or<B> does not appear</B><BR>
+If the header item appears or does not appear in the message, filter the message (the text field is ignored). This is useful for filtering messages based only on the types of fields they contain.</P>
+
+<P><B>intersects nickname</B><BR>
+If the text string is included in a nickname (whether it is a full address or a nickname within the nickname), filter the message.</P>
+
+<H1>doesn’t intersect nickname</H1>
+
+<P>If the text string is not included in a nickname, whether it is a full address or a nickname within the nickname, filter the message.</P>
+
+<H1>intersects address book</H1>
+
+<P>If the text string or nickname is included in any one of your address books, whether it is a full address or a nickname within the nickname, filter the message. In other words, the filter looks in all of your address books for <I>all</I> nicknames. If the nickname that appears in the header of the message is in the address book, Eudora filters the message accordingly. This match criterion is good to use if you wish all messages that are not from the entries in your address book to go in other mailboxes. This is an alternate method to control SPAM. </P>
+
+<H1>doesn’t intersect address book</H1>
+
+<P>If the text string or nickname is not included in an address book, whether it is a full address or a nickname within the nickname, filter the message. </P>
+
+<P><B>matches regexp (case insensitive)</B> (Sponsored and Paid modes only)</P>
+
+<P>If the specific item matches the regular expressions characters with no case sensitivity, filter those messages.</P>
+
+<P><I>Note. Regular Expressions is an advanced and complex method of searching for text. </I></P>
+
+<P>Regular Expression is a search string that uses special characters to match text characters. For example, if you are filtering messages sent to you by two people, choose From in the first drop-down options list, then choose matches regexp, then type their usernames between parentheses separated by a vertical slash, for example <CODE>(bobclark)|(janedoe)</CODE>in the text box. Eudora searches and displays all messages from these two people.  </P>
+
+<P><B>matches regexp</B></P>
+
+<P>If the specific item matches the regular expressions characters, filter those messages. </P>
+
+</BODY>
+</HTML>

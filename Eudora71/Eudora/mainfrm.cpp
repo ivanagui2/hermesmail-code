@@ -172,7 +172,6 @@ HMENU g_EudoraProHMENU;
 #include "spell.h"
 #include "PaymentAndRegistrationDlg.h"
 #include "DockBar.h"
-#include "AdWazooBar.h"
 #include "ProfileNag.h"
 
 #include "PopupText.h"
@@ -6331,34 +6330,6 @@ void CMainFrame::ToolBarDeleted(QCCustomToolBar *pToolBar)
 	if (pToolBar && (pToolBar == m_pToolBarAd))
 	{
 		m_pToolBarAd = NULL;
-	}
-}
-
-////////////////////////////////////////////////////////////////////////
-// FloatControlBar [public]
-//
-// Don't allow the ad toolbar to float.
-////////////////////////////////////////////////////////////////////////
-void CMainFrame::FloatControlBar(CControlBar* pBar, CPoint point, DWORD dwStyle)
-{
-	if (pBar != m_pToolBarAd)
-	{
-		QCWorkbook::FloatControlBar(pBar, point, dwStyle);
-
-		// Whatta hack!  This is the only place I could find to figure out
-		// when the ad wazoo bar gets floated.  All other notifications
-		// occur before the bar has been reparented to the mini frame window.
-		CAdWazooBar* pAdWazooBar = DYNAMIC_DOWNCAST(CAdWazooBar, pBar);
-		if (pAdWazooBar)
-			pAdWazooBar->RemoveSystemMenu();
-	}
-	else
-	{
-		// We should probably do more than just beep (Geoff insists we should
-		// change the mouse pointer to the cancel pointer) but for now a beep
-		// will suffice.  Maybe the OT upgrade will actually implement
-		// CBRS_EX_DISALLOW_FLOAT and this won't be our problem anymore.
-		MessageBeep(MB_OK);
 	}
 }
 

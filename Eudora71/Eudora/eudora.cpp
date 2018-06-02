@@ -132,7 +132,6 @@ DAMAGE. */
 
 #include "AuditEvents.h"
 #include "AuditLog.h"
-#include "CNagManager.h"
 #include "..\Version.h"
 
 #include "ContentConcentrator.h"
@@ -141,7 +140,6 @@ DAMAGE. */
 #include "FaceTime.h"
 
 #include "MoreHelpWnd.h"
-#include "CUpdateNagTask.h"
 
 #include "nsprefs.h"
 
@@ -1047,11 +1045,6 @@ BOOL CEudoraApp::InitInstance()
 	if ( !LinkHistoryManager::Initialize() )
 		return FALSE;
 
-	// Initialize the Nag Manager -- must be destroyed when done
-	if (!CNagManager::Initialize())
-	{
-		return (FALSE);
-	}
 	//
 	// Create and initialize the One True CFiltersDoc Object(tm).
 	//
@@ -1342,10 +1335,6 @@ BOOL CEudoraApp::InitInstance()
 	pMainFrame->PostMessage(WM_COMMAND, ID_MBOX_IMAP_RESYNC_OPENED);
 
 // End IMAP4 stuff:
-
-	// Let the NagManager know we've started up
-	// This could also be called from the very first OnIdle
-	CNagManager::GetNagManager()->DoCheckNags(NAG_AT_STARTUP);
 
 	// Call QCUtil's function to pass the Eudora's Data Directory
 	SetTempFileDirectory(EudoraDir);

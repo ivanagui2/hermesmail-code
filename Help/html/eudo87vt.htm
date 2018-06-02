@@ -1,0 +1,2845 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text/html; charset=Windows-1252">
+<TITLE>EUDORA.INI Settings File</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000">
+
+<OBJECT TYPE="application/x-oleobject" CLASSID="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+	<PARAM NAME="Keyword" VALUE="EUDORA.INI Settings">
+	<PARAM NAME="Keyword" VALUE="Mappings">
+	<PARAM NAME="Keyword" VALUE="Mappings: Eudora.ini file">
+</OBJECT>
+
+<H2><A NAME="eudora_ini"></A>EUDORA.INI Settings File</H2>
+
+<P>The EUDORA.INI file is where Eudora keeps most of the settings. It is a standard Windows INI file, and may be edited with any text editor. </P>
+
+<P><I>Note:Since Windows caches information from INI files in memory while the program is running, you should never change the EUDORA.INI file while Eudora is in use. If you need to make a change, first quit Eudora, edit the file, and then restart Eudora.</I></P>
+
+<P>The EUDORA.INI file is divided into a number of sections, the following of which appear by default:</P>
+
+<P><font face="Symbol">·</FONT>Settings</P>
+
+<P><font face="Symbol">·</FONT>Mappings</P>
+
+<P><font face="Symbol">·</FONT>Window Position</P>
+
+<P><font face="Symbol">·</FONT>Tool Bar</P>
+
+<P><font face="Symbol">·</FONT>Directory Services</P>
+
+<P><font face="Symbol">·</FONT>Debug</P>
+
+<P><B>Optional Sections</B></P>
+
+<P>The following sections will appear in the INI file only when the appropriate conditions are met or the appropriate items created:</P>
+
+<P><font face="Symbol">·</FONT>Personalities —— This section appears only when you have created alternate email accounts (personalities).</P>
+
+<P><font face="Symbol">·</FONT>Stationery —— This section appears only when you have created stationery files.</P>
+
+<P><font face="Symbol">·</FONT>Open Windows —— This section appears only when there are windows currently open in Eudora.</P>
+
+<P><font face="Symbol">·</FONT>Wazoo Bars ——  This section appears only when normal Eudora windows are currently open or minimized on the desktop (and thus buttons appear on the Eudora taskbar, which is what this section controls).</P>
+
+<P><font face="Symbol">·</FONT>Recent File List —— This section appears only when files have been opened since the most recent Eudora startup.</P>
+
+<P><I>Note. We strongly urge that you do not change the values in these optional sections of the INI file, and rather make any changes from the interface. For example, personalities can be created and edited from the Personalities window, and stationery can be created and edited from the Stationery window. Both windows are available from the Tools menu.</I></P>
+
+<P>The values of the settings in each of these optional sections reflect the current values of the objects or conditions; there are no "default" values per se.</P>
+
+<H2>Name and Location of the INI File</H2>
+
+<P>The default name is EUDORA.INI and the default location is in the mail directory.  But the name and location can be changed.</P>
+
+<P>To specify a different INI file from the EUDORA.INI that is not in the mail directory, add a second parameter to the command line in the Program Item for Eudora, e.g.</P>
+
+<P>Command Line: c:\apps\eudora.exe c:\mymail c:\inis\myeudora.ini</P>
+
+<P>To use a different INI file that is in the mail directory:</P>
+
+<P>Command Line: c:\apps\eudora.exe c:\mymail myeudora.ini<BR>
+Command Line: c:\apps\eudora.exe c:\mymail\myeudora.ini</P>
+
+<P>This is a way to have multiple settings for one set of mailboxes, nicknames, and so forth.  For example, you may have multiple email accounts in which you receive mail, but want to collect mail from all of the accounts in one place.  You could set up separate program Items for each account (each having a different INI file on the command line), and switching between accounts would be as simple as double-clicking a program Item.</P>
+
+<P>And for an even more tricky specification, if the first parameter is an INI filename without a path, then the mail directory is searched through the normal process of checking the EUDORA environment variable and then using the executable directory.</P>
+
+<P>Examples:</P>
+
+<P>SET EUDORA=c:\mymail<BR>
+Command Line: c:\apps\eudora.exe myeudora.ini</P>
+
+<P>will use c:\mymail as the mail directory and c:\mymail\myeudora.ini as the INI file.</P>
+
+<P>SET EUDORA=myeudora.ini<BR>
+Command Line: c:\apps\eudora.exe</P>
+
+<P>will use c:\apps as the mail directory and c:\apps\myeudora.ini as the INI file.</P>
+
+<H2>Default INI file</H2>
+
+<P>When an entry in the EUDORA.INI file is not found, Eudora will look in the DEUDORA.INI file located in the same directory as the EUDORA.EXE file. The [Mappings] section of the DEUDORA.INI file acts as though it was appended to the end of the [Mappings] section of the EUDORA.INI file.</P>
+
+<P>Examples:</P>
+
+<P>SET EUDORA=c:\mymail</P>
+
+<P>Command Line: c:\apps\eudora.exe myeudora.ini</P>
+
+<P>will use c:\mymail as the mail directory and c:\mymail\myeudora.ini as the INI file.</P>
+
+<P>SET EUDORA=myeudora.ini</P>
+
+<P>Command Line: c:\apps\eudora.exe</P>
+
+<P>will use c:\apps as the mail directory and c:\apps\myeudora.ini as the INI file.</P>
+
+<H2>Settings</H2>
+
+<TABLE border=1 cols=3 frame=box rules=all width=634>
+
+<TR VALIGN="top">
+<TD width=30%>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376<B>Entry</B>
+<P><BR>
+</P>
+</TD>
+<TD width=23%><B>Default Value </B>
+<P><BR>
+</P>
+</TD>
+<TD width=47%><B>Description</B>
+<P><BR>
+Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>   AddressBookIsWhitelist&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </TD>
+<TD width=23%>0</TD>
+<TD width=47%>If this is 1 mail will not be considered junk if the sender appears in an address book.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>AgeJunkOff&nbsp;&nbsp;</TD>
+<TD width=23%>&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD width=47%>If this is 1 old junk will be trimmed from the Junk mailbox.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>AgeJunkOffDays&nbsp; 30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD width=23%>&nbsp;</TD>
+<TD width=47%>The number of days before junk is considered old enough to trim.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>AllowAttachDrag</TD>
+<TD width=23%>1</TD>
+<TD width=47%>Controls whether attachments inside received messages.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>AllowClipboardHTML</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Controls whether Eudora should use the HTML format when copying from the clipboard (caution: some applications put very bad HTML on the clipboard).  You can always use Paste Special to get at the HTML clipboard format.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>AllowDefPlugins</TD>
+<TD width=23%>1</TD>
+<TD width=47%>Controls whether or not EMSAPI <I>plugins</I> can be automatically added to the toolbar.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>AllowOverwriteMode</TD>
+<TD width=23%>1</TD>
+<TD width=47%>Controls whether or not toggling the Insert key puts the message editor in to overwrite mode. Helpful for people who use the Ctrl+Insert and Shift+Insert accelerators for Copy and Paste and have a tendency to linger on the Insert key after letting go of the Ctrl/Shift key.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>AltClickMoveSummary</TD>
+<TD width=23%>1</TD>
+<TD width=47%>When you hold down the &lt;Alt&gt; key while clicking an item in a mailbox, all messages in that mailbox with the same item are selected (e.g. &lt;Alt&gt; clicking a subject will select all messages in that mailbox with the same subject).  If this switch is on, then the selected messages will be grouped together as well.  You can temporarily turn this off by holding down the &lt;Shift&gt; key while doing the &lt;Alt&gt; click.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>AlwaysConnected</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Set to 1 if you have a constant Internet connection such as LAN or cable modem.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>AlwaysEnableJunkMenus&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <BR>
+</TD>
+<TD width=23%>0</TD>
+<TD width=47%>If this is 1 the Junk and Not Junk menu items will always be enabled.&nbsp; If this is 0 they will be enabled only when appropriate (i.e., Junk is enabled only for messages not in the Junk mailbox and Not Junk is only enabled for messages in the Junk mailbox).Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>AutoCompAddrBookFirst</TD>
+<TD width=23%>&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD width=47%>If 1 the auto-complete feature will list entries from the address books before entries from the history list.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>BackgroundColor</TD>
+<TD width=23%>&nbsp;</TD>
+<TD width=47%>Specifies an RGB triple (in hexadecimal) for the color to use for the "workspace" area of the main Eudora window. Can be used in conjunction with the BackgroundImage entry for choosing a color better suited for the image being displayed.  Examples: white is "FFFFFF", black is "000000", and blue is "0000FF".  This setting does *not* require QuickTime to be installed.
+<P>To install a new background color, you must open the Eudora.ini file and add a new header, for example:</P>
+
+<P>[Decorations]</P>
+
+<P>BackgroundColor=0000FF</P>
+
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>BackgroundImage</TD>
+<TD width=23%>&nbsp;</TD>
+<TD width=47%>Specifies an image to be displayed in the "workspace" area of the main Eudora window (called "Application Background" in the Appearance tab of the Control Panel-&gt;Display options). It needs to be specified as a full path name. This setting requires QuickTime to be installed.
+<P>To install a new background color, you must open the Eudora.ini file and add a new header, for example:</P>
+
+<P>[Decorations]</P>
+
+<P>BackgroundImage=</P>
+
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>BackupStatisticsDaily</TD>
+<TD width=23%>0</TD>
+<TD width=47%>If this is set to 1, a backup copy of the Statistics data is made each day in the Eudora data directory. The name of the file is Stats&lt;month&gt;-&lt;day&gt;.xml, where &lt;month&gt; and &lt;day&gt; are replaced by the current month and day. For example, on September 7 it would be called Stats9-7.xml.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>BadPasswordString
+<P><BR>
+</P>
+</TD>
+<TD width=23%>password<BR>
+</TD>
+<TD width=47%>When the POP server returns an error on sending the PASS command, the password will only be erased when the error response includes this text. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>BlackTocLines</TD>
+<TD width=23%>0</TD>
+<TD width=47%>If on, and displaying lines is mailboxes, draws lines as black instead of gray.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>CenterUnreadStatus
+<P><BR>
+</P>
+</TD>
+<TD width=23%>1
+<P><BR>
+</P>
+</TD>
+<TD width=47%>When on (1), centers the bitmap in Mailbox menu items that indicate that the mailbox has unread messages. If the display of this bitmap is not correct, turn this switch off (0). 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>CheckOwnerFreq</TD>
+<TD width=23%>0</TD>
+<TD width=47%>How often (in seconds) Eudora should check the OWNER.LOK file to see if another instance of Eudora has been started on the same set of mailboxes.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>CompactDisk%</TD>
+<TD width=23%>5
+<P><BR>
+</P>
+</TD>
+<TD width=47%>What the amount of "wasted space" taken up by deleted messages in a mailbox as a percentage of total free disk space must be before the mailbox automatically gets compacted when closed. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>CompactMailbox%
+<P><BR>
+</P>
+</TD>
+<TD width=23%>50
+<P><BR>
+</P>
+</TD>
+<TD width=47%>What the percentage of "wasted space" taken up by deleted messages in a mailbox must be before the mailbox automatically gets compacted when closed. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>CompactOutgoingPlugins</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Controls whether the outgoing EMSAPI <I>plugins</I> on the composition message window toolbar should be separate buttons or contained within one button that pops up a list of all outgoing <I>plugins</I>.  By default, all ougoing <I>plugins</I> get their own toolbar button.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>CompSummaryItalic
+<P><BR>
+</P>
+</TD>
+<TD width=23%>1
+<P><BR>
+</P>
+</TD>
+<TD width=47%>In mailboxes other than the Out mailbox, display the summaries of outgoing messages in italics. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ConConEllipsisCenter    ...snip...      </TD>
+<TD width=23%>&nbsp;</TD>
+<TD width=47%>Text for Content Concentrator to use at the center of concentrated text.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ConConEllipsisLead      ...             </TD>
+<TD width=23%>&nbsp;</TD>
+<TD width=47%>Text for Content Concentrator to use at the beginning of concentrated text.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ConConEllipsisTrail      ...    </TD>
+<TD width=23%>&nbsp;</TD>
+<TD width=47%>Text for Content Concentrator to use at the end of concentrated text.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ConConMessageWindowProfile          </TD>
+<TD width=23%>None</TD>
+<TD width=47%>Type of content concentrating to use when viewing a message in a window.  Choices: Terse, Compact, None.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ConConMultipleMessageMaxNum          </TD>
+<TD width=23%>20</TD>
+<TD width=47%>Maximum number of messages to contentrate.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ConConMultipleMessagesProfile      </TD>
+<TD width=23%>Terse</TD>
+<TD width=47%>Type of content concentrating to use when viewing multiple messages.  Choices: Terse, Compact, None.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ConConMultipleMessagesReplyProfile        </TD>
+<TD width=23%>None  </TD>
+<TD width=47%>Type of content concentrating to use when replying to multiple messages.  Choices: Terse, Compact, None.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ConConMultipleMessagesRequireRelated  </TD>
+<TD width=23%>1</TD>
+<TD width=47%>         If 1 will only concentrate messages with matching subjects or senders.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ConConMultipleReplyWarnThreshold              </TD>
+<TD width=23%>50</TD>
+<TD width=47%>Warn the user when they are replying to more than this number of messages.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ConConMultipleSubjectsSuffix , etc.      </TD>
+<TD width=23%>&nbsp;</TD>
+<TD width=47%>Text for Content Concentrator to use in subject line.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ConConPreviewProfile    </TD>
+<TD width=23%>&nbsp;</TD>
+<TD width=47%>Compact Type of content concentrating to use when viewing a message in a preview pane.  Choices: Terse, Compact, None.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ConnectionStatusCacheTime</TD>
+<TD width=23%>2000</TD>
+<TD width=47%>Time (in milliseconds) that Eudora will cache the online status before checking with the system again, which can help with some setups where checking the online status can be very intensive.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ConvertFormatFlowedtoExcerpt</TD>
+<TD width=23%>0,1</TD>
+<TD width=47%>Turns format-flowed feature on and off.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>CtrlJMapping           </TD>
+<TD width=23%>0</TD>
+<TD width=47%>Specifies which menu the Ctrl-J key sequence is mapped to.  If 0 user has not specified which menu.  If 1 Ctrl-J will be mapped to the Junk menu.  If 2 Ctrl-J will be mapped to Filter Messages.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>DaysBetweenJunkAgeOff         </TD>
+<TD width=23%>1</TD>
+<TD width=47%>The number of days to wait before checking if any junk is old enough to trim.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>DeleteAttachedVCFs</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Deletes any attachment with a .VCF extension (vCard files), which can be handy if people who send you lots of messages have their email client set up to automatically attach their vCard.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>DeleteFetchedJunk              </TD>
+<TD width=23%>1</TD>
+<TD width=47%>If this is 1 junk that has been fetched will be deleted from the server.  Applies only to POP accounts where mail is left on the server.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>DesDllName</TD>
+<TD width=23%>Des32.dll</TD>
+<TD width=47%>The name of the DLL implementing the DES encryption routines for use with Kerberos version 4, e.g., des32.dll
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>DisableStatistics</TD>
+<TD width=23%>0</TD>
+<TD width=47%>If this is set to 1, no Statistics data is saved.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>DoPluginCompletion    </TD>
+<TD width=23%>1</TD>
+<TD width=47%>Indicates whether to include nicknames generated by ESP (and potentially by other Eudora plugins) in the Auto-Completion list. A value of 1 means to include them, and a value of 0 means don't include them.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>EditAllHeaders</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Controls whether or not the (by default, non-editable) From and Attached: headers in the composition message window.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>EnrichedSoftLine
+<P><BR>
+</P>
+</TD>
+<TD width=23%>72
+<P><BR>
+</P>
+</TD>
+<TD width=47%>Number of characters sent on a line before adding a soft new line when sending styled text. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>EudoraPassPort
+<P><BR>
+</P>
+</TD>
+<TD width=23%>106
+<P><BR>
+</P>
+</TD>
+<TD width=47%>Default port number for the Eudora password-changing service (epass). 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ExceptionHandling</TD>
+<TD width=23%>1</TD>
+<TD width=47%>Controls whether or not Eudora's exception handling code is called when a program exception occurs (can be helpful to turn off if the exception handling code is hiding the source of the problem)
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ExcerptBars</TD>
+<TD width=23%>2</TD>
+<TD width=47%>HTML style sheet parameter for excerpt bars.  Can use this to change the width, color, and style of excerpt bars.
+<P>(Only works when using the Microsoft viewer).</P>
+
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ExtraHeaders
+<P><BR>
+</P>
+</TD>
+<TD width=23%><BR>
+</TD>
+<TD width=47%>Extra headers that are sent with each outgoing message.<BR>
+If multiple headers are to be sent, separate each with "\r\n".<BR>
+For example,<BR>
+"ExtraHeaders=X-Header1: foo\r\nX-Header2: bar". 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ExtraNicknameDirs
+<P><BR>
+</P>
+</TD>
+<TD width=23%><BR>
+</TD>
+<TD width=47%>List of directories to search for additional nickname files. Multiple directories can be entered, separated by semicolons (;). 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>FilterTransferName</TD>
+<TD width=23%>0</TD>
+<TD width=47%>This controls how mailbox names should be displayed in the button that indicates which mailbox is the target of a transfer or copy filter action. 0 is the mailbox name only. 1 is the full path of each mail folder and the mailbox name. 2 is the full path to the filename of the mailbox. 3 is just he parent mail folder and the mailbox name.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>FilterFromFolder</TD>
+<TD width=23%>&nbsp;</TD>
+<TD width=47%>When doing a Make Filter, the name of the mailbox folder to place the default named mailbox that is created when filtering based on whom the message is from.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>FilterRecipFolder</TD>
+<TD width=23%>&nbsp;</TD>
+<TD width=47%>When doing a Make Filter, the name of the mailbox folder to place the default named mailbox that is created when filtering based on whom the message is to.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>FilterSubjectFolder</TD>
+<TD width=23%>&nbsp;</TD>
+<TD width=47%>When doing a Make Filter, the name of the mailbox folder to place the default named mailbox that is created when filtering based on the subject of the message.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>FindMatchCase</TD>
+<TD width=23%>0</TD>
+<TD width=47%>"Match Case" checkbox in the Find dialog box.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>FindSummariesOnly</TD>
+<TD width=23%>0</TD>
+<TD width=47%>"Summaries Only" checkbox in the Find dialog box. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>FirstUnreadNormal</TD>
+<TD width=23%>1</TD>
+<TD width=47%>When checking mail on a POP server, download any mail that hasn’t been retrieved at this machine.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>FirstUnreadStatus</TD>
+<TD width=23%>0</TD>
+<TD width=47%>When checking mail on a POP server, download only messages that haven’t been read on any machine.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>FixCurlyQuotes</TD>
+<TD width=23%>1</TD>
+<TD width=47%>If on, then if a message contains 7-bit characters except for directional quotes, then those directional quotes are turned into regular non-directional quotes so that the message may be sent out as 7-bit (no quoted-printable encoding needed).
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>FlattenSpeaking</TD>
+<TD width=23%>1</TD>
+<TD width=47%>The Microsoft Text-To-Speech engine has troubles with non-ASCII characters, so this setting will make non-ASCII characters get converted to their ASCII equivalents before being handed off to the TTS engine.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>FontSizeTableLarge</TD>
+<TD width=23%>10,12,14,16,20,26, 42</TD>
+<TD width=47%>Font sizes used for displaying text in the built-in (non-Microsoft) viewer. They correspond to the size schemes in the Fonts category of the Options dialog. The seven values in each list correspond to the Very Small, Small, Medium, Large, Larger, Very Large, and Humongous sizes that you can specify in a message composition window.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>FontSizeTableLargest</TD>
+<TD width=23%>11,14,16,18,22,28, 48</TD>
+<TD width=47%>Font sizes used for displaying text in the built-in (non-Microsoft) viewer. They correspond to the size schemes in the Fonts category of the Options dialog. The seven values in each list correspond to the Very Small, Small, Medium, Large, Larger, Very Large, and Humongous sizes that you can specify in a message composition window.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>FontSizeTableMedium</TD>
+<TD width=23%>8,10,11,14,18,24,<BR>
+36</TD>
+<TD width=47%>Font sizes used for displaying text in the built-in (non-Microsoft) viewer. They correspond to the size schemes in the Fonts category of the Options dialog. The seven values in each list correspond to the Very Small, Small, Medium, Large, Larger, Very Large, and Humongous sizes that you can specify in a message composition window.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>FontSizeTableSmall</TD>
+<TD width=23%>7,9,10,12,16,22,28</TD>
+<TD width=47%>Font sizes used for displaying text in the built-in (non-Microsoft) viewer. They correspond to the size schemes in the Fonts category of the Options dialog. The seven values in each list correspond to the Very Small, Small, Medium, Large, Larger, Very Large, and Humongous sizes that you can specify in a message composition window.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>FontSizeTableSmallest</TD>
+<TD width=23%>7,8,9,10,12,16,24</TD>
+<TD width=47%>Font sizes used for displaying text in the built-in (non-Microsoft) viewer. They correspond to the size schemes in the Fonts category of the Options dialog. The seven values in each list correspond to the Very Small, Small, Medium, Large, Larger, Very Large, and Humongous sizes that you can specify in a message composition window.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ForceSaveForStatistics</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Forces the saving of the Statistics info, even if the disk drive is spun down.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>GssDllName</TD>
+<TD width=23%>Gssapi32.dll</TD>
+<TD width=47%>For the user to specify the GSS/K5 DLL name.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>GuessParagraphs
+<P><BR>
+</P>
+</TD>
+<TD width=23%>0
+<P><BR>
+</P>
+</TD>
+<TD width=47%>"Guess Paragraphs" checkbox in the Save As... dialog box. 
+<P><BR>
+Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>   HTMLInPlainText</TD>
+<TD width=23%>0</TD>
+<TD width=47%>HTML text would be displayed in messages in the
+<P>Out box.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>   IMAPLeafMenu</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Controls whether IMAP mailboxes with no child mailboxes should be shown in the Mailbox/Transfer menus as an entire menu or just a menu item.  Default is to just show it as a menu item.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>IMAPPort</TD>
+<TD width=23%>143</TD>
+<TD width=47%>Default port number for IMAP connections.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>IdleTime
+<P><BR>
+</P>
+</TD>
+<TD width=23%>60
+<P><BR>
+</P>
+</TD>
+<TD width=47%>The number of seconds that Eudora has to be idle before it will consider performing an automatic mail check. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>IgnoreEMSDelete</TD>
+<TD width=23%>0</TD>
+<TD width=47%>If this is 0, ESP control messages devoid of "human friendly" content are automatically deleted to avoid cluttering up your ESP mailboxes. If this is 1, those messages are preserved.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>IgnoreIdleOnManualCheck</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Controls whether background tasks started manually (e.g. Ctrl+M to do a Check Mail) should be processed immediately after completing, or wait until a sufficient amount of user idle time (see TaskMgrWaitTime below). 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ImapIgnoreUIDPLUS</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Specifies whether or not Eudora should ingore IMAP UIDPLUS responses.&nbsp; If this is set to 1 IMAP junk handling will not work as expected.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>IMAPPreviewPane</TD>
+<TD width=23%>1</TD>
+<TD width=47%>Controls whether or not IMAP mailboxes have a preview pane.  On slower networks, it may be desirable to turn off the preview pane for IMAP mailboxes, but still have the preview pane for local mailboxes.  You can do that by keeping the normal Preview Pane option turned on, but turning this setting off (setting to 0).
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>IMAPRemoveOnDelete</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Controls whether or not a message in an IMAP mailbox that is deleted will be removed from the server mailbox immediately.  If this setting is off (the default), then you can remove messages from the server mailbox that have been marked to be deleted by using the Message-&gt;Purge Messages menu item.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>   ImapSupportEMSAPI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </TD>
+<TD width=23%>1</TD>
+<TD width=47%>Specifies whether IMAP accounts should support EMSAPI.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>IncludeHeaders</TD>
+<TD width=23%>0</TD>
+<TD width=47%>"Include Headers" checkbox in the Save As... dialog box. Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>IncludeSigForward</TD>
+<TD width=23%>1</TD>
+<TD width=47%>Whether or not the default signature should be included when forwarding a message.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>IncludeSigRedirect</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Whether or not the default signature should be included when redirecting a message.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>IncludeSigReply</TD>
+<TD width=23%>1</TD>
+<TD width=47%>Whether or not the default signature should be included when replying to a message.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>InteractiveSpellCheck</TD>
+<TD width=23%>1</TD>
+<TD width=47%>When doing a spell check, controls whether you get prompted with a dialog box for each misspelled word, or each misspelled word gets marked with a double red underline (which then you can right-click to get suggestions and other options for the misspelled word).  If you hold down the Shift key while doing a spell check, the other method of spell checking will be performed.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>InterpretFormatFlowed</TD>
+<TD width=23%>1, 0</TD>
+<TD width=47%>Turns format-flowed off and on.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>IgnoreIdleOnManualCheck</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Controls whether background tasks started manually (e.g. Ctrl+M to do a Check Mail) should be processed immediately after completing, or wait until a sufficient amount of user idle time (see TaskMgrWaitTime below).
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>JunkMailboxName          
+<P></P>
+</TD>
+<TD width=23%>Junk</TD>
+<TD width=47%>Specifies name for Junk mailbox.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>JunkNeverUnread</TD>
+<TD width=23%>0</TD>
+<TD width=47%>If this is 1 the Junk mailbox will never be marked as having unread mail in it.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>JunkTrimMbox</TD>
+<TD width=23%>Trash</TD>
+<TD width=47%>Specifies which mailbox to trim old junk to.  Changing this setting to "-" will cause old Junk to be deleted rather than being trimmed to a mailbox.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>KerberosSetUserName
+<P><BR>
+</P>
+</TD>
+<TD width=23%>0
+<P><BR>
+</P>
+</TD>
+<TD width=47%>Uses KClient SetUserName() function to set user name in Kerberos system. Turning this switch on may cause Kerberos tickets to be invalidated. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>Krb4Dllname</TD>
+<TD width=23%>Kerberos32.dll</TD>
+<TD width=47%>The name of the Kerberos version 4 DLL, e.g., kerberos32.dll.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>LastSettingsCategory<BR>
+</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Last category that was displayed in the Options dialog box. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>LexPath
+<P><BR>
+</P>
+</TD>
+<TD width=23%><BR>
+</TD>
+<TD width=47%>Directory in which the dictionary files for spell checking reside. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>MainLexFiles
+<P><BR>
+</P>
+</TD>
+<TD width=23%><BR>
+</TD>
+<TD width=47%>Main dictionary files. British dictionaries can be used by changing this to british.tlx, british.clx. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>MainWindowState
+<P><BR>
+</P>
+</TD>
+<TD width=23%>1
+<P><BR>
+</P>
+</TD>
+<TD width=47%>The state of the Main Window (normal = 1, minimized = 2, or maximized = 3). The state is set when Eudora closes, and the Main Window is set to this state the next time Eudora starts up. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ManualJunkScore     
+<P></P>
+</TD>
+<TD width=23%>100</TD>
+<TD width=47%>The score assigned to mail the user specifies as junk.  A setting of 0 means do not change the score when the user specifies mail as junk.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ManualNotJunkScore  </TD>
+<TD width=23%>0</TD>
+<TD width=47%>The score assigned to mail the user specifies as not junk.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>MapiAutoSendSignature</TD>
+<TD width=23%>1</TD>
+<TD width=47%>Controls whether messages sent through Eudora's MAPI will tack on the default signature.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>MapiExcerptFixedText</TD>
+<TD width=23%>1</TD>
+<TD width=47%>Controls whether messages sent through Eudora's MAPI will convert plain text quoting in to excerpts so that messages are easier to read on different width screens (e.g. PCs vs. PDAs).
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>MaxConcurrentDialupTasks</TD>
+<TD width=23%>2</TD>
+<TD width=47%>The maximum number of checking/sending tasks that can occur simultaneously while using a Eudora specified dialup connection.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>MaxConcurrentTasks</TD>
+<TD width=23%>10</TD>
+<TD width=47%>The maximum number of background tasks that can be running at the same time.  Note that if you are connected over a modem (dialup networking connection) only one network task at a time will be run; otherwise network performance would suffer greatly.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>MaxMenus</TD>
+<TD width=23%>30000</TD>
+<TD width=47%>The maximum number of popup menus for mailboxes. These are equivalent to mailbox folders; that is, local mailbox folders that contain other mailboxes, or IMAP mailboxes that contain other mailboxes. Used when Eudora can’t be started due to the large number of popup menus created, which is limited by Windows. This will allow you to start up Eudora and run it long enough to remove some mailboxes so that fewer menus will be needed. Running for extended periods of time with this switch in Eudora.ini is not recommended.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>MDNSendAddress</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Controls whether your return address should be used in the MAIL FROM command for return receipts.  RFC 2298 says that it should be empty in order to prevent mail loops, but some SMTP servers reject that due to bad spam-prevention heuristics.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>MinAgeOffScore         
+<P></P>
+</TD>
+<TD width=23%>0</TD>
+<TD width=47%>The minimum score old junk must have before it will be trimmed.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>MinScoreToJunk</TD>
+<TD width=23%> 50</TD>
+<TD width=47%>The minimum score needed for mail to be considered junk.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>MoodWatchCheckOriginal</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Controls whether the original sender's (excerpted) text in the message should be used when calculating the MoodWatch score of a composition message.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>MoodWatchCompBadWords</TD>
+<TD width=23%>1</TD>
+<TD width=47%>Controls whether or not phrases identified by the MoodWatch engine in composition messages should be highlighted by underlining.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>MoodWatchDelayinMinutes</TD>
+<TD width=23%>5</TD>
+<TD width=47%>Time of the delay (in minutes) if MoodWatch is configured to delay the sending of messages.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>MoodWatchDeltaTime        </TD>
+<TD width=23%>5</TD>
+<TD width=47%>MoodWatchDeltaTime is how long Eudora must be idle, in seconds, before background MoodWatch scanning starts. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>MoodWatchInterval</TD>
+<TD width=23%>1000</TD>
+<TD width=47%>Number of milliseconds that Eudora will wait until checking the MoodWatch score after the user hits a key in a composition message.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>MoodWatchThresholdTime   </TD>
+<TD width=23%>1000</TD>
+<TD width=47%>MoodWatchThresholdTime is how long it keeps scanning, in milliseconds, once scanning starts.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>MultipleRepliesForMultipleSelection            </TD>
+<TD width=23%>0</TD>
+<TD width=47%>If 1 Eudora will generate separate reply messages for each selected message.  Otherwise Eudora will concentrate all messages into a single reply.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>NetscapeURLDDE</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Controls whether the launching of URLs inside Eudora should first look to see if Netscape is currently running so that it can reuses an existing Netscape browser window for the URL.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>NetworkOpenTimeout
+<P><BR>
+</P>
+</TD>
+<TD width=23%>60
+<P><BR>
+</P>
+</TD>
+<TD width=47%>The number of seconds Eudora will wait for a response to opening a connection before it gives up. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>NewMailUpdateFrequency</TD>
+<TD width=23%>25</TD>
+<TD width=47%>Number of initial messages that have to be spooled before the message processing begins.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>NoAutoResponseHeaders</TD>
+<TD width=23%>errors-to:,list-</TD>
+<TD width=47%>Allows for better detecting of mailing list to which you should not auto-respond. As a default, "errors-to:,list-" is the value. Add any other headers that will identify it as a list (hence will not auto-respond via filters).
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>NoAutoSendPrecedence
+<P><BR>
+</P>
+</TD>
+<TD width=23%>list,bulk
+<P><BR>
+</P>
+</TD>
+<TD width=47%>When filtering incoming messages with precedence headers of <B>list</B> or <B>bulk</B>, do not automatically create new outgoing messages. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>NonJunkToAddressBook           
+<P></P>
+</TD>
+<TD width=23%>1</TD>
+<TD width=47%>If this is 1 and a message is the user specifies a message as not junk the sender of that message will be added to the address book.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>NonJunkAddressBook</TD>
+<TD width=23%>&nbsp;</TD>
+<TD width=47%>Address book to add senders of not junked messages to.  If blank Eudora Nicknames will be used.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>NoSplashScreen</TD>
+<TD width=23%>0</TD>
+<TD width=47%>If on, the opening splash screen will not be displayed. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>Offline</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Set to 1 to temporarily set Eudora offline; it will not perform automatic timed mail checks when offline.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>OfflineLinkAction</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Eudora displays the Offline Link Dialog if you click on an http: link while offline (not connected to the Internet). That dialog box lets you choose what action should be taken regarding that link the next time Eudora is online: ask you if you want to launch the link, launch it without asking, bookmark the link in your browser, or remind you later. The dialog box now has a checkbox that will make the action you choose the default from then on, which means you won't see the Offline Link Dialog any more. It defaults to 0 = ask, and the other values are 1 = launch, 2 = bookmark, and 3 = remind.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>OldWABImport</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Controls whether Eudora uses an older method of importing the Windows Address Book, which may do a better job of importing on some setups than the default method.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>OpenRetryCount</TD>
+<TD width=23%>5</TD>
+<TD width=47%>Some external applications like to open up files that Eudora is using (e.g. virus checkers and backup software), so this setting controls how many times Eudora should try to open a file before it gives up.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>OpenRetryInterval</TD>
+<TD width=23%>250</TD>
+<TD width=47%>Time (in milliseconds) Eudora waits before attempting to open a file again (see OpenRetryCount above).
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>OptionsHideCursor</TD>
+<TD width=23%>1</TD>
+<TD width=47%>Controls whether the cursor gets hidden to prevent flicker when switching between categories in the Tools-&gt;Options dialog, which causes a small minority of systems to lose the cursor while in the dialog.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>OwnerLok</TD>
+<TD width=23%>1</TD>
+<TD width=47%>If this is non-zero, an OWNER.LOK file will be created on startup which helps to prevent possible corruption if multiple instances of Eudora are used on the same set of mailboxes.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>PasswordChangeServer</TD>
+<TD width=23%>&nbsp;</TD>
+<TD width=47%>The name of the server to use for changing passwords. By default this is the same as your POP server.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>PasswordOKWordList</TD>
+<TD width=23%>lock busy,own it,of memory,assign stream, ush of temp,being unlock,hangup,timeout, not owned,quota,drop name, recognition mode,accessible by others, ,regular file,flock,maillock,
+<P>few minute,locked</P>
+</TD>
+<TD width=47%>A comma-separated list of words that if found in the response text from an error from the POP PASS command that will not cause the password to be erased (works in conjunction with the BadPasswordString entry above).  POP servers sometimes fail after sending the PASS command for reasons other than your password was incorrect, and this entry allows greater control over when Eudora will decide to ask you again for your password.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>PhReturn
+<P><BR>
+</P>
+</TD>
+<TD width=23%><BR>
+</TD>
+<TD width=47%>A string that is appended to every Ph command before sending to the Ph server. For example, "PhReturn=return all" would return all fields of the records returned by the query, and "PhReturn=type=person" would return all matches to the query with the additional filter that the record is a person. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>POPPort</TD>
+<TD width=23%>110</TD>
+<TD width=47%>Default port number for the POP service (pop3). 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>PreventExecutableEmbededContent        
+<P></P>
+</TD>
+<TD width=23%>1</TD>
+<TD width=47%>If this is 1 Eudora will prevent executable HTML embeded content.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>PreviewHeaders</TD>
+<TD width=23%>To:,Subject:,Cc:,<BR>
+Bcc:, X-Attachments:</TD>
+<TD width=47%>A comma-separated list of headers that should be shown in the preview pane.  The matching is done on a prefix basis, so any header that begins with one of these values will be shown.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>PreviewHeadersMaxLines</TD>
+<TD width=23%>4</TD>
+<TD width=47%>This is designed to keep preview pane headers to a minimum. This is most often used to control large To: or Cc: headers where someone inserts a large number of individual addresses.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>PreviewMultiDelay</TD>
+<TD width=23%>500     </TD>
+<TD width=47%>The number of milliseconds to delay before refreshing the preview display if a multiple messages are selected.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>PreviewSingleDelay</TD>
+<TD width=23%>250     </TD>
+<TD width=47%>The number of milliseconds to delay before refreshing the preview display if a single message is selected.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>PreviewSplitterPos</TD>
+<TD width=23%>0</TD>
+<TD width=47%>If non-zero, then if a mailbox hasn’t already specified a position for the splitter between the message list and the preview pane, then the splitter will be positioned this many pixels from the top of the mailbox window.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>PreviewTableEnd</TD>
+<TD width=23%>&lt;/table&gt;\r\n</TD>
+<TD width=47%>HTML markup for the end of the table that’s used to display the headers in a preview pane.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>PreviewTableRowEnd</TD>
+<TD width=23%>&lt;/td&gt;&lt;/tr&gt;\r\n</TD>
+<TD width=47%>HTML markup for the end of the table row that’s used to display the headers in a preview pane.  Each header appears in a separate row of the table.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>PreviewTableRowStart</TD>
+<TD width=23%>&lt;tr bgcolor=%s text=%s&gt;&lt;td&gt;\r\n</TD>
+<TD width=47%>HTML markup for the start of the table row that’s used to display the headers in a preview pane.  Each header appears in a separate row of the table.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>PreviewTableStart</TD>
+<TD width=23%>&lt;table cellspacing=
+<P>0 cellpadding=0 width=100%% bgcolor=%s text=%s&gt;\r\n</P>
+</TD>
+<TD width=47%>HTML markup for the beginning of the table that’s used to display the headers in a preview pane.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>PrintHeaders</TD>
+<TD width=23%>1</TD>
+<TD width=47%>When on (1), printed messages get headers and footers. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ProgressIdle</TD>
+<TD width=23%>3</TD>
+<TD width=47%>Number of seconds a foreground task continues before the Progress window is shown.  This prevents a distracting flash of the Progress window for a task that may take a long time, but in this instance only takes a short time.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>QuoteEnd
+<P><BR>
+</P>
+</TD>
+<TD width=23%><BR>
+</TD>
+<TD width=47%>The string that gets inserted after the original text of a forwarded message. A new line is added before the string. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>QuotePrefix
+<P><BR>
+</P>
+</TD>
+<TD width=23%>&gt;
+<P><BR>
+</P>
+</TD>
+<TD width=47%>The string that precedes all lines of the original message in a forwarded message 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>QuoteStart
+<P><BR>
+</P>
+</TD>
+<TD width=23%><BR>
+</TD>
+<TD width=47%>The string that gets inserted before the original text of a forwarded message. A new line is added after the string. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>RasChooseBeforeEveryConnection       </TD>
+<TD width=23%>0  </TD>
+<TD width=47%>If 1 Eudora will allow the user to choose a connection each time Eudora initiates Dial-up networking (Windows NT 4.0, 2000 and XP only).
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>RasUseExistingConnection</TD>
+<TD width=23%>1</TD>
+<TD width=47%>When switching from a task from one personality to a task of another personality and the two personalities have different dialup networking connection entries, whether or not the already connected dialup networking connection should be maintained or a new dialup networking connection made.  It may be necessary to turn this setting off (set to zero) if you have personalities that check mail on servers that are behind firewalls, and require that you dial in directly in order to connect to the mail server.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ReadMessageStyleSheet</TD>
+<TD width=23%>&lt;STYLE TYPE=""text/css""&gt;\r\
+<P>n{font-family = ""%s""}\r\nTT {font-family = ""%s""}\r\nBLOCKQUOTE.CITE {border-</P>
+
+<P>left = solid %s}\r\nBLOCKQUOTE.CITE {padding-left = 0.5em}\r\nBLOCKQUOTE.CITE {m</P>
+
+<P>argin-left = 0}\r\nBLOCKQUOTE.CITE {margin-top = 0.5em}\r\n</P>
+</TD>
+<TD width=47%>HTML style sheet used for displaying received messages.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ReadReceiptAsk</TD>
+<TD width=23%>1</TD>
+<TD width=47%>Ask user for read receipts. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ReadReceiptNo</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Always deny read receipts without prompting. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ReadReceiptYes</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Always return read receipts without prompting. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>RelayPersona            </TD>
+<TD width=23%>&nbsp;</TD>
+<TD width=47%>Specifies which personality to use as SMTP relay personality.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>RemoveSuspiciousLocalFileRefs</TD>
+<TD width=23%>1</TD>
+<TD width=47%>If this is 1 Eudora will remove local file: references that appear to be suspicious.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ReplyAllAttribution</TD>
+<TD width=23%>At %1, %2 wrote: </TD>
+<TD width=47%>Attribution line when a Reply to All is done. 
+<P><BR>
+Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ReplyAttribution
+<P><BR>
+</P>
+</TD>
+<TD width=23%>At %1, you wrote: 
+<P><BR>
+</P>
+</TD>
+<TD width=47%>Attribution line when a Reply is done. 
+<P><BR>
+Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ReplyEnd</TD>
+<TD width=23%>&nbsp;</TD>
+<TD width=47%>The string that gets inserted after the original text of a replied message. A newline is added before the string. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ReplyPrefix</TD>
+<TD width=23%>&gt;</TD>
+<TD width=47%>The string that precedes all lines of the original message in a replied message 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ReplySelectOnlyIf</TD>
+<TD width=23%>\n.!?</TD>
+<TD width=47%>If doing a Reply with selection, if none of the characters in this list are in the selection then Eudora will reply using the entire body of the message.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ReplyStart</TD>
+<TD width=23%>&nbsp;</TD>
+<TD width=47%>The string that gets inserted before the original text of a replied message. A newline is added after the string. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ReservedDosNames</TD>
+<TD width=23%>aux,com1,com2,<BR>
+com3,com4,con,<BR>
+lpt1,lpt2,lpt3,lpt4,<BR>
+nul,prn</TD>
+<TD width=47%>Reserved names of files that will not be used for filenames of attachments.  These filenames are reserved for DOS, and can causes problems in actual files when these names are created.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ReturnAddressFormat
+<P><BR>
+</P>
+</TD>
+<TD width=23%>%1 &lt; %2&gt; 
+<P><BR>
+</P>
+</TD>
+<TD width=47%>Format of the From field in outgoing messages. %1 is the Real name, and %2 is the Return address. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SaveDialupPasswordText
+<P><BR>
+</P>
+</TD>
+<TD width=23%><BR>
+</TD>
+<TD width=47%>Where your dialup password is saved (in an encrypted format) if you have the Save Password switch turned on. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SavePasswordText
+<P><BR>
+</P>
+</TD>
+<TD width=23%><BR>
+</TD>
+<TD width=47%>Where your POP password is saved (in an encrypted format) if you have the Save Password switch turned on. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SaveStatisticsInterval</TD>
+<TD width=23%>15</TD>
+<TD width=47%>The Statistics data is saved to disk at intervals of this many minutes.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SearchAllmapAccounts</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Controls whether all of your mailboxes in all IMAP accounts will be looked at when searching, or just the mailboxes in the IMAP account that you start the search in (applies to local mailboxes as well, that is, a search starting in a local mailbox will only search your local mailboxes if this setting is off).
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SeenIntro</TD>
+<TD width=23%>1</TD>
+<TD width=47%>You can make the introduction window return by changing the value to 0.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SendCharset             </TD>
+<TD width=23%>&nbsp;</TD>
+<TD width=47%>Specifies which charset to indicate for outgoing messages.  If left blank Eudora will choose an appropriate charset (e.g., "USASCII").
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SendXAttachHeader
+<P><BR>
+</P>
+</TD>
+<TD width=23%>0
+<P><BR>
+</P>
+</TD>
+<TD width=47%>Controls whether or not the X-Attachment: header should be sent out with outgoing messages that contain attachments. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SeparateMSHTMLSettings</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Controls whether Eudora keeps its settings for the MS Viewer in a different part of the registry so that they don't conflict with IE (or any other app that uses MSHTML), which can be handy for having the default font size be different in Eudora than in IE.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ShowAttachmentIcons</TD>
+<TD width=23%>1</TD>
+<TD width=47%>Controls whether or not icons representing attachments should be shown in the body of the message.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ShowMeTheErrors</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Controls whether or not to show the error dialog box immediately on send/receive errors. By default, errors are listed in the Task Errors window, and that window is brought to the foreground.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ShowProgress</TD>
+<TD width=23%>1</TD>
+<TD width=47%>Show/hide the Progress window. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ShowProgressInactive</TD>
+<TD width=23%>0</TD>
+<TD width=47%>If Eudora is not the foreground application, this controls whether the Progress window should be shown or not.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ShowTipOfTheDay</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Determines whether to display the Tip of the Day when Eudora is launched.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ShowSelectedSummaryCount</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Adds an extra number to the beginning of the numbers listed in the compact button in the lower-left corner of the mailbox summary display that shows how many message summaries are currently selected in that mailbox.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SMTPAuthAllowed</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Allows you to add authentication to your SMTP server.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SMTPAuthBanished</TD>
+<TD width=23%>&nbsp;</TD>
+<TD width=47%>It should contain a comma-separated list of authentication schemes whose use is to be disallowed. The security conscious should set it to "LOGIN,PLAIN", as this ensures that your SMTP server password will always be strongly encrypted when it goes over the network. Users of IPSWITCH's Imail SMTP server should set it to "CRAM-MD5" so as to avoid a bug of theirs. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SmtpAuthK5INI          </TD>
+<TD width=23%>1</TD>
+<TD width=47%>If this is 1 SMTP will use Kerberos 5 authentication if that personality's POP/IMAP is set to use Kerberos 5.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SMTPAuthRequired</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Allows you to require authentication when gaining access to your SMTP server.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SMTPPort</TD>
+<TD width=23%>25<BR>
+</TD>
+<TD width=47%>Default port number for the SMTP service (smtp). Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SMTPRecipientWrap
+<P><BR>
+</P>
+</TD>
+<TD width=23%>72
+<P><BR>
+</P>
+</TD>
+<TD width=47%>Column at which recipient headers (To: and Cc:) are wrapped when sending a message. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SpoolDirTemp</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Controls whether Eudora should use the temp directory on your local hard drive for spooling messages when sending and receiving, which can increase performance when your data directory resides on a network drive.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SpoolRenameRetryCount         
+<P></P>
+
+<P></P>
+</TD>
+<TD width=23%>10</TD>
+<TD width=47%>Number of times to try to rename a spool file.  This is designed to help Eudora recover from cases where a virus scanner like McAfee has locked access to the *.tmp file.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SpoolRenameRetryInterval  </TD>
+<TD width=23%>300</TD>
+<TD width=47%>Number of milliseconds to wait before attempting to rename a spool file.  This is designed to help Eudora recover from cases where a virus scanner like McAfee has locked access to the *.tmp file.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SSLAltPortReceiveVersion   </TD>
+<TD width=23%>0</TD>
+<TD width=47%>Applies to POP and IMAP.  Uses same values as SSLReceiveVersion.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SSLAltPortSendVersion</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Applies to SMTP.  Uses same values as SSLReceiveVersion.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SSLIMAPAlternatePort</TD>
+<TD width=23%>993</TD>
+<TD width=47%>Specifies IMAP alternate port only.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SSLPasswordAlternatePort</TD>
+<TD width=23%>106</TD>
+<TD width=47%>Specifies password alternate port only.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SSLPasswordUse</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Use SSL for password changes or not. If used, the corresponding "receive" settings apply.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SSLPOPAlternatePort</TD>
+<TD width=23%>995</TD>
+<TD width=47%>Specifies POP alternate port only.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SSLReceiveAllowRegExp</TD>
+<TD width=23%>1</TD>
+<TD width=47%>  Applies to POP and IMAP.
+<P>Specify whether you want to allow the usage of Regular        Expressions in hostname matching in CN from the certificate subject or not. For example, if you are connecting to a server cgate.qualcomm.com that has a certificate with CN as *.qualcomm.com, then SSL will succeed if you have the value for this setting set as 1. A value of zero will require the server to have a certificate with CN=cgate.qualcomm.com causing SSL to fail because of hostname mismatch.</P>
+
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SSLReceiveAllowVersion2</TD>
+<TD width=23%>1</TD>
+<TD width=47%>Applies to POP and IMAP.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SSLReceiveIgnoreExpCert</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Applies to POP and IMAP.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SSLReceiveMinEncryption</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Applies to POP and IMAP.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SSLReceiveMinKeyExchangeLength</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Applies to POP and IMAP.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SSLReceiveVersion3</TD>
+<TD width=23%>6 (default)
+<P>0=Undetermined</P>
+
+<P>1=SSL_Version_3.0_With_2_0_Hello</P>
+
+<P>2=SSL_Version_3_0_Only</P>
+
+<P>3=SSL_Version_1_0_Only</P>
+
+<P>4=TLS_Version_1.0_With_2_0_Hello</P>
+
+<P>5=SSL_Version_2_0_</P>
+
+<P>6=SSL_Version_3_0_</P>
+
+<P>7=TLS_Version_1_0_</P>
+</TD>
+<TD width=47%>Applies to POP and IMAP.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SSLSendAllowRegExp</TD>
+<TD width=23%>1</TD>
+<TD width=47%>Applies to SMTP.
+<P>Specify whether you want to allow the usage of Regular Expressions in hostname matching in CN from the certificate subject or not. For example, if you are connecting to a server cgate.qualcomm.com that has a certificate with CN as *.qualcomm.com, then SSL will succeed if you have the value for this setting set as 1. A value of zero will require the server to have a certificate with CN=cgate.qualcomm.com causing SSL to fail because of hostname mismatch.</P>
+
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SSLSendAllowVersion2</TD>
+<TD width=23%>1</TD>
+<TD width=47%>Applies to SMTP.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SSLSendIgnoreExpCert</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Applies to SMTP.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SSLSendMinEncryption</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Applies to SMTP.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SSLSendMinKeyExchangeLength</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Applies to SMTP.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SSLSendVersion3</TD>
+<TD width=23%>6</TD>
+<TD width=47%>Applies to SMTP.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SSLSMTPAlternatePort</TD>
+<TD width=23%>465</TD>
+<TD width=47%>Applies to SMTP.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>StatBarBlink</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Controls whether or not the icon shown in the status bar for tasks that are waiting or have errors should blink.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>StatBarRunningAnimationRate</TD>
+<TD width=23%>125</TD>
+<TD width=47%>Controls the speed of the animated icon in the status bar for tasks that are currently running (units in milliseconds between images).
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>StatBarWaitingAnimationRate</TD>
+<TD width=23%>500</TD>
+<TD width=47%>Controls the speed of the animated icon in the status bar for tasks that are currently waiting (units in milliseconds between images).
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>StatBarErrorAnimationRate</TD>
+<TD width=23%>250</TD>
+<TD width=47%>Controls the speed of the animated icon in the status bar for tasks that currently have errors (units in milliseconds between images).
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>StatBarGraphWidth</TD>
+<TD width=23%>100</TD>
+<TD width=47%>The width (in pixels) of the background task progress bar that shows up in the status bar.  Set to zero to prevent the progress bar from being displayed.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>StationerySignatureRules
+<P><BR>
+</P>
+</TD>
+<TD width=23%>1
+<P><BR>
+</P>
+</TD>
+<TD width=47%>Signature precedence is as follows: User's selection; Stationery's signature; Personality's signature. Set this to <B>0</B> to put Personality's signature before Stationery's. <BR>
+Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>StripDuplicateAddresses</TD>
+<TD width=23%>1</TD>
+<TD width=47%>When replying to a message, controls whether or not duplicate copies of your email address will be removed from the To: and Cc: headers.  This helps to avoid buildup of your email address in email conversations. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SwitchFindKeyAccl</TD>
+<TD width=23%>0</TD>
+<TD width=47%>If on, Ctrl+F will open the Find Text window, and the Ctrl+Shift+F will open the Find Message window. By default, it’s the opposite.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>SwitchPreviewWithTab</TD>
+<TD width=23%>1</TD>
+<TD width=47%>When on, pressing the &lt;Tab&gt; key in a mailbox will switch focus between the message list and the previewed message.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>TabooHeaders
+<P><BR>
+</P>
+</TD>
+<TD width=23%>X-<BR>
+UID,Received,Status,X-<BR>
+UIDL,Message,In-<BR>
+Reply,X-<BR>
+Priority,Mime-<BR>
+Version,Content-<BR>
+,X-Persona,Resent-<BR>
+Message,Referen<BR>
+es,Return,X400,X-<BR>
+400,Mail-<BR>
+System,Errors-To,X-<BR>
+List,Delivery,Disposi<BR>
+tion,X-<BR>
+Juno,Precedence,<BR>
+X-Attachments,X-<BR>
+MSMail,X-MimeOLE<BR>
+</TD>
+<TD width=47%>A comma-separated list of headers (without colons) that should not be shown when the "Show all headers" switch (the "Blah Blah Blah" icon) is off for a message. The matching is done on a prefix basis, so any header that begins with one of these values will not be shown. 
+<P><BR>
+Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>TabSpaces
+<P><BR>
+</P>
+</TD>
+<TD width=23%>0
+<P><BR>
+</P>
+</TD>
+<TD width=47%>If on, then when the Tab key is pressed while the cursor is in the body of the message, spaces are inserted instead of a tab character. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>TabStop
+<P><BR>
+</P>
+</TD>
+<TD width=23%>8
+<P><BR>
+</P>
+</TD>
+<TD width=47%>How many spaces to insert for a &lt;Tab&gt; in the body of a composition message. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>TaskErrorKeepAll</TD>
+<TD width=23%>0</TD>
+<TD width=47%>When set, Eudora will not automatically remove errors from the task error list.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>TaskErrorLinesPerRow</TD>
+<TD width=23%>3</TD>
+<TD width=47%>Number of lines for each error in the Task Errors window.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>TaskErrorRemoveFromList</TD>
+<TD width=23%>1</TD>
+<TD width=47%>Controls whether or not to remove errors from the Task Errors window after seeing the corresponding error dialog box. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>TaskMgrWaitTime</TD>
+<TD width=23%>20</TD>
+<TD width=47%>The number of seconds in which the user has to be idle in Eudora (which is defined as pressing any key or mouse button) before background tasks are processed (see IgnoreIdleOnManualCheck above for an exception case).
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>TaskStatusGraphCompletedColor</TD>
+<TD width=23%>18,106,254</TD>
+<TD width=47%>RGB color of the completed portion of the progress bar in the Task Status window.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>TaskStatusGraphRemainColor</TD>
+<TD width=23%>129,207,254</TD>
+<TD width=47%>RGB color of the remaining portion of the progress bar in the Task Status window.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>TaskStatusGraphBorderColor</TD>
+<TD width=23%>0,0,0</TD>
+<TD width=47%>RGB color of the border of the progress bar in the Task Status window.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>TaskStatusRecvGraphCompletedColor</TD>
+<TD width=23%>18,106,254</TD>
+<TD width=47%>RGB color of the completed portion of the progress bar in the Task Status window for receiving mail.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>TaskStatusRecvGraphRemainColor</TD>
+<TD width=23%>129,207,254</TD>
+<TD width=47%>RGB color of the remaining portion of the progress bar in the Task Status window for receiving mail.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>TimeZone</TD>
+<TD width=23%>TimeZone=xxxnnnyyy</TD>
+<TD width=47%>Where xxx, yyy are timezone abbreviations like PST, PDT, CDT, and nnn is the offset in hours WEST of GMT (those that are east of GMT should enter a negative number here). xxx is the timezone during Standard Time and yyy is the timezone during Daylight Savings Time. If you do not change your clocks during Daylight Savings Time, leave yyy blank. Here are some samples: TimeZone=PST8PDT TimeZone=MET-1
+<P>If you don’t specify a TimeZone entry, then a Date: header will not be put in outgoing messages, which is fine for most because their mail server will insert the correct Date: header. If you don’t get messages bounced because of a missing Date: header, then leave the TimeZone entry alone.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>TocDateLeeway
+<P><BR>
+</P>
+</TD>
+<TD width=23%>10
+<P><BR>
+</P>
+</TD>
+<TD width=47%>Number of seconds that the date on a mailbox .TOC file can be behind the .MBX file that Eudora will not flag as being out of date. Helpful for network file systems, especially Windows NT Server which seems to have problems correctly time/date stamping files. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>ToolbarDisplayFix</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Setting this to 1 causes the icons to be imaged from a device-independent bitmap to resolve issues with video drivers that cannot display Eudora’s toolbar icons. Setting this to 2 limits the toolbar to the icons that are in the default toolbar. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>TreeControlAutoExpandDelay</TD>
+<TD width=23%>1000</TD>
+<TD width=47%>Delay (in milliseconds) in which Eudora will wait before auto-expanding an item in a tree control.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>TreeControlAutoScrollDelay</TD>
+<TD width=23%>100</TD>
+<TD width=47%>Delay (in milliseconds) in which Eudora will wait before auto-scrolling a tree control.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>TypeToSelectSubject</TD>
+<TD width=23%>0</TD>
+<TD width=47%>When on, typing characters in the summaries of a mailbox window will attempt to match words in the Subject field. (Default behavior is to match the Who field.)
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>UnreadExpires
+<P><BR>
+</P>
+</TD>
+<TD width=23%>5
+<P><BR>
+</P>
+</TD>
+<TD width=47%>The number of days after which a message is no longer used to determine if a mailbox has unread messages in it. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>URLHelper</TD>
+<TD width=23%>&nbsp;</TD>
+<TD width=47%>The full path of the application used to launch URLs. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>URLHighlight<BR>
+</TD>
+<TD width=23%>1</TD>
+<TD width=47%>Display URLs in blue underline style. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>UseJunkMailbox        </TD>
+<TD width=23%>0</TD>
+<TD width=47%>If this is 1 junk mail will automatically be placed in the Junk mailbox.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>UsePOPCAPA</TD>
+<TD width=23%>1</TD>
+<TD width=47%>Whether or not Eudora should send the CAPA command to the POP server. Used only to see if the server supports the MANGLE command modifier. See UsePOPMangle.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>UsePOPMangle</TD>
+<TD width=23%>0</TD>
+<TD width=47%>Whether or not Eudora should use the MANGLE modifer to the TOP command in a POP connection. MANGLE can produce some better results for messages that are large, giving a summary for the attachments in the message. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>UsePOPSend
+<P><BR>
+</P>
+</TD>
+<TD width=23%>0
+<P><BR>
+</P>
+</TD>
+<TD width=47%>If UsePOPSend is on, Eudora will send mail using the POP3 extended command XTND XMIT. Since this is an optional command for POP3, many POP3 servers do not support this command (Berkeley's popper, however, does). There are pros and cons to using POP3 to send your mail. It provides a level of security since it requires a username/password pair to send mail messages, unlike SMTP. It is faster than SMTP, especially when checking for new mail at the same time. It doesn't check for valid recipients until the entire message is sent, and some implementations (Berkeley's popper, for example) won't tell you which recipients are invalid and will send the message to the valid recipients anyway. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>UseQuickTime</TD>
+<TD width=23%>1</TD>
+<TD width=47%>If off, Eudora will never attempt to use QuickTime to display images. Useful for situations where QuickTime is causing instability in the system.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>UseRelay               </TD>
+<TD width=23%>1</TD>
+<TD width=47%>If this is 1 sending messages for all personalities will use the SMTP settings for the relay personality.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>UserChangeLex
+<P><BR>
+</P>
+</TD>
+<TD width=23%>uchange.tlx
+<P><BR>
+</P>
+</TD>
+<TD width=47%>Filename of user-defined list of words to change when spell checking. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>UserIgnoreLex
+<P><BR>
+</P>
+</TD>
+<TD width=23%>uignore.tlx
+<P><BR>
+</P>
+</TD>
+<TD width=47%>Filename of user-defined list of words to ignore when spell checking. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>UserSuggestLex
+<P><BR>
+</P>
+</TD>
+<TD width=23%>usuggest.tlx
+<P><BR>
+</P>
+</TD>
+<TD width=47%>Filename of user-defined list of words to suggest when spell checking. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>WarnBeforeAging        </TD>
+<TD width=23%>1</TD>
+<TD width=47%>If this is 1 the user will be warned before old junk is trimmed.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>WarnLaunchExtension</TD>
+<TD width=23%>&nbsp;</TD>
+<TD width=47%>User-supplied list of extra file extensions that Eudora should warn when trying to launch an attachment (Eudora has a string resource that contains the default list of extensions that should be used to warn).
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>WarnLaunchRemove</TD>
+<TD width=23%>&nbsp;</TD>
+<TD width=47%>User-supplied list of file extensions that should be removed from the default list of extensions to warn when trying to launch an attachment.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>WarnMapiAutoSend</TD>
+<TD width=23%>1</TD>
+<TD width=47%>If 1 (on), Eudora provides a warning dialog when a simple MAPI client tries to send messages through Eudora without showing any UI to the user. This was also added to the Tools/Options/MAPI dialog.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>WebLinkReminderLaterNum Minutes</TD>
+<TD width=23%>360 minutes</TD>
+<TD width=47%>When you get a link reminder, if you select Remind Me Later, the minimum wait until the next reminder.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>WhenOpeningCompositionWindowSelectAfter</TD>
+<TD width=23%>0</TD>
+<TD width=47%>When on, (if WhenOpeningCompositionWindowSelectAll  and WhenOpeningCompositionWindowSelectBefore are off) messages from the Out mailbox open with the insertion point at the end of the message.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>WhenOpeningCompositionWindowSelectAll</TD>
+<TD width=23%>0</TD>
+<TD width=47%>When on, messages from the Out mailbox open with the original text selected.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>WhenOpeningCompositionWindowSelectBefore</TD>
+<TD width=23%>1</TD>
+<TD width=47%>When on, (if WhenOpeningCompositionWindowSelectAll  is off) messages from the Out mailbox open with the insertion point at the top of the message.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>WhenReplyingSelectAll</TD>
+<TD width=23%>0</TD>
+<TD width=47%>When on, reply messages are opened with the original text selected.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>WhenReplyingTypeAfter</TD>
+<TD width=23%>0</TD>
+<TD width=47%>When on, (if WhenReplyingSelectAll and WhenReplyingTypeBefore are off) reply messages open with the cursor below the quoted text.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>WhenReplyingTypeBefore</TD>
+<TD width=23%>1</TD>
+<TD width=47%>When on, (if WhenReplyingSelectAll is off) reply messages open with the cursor above the quoted text.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>WholeSummaryLabelColor</TD>
+<TD width=23%>1</TD>
+<TD width=47%>When on, the entire summary of a message that has a label is drawn in that label’s color. When off, only the text in the Label column appears in the label’s color. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>WordWrapColumn
+<P><BR>
+</P>
+</TD>
+<TD width=23%>76
+<P><BR>
+</P>
+</TD>
+<TD width=47%>When the "Word wrap" switch is on, this is the column in which lines in outgoing messages are wrapped. 
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>WordWrapMax
+<P><BR>
+</P>
+</TD>
+<TD width=23%>80
+<P><BR>
+</P>
+</TD>
+<TD width=47%>When the "Word wrap" switch is on, this is the length at which a line in an outgoing message is considered too long and must be wrapped. <BR>
+Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>WordWrapOnScreen</TD>
+<TD width=23%>0</TD>
+<TD width=47%>If this is on (set to non-zero), then the composition window will automatically wrap text on the screen at the number of characters specified in WordWrapColumn, regardless of the width of the window.
+<P>Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>WrapMenus    </TD>
+<TD width=23%>1</TD>
+<TD width=47%>Controls whether menus with a lot of menu items (e.g. the Mailbox/Transfer menus when there are a lot of mailboxes at one level) should be wrapped to be in multiple columns.  Users with later OSes (e.g. 98 and 2000) may want to turn off this setting to take advantage of the scrolling menus that those OSes provide.Width3Width9506 Width3Width2880Width3Width2250Width3Width4376</TD>
+</TR>
+</TABLE><BR>
+
+<H2>Mappings</H2>
+
+<P>This is a sample Mappings section. It is <I>not</I> a default for Eudora if you have a missing or empty Mappings section. The Mappings section contains information for mapping between PC file extensions, Macintosh creator and type, and MIME type and subtype for attachment files (in that order). Entries marked "in" work on only incoming messages, and entries marked "out" work on only outgoing messages. Entries marked "both" work on both incoming and outgoing messages.<BR>
+For a more detailed explanation, see the "MIME and Mappings" section of the online user manual.</P>
+
+<P>out=txt,ttxt,TEXT,text,plain<BR>
+both=doc,MSWD,,application,msword<BR>
+in=xls,XCEL,,,<BR>
+out=xls,XCEL,XLS4,,<BR>
+both=xlc,XCEL,XLC3,,<BR>
+both=xlm,XCEL,XLM3,,<BR>
+both=ppt,PPT3,SLD3,,<BR>
+both=wp,WPC2,.WP5,application,wordperfect5.1<BR>
+both=zip,,,application,zip<BR>
+both=rtf,,,application,rtf<BR>
+both=ps,,,application,postcript<BR>
+in=eps,,EPSF,,<BR>
+out=eps,dPro,EPSF,application,postscript<BR>
+both=mpg,,,video,mpeg<BR>
+both=jpg,,,image,jpeg<BR>
+both=gif,,,image,gif<BR>
+both=tif,,,image,tiff<BR>
+both=pct,,PICT,,<BR>
+both=mac,MPNT,PNTG,,</P>
+
+<H2>Window Position</H2>
+
+<P>The Window Position section saves the positions of the standard windows (not your mailbox windows and message windows).</P>
+
+<TABLE border=1 cols=2 frame=box rules=all width=594>
+
+<TR VALIGN="top">
+<TD width=74%>Width1 Width3Width6648Width3Width2262<B>Entry</B>
+<P><BR>
+</P>
+</TD>
+<TD width=26%><B>Default Value </B>
+<P><BR>
+Width1 Width3Width6648Width3Width2262</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=74%>CheckSpellingWindowPosition
+<P><BR>
+</P>
+</TD>
+<TD width=26%>0,0,0,0
+<P><BR>
+Width1 Width3Width6648Width3Width2262</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=74%>DebugTraceWindowPosition</TD>
+<TD width=26%>110,185,635,500
+<P>Width1 Width3Width6648Width3Width2262</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=74%>FilterReportWindowPosition</TD>
+<TD width=26%>10,10,500,300
+<P>Width1 Width3Width6648Width3Width2262</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=74%>FiltersWindowPosition</TD>
+<TD width=26%>60,345,580,480
+<P>Width1 Width3Width6648Width3Width2262</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=74%>FindWindowPosition
+<P><BR>
+</P>
+</TD>
+<TD width=26%>60,345,580,480
+<P><BR>
+Width1 Width3Width6648Width3Width2262</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=74%>InputDialogWindowPosition</TD>
+<TD width=26%>50,100,358,450
+<P>Width1 Width3Width6648Width3Width2262</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=74%>MailboxesWindowPosition</TD>
+<TD width=26%>80,80,565,415
+<P>Width1 Width3Width6648Width3Width2262</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=74%>MainWindowPosition
+<P><BR>
+</P>
+</TD>
+<TD width=26%>0,0,640,480
+<P><BR>
+Width1 Width3Width6648Width3Width2262</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=74%>NicknamesWindowPosition</TD>
+<TD width=26%>50,5,590,475
+<P>Width1 Width3Width6648Width3Width2262</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=74%>PhWindowPosition</TD>
+<TD width=26%>10,40,630,440
+<P>Width1 Width3Width6648Width3Width2262</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=74%>ProgressWindowPosition
+<P><BR>
+</P>
+</TD>
+<TD width=26%>0,0,0,0
+<P><BR>
+Width1 Width3Width6648Width3Width2262</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=74%>SignatureWindowPosition
+<P><BR>
+</P>
+</TD>
+<TD width=26%>10,60,630,240
+<P><BR>
+Width1 Width3Width6648Width3Width2262</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=74%>TextFileWindowPosition
+<P><BR>
+</P>
+</TD>
+<TD width=26%>0,0,600,460
+<P><BR>
+Width1 Width3Width6648Width3Width2262</P>
+</TD>
+</TR>
+</TABLE><BR>
+
+<H2>Tool Bar</H2>
+
+<P>This section reflects the current settings of the main Eudora toolbar. If you create additional Eudora toolbars, then additional Tool Bar sections will appear in the INI file.</P>
+
+<P><I><BR>
+Note: We strongly recommend that you do not change any of the settings in the [Tool Bar] section(s) of the INI file, and that you instead make any changes to any Eudora toolbar from the toolbar customization dialog box (Customize dialog box). This dialog box is accessed by right-clicking anywhere on the toolbar and selecting <B>Customize...</B> from the drop-down menu. For more information, see "Customizing the Main Toolbar" in the online user manual.</I></P>
+
+<H2>Directory Services</H2>
+
+<P>The Directory Services section controls the use of the Directory Services window (accessed from Eudora's Tools menu) and its associated databases. For more information on Directory Services, see its dedicated section in the online user manual.</P>
+
+<P><I><BR>
+Note: Of the entries listed below, only those marked with an asterisk (*) are user-settable.</I></P>
+
+<TABLE border=1 cols=3 frame=box rules=all width=594>
+
+<TR VALIGN="top">
+<TD width=26%><I>Width1 Width3Width2340Width3Width1260Width3Width5310</I><B>Entry</B></TD>
+<TD width=14%><B>Default Value </B>
+<P><BR>
+</P>
+</TD>
+<TD width=60%><B>Description</B>
+<P><BR>
+Width1 Width3Width2340Width3Width1260Width3Width5310</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=26%>OldKeepOnTopConverted
+<P><BR>
+</P>
+</TD>
+<TD width=14%><BR>
+</TD>
+<TD width=60%>What in pre-4.0 versions of Eudora used to be [Settings] AddressKeepForeground is now KeepOnTop in this section. KeepOnTop saves the check state of the "Keep On Top" check button in the Directory Services window. Eudora uses this entry (OldKeepOnTopConverted) to determine if the AddressKeepForeground entry from a pre-4.0 version of Eudora has been mapped to the current version. When Eudora 4.x is run for the first time, it sets the KeepOnTop entry (described below) equal to the value of AddressKeepForeground. In addition, it also sets this entry equal to 1 so that the next time Eudora is run, it reads the check state from KeepOnTop rather than from AddressKeepForeground. 
+<P>Width1 Width3Width2340Width3Width1260Width3Width5310</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=26%>PanesY*
+<P><BR>
+</P>
+</TD>
+<TD width=14%><BR>
+</TD>
+<TD width=60%>This entry reflects the height of the Directory Services window when Eudora was last shut down. 
+<P>Width1 Width3Width2340Width3Width1260Width3Width5310</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=26%>LeftPaneX*
+<P><BR>
+</P>
+</TD>
+<TD width=14%><BR>
+</TD>
+<TD width=60%>This entry reflects the width of the left pane of the Directory Services window when Eudora was last shut down. 
+<P>Width1 Width3Width2340Width3Width1260Width3Width5310</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=26%>RightPaneX*
+<P><BR>
+</P>
+</TD>
+<TD width=14%><BR>
+</TD>
+<TD width=60%>This entry reflects the width of the right pane of the Directory Services window when Eudora was last shut down. 
+<P>Width1 Width3Width2340Width3Width1260Width3Width5310</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=26%>KeepOnTop*
+<P><BR>
+</P>
+</TD>
+<TD width=14%><BR>
+</TD>
+<TD width=60%>This entry reflects the check state of the "Keep On Top" check button in the Directory Services window when Eudora was last shut down. 
+<P>Width1 Width3Width2340Width3Width1260Width3Width5310</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=26%>LDAP:ldap.bigfoot.com*
+<P><BR>
+</P>
+</TD>
+<TD width=14%><BR>
+</TD>
+<TD width=60%>This entry reflects the check state of the LDAP database "ldap.bigfoot.com" when Eudora was last shut down. The check state of other LDAP databases is reflected in similar entries. 
+<P>Width1 Width3Width2340Width3Width1260Width3Width5310</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=26%>Ph:ph.bigfoot.com*
+<P><BR>
+</P>
+</TD>
+<TD width=14%><BR>
+</TD>
+<TD width=60%>This entry reflects the check state of the Ph database "ph.bigfoot.com" when Eudora was last shut down. The check state of other Ph databases is reflected in similar entries. 
+<P>Width1 Width3Width2340Width3Width1260Width3Width5310</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=26%>Eudora Address Book:Eudora Nicknames* 
+<P><BR>
+</P>
+</TD>
+<TD width=14%><BR>
+</TD>
+<TD width=60%>This entry reflects the check state of the Eudora Address Book database "Eudora Nicknames" when Eudora was last shut down. The check state of other Eudora Address Book databases is reflected in similar entries. 
+<P>Width1 Width3Width2340Width3Width1260Width3Width5310</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=26%>Finger:hostname.domain.com*
+<P><BR>
+</P>
+</TD>
+<TD width=14%><BR>
+</TD>
+<TD width=60%>This entry reflects the check state of the Finger database "hostname.domain.com" when Eudora was last shut down. The check state of other Finger databases (or daemons) is reflected in similar entries. 
+<P>Width1 Width3Width2340Width3Width1260Width3Width5310</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=26%>DIRSERV-Major
+<P><BR>
+</P>
+</TD>
+<TD width=14%><BR>
+</TD>
+<TD width=60%>This entry reflects the major version of DirServ.dll that was last registered. Combined with the minor version of this DLL (see the next entry below), Eudora at run time determines whether the DLL is a newer version than the one last registered so that it can register the new COM objects, if any, in the newer DLL. 
+<P>Width1 Width3Width2340Width3Width1260Width3Width5310</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=26%>DIRSERV-Minor
+<P><BR>
+</P>
+</TD>
+<TD width=14%><BR>
+</TD>
+<TD width=60%>This entry reflects the minor version of DirServ.dll that was last registered. See the description above for DIRSERV-Major. 
+<P>Width1 Width3Width2340Width3Width1260Width3Width5310</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=26%>ISOCK-Major
+<P><BR>
+</P>
+</TD>
+<TD width=14%><BR>
+</TD>
+<TD width=60%>This entry reflects the major version of ISock.dll that was last registered. A similar description as the one in DIRSERV-Major above applies. 
+<P>Width1 Width3Width2340Width3Width1260Width3Width5310</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=26%>ISOCK-Minor
+<P><BR>
+</P>
+</TD>
+<TD width=14%><BR>
+</TD>
+<TD width=60%>This entry reflects the minor version of ISock.dll that was last registered. A similar description as the one in DIRSERV-Major above applies. 
+<P>Width1 Width3Width2340Width3Width1260Width3Width5310</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=26%>EUDORABK-Major
+<P><BR>
+</P>
+</TD>
+<TD width=14%><BR>
+</TD>
+<TD width=60%>This entry reflects the major version of EudoraBk.dll that was last registered. A similar description as the one in DIRSERV-Major above applies. 
+<P>Width1 Width3Width2340Width3Width1260Width3Width5310</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=26%>EUDORABK-Minor
+<P><BR>
+</P>
+</TD>
+<TD width=14%><BR>
+</TD>
+<TD width=60%>This entry reflects the minor version of EudoraBk.dll that was last registered. A similar description as the one in DIRSERV-Major above applies. 
+<P>Width1 Width3Width2340Width3Width1260Width3Width5310</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=26%>LDAP-Major
+<P><BR>
+</P>
+</TD>
+<TD width=14%><BR>
+</TD>
+<TD width=60%>This entry reflects the major version of Ldap.dll that was last registered. A similar description as the one in DIRSERV-Major above applies. 
+<P>Width1 Width3Width2340Width3Width1260Width3Width5310</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=26%>LDAP-Minor
+<P><BR>
+</P>
+</TD>
+<TD width=14%><BR>
+</TD>
+<TD width=60%>This entry reflects the minor version of Ldap.dll that was last registered. A similar description as the one in DIRSERV-Major above applies. 
+<P>Width1 Width3Width2340Width3Width1260Width3Width5310</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=26%>PH-Major
+<P><BR>
+</P>
+</TD>
+<TD width=14%><BR>
+</TD>
+<TD width=60%>This entry reflects the major version of Ph.dll that was last registered. A similar description as the one in DIRSERV-Major above applies. 
+<P>Width1 Width3Width2340Width3Width1260Width3Width5310</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=26%>PH-Minor
+<P><BR>
+</P>
+</TD>
+<TD width=14%><BR>
+</TD>
+<TD width=60%>This entry reflects the minor version of Ph.dll that was last registered. A similar description as the one in DIRSERV-Major above applies. 
+<P>Width1 Width3Width2340Width3Width1260Width3Width5310</P>
+</TD>
+</TR>
+</TABLE><BR>
+
+<H2>Debug</H2>
+
+<P>The Debug section controls aspects of the Eudora log file. The Eudora log file is a handy tool for debugging network connections, especially when using the dialup connection method.</P>
+
+<TABLE border=1 cols=3 frame=box rules=all width=594>
+
+<TR VALIGN="top">
+<TD width=25%>Width1 Width3Width2304Width3Width1682Width3Width4924<B>Entry</B>
+<P><BR>
+</P>
+</TD>
+<TD width=19%><B>Default Value </B>
+<P><BR>
+</P>
+</TD>
+<TD width=56%><B>Description</B>
+<P><BR>
+Width1 Width3Width2304Width3Width1682Width3Width4924</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=25%>LogFileName</TD>
+<TD width=19%>EUDORA.LOG</TD>
+<TD width=56%>The name of the log file. Width1 Width3Width2304Width3Width1682Width3Width4924</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=25%>LogFileSize
+<P><BR>
+</P>
+</TD>
+<TD width=19%>5000
+<P><BR>
+</P>
+</TD>
+<TD width=56%>The size (in KB) of the log file that, when reached, will cause the log file to be copied to the file EUDORLOG.OLD and a new log file to be started. 
+<P>Width1 Width3Width2304Width3Width1682Width3Width4924</P>
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=25%>LogLeve</TD>
+<TD width=19%>1183 (which is bits 1, 2, 3, 4, 5, 8, 11)
+<P><BR>
+</P>
+</TD>
+<TD width=56%>A bit-mapped value telling what type of information to log:<BR>
+Bit 1 (1): Sending of a message<BR>
+Bit 2 (2): Receipt of a message<BR>
+Bit 3 (4): Dialup script navigation commands<BR>
+Bit 4 (8): Alert messages<BR>
+Bit 5 (16): Progress messages<BR>
+Bit 6 (32): All bytes sent<BR>
+Bit 7 (64): All bytes received 
+<P>Bit 8 (128): Corrupt mailbox TOC file messages</P>
+
+<P>Bit 9 (256): Basic EMSAPI translator messages</P>
+
+<P>Bit 10 (512): Advanced EMSAPI translator messages</P>
+
+<P>Width1 Width3Width2304Width3Width1682Width3Width4924</P>
+</TD>
+</TR>
+</TABLE><BR>
+
+<P><B>To get the latest EUDORA.INI file settings, click www.eudora.com/techsupport/ini.html:</B></P>
+
+<P>The EUDORA.INI settings are continuously being updated.         </P>
+
+</BODY>
+</HTML>

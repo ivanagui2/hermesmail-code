@@ -1,4 +1,11 @@
-#!/usr/local/bin/perl
+#! /usr/bin/env perl
+# Copyright 1995-2016 The OpenSSL Project Authors. All Rights Reserved.
+#
+# Licensed under the OpenSSL license (the "License").  You may not use
+# this file except in compliance with the License.  You can obtain a copy
+# in the file LICENSE in the source distribution or at
+# https://www.openssl.org/source/license.html
+
 
 # void des_ncbc_encrypt(input, output, length, schedule, ivec, enc)
 # des_cblock (*input);
@@ -8,7 +15,7 @@
 # des_cblock (*ivec);
 # int enc;
 #
-# calls 
+# calls
 # des_encrypt((DES_LONG *)tin,schedule,DES_ENCRYPT);
 #
 
@@ -29,7 +36,7 @@ sub cbc
 	# name is the function name
 	# enc_func and dec_func and the functions to call for encrypt/decrypt
 	# swap is true if byte order needs to be reversed
-	# iv_off is parameter number for the iv 
+	# iv_off is parameter number for the iv
 	# enc_off is parameter number for the encrypt/decrypt flag
 	# p1,p2,p3 are the offsets for parameters to be passed to the
 	# underlying calls.
@@ -107,7 +114,7 @@ sub cbc
 	#############################################################
 
 	&set_label("encrypt_loop");
-	# encrypt start 
+	# encrypt start
 	# "eax" and "ebx" hold iv (or the last cipher text)
 
 	&mov("ecx",	&DWP(0,$in,"",0));	# load first 4 bytes
@@ -150,7 +157,7 @@ sub cbc
 &set_label("PIC_point");
 	&blindpop("edx");
 	&lea("ecx",&DWP(&label("cbc_enc_jmp_table")."-".&label("PIC_point"),"edx"));
-	&mov($count,&DWP(0,"ecx",$count,4))
+	&mov($count,&DWP(0,"ecx",$count,4));
 	&add($count,"edx");
 	&xor("ecx","ecx");
 	&xor("edx","edx");
@@ -158,7 +165,6 @@ sub cbc
 	&jmp_ptr($count);
 
 &set_label("ej7");
-	&xor("edx",		"edx") if $ppro; # ppro friendly
 	&movb(&HB("edx"),	&BP(6,$in,"",0));
 	&shl("edx",8);
 &set_label("ej6");
@@ -170,7 +176,6 @@ sub cbc
 	&jmp(&label("ejend"));
 &set_label("ej3");
 	&movb(&HB("ecx"),	&BP(2,$in,"",0));
-	&xor("ecx",		"ecx") if $ppro; # ppro friendly
 	&shl("ecx",8);
 &set_label("ej2");
 	&movb(&HB("ecx"),	&BP(1,$in,"",0));
@@ -203,7 +208,7 @@ sub cbc
 	#############################################################
 	#############################################################
 	&set_label("decrypt",1);
-	# decrypt start 
+	# decrypt start
 	&and($count,0xfffffff8);
 	# The next 2 instructions are only for if the jz is taken
 	&mov("eax",	&DWP($data_off+8,"esp","",0));	# get iv[0]
@@ -322,7 +327,8 @@ sub cbc
 
 	&function_end_A($name);
 
-	&set_label("cbc_enc_jmp_table",1);
+	&align(64);
+	&set_label("cbc_enc_jmp_table");
 	&data_word("0");
 	&data_word(&label("ej1")."-".&label("PIC_point"));
 	&data_word(&label("ej2")."-".&label("PIC_point"));
@@ -341,9 +347,10 @@ sub cbc
 	#&data_word(&label("dj5")."-".&label("PIC_point"));
 	#&data_word(&label("dj6")."-".&label("PIC_point"));
 	#&data_word(&label("dj7")."-".&label("PIC_point"));
+	&align(64);
 
 	&function_end_B($name);
-	
+
 	}
 
 1;

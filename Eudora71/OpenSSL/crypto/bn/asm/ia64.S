@@ -1,11 +1,18 @@
 .explicit
 .text
 .ident	"ia64.S, Version 2.1"
-.ident	"IA-64 ISA artwork by Andy Polyakov <appro@fy.chalmers.se>"
+.ident	"IA-64 ISA artwork by Andy Polyakov <appro@openssl.org>"
+
+// Copyright 2001-2018 The OpenSSL Project Authors. All Rights Reserved.
+//
+// Licensed under the OpenSSL license (the "License").  You may not use
+// this file except in compliance with the License.  You can obtain a copy
+// in the file LICENSE in the source distribution or at
+// https://www.openssl.org/source/license.html
 
 //
 // ====================================================================
-// Written by Andy Polyakov <appro@fy.chalmers.se> for the OpenSSL
+// Written by Andy Polyakov <appro@openssl.org> for the OpenSSL
 // project.
 //
 // Rights for redistribution and usage in source and binary forms are
@@ -13,7 +20,7 @@
 // disclaimed.
 // ====================================================================
 //
-// Version 2.x is Itanium2 re-tune. Few words about how Itanum2 is
+// Version 2.x is Itanium2 re-tune. Few words about how Itanium2 is
 // different from Itanium to this module viewpoint. Most notably, is it
 // "wider" than Itanium? Can you experience loop scalability as
 // discussed in commentary sections? Not really:-( Itanium2 has 6
@@ -22,7 +29,7 @@
 // ports is the same, i.e. 2, while I need 4. In other words, to this
 // module Itanium2 remains effectively as "wide" as Itanium. Yet it's
 // essentially different in respect to this module, and a re-tune was
-// required. Well, because some intruction latencies has changed. Most
+// required. Well, because some instruction latencies has changed. Most
 // noticeably those intensively used:
 //
 //			Itanium	Itanium2
@@ -134,7 +141,7 @@
 //	User Mask I want to excuse the kernel from preserving upper
 //	(f32-f128) FP register bank over process context switch, thus
 //	minimizing bus bandwidth consumption during the switch (i.e.
-//	after PKI opration completes and the program is off doing
+//	after PKI operation completes and the program is off doing
 //	something else like bulk symmetric encryption). Having said
 //	this, I also want to point out that it might be good idea
 //	to compile the whole toolkit (as well as majority of the
@@ -150,12 +157,15 @@
 #else
 #define	ADDP	add
 #endif
+#ifdef __VMS
+.alias abort, "decc$abort"
+#endif
 
 #if 1
 //
 // bn_[add|sub]_words routines.
 //
-// Loops are spinning in 2*(n+5) ticks on Itanuim (provided that the
+// Loops are spinning in 2*(n+5) ticks on Itanium (provided that the
 // data reside in L1 cache, i.e. 2 ticks away). It's possible to
 // compress the epilogue and get down to 2*n+6, but at the cost of
 // scalability (the neat feature of this implementation is that it
@@ -171,21 +181,21 @@
 .skip	32	// makes the loop body aligned at 64-byte boundary
 bn_add_words:
 	.prologue
-	.fframe	0
 	.save	ar.pfs,r2
 { .mii;	alloc		r2=ar.pfs,4,12,0,16
 	cmp4.le		p6,p0=r35,r0	};;
 { .mfb;	mov		r8=r0			// return value
 (p6)	br.ret.spnt.many	b0	};;
 
-	.save	ar.lc,r3
 { .mib;	sub		r10=r35,r0,1
+	.save	ar.lc,r3
 	mov		r3=ar.lc
 	brp.loop.imp	.L_bn_add_words_ctop,.L_bn_add_words_cend-16
 					}
-	.body
 { .mib;	ADDP		r14=0,r32		// rp
+	.save	pr,r9
 	mov		r9=pr		};;
+	.body
 { .mii;	ADDP		r15=0,r33		// ap
 	mov		ar.lc=r10
 	mov		ar.ec=6		}
@@ -224,21 +234,21 @@ bn_add_words:
 .skip	32	// makes the loop body aligned at 64-byte boundary
 bn_sub_words:
 	.prologue
-	.fframe	0
 	.save	ar.pfs,r2
 { .mii;	alloc		r2=ar.pfs,4,12,0,16
 	cmp4.le		p6,p0=r35,r0	};;
 { .mfb;	mov		r8=r0			// return value
 (p6)	br.ret.spnt.many	b0	};;
 
-	.save	ar.lc,r3
 { .mib;	sub		r10=r35,r0,1
+	.save	ar.lc,r3
 	mov		r3=ar.lc
 	brp.loop.imp	.L_bn_sub_words_ctop,.L_bn_sub_words_cend-16
 					}
-	.body
 { .mib;	ADDP		r14=0,r32		// rp
+	.save	pr,r9
 	mov		r9=pr		};;
+	.body
 { .mii;	ADDP		r15=0,r33		// ap
 	mov		ar.lc=r10
 	mov		ar.ec=6		}
@@ -283,7 +293,6 @@ bn_sub_words:
 .skip	32	// makes the loop body aligned at 64-byte boundary
 bn_mul_words:
 	.prologue
-	.fframe	0
 	.save	ar.pfs,r2
 #ifdef XMA_TEMPTATION
 { .mfi;	alloc		r2=ar.pfs,4,0,0,0	};;
@@ -294,9 +303,10 @@ bn_mul_words:
 	cmp4.le		p6,p0=r34,r0
 (p6)	br.ret.spnt.many	b0		};;
 
-	.save	ar.lc,r3
 { .mii;	sub	r10=r34,r0,1
+	.save	ar.lc,r3
 	mov	r3=ar.lc
+	.save	pr,r9
 	mov	r9=pr			};;
 
 	.body
@@ -363,7 +373,7 @@ bn_mul_words:
 // The loop therefore spins at the latency of xma minus 1, or in other
 // words at 6*(n+4) ticks:-( Compare to the "production" loop above
 // that runs in 2*(n+11) where the low latency problem is worked around
-// by moving the dependency to one-tick latent interger ALU. Note that
+// by moving the dependency to one-tick latent integer ALU. Note that
 // "distance" between ldf8 and xma is not latency of ldf8, but the
 // *difference* between xma and ldf8 latencies.
 .L_bn_mul_words_ctop:
@@ -397,22 +407,21 @@ bn_mul_words:
 .skip	48	// makes the loop body aligned at 64-byte boundary
 bn_mul_add_words:
 	.prologue
-	.fframe	0
 	.save	ar.pfs,r2
-	.save	ar.lc,r3
-	.save	pr,r9
 { .mmi;	alloc		r2=ar.pfs,4,4,0,8
 	cmp4.le		p6,p0=r34,r0
+	.save	ar.lc,r3
 	mov		r3=ar.lc	};;
 { .mib;	mov		r8=r0		// return value
 	sub		r10=r34,r0,1
 (p6)	br.ret.spnt.many	b0	};;
 
-	.body
 { .mib;	setf.sig	f8=r35		// w
+	.save	pr,r9
 	mov		r9=pr
 	brp.loop.imp	.L_bn_mul_add_words_ctop,.L_bn_mul_add_words_cend-16
 					}
+	.body
 { .mmi;	ADDP		r14=0,r32	// rp
 	ADDP		r15=0,r33	// ap
 	mov		ar.lc=r10	}
@@ -423,10 +432,10 @@ bn_mul_add_words:
 
 // This loop spins in 3*(n+10) ticks on Itanium and in 2*(n+10) on
 // Itanium 2. Yes, unlike previous versions it scales:-) Previous
-// version was peforming *all* additions in IALU and was starving
+// version was performing *all* additions in IALU and was starving
 // for those even on Itanium 2. In this version one addition is
 // moved to FPU and is folded with multiplication. This is at cost
-// of propogating the result from previous call to this subroutine
+// of propagating the result from previous call to this subroutine
 // to L2 cache... In other words negligible even for shorter keys.
 // *Overall* performance improvement [over previous version] varies
 // from 11 to 22 percent depending on key length.
@@ -466,7 +475,6 @@ bn_mul_add_words:
 .skip	32	// makes the loop body aligned at 64-byte boundary 
 bn_sqr_words:
 	.prologue
-	.fframe	0
 	.save	ar.pfs,r2
 { .mii;	alloc		r2=ar.pfs,3,0,0,0
 	sxt4		r34=r34		};;
@@ -476,9 +484,10 @@ bn_sqr_words:
 	nop.f		0x0
 (p6)	br.ret.spnt.many	b0	};;
 
-	.save	ar.lc,r3
 { .mii;	sub	r10=r34,r0,1
+	.save	ar.lc,r3
 	mov	r3=ar.lc
+	.save	pr,r9
 	mov	r9=pr			};;
 
 	.body
@@ -494,9 +503,9 @@ bn_sqr_words:
 // possible to compress the epilogue (I'm getting tired to write this
 // comment over and over) and get down to 2*n+16 at the cost of
 // scalability. The decision will very likely be reconsidered after the
-// benchmark program is profiled. I.e. if perfomance gain on Itanium
+// benchmark program is profiled. I.e. if performance gain on Itanium
 // will appear larger than loss on "wider" IA-64, then the loop should
-// be explicitely split and the epilogue compressed.
+// be explicitly split and the epilogue compressed.
 .L_bn_sqr_words_ctop:
 { .mfi;	(p16)	ldf8		f32=[r33],8
 	(p25)	xmpy.lu		f42=f41,f41
@@ -545,7 +554,6 @@ bn_sqr_words:
 .align	64
 bn_sqr_comba8:
 	.prologue
-	.fframe	0
 	.save	ar.pfs,r2
 #if defined(_HPUX_SOURCE) && !defined(_LP64)
 { .mii;	alloc	r2=ar.pfs,2,1,0,0
@@ -570,7 +578,7 @@ bn_sqr_comba8:
 // I've estimated this routine to run in ~120 ticks, but in reality
 // (i.e. according to ar.itc) it takes ~160 ticks. Are those extra
 // cycles consumed for instructions fetch? Or did I misinterpret some
-// clause in Itanium µ-architecture manual? Comments are welcomed and
+// clause in Itanium Âµ-architecture manual? Comments are welcomed and
 // highly appreciated.
 //
 // On Itanium 2 it takes ~190 ticks. This is because of stalls on
@@ -581,7 +589,7 @@ bn_sqr_comba8:
 // as it's over 10 (yes, ten, spelled as t-e-n) times faster than the
 // C version (compiled with gcc with inline assembler). I really
 // kicked compiler's butt here, didn't I? Yeah! This brings us to the
-// following statement. It's darn shame that this routine isn't called
+// following statement. It's damn shame that this routine isn't called
 // very often nowadays! According to the profiler most CPU time is
 // consumed by bn_mul_add_words called from BN_from_montgomery. In
 // order to estimate what we're missing, I've compared the performance
@@ -617,7 +625,6 @@ bn_sqr_comba8:
 .align	64
 bn_mul_comba8:
 	.prologue
-	.fframe	0
 	.save	ar.pfs,r2
 #if defined(_HPUX_SOURCE) && !defined(_LP64)
 { .mii;	alloc	r2=ar.pfs,3,0,0,0
@@ -932,7 +939,7 @@ bn_mul_comba8:
 		xma.hu	f118=f39,f127,f117	}
 { .mfi;		xma.lu	f117=f39,f127,f117	};;//
 //-------------------------------------------------//
-// Leaving muliplier's heaven... Quite a ride, huh?
+// Leaving multiplier's heaven... Quite a ride, huh?
 
 { .mii;	getf.sig	r31=f47
 	add		r25=r25,r24
@@ -1175,7 +1182,6 @@ bn_mul_comba8:
 .align	64
 bn_sqr_comba4:
 	.prologue
-	.fframe	0
 	.save	ar.pfs,r2
 #if defined(_HPUX_SOURCE) && !defined(_LP64)
 { .mii;	alloc   r2=ar.pfs,2,1,0,0
@@ -1208,7 +1214,6 @@ bn_sqr_comba4:
 .align	64
 bn_mul_comba4:
 	.prologue
-	.fframe	0
 	.save	ar.pfs,r2
 #if defined(_HPUX_SOURCE) && !defined(_LP64)
 { .mii;	alloc   r2=ar.pfs,3,0,0,0
@@ -1411,11 +1416,11 @@ equ=p24
 .align	64
 bn_div_words:
 	.prologue
-	.fframe	0
 	.save	ar.pfs,r2
-	.save	b0,r3
 { .mii;	alloc		r2=ar.pfs,3,5,0,8
+	.save	b0,r3
 	mov		r3=b0
+	.save	pr,r10
 	mov		r10=pr		};;
 { .mmb;	cmp.eq		p6,p0=r34,r0
 	mov		r8=-1
@@ -1426,6 +1431,7 @@ bn_div_words:
 	mov		ar.ec=0		// don't rotate at exit
 	mov		pr.rot=0	}
 { .mii;	mov		L=r33		// save l
+	mov		r25=r0		// needed if abort is called on VMS
 	mov		r36=r0		};;
 
 .L_divw_shift:	// -vv- note signed comparison
@@ -1527,9 +1533,8 @@ bn_div_words:
 // output:	f8 = (int)(a/b)
 // clobbered:	f8,f9,f10,f11,pred
 pred=p15
-// One can argue that this snippet is copyrighted to Intel
-// Corporation, as it's essentially identical to one of those
-// found in "Divide, Square Root and Remainder" section at
+// This snippet is based on text found in the "Divide, Square
+// Root and Remainder" section at
 // http://www.intel.com/software/products/opensource/libraries/num.htm.
 // Yes, I admit that the referred code was used as template,
 // but after I realized that there hardly is any other instruction

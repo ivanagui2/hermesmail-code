@@ -1,29 +1,24 @@
-Microsoft Visual Studio Solution File, Format Version 8.00
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SMIME", "SMIME.vcproj", "{2950FE22-CA58-4CE2-BAEF-5444611AA84B}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SMIME", "SMIME.vcxproj", "{2950FE22-CA58-4CE2-BAEF-5444611AA84B}"
 EndProject
 Global
-	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 1
-		SccProjectUniqueName0 = SMIME.vcproj
-		SccProjectName0 = \u0022$/main/plugins/SMIME\u0022,\u0020BXKAAAAA
-		SccLocalPath0 = .
-		SccProvider0 = MSSCCI:Perforce\u0020SCM
-		CanCheckoutShared = true
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
 	EndGlobalSection
-	GlobalSection(SolutionConfiguration) = preSolution
-		Debug = Debug
-		Release = Release
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2950FE22-CA58-4CE2-BAEF-5444611AA84B}.Debug|x86.ActiveCfg = Debug|Win32
+		{2950FE22-CA58-4CE2-BAEF-5444611AA84B}.Debug|x86.Build.0 = Debug|Win32
+		{2950FE22-CA58-4CE2-BAEF-5444611AA84B}.Release|x86.ActiveCfg = Release|Win32
+		{2950FE22-CA58-4CE2-BAEF-5444611AA84B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
-	GlobalSection(ProjectConfiguration) = postSolution
-		{2950FE22-CA58-4CE2-BAEF-5444611AA84B}.Debug.ActiveCfg = Debug|Win32
-		{2950FE22-CA58-4CE2-BAEF-5444611AA84B}.Debug.Build.0 = Debug|Win32
-		{2950FE22-CA58-4CE2-BAEF-5444611AA84B}.Release.ActiveCfg = Release|Win32
-		{2950FE22-CA58-4CE2-BAEF-5444611AA84B}.Release.Build.0 = Release|Win32
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-	EndGlobalSection
-	GlobalSection(ExtensibilityAddIns) = postSolution
+		SolutionGuid = {D44FF804-D0B9-44D6-BE52-137F81DFC35F}
 	EndGlobalSection
 EndGlobal

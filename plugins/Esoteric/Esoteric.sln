@@ -1,26 +1,21 @@
-Microsoft Visual Studio Solution File, Format Version 8.00
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Esoteric", "Esoteric.vcproj", "{655EEB79-E14E-4807-9270-D8CAE1A6D503}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Esoteric", "Esoteric.vcxproj", "{655EEB79-E14E-4807-9270-D8CAE1A6D503}"
 EndProject
 Global
-	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 1
-		SccProjectUniqueName0 = Esoteric.vcproj
-		SccProjectName0 = Esoteric
-		SccLocalPath0 = .
-		SccProvider0 = MSSCCI:Perforce\u0020SCM
-		CanCheckoutShared = true
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Release|x86 = Release|x86
 	EndGlobalSection
-	GlobalSection(SolutionConfiguration) = preSolution
-		Release = Release
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{655EEB79-E14E-4807-9270-D8CAE1A6D503}.Release|x86.ActiveCfg = Release|Win32
+		{655EEB79-E14E-4807-9270-D8CAE1A6D503}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
-	GlobalSection(ProjectConfiguration) = postSolution
-		{655EEB79-E14E-4807-9270-D8CAE1A6D503}.Release.ActiveCfg = Release|Win32
-		{655EEB79-E14E-4807-9270-D8CAE1A6D503}.Release.Build.0 = Release|Win32
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-	EndGlobalSection
-	GlobalSection(ExtensibilityAddIns) = postSolution
+		SolutionGuid = {DB164463-C643-42FE-BFF8-3ACA4797472C}
 	EndGlobalSection
 EndGlobal

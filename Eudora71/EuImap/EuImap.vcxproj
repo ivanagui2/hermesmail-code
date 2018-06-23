@@ -11,10 +11,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <SccProjectName>EuImap</SccProjectName>
+    <SccProjectName>
+    </SccProjectName>
     <SccAuxPath />
-    <SccLocalPath>.</SccLocalPath>
-    <SccProvider>MSSCCI:Perforce SCM</SccProvider>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccProvider>
+    </SccProvider>
     <Keyword>MFCProj</Keyword>
     <ProjectGuid>{D50F60F5-CFCF-48F4-867F-EF743A8FD120}</ProjectGuid>
   </PropertyGroup>

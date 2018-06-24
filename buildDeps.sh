@@ -40,20 +40,42 @@ defineDependency() {
     local dlpath=$5
     local builddir=$6
     local protocol=$7
-    export ${name}Name=$name
-    export ${name}Version=$version
-    export ${name}Dir=$name-$version
-    export ${name}BuildDir=$builddir/$name-$version
-    export ${name}Tarball=$name-$version.tar
-    export ${name}Suffix=$suffix
-    export ${name}Filename=$name-$version.tar.$suffix
-    export ${name}Server=$server
-    export ${name}Path=$dlpath
-    if ! [ $name = libexpat ]; then
-        export ${name}Url=$protocol://$server/$dlpath/$name-$version.tar.$suffix
+
+    echo $name
+    if [[ $name = "docbook-xsl-doc" ]]; then
+       # echo $docbook
+       # export docBookName=$name
+       # export docbookVersion=$version
+       # export docbookDir=$name-$version
+       # export docbookBuildDir=$builddir/$name-$version
+       # export docbookTarball=$name-$version.tar
+       # export docbookSuffix=$suffix
+       # export dockbookFilename=$name-$version.tar.$suffix
+       # export docbookServer=$server
+       # export docbookPath=$dlpath
+       # if ! [ $name = libexpat ]; then
+       #     export docbookUrl=$protocol://$server/$dlpath/$name-$version.tar.$suffix
+       # else
+       #     export docbookUrl=$protocol://$server/$dlpath/$version.tar.$suffix
+       # fi    
+       echo "Messed up"
     else
-        export ${name}Url=$protocol://$server/$dlpath/$version.tar.$suffix
-    fi
+        echo $name
+        export ${name}Name=$name
+        export ${name}Version=$version
+        export ${name}Dir=$name-$version
+        export ${name}BuildDir=$builddir/$name-$version
+        export ${name}Tarball=$name-$version.tar
+        export ${name}Suffix=$suffix
+        export ${name}Filename=$name-$version.tar.$suffix
+        export ${name}Server=$server
+        export ${name}Path=$dlpath
+        if ! [ $name = libexpat ]; then
+            export ${name}Url=$protocol://$server/$dlpath/$name-$version.tar.$suffix
+        else
+            export ${name}Url=$protocol://$server/$dlpath/$version.tar.$suffix
+        fi
+    fi    
 }
 
 downloadPackage() {
@@ -67,6 +89,7 @@ downloadPackage() {
     
     echo "Downloading $name"
     if ! [ -f $filename ]; then
+        echo "\"$url\""
         curl -L -o $filename "$url"
     else
         echo "$name already downloaded."
@@ -104,15 +127,23 @@ echo "Home Directory = $hermesHome"
 buildDepDir="./dependencies"
 
 # Open Source Dependencies
-
+#vhttps://sourceforge.net/projects/docbook/files/docbook-xsl-doc/1.79.1/docbook-xsl-doc-1.79.1.tar.bz2
 echo
 echo "OPEN SOURCE DEPENDENCIES"
+
+defineDependency automake 1.16 gz ftp.gnu.org pub/gnu/automake $buildDepDir ftp
+echo "$automakeName - Needed to support building the dependencies"
+
+defineDependency docbook-xsl-doc 1.79.1 gz sourceforge.net projects/docbook/files/docbook-xsl-doc/1.79.1 $buildDepDir https 
 
 defineDependency libexpat R_2_2_5 gz github.com libexpat/libexpat/archive $buildDepDir https
 echo "$libexpatName - Used in Hermes Messenger"
 
 defineDependency libpng 1.6.34 gz ftp-osl.osuosl.org pub/libpng/src/libpng16 $buildDepDir ftp
 echo "$libpngName - Used in Hermes Messenger"
+
+defineDependency libtool 2.4.6 gz ftp.gnu.org pub/gnu/libtool $buildDepDir ftp
+echo "$libtoolName - Used in Hermes Messenger"
 
 defineDependency openssl 1.1.1-pre8 gz www.openssl.org source $buildDepDir https
 echo "$opensslName - Used in Hermes Messenger"
@@ -133,10 +164,19 @@ echo "DOWNLOADING"
 
 echo
 
+downloadPackage $automakeName $automakeFilename $automakeUrl
+echo
+
+downloadPackage $docbookNam $docbookFilename $docbookUrl
+echo
+
 downloadPackage $libexpatName $libexpatFilename $libexpatUrl
 echo
 
 downloadPackage $libpngName $libpngFilename $libpngUrl
+echo
+
+downloadPackage $libtoolName $libtoolFilename $libtoolUrl
 echo
 
 downloadPackage $opensslName $opensslFilename $opensslUrl
@@ -151,6 +191,10 @@ echo
 # Expand tarballs 
 echo "Expand archives..."
 
+echo 
+echo $automakeFilename
+expandPackage $automakeName $automakeFilename $automakeDir $automakeSuffix
+
 echo
 echo $libexpatFilename
 expandPackage $libexpatName $libexpatFilename $libexpatDir $libexpatSuffix
@@ -158,6 +202,10 @@ expandPackage $libexpatName $libexpatFilename $libexpatDir $libexpatSuffix
 echo
 echo $libpngFilename
 expandPackage $libpngName $libpngFilename $libpngDir $libpngSuffix 
+
+echo 
+echo $libtoolFilename
+expandPackage $libtoolName $libtoolFilename $libtoolDir $libtoolSuffix
 
 echo
 echo $opensslFilename

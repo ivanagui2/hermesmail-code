@@ -74,13 +74,34 @@ downloadPackage() {
     fi
 }
 
+expandPackage() {
+    
+    local name=$1
+    local archive=$2
+    local dir=$3
+    local suffix=$4
+
+    if [ -f $archive ]; then
+        if ! [ -d $dir ]; then
+            echo "Directory - $dir - does not exist expanding archive"
+            if [[ $suffix = "gz" ]]; then
+                echo "Extracting $name from gzip formatted $archive."
+                tar --extract --gzip --file $archive
+            elif [[ $suffix = "bz2" ]]; then
+                tar --extract --bzip2 --file $archive
+            fi
+        fi    
+    fi
+}    
+            
+
 #Variables
 
-hermesHome=`pwd`
+hermesHome=.
 
 echo "Home Directory = $hermesHome"
 
-buildDepDir="$hermesHome/dependencies"
+buildDepDir="./dependencies"
 
 # Open Source Dependencies
 
@@ -88,6 +109,7 @@ echo
 echo "OPEN SOURCE DEPENDENCIES"
 
 defineDependency libexpat R_2_2_5 gz github.com libexpat/libexpat/archive $buildDepDir https
+echo "$libexpatName - Used in Hermes Messenger"
 
 defineDependency libpng 1.6.34 gz ftp-osl.osuosl.org pub/libpng/src/libpng16 $buildDepDir ftp
 echo "$libpngName - Used in Hermes Messenger"
@@ -98,7 +120,7 @@ echo "$opensslName - Used in Hermes Messenger"
 defineDependency thunderbird 52.8.0 xz archive.mozilla.org thunderbird/releases/52.8.0/source $buildDepDir https 
 echo "$thunderbirdName - Used in Hermes Messenger"
 
-defineDependency xz 5.2.4 xz tukaani.org xz $buildDepDir https
+defineDependency xz 5.2.4 bz2 tukaani.org xz $buildDepDir https
 echo "$xzName - Needed to support building the dependencies"
 
 echo
@@ -106,6 +128,7 @@ echo
 # Download dependencies
 mkdir -p ./$buildDepDir
 cd ./$buildDepDir
+pwd
 echo "DOWNLOADING"
 
 echo
@@ -125,6 +148,21 @@ echo
 downloadPackage $xzName $xzFilename $xzUrl
 echo
 
-# COMPILE DEPENDENCIES
-echo "Compile dependencies..."
+# Expand tarballs 
+echo "Expand archives..."
 
+echo
+echo $libexpatFilename
+expandPackage $libexpatName $libexpatFilename $libexpatDir $libexpatSuffix
+
+echo
+echo $libpngFilename
+expandPackage $libpngName $libpngFilename $libpngDir $libpngSuffix 
+
+echo
+echo $opensslFilename
+expandPackage $opensslName $opensslFilename $opensslDir $opensslSuffix
+
+echo
+echo $xzFilename
+expandPackage $xzName $xzFilename $xzDir $xzSuffix

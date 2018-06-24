@@ -37,6 +37,7 @@ buildDepDir="dependencies"
 
 # Open Source Dependencies
 
+echo
 echo "OPEN SOURCE DEPENDENCIES"
 
 expatName="expat"
@@ -79,3 +80,51 @@ xzFilename=$xzName-$xzVersion.$xzSuffix
 xzDir=$xzName-$xzVersion
 echo $xzName
 
+echo
+
+# Download dependencies
+mkdir -p ./$buildDepDir
+cd ./$buildDepDir
+echo "DOWNLOADING"
+
+echo "Downloading $expatName"
+if ! [ -f $expatFilename ]; then
+    curl -o $expatFilename "$expatUrl"
+else
+    echo "$expatName already downloaded."
+    echo
+fi
+
+echo "Downloading $libPngName"
+if ! [ -f $libPngFilename ]; then
+    curl -o $libPngFilename "$libPngUrl"
+else
+    echo "$libPngName already downloaded."
+    echo
+fi
+
+echo "Downloading $opensslName"
+if ! [ -f $opensslFilename ]; then
+    curl -o $opensslFilename "$opensslUrl"
+else
+    echo "$opensslName already downloaded."
+    echo
+fi
+
+
+echo "Downloading $thunderbirdName"
+if ! [ -f $thunderbirdFilename ]; then
+    curl -o $thunderbirdFilename "$thunderbirdUrl"
+else
+    echo "$thunderbirdName already downloaded."
+    echo
+fi
+
+
+echo "Downloading $xzName"
+if ! [ -f $xzFilename ]; then
+    curl -o $xzFilename "$thunderbirdUrl"
+else
+    echo "$xzName already downloaded."
+    echo
+fi

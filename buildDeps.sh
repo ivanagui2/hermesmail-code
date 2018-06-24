@@ -42,43 +42,83 @@ echo "OPEN SOURCE DEPENDENCIES"
 
 expatName="expat"
 expatVersion="2.2.5"
-expatUrl="https://github.com/libexpat/libexpat/releases/download/R_2_2_5/expat-2.2.5.tar.bz2"
-expatSuffix="tar.bz2"
+expatSuffix="tar.gz"
 expatFilename="$expatName-$expatVersion.$expatSuffix"
+expatServer=github.com
+expatPath=libexpat/libexpat/releases/download/R_2_2_5
+expatUrl="https://$expatServer/$expatPath/$expatFilename"
 expatDir="$expatName-$expatVersion"
-echo $expatName
+echo "$expatName - Used in Hermes Messenger"
+
+libIconvName=libiconv
+libIconvVersion=1.15
+libIconvSuffix=tar.gz
+libIconvFilename=$libIconvName-$libIconvVersion.$libIconvSuffix
+libIconvServer=ftp.gnu.org
+libIconvPath=pub/gnu/libiconv
+libIconvUrl=ftp://$libIconvServer/$libIconvPath/$libIconvFilename
+libIconvDir=$libIconvName-$libIconvVersion
+echo "$libIconvName - Needed to support building the dependencies"
+echo $libIconvUrl
+
 
 libPngName=libpng
 libPngVersion="1.6.34"
-libPngUrl="ftp://ftp-osl.osuosl.org/pub/libpng/src/libpng16/libpng-1.6.34.tar.gz"
 libPngSuffix="tar.gz"
 libPngFilename="$libPngName-$libPngVersion.$libPngSuffix"
+libPngServer=ftp-osl.osuosl.org
+libPngPath=pub/$libPngName/src/${libPngName}16
+libPngUrl="ftp://$libPngServer/$libPngPath/$libPngFilename"
 libPngDir=$libPngName-$libPngVersion
-echo $libPngName
+echo "$libPngName - Used in Hermes Messenger"
 
 opensslName=openssl
 opensslVersion=1.1.1-pre8
-opensslUrl="https://www.openssl.org/source/openssl-1.1.1-pre8.tar.gz"
 opensslSuffix="tar.gz"
 opensslFilename="$opensslName-$opensslVersion.$opensslSuffix"
+opensslServer=www.openssl.org
+opensslPath=source
+opensslUrl="https://$opensslServer/$opensslPath/$opensslFilename"
 opensslDir="$opensslName-$opensslVersion"
-echo $opensslName
+echo "$opensslName - Used in Hermes Messenger"
+
+pkgconfigName=pkgconfig
+pkgconfigVersion=0.29.2
+pkgconfigSuffix=tar.gz
+pkgconfigFilename=$pkgconfigName-$pkgconfigVersion.$pkgconfigSuffix
+pkgconfigServer=pkg-config.freedesktop.org
+pkgconfigUrl=https://$pkgconfigServer/$pkgconfigPath/$pkgconfigFilename
+pkgconfigDir=$pkgconfigName-$pkgconfigVersion
+echo "$pkgconfigName - Needed to support building the dependencies"
 
 thunderbirdName=thunderbird
 thunderbirdVersion=52.8.0
-thunderbirdUrl="https://archive.mozilla.org/pub/thunderbird/releases/52.8.0/source/thunderbird-52.8.0.source.tar.xz"
 thunderbirdSuffix="tar.xz"
+thunderbirdServer=archive.mozilla.org
+thunderbirdPath=pub/$thunderbirdName/releases/$thunderbirdVersion/source
 thunderbirdFilename=$thunderbirdName-$thunderbirdVersion.$thunderbirdSuffix
+thunderbirdUrl="https://$thunderbirdServer/$thunderbirdPath/$thunderbirdFilename"
 thunderbirdDir=$thunderbirdName-$thunderbirdVersion
-echo $thunderbirdName
+echo "$thunderbirdName - Used in Hermes Messenger"
+
+wgetName=wget
+wgetVersion=1.19.5
+wgetSuffix=tar.gz
+wgetServer=ftp.gnu.org
+wgetPath=gnu/wget
+wgetFilename=$wgetName-$wgetVersion.$wgetSuffix
+wgetUrl=ftp://$wgetServer/$wgetPath/$wgetFilename
+wgetDir=$wgetName-$wgetVersion
+echo "$wgetName - Needed to support building the dependencies"
 
 xzName=xz
 xzVersion="5.2.4"
-xzUrl="https://tukaani.org/xz/xz-5.2.4.tar.bz2"
 xzSuffix="tar.bz2"
+xzServer=tukaani.org
 xzFilename=$xzName-$xzVersion.$xzSuffix
+xzUrl="https://$xzServer/$xzName/$xzFilenameName"
 xzDir=$xzName-$xzVersion
-echo $xzName
+echo "$xzName - Needed to support building the dependencies"
 
 echo
 
@@ -87,14 +127,16 @@ mkdir -p ./$buildDepDir
 cd ./$buildDepDir
 echo "DOWNLOADING"
 
+echo
 echo "Downloading $expatName"
 if ! [ -f $expatFilename ]; then
-    curl -o $expatFilename "$expatUrl"
+    curl -o -L $expatFilename "$expatUrl"
 else
     echo "$expatName already downloaded."
     echo
 fi
 
+echo
 echo "Downloading $libPngName"
 if ! [ -f $libPngFilename ]; then
     curl -o $libPngFilename "$libPngUrl"
@@ -103,6 +145,15 @@ else
     echo
 fi
 
+echo
+echo "Downloading $libIconvName"
+if ! [ -f $libIconvFilename ]; then
+    curl -o $libIconvFilename "$libIconvUrl"
+else
+    echo "$libIconv already downloaded"
+fi
+
+echo
 echo "Downloading $opensslName"
 if ! [ -f $opensslFilename ]; then
     curl -o $opensslFilename "$opensslUrl"
@@ -111,7 +162,15 @@ else
     echo
 fi
 
+echo
+echo "Downloading $pkgconfigName"
+if ! [ -f $pkgconfigFilename ]; then
+    curl -o $pkgconfigFilename "$pkgconfigUrl"
+else
+    echo "$pkgconfigFilename already downloaded"
+fi
 
+echo
 echo "Downloading $thunderbirdName"
 if ! [ -f $thunderbirdFilename ]; then
     curl -o $thunderbirdFilename "$thunderbirdUrl"
@@ -120,11 +179,24 @@ else
     echo
 fi
 
+echo
+echo "Downloading $wgetName"
+if ! [ -f $wgetFilename ]; then
+    curl -o $wgetFilename "$wgetUrl"
+else
+    echo "$wgetName already downloaded."
+fi
 
+echo
 echo "Downloading $xzName"
 if ! [ -f $xzFilename ]; then
-    curl -o $xzFilename "$thunderbirdUrl"
+    curl -o $xzFilename "$xzUrl"
 else
     echo "$xzName already downloaded."
     echo
 fi
+
+# COMPILE DEPENDENCIES
+
+
+

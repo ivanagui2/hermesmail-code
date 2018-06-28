@@ -1,0 +1,4540 @@
+<HTML>
+<!-- Sitemap 1.0 -->
+<OBJECT type="text/site properties">
+</OBJECT>
+<UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="About Eudora (menu option)">
+		<param name="Name" value="About Eudora">
+		<param name="Local" value="html/menu9vp0.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="About Security">
+		<param name="Name" value="About Security">
+		<param name="Local" value="html/eudo07i1.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="ACAP">
+		<param name="Name" value="Configuring Eudora">
+		<param name="Local" value="html/eudo9wwx.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="choose">
+			<param name="Local" value="html/eudo9wwx.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Account Settings Dialog">
+		<param name="Name" value="Account Settings Dialog">
+		<param name="Local" value="html/eudo19gn.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Add as Recipient (menu option)">
+		<param name="Name" value="Add as Recipient">
+		<param name="Local" value="html/menu61v8.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Add Details (Make Filters dialog)">
+		<param name="Name" value="Add Details">
+		<param name="Local" value="html/opti9fqr.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Add excerpt bars">
+		<param name="Name" value="Remove or Add Excerpt Bars">
+		<param name="Local" value="html/eudo3c37.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Add the from lines of replied-to messages (Auto-completion options)">
+		<param name="Name" value="Add the from lines of replied-to messages">
+		<param name="Local" value="html/opti1hmh.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Adding a Finger Database">
+		<param name="Name" value="Adding a Finger Database">
+		<param name="Local" value="html/eudo82w5.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Adding a Group to the Address Book">
+		<param name="Name" value="Adding a Group to the Address Book">
+		<param name="Local" value="html/eudo3iuj.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Adding a Ph Database">
+		<param name="Name" value="Adding a Ph Database">
+		<param name="Local" value="html/eudo8a79.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Adding an LDAP Database">
+		<param name="Name" value="Adding an LDAP Database">
+		<param name="Local" value="html/eudo8rs5.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Adding new stationery">
+		<param name="Name" value="Creating a Stationery File">
+		<param name="Local" value="html/eudo70md.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Adding Toolbar buttons">
+		<param name="Name" value="Adding, Moving, and Removing Toolbar Buttons">
+		<param name="Local" value="html/eudo2ynn.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Address Book">
+		<param name="Name" value="Address Book">
+		<param name="Local" value="html/dial331v.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Address Book (Auto-completion options)">
+		<param name="Name" value="Address Book (auto-completion)">
+		<param name="Local" value="html/opti1ve8.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Address Book (menu option)">
+		<param name="Name" value="Address Book">
+		<param name="Local" value="html/menu888j.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Address Book Files and Entries">
+		<param name="Name" value="Address Book Files and Entries">
+		<param name="Local" value="html/dial6ib8.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Address Book">
+		<param name="See Also" value="Address Book">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="adding a group">
+			<param name="Local" value="html/eudo3iuj.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="addressing a message">
+			<param name="Local" value="html/eudo6bsb.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="and deleting entries">
+			<param name="Local" value="html/eudo614j.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="creating new entries">
+			<param name="Local" value="html/eudo8mk3.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="files and entries">
+			<param name="Local" value="html/dial6ib8.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="Finish Address Book Entry command">
+			<param name="Local" value="html/eudo2sbo.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="including nicknames on the recipient list">
+			<param name="Local" value="html/eudo1mwk.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="Make Address Book Entry command">
+			<param name="Local" value="html/eudo7tk4.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="not created by Eudora">
+			<param name="Local" value="html/eudo5iox.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="recipient list">
+			<param name="Local" value="html/eudo7l84.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="using">
+			<param name="Local" value="html/eudo9mi3.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="using central address book on a server">
+			<param name="Local" value="html/eudo6hf6.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Addressing a Message from the Address Book">
+		<param name="Name" value="Addressing a Message from the Address Book">
+		<param name="Local" value="html/eudo6bsb.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Addressing a Message from the Directory Services Window">
+		<param name="Name" value="Addressing a Message from the Directory Services Window">
+		<param name="Local" value="html/eudo0o1j.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Advanced Network Options Window">
+		<param name="Name" value="Advanced Network Options Window">
+		<param name="Local" value="html/eudo7ulz.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Allow authentication (Sending Mail options)">
+		<param name="Name" value="Allow authentication">
+		<param name="Local" value="html/opti9ep0.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Allow Drag and Drop Transfers (Mailboxes options)">
+		<param name="Name" value="Allow Drag and Drop Transfers (Miscellaneous Options)">
+		<param name="Local" value="html/opti1ank.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Allow drag select messages (Mailboxes options)">
+		<param name="Name" value="Allow drag select messages">
+		<param name="Local" value="html/opti8mgj.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Allow executables in HTLM content (Viewing Mail options)">
+		<param name="Name" value="Allow executables in HTML content">
+		<param name="Local" value="html/opti4u79.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Alt+arrow keys (Miscellaneous options)">
+		<param name="Name" value="Alt+arrow keys (Miscellaneous Options)">
+		<param name="Local" value="html/opti6d9v.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Alternate email account">
+		<param name="Name" value="Using an Alternate Email Account">
+		<param name="Local" value="html/eudo6et0.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Always (Automatically purge deleted IMAP messages)">
+		<param name="Name" value="Always (Automatically purge deleted IMAP messages)">
+		<param name="Local" value="html/opti0rw3.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="ANCIENT format (Date Display options)">
+		<param name="Name" value="ANCIENT format (Date Display Options)">
+		<param name="Local" value="html/opti5k50.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Arrange Icons (menu option)">
+		<param name="Name" value="Arrange Icons">
+		<param name="Local" value="html/menu4mn9.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Ask me each time (Styled Text options)">
+		<param name="Name" value="Ask me each time">
+		<param name="Local" value="html/opti0fas.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Attach File (menu option)">
+		<param name="Name" value="Attach File">
+		<param name="Local" value="html/menu7cdh.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Attaching a File to a Message">
+		<param name="Name" value="Attaching a File to a Message">
+		<param name="Local" value="html/eudo96sl.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Attaching a PureVoice File to a Message">
+		<param name="Name" value="Attaching a PureVoice File to a Message">
+		<param name="Local" value="html/eudo3xk5.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Attachment Directory (Attachments options)">
+		<param name="Name" value="Attachment Directory (Attachments Options)">
+		<param name="Local" value="html/opti1m7m.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Attachment Type (Outgoing message option)">
+		<param name="Name" value="Attachment Type (Outgoing message option)">
+		<param name="Local" value="html/menu55v3.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Attachments">
+		<param name="Name" value="Attaching a File to a Message">
+		<param name="Local" value="html/eudo96sl.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Attachments Options Window">
+		<param name="Name" value="Attachments Options Window">
+		<param name="Local" value="html/eudo0ref.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Attachments">
+		<param name="See Also" value="Attachments">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="deleting automatically">
+			<param name="Local" value="html/eudo3gxf.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="receiving">
+			<param name="Local" value="html/eudo6acz.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="skipping over a certain size">
+			<param name="Local" value="html/eudo3pet.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="specifying an attachment directory">
+			<param name="Local" value="html/eudo37jt.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Authentication SMTP (sending mail server) (Sending Mail options)">
+		<param name="Name" value="Allow authentication">
+		<param name="Local" value="html/opti9ep0.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Authentication Style (Checking Mail options)">
+		<param name="Name" value="Authentication Style (Checking Mail Options)">
+		<param name="Local" value="html/opti312m.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Authentication">
+		<param name="See Also" value="Authentication">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="Kerberos 4">
+			<param name="Local" value="html/opti4siu.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="Kerberos 5">
+			<param name="Local" value="html/opti1qge.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="SMTP">
+			<param name="Local" value="html/eudo6tke.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Auto Configure Options Window">
+		<param name="Name" value="Auto Configure Options Window">
+		<param name="Local" value="html/eudo9kfr.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Auto name completion">
+		<param name="Name" value="Using Automatic Name Completion">
+		<param name="Local" value="html/eudo1ajy.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Auto Name Completion in Directory Services">
+		<param name="Name" value="Auto Name Completion in Directory Services">
+		<param name="Local" value="html/eudo08xf.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Auto wrapping plain text messages">
+		<param name="Name" value="Auto-wrapping Plain Text Messages">
+		<param name="Local" value="html/eudo6i0j.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Auto-Completion Options Window">
+		<param name="Name" value="Auto-Completion Options Window">
+		<param name="Local" value="html/eudo5lx3.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Auto-Reply">
+		<param name="Name" value="Creating an Auto-Reply Message">
+		<param name="Local" value="html/eudo1yxx.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Auto-save messages every _ minutes (Miscellaneous options)">
+		<param name="Name" value="Auto-save messages every _ minutes">
+		<param name="Local" value="html/opti6ni1.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Automatic Spell Checking">
+		<param name="Name" value="Automatic Spell Checking">
+		<param name="Local" value="html/eudo9p7r.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Automatically Deleting Attachments">
+		<param name="Name" value="Automatically Deleting Attachments">
+		<param name="Local" value="html/eudo3gxf.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Automatically expand nicknames (Miscellaneous options)">
+		<param name="Name" value="Automatically expand nicknames">
+		<param name="Local" value="html/opti7twz.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Automatically FCC to original mailbox (Replying options)">
+		<param name="Name" value="Automatically FCC to original mailbox (Replying Options)">
+		<param name="Local" value="html/opti52xv.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Automatically open next message (Viewing Mail options)">
+		<param name="Name" value="Automatically open next message">
+		<param name="Local" value="html/opti357y.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Automation enabled from this machine (Automation options)">
+		<param name="Name" value="Automation enabled from this machine">
+		<param name="Local" value="html/opti1rxg.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Automation Options Window">
+		<param name="Name" value="Automation Options Window">
+		<param name="Local" value="html/eudo7m0n.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Background Tasks">
+		<param name="Name" value="Background Tasks">
+		<param name="Local" value="html/eudo05yr.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Background Tasks Options Window">
+		<param name="Name" value="Background Tasks Options Window">
+		<param name="Local" value="html/eudo3nsn.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="BinHex (Attachments options)">
+		<param name="Name" value="BinHex (Attchments Options)">
+		<param name="Local" value="html/opti2omw.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="BinHex Encoding">
+		<param name="Name" value="BinHex Encoding">
+		<param name="Local" value="html/eudo8188.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="BLAH BLAH BLAH">
+		<param name="Name" value="BLAH ,BLAH, BLAH (Outgoing message option)">
+		<param name="Local" value="html/menu6kyw.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Bring error window to front (Background Tasks options)">
+		<param name="Name" value="Bring error window to front">
+		<param name="Local" value="html/opti5sac.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Bring task status window to front  (Background Tasks options)">
+		<param name="Name" value="Bring task status window to front">
+		<param name="Local" value="html/opti0kj8.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Bugs">
+		<param name="See Also" value="Bugs">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="how to report">
+			<param name="Local" value="html/eudo3iyb.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Cache network info (Advanced Network options)">
+		<param name="Name" value="Cache network info (Advanced Network Options)">
+		<param name="Local" value="html/opti8huv.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Cascade (menu option)">
+		<param name="Name" value="Cascade">
+		<param name="Local" value="html/menu9u5h.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Change Label (menu option)">
+		<param name="Name" value="Change Label">
+		<param name="Local" value="html/menu9xx3.htm">
+		<param name="Name" value="Change Label">
+		<param name="Local" value="html/menu9xx2.htm">
+		<param name="Name" value="Change Label">
+		<param name="Local" value="html/menu9xx1.htm">
+		<param name="Name" value="Change Label">
+		<param name="Local" value="html/menu9xx0.htm">
+		<param name="Name" value="Change Label">
+		<param name="Local" value="html/menu9xwz.htm">
+		<param name="Name" value="Change Label">
+		<param name="Local" value="html/menu9xwy.htm">
+		<param name="Name" value="Change Label">
+		<param name="Local" value="html/menu9xwx.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Change Password... (menu option)">
+		<param name="Name" value="Change Password...">
+		<param name="Local" value="html/menu4t7o.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Change... Priority... High (menu option)">
+		<param name="Name" value="Change... Priority... High">
+		<param name="Local" value="html/menu4unc.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Change... Priority... Highest (menu option)">
+		<param name="Name" value="Change... Priority... Highest">
+		<param name="Local" value="html/menu814k.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Change... Priority... Low (menu option)">
+		<param name="Name" value="Change... Priority... Low">
+		<param name="Local" value="html/menu4t6f.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Change... Priority... Lowest (menu option)">
+		<param name="Name" value="Change... Priority... Lowest">
+		<param name="Local" value="html/menu4hpw.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Change... Priority... Normal (menu option)">
+		<param name="Name" value="Change... Priority... Normal">
+		<param name="Local" value="html/menu53qk.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Change... Server Personality (menu option)">
+		<param name="Name" value="Change... Personality">
+		<param name="Local" value="html/menu7js1.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Change... Server Status... Delete (menu option)">
+		<param name="Name" value="Change... Server Status... Delete">
+		<param name="Local" value="html/menu9l5x.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Change... Server Status... Fetch (menu option)">
+		<param name="Name" value="Change... Server Status... Fetch">
+		<param name="Local" value="html/menu0nu0.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Change... Server Status... Fetch then Delete (menu option)">
+		<param name="Name" value="Change... Server Status... Fetch then Delete">
+		<param name="Local" value="html/menu1z6t.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Change... Server Status... Leave (menu option)">
+		<param name="Name" value="Change... Server Status... Leave">
+		<param name="Local" value="html/menu6l0l.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Change... Status... Forwarded (menu option)">
+		<param name="Name" value="Change... Status... Forwarded">
+		<param name="Local" value="html/menu2fj8.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Change... Status... Queued (menu option)">
+		<param name="Name" value="Change... Status... Queued">
+		<param name="Local" value="html/menu709w.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Change... Status... Read (menu option)">
+		<param name="Name" value="Change... Status... Read">
+		<param name="Local" value="html/menu3gkk.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Change... Status... Redirected (menu option)">
+		<param name="Name" value="Change... Status... Redirected">
+		<param name="Local" value="html/menu66ck.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Change... Status... Replied (menu option)">
+		<param name="Name" value="Change... Status... Replied">
+		<param name="Local" value="html/menu6gtg.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Change... Status... Sendable (menu option)">
+		<param name="Name" value="Change... Status... Sendable">
+		<param name="Local" value="html/menu43tx.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Change... Status... Sent (menu option)">
+		<param name="Name" value="Change... Status... Sent">
+		<param name="Local" value="html/menu93hw.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Change... Status... Time Queued (menu option)">
+		<param name="Name" value="Change... Status... Time Queued">
+		<param name="Local" value="html/menu5ep0.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Change... Status... Unread (menu option)">
+		<param name="Name" value="Change... Status... Unread">
+		<param name="Local" value="html/menu7jc4.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Change... Status... Unsendable (menu option)">
+		<param name="Name" value="Change... Status... Unsendable">
+		<param name="Local" value="html/menu2vhh.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Change... Status... Unsent (menu option)">
+		<param name="Name" value="Change... Status... Unsent">
+		<param name="Local" value="html/menu369g.htm">
+		<param name="Name" value="Change... Status... Recovered">
+		<param name="Local" value="html/menu8810.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Change...Queueing (menu option)">
+		<param name="Name" value="Change... Queueing">
+		<param name="Local" value="html/menu4nl3.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Changin ESP Group Information">
+		<param name="Name" value="Changing ESP Group Information">
+		<param name="Local" value="html/eudo66ge.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Changing a Signature">
+		<param name="Name" value="Changing a Signature">
+		<param name="Local" value="html/eudo4jxh.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Changing a Stationery File">
+		<param name="Name" value="Changing a Stationery File">
+		<param name="Local" value="html/eudo631h.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Changing statistics options">
+		<param name="Name" value="Statistics Options Window">
+		<param name="Local" value="html/eudo116f.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Changing the Eudora Mode">
+		<param name="Name" value="Changing the Eudora Mode">
+		<param name="Local" value="html/eudo2uw5.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Changing Your Password">
+		<param name="Name" value="Changing Your Password">
+		<param name="Local" value="html/eudo2i90.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Check for mail every _ minutes (Checking Mail options)">
+		<param name="Name" value="Check for mail every _ minutes (Checking Mail Options)">
+		<param name="Local" value="html/opti2jzi.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Check Mail (menu option)">
+		<param name="Name" value="Check Mail">
+		<param name="Local" value="html/menu9hd8.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Check Spelling (menu option)">
+		<param name="Name" value="Check Spelling">
+		<param name="Local" value="html/menu0qg7.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Check Spelling automatically as you type (Spell Checking options)">
+		<param name="Name" value="Automatically as you type">
+		<param name="Local" value="html/opti6ru4.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Check Spelling Dialog">
+		<param name="Name" value="Check Spelling Dialog">
+		<param name="Local" value="html/eudo0m1z.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Check spelling only when requested (Spell Checking options)">
+		<param name="Name" value="Only when requested">
+		<param name="Local" value="html/opti1q23.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Check when message queue/send selected (Spell Checking options)">
+		<param name="Name" value="Check when message queue/send selected (Spell Checking Options)">
+		<param name="Local" value="html/opti5i5h.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Checking for Incoming Mail">
+		<param name="Name" value="Checking for Incoming Mail">
+		<param name="Local" value="html/eudo53qk.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Checking for Mail Automatically">
+		<param name="Name" value="Checking for Mail Automatically">
+		<param name="Local" value="html/eudo7ent.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Checking for Mail Manually">
+		<param name="Name" value="Checking for Mail Manually">
+		<param name="Local" value="html/eudo3l6h.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Checking for Mail with Special Server Instructions">
+		<param name="Name" value="Checking for Mail with Special Server Instructions">
+		<param name="Local" value="html/eudo2jub.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Checking Mail Options Window">
+		<param name="Name" value="Checking Mail Options Window">
+		<param name="Local" value="html/eudo8saf.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Checking Your Spelling">
+		<param name="Name" value="Checking Your Spelling">
+		<param name="Local" value="html/eudo0kx3.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Close connection on Exit (Internet Dialup options)">
+		<param name="Name" value="Close connection on Exit">
+		<param name="Local" value="html/opti3fzo.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Close messages with mailbox (Mailboxes options)">
+		<param name="Name" value="Close messages with mailbox (Miscellaneous Options)">
+		<param name="Local" value="html/opti1nhh.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Closing Tabbed Windows">
+		<param name="Name" value="Closing Tabbed Windows">
+		<param name="Local" value="html/eudo484z.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Color (in statistics options window)">
+		<param name="Name" value="Color (in statistics options window)">
+		<param name="Local" value="html/opti86nn.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Color aqua">
+		<param name="Name" value="Color aqua (edit menu)">
+		<param name="Local" value="html/menu9gc4.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Color automatic">
+		<param name="Name" value="Color Automatic (Edit menu)">
+		<param name="Local" value="html/menu9gc6.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Color black">
+		<param name="Name" value="Color black (Edit menu)">
+		<param name="Local" value="html/menu4zow.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Color blue">
+		<param name="Name" value="Color blue (Edit menu)">
+		<param name="Local" value="html/menu9gc2.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Color fuchsia">
+		<param name="Name" value="Color fuchsia (Edit menu)">
+		<param name="Local" value="html/menu9gc3.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Color gray">
+		<param name="Name" value="Color gray (Edit menu)">
+		<param name="Local" value="html/menu4zp3.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Color green">
+		<param name="Name" value="Color green (Edit menu)">
+		<param name="Local" value="html/menu4zoy.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Color lime">
+		<param name="Name" value="Color lime (Edit menu)">
+		<param name="Local" value="html/menu9gc0.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Color maroon">
+		<param name="Name" value="Color maroon (Edit menu)">
+		<param name="Local" value="html/menu4zox.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Color navy">
+		<param name="Name" value="Color navy (Edit menu)">
+		<param name="Local" value="html/menu4zp0.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Color olive">
+		<param name="Name" value="Color olive (Edit menu)">
+		<param name="Local" value="html/menu4zoz.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Color purple">
+		<param name="Name" value="Color purple (Edit menu)">
+		<param name="Local" value="html/menu4zp1.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Color red">
+		<param name="Name" value="Color red (Edit menu)">
+		<param name="Local" value="html/menu4zp5.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Color silver">
+		<param name="Name" value="Color silver (Edit menu)">
+		<param name="Local" value="html/menu4zp4.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Color teal">
+		<param name="Local" value="html/menu4zp2.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Color white">
+		<param name="Name" value="Color white (Edit menu))">
+		<param name="Local" value="html/menu9gc5.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Color yellow">
+		<param name="Name" value="Color yellow (Edit menu)">
+		<param name="Local" value="html/menu9gc1.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Columns">
+		<param name="See Also" value="Columns">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="displaying and resizing">
+			<param name="Local" value="html/eudo0h2r.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Compact Mailboxes (menu option)">
+		<param name="Name" value="Compact Mailboxes">
+		<param name="Local" value="html/menu8omr.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Composing Mail Options Window">
+		<param name="Name" value="Composing Mail Options Window">
+		<param name="Local" value="html/eudo4mnr.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Composition window">
+		<param name="Name" value="Using the Composition Window">
+		<param name="Local" value="html/eudo9n3r.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Configuring ESP Global Settings">
+		<param name="Name" value="Configuring ESP Global Settings">
+		<param name="Local" value="html/eudo0alv.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Configuring Eudora">
+		<param name="Name" value="Configuring Eudora">
+		<param name="Local" value="html/eudo9wwx.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Configuring Group Change Notifications">
+		<param name="Name" value="Configuring Group Change Notifications">
+		<param name="Local" value="html/eudo6m7n.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Configuring Shared Folder Settings">
+		<param name="Name" value="Configuring Shared Folder Settings">
+		<param name="Local" value="html/eudo2z03.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Conjunction (Filters window)">
+		<param name="Name" value="Conjunction (Filters window)">
+		<param name="Local" value="html/dial5m0e.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Conjunction drop-down list">
+		<param name="Name" value="Conjunction drop-down list (Search messages)">
+		<param name="Local" value="html/dial8j8x.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Conjunction drop-down list (Search messages)">
+		<param name="Name" value="Conjunction drop-down list (Search messages)">
+		<param name="Local" value="html/dial8j8x.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Content Concentrator">
+		<param name="Name" value="Using the Content Concentrator">
+		<param name="Local" value="html/eudo3sfm.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Content Concentrator in the preview pane">
+		<param name="Name" value="Using the Content Concentrator">
+		<param name="Local" value="html/eudo3sfm.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Content Concentrator Options">
+		<param name="Name" value="Content Concentrator Options Window">
+		<param name="Local" value="html/eudo3upj.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Context menu">
+		<param name="Name" value="Window Context Menu">
+		<param name="Local" value="html/eudo4jcl.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Context Sensitive Help (menu option)">
+		<param name="Name" value="Context Sensitive Help">
+		<param name="Local" value="html/menu9ysw.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Contextual Filing">
+		<param name="Name" value="Using Contextual Filing">
+		<param name="Local" value="html/eudo15rb.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Copies of outgoing messages">
+		<param name="Name" value="Keeping Copies of Outgoing Messages">
+		<param name="Local" value="html/eudo6n8z.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Copy original's priority to reply (Replying options)">
+		<param name="Name" value="Copy original's priority to reply (Replying Options)">
+		<param name="Local" value="html/opti78xl.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Copy To (Filter Action)">
+		<param name="Name" value="None (Filter Action)">
+		<param name="Local" value="html/dial5qpc.htm#hidc_action_combo4">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Count IMAP messages in Inbox only">
+		<param name="Name" value="Count IMAP messages in Inbox only (in statistics options window)">
+		<param name="Local" value="html/opti7qih.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Creating a Hyperlink in a Message">
+		<param name="Name" value="Creating a Hyperlink in a Message">
+		<param name="Local" value="html/eudo1uw5.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Creating a Mailbox or Folder During Transfer">
+		<param name="Name" value="Creating a Mailbox or Folder During Transfer">
+		<param name="Local" value="html/eudo81bm.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Creating a Mailbox or Folder Using the Mailbox Menu">
+		<param name="Name" value="Creating a Mailbox or Folder Using the Mailbox Menu">
+		<param name="Local" value="html/eudo9zsl.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Creating a Message with Stationery">
+		<param name="Name" value="Creating a Message with Stationery">
+		<param name="Local" value="html/eudo4yrd.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Creating a New Database">
+		<param name="Name" value="Creating a New Database">
+		<param name="Local" value="html/eudo1gyt.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Creating a New Mailbox or Folder">
+		<param name="Name" value="Creating a New Mailbox or Folder">
+		<param name="Local" value="html/eudo4lyq.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Creating a New Tabbed Window">
+		<param name="Name" value="Creating a New Tabbed Window">
+		<param name="Local" value="html/eudo1i9j.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Creating a Signature">
+		<param name="Name" value="Creating a Signature">
+		<param name="Local" value="html/eudo9k6d.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Creating a Stationery File">
+		<param name="Name" value="Creating a Stationery File">
+		<param name="Local" value="html/eudo70md.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Creating a vacation message">
+		<param name="Name" value="Creating an Auto-Reply Message">
+		<param name="Local" value="html/eudo1yxx.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Creating an Auto-Reply Message">
+		<param name="Name" value="Creating an Auto-Reply Message">
+		<param name="Local" value="html/eudo1yxx.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Creating an ESP Group">
+		<param name="Name" value="Creating an ESP Group">
+		<param name="Local" value="html/eudo97e8.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Creating an ESP Group (Advanced Setup)">
+		<param name="Name" value="Creating an ESP Group (Advanced Setup)">
+		<param name="Local" value="html/eudo165b.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Creating an Outgoing Message">
+		<param name="Name" value="Creating an Outgoing Message">
+		<param name="Local" value="html/eudo5eat.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Creating Mailboxes and Folders">
+		<param name="Name" value="Creating Mailboxes and Folders">
+		<param name="Local" value="html/eudo5t6b.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Creating New Entries">
+		<param name="Name" value="Creating New Entries">
+		<param name="Local" value="html/eudo8mk3.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Ctrl+arrow keys (Miscellaneous options)">
+		<param name="Name" value="Ctrl+arrow keys (Miscellaneous Options)">
+		<param name="Local" value="html/opti8yib.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Customizing the Toolbar">
+		<param name="Name" value="Customizing the Toolbar">
+		<param name="Local" value="html/eudo0ylu.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Databases">
+		<param name="Name" value="Databases">
+		<param name="Local" value="html/dial75bn.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Date Display Options Window">
+		<param name="Name" value="Date Display Options Window">
+		<param name="Local" value="html/eudo0ud3.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Date formats">
+		<param name="See Also" value="Date formats">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="Age-sensitive (Date Display options)">
+			<param name="Local" value="html/opti6fqx.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Date Formats">
+		<param name="See Also" value="Date Formats">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="Fixed (Date Display options)">
+			<param name="Local" value="html/opti21bo.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Default Signature">
+		<param name="Name" value="Default Signature">
+		<param name="Local" value="html/dial1tyd.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Default signature (Composing Mail options)">
+		<param name="Name" value="Default signature (Sending Mail Options)">
+		<param name="Local" value="html/opti4kkl.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Default Stationery">
+		<param name="Name" value="Default Stationery">
+		<param name="Local" value="html/dial2fax.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Default Stationery (Composing Mail options)">
+		<param name="Name" value="Default stationery (Composing Mail)">
+		<param name="Local" value="html/opti77qx.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Default Tabbed Windows">
+		<param name="Name" value="Default Tabbed Windows">
+		<param name="Local" value="html/eudo7mb7.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Delete (menu option)">
+		<param name="Name" value="Delete">
+		<param name="Local" value="html/menu8vad.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Delete _ or more messages at a time (Extra Warnings options)">
+		<param name="Name" value="Delete _ or more messages at a time (Extra Warnings Options)">
+		<param name="Local" value="html/opti0ptf.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Delete attachments when emptying Trash (Attachments options)">
+		<param name="Name" value="Delete attachments when emptying Trash (Attachments Options)">
+		<param name="Local" value="html/opti35bc.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Delete automatic attachments">
+		<param name="See Also" value="Delete automatic attachments">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="(Attachments options)">
+			<param name="Local" value="html/opti7lyr.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="After sending message (Attachment options)">
+			<param name="Local" value="html/opti6e3o.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="Never (Attachments options)">
+			<param name="Local" value="html/opti1t0y.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="When message emptied from Trash (Attachments options)">
+			<param name="Local" value="html/opti0l60.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Delete from server after _ days (Incoming Mail options)">
+		<param name="Name" value="Delete from server after _ days (Incoming Mail Options)">
+		<param name="Local" value="html/opti4h4j.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Delete from server when emptied from Trash (Incoming Mail options)">
+		<param name="Name" value="Delete from server when emptied from Trash (Incoming Mail Options)">
+		<param name="Local" value="html/opti3c9x.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Delete MAPI attachments">
+		<param name="See Also" value="Delete MAPI attachments">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="After sending message (MAPI options)">
+			<param name="Local" value="html/opti6nz8.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="Never (MAPI options)">
+			<param name="Local" value="html/opti9d4i.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="When message is emptied from trash (MAPI options)">
+			<param name="Local" value="html/opti859k.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Delete queued mail (Extra Warnings options)">
+		<param name="Name" value="Delete queued mail (Extra Warnings Options)">
+		<param name="Local" value="html/opti26xw.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Delete Signature">
+		<param name="Name" value="Delete Signature">
+		<param name="Local" value="html/menu2tph.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Delete unread mail (Extra Warnings options)">
+		<param name="Name" value="Delete unread mail (Extra Warnings Options)">
+		<param name="Local" value="html/opti2q04.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Delete unsent mail (Extra Warnings options)">
+		<param name="Name" value="Delete unsent mail (Extra Warnings Options)">
+		<param name="Local" value="html/opti8cxg.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Deleting a Database">
+		<param name="Name" value="Deleting a Database">
+		<param name="Local" value="html/eudo7ulh.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Deleting a Message">
+		<param name="Name" value="Deleting a Message">
+		<param name="Local" value="html/eudo7739.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Deleting a Message from the IMAP Server">
+		<param name="Name" value="Deleting a Message from the IMAP Server">
+		<param name="Local" value="html/eudo9mwi.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Deleting a Message from the POP Server">
+		<param name="Name" value="Deleting a Message from the POP Server">
+		<param name="Local" value="html/eudo1sc2.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Deleting a Signature">
+		<param name="Name" value="Deleting a Signature">
+		<param name="Local" value="html/eudo33ol.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Deleting a Stationery File">
+		<param name="Name" value="Deleting a Stationery File">
+		<param name="Local" value="html/eudo8pgl.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Deleting Toolbar buttons">
+		<param name="Name" value="Adding, Moving, and Removing Toolbar Buttons">
+		<param name="Local" value="html/eudo2ynn.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Detailed Filters with the Filters Window">
+		<param name="Name" value="Detailed Filters with the Filters Window">
+		<param name="Local" value="html/eudo9ruf.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Details (Task Status) (Background Tasks options)">
+		<param name="Name" value="Details (Task Status)">
+		<param name="Local" value="html/opti83qr.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Details List">
+		<param name="Name" value="Details List">
+		<param name="Local" value="html/dial0d7r.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Directory Service Databases">
+		<param name="Name" value="Directory Service Databases">
+		<param name="Local" value="html/eudo72r7.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Directory Service Protocols">
+		<param name="Name" value="Directory Service Protocols">
+		<param name="Local" value="html/eudo10fn.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Directory Services">
+		<param name="Name" value="Directory Services">
+		<param name="Local" value="html/dial5e7n.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Directory Services (menu option)">
+		<param name="Name" value="Directory Services">
+		<param name="Local" value="html/menu8gdk.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Directory Services">
+		<param name="See Also" value="Directory Services">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="adding a Finger database">
+			<param name="Local" value="html/eudo82w5.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="adding a Ph database">
+			<param name="Local" value="html/eudo8a79.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="adding an LDAP database">
+			<param name="Local" value="html/eudo8rs5.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="addressing a message">
+			<param name="Local" value="html/eudo0o1j.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="auto name completion">
+			<param name="Local" value="html/eudo08xf.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="creating a new database">
+			<param name="Local" value="html/eudo1gyt.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="databases">
+			<param name="Local" value="html/eudo72r7.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="deleting a database">
+			<param name="Local" value="html/eudo7ulh.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="details list">
+			<param name="Local" value="html/dial0d7r.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="making an address book entry">
+			<param name="Local" value="html/eudo1fqr.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="opening">
+			<param name="Local" value="html/eudo30oj.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="printing query results">
+			<param name="Local" value="html/eudo8m7n.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="protocols">
+			<param name="Local" value="html/eudo10fn.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="reading query results">
+			<param name="Local" value="html/eudo2mlv.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="results list">
+			<param name="Local" value="html/dial6qw3.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="searching for someone (making a query)">
+			<param name="Local" value="html/eudo4sq1.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Display dates using Local's timezone (Date Display options)">
+		<param name="Name" value="Display dates using Local's timezone (Date Display Options)">
+		<param name="Local" value="html/opti15q1.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Display dates using Sender's timezone (Date Display options)">
+		<param name="Name" value="Display dates using Sender's timezone (Date Display Options)">
+		<param name="Local" value="html/opti11rt.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Display Options Window">
+		<param name="Name" value="Display Options Window">
+		<param name="Local" value="html/eudo6cs7.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Displaying and Resizing Columns">
+		<param name="Name" value="Displaying and Resizing Columns">
+		<param name="Local" value="html/eudo0h2r.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Displaying the Statistics window">
+		<param name="Name" value="Statistics">
+		<param name="Local" value="html/eudo2koj.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Docked Windows">
+		<param name="Name" value="Docked Windows">
+		<param name="Local" value="html/eudo4sz7.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="Moving a docked window">
+			<param name="Local" value="html/eudo4sz7.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Domain to add to unqualified addresses (Sending Mail options)">
+		<param name="Name" value="Domain to add to unqualified addresses (Options)">
+		<param name="Local" value="html/opti1inm.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Don't check when using battery (Checking Mail options)">
+		<param name="Name" value="Don't check when using battery (Checking Mail Options)">
+		<param name="Local" value="html/opti1hbt.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Don't check without a network connection (Checking Mail options)">
+		<param name="Name" value="Don't check without a network connection">
+		<param name="Local" value="html/opti81lw.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Downloading Minimal Headers vs. the Full Message">
+		<param name="Name" value="Downloading Minimal Headers vs. the Full Message">
+		<param name="Local" value="html/eudo3jj9.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Dragging Messages">
+		<param name="Name" value="Dragging Messages">
+		<param name="Local" value="html/eudo259v.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Edit (Internet Dialup options)">
+		<param name="Name" value="Edit">
+		<param name="Local" value="html/opti72yc.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Edit Last Emoticon">
+		<param name="Name" value="Last Emoticon button">
+		<param name="Local" value="html/menu8gxa.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Edit the Message">
+		<param name="Name" value="Edit the Message">
+		<param name="Local" value="html/menu4s9x.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Editing a Queued Message">
+		<param name="Name" value="Editing a Queued Message">
+		<param name="Local" value="html/eudo0ht1.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Editing Incoming Messages">
+		<param name="Name" value="Editing Incoming Messages">
+		<param name="Local" value="html/eudo43sj.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Email address (Getting Started options)">
+		<param name="Name" value="Email address (Options)">
+		<param name="Local" value="html/opti3fsj.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Empty the Trash mailbox (Extra Warnings options)">
+		<param name="Name" value="Empty the Trash mailbox (Extra Warnings Options)">
+		<param name="Local" value="html/opti576w.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Empty Trash (menu option)">
+		<param name="Name" value="Empty Trash">
+		<param name="Local" value="html/menu04rs.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Empty Trash when exiting (Miscellaneous options)">
+		<param name="Name" value="Empty Trash when exiting (Miscellaneous Options)">
+		<param name="Local" value="html/opti8fn8.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Enable MoodWatch setting (MoodWatch options)">
+		<param name="Name" value="Enable MoodWatch">
+		<param name="Local" value="html/opti8tgr.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Encoding Method (Attachments options)">
+		<param name="Name" value="Encoding Method (Attchments Options)">
+		<param name="Local" value="html/opti6ko4.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Enter Selection (menu option)">
+		<param name="Name" value="Find Messages">
+		<param name="Local" value="html/menu2opz.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Entry (Internet Dialup)">
+		<param name="Name" value="Entry">
+		<param name="Local" value="html/opti090l.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="ESP">
+		<param name="See Also" value="ESP">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="advanced setup">
+			<param name="Local" value="html/eudo165b.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="changing group and member information">
+			<param name="Local" value="html/eudo66ge.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="configuring global settings">
+			<param name="Local" value="html/eudo0alv.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="configuring group change notifications">
+			<param name="Local" value="html/eudo6m7n.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="configuring shared folders">
+			<param name="Local" value="html/eudo2z03.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="creating a group">
+			<param name="Local" value="html/eudo97e8.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="folder">
+			<param name="Local" value="html/eudo7bqq.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="installing">
+			<param name="Local" value="html/eudo25yo.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="introducing">
+			<param name="Local" value="html/eudo7xrk.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="inviting members">
+			<param name="Local" value="html/eudo6kvk.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="joining a share group">
+			<param name="Local" value="html/eudo75tc.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="leaving a share group">
+			<param name="Local" value="html/eudo73n4.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="mailbox">
+			<param name="Local" value="html/eudo7bqq.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="maintaining group members">
+			<param name="Local" value="html/eudo74hf.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="tips on using">
+			<param name="Local" value="html/eudo2n8w.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="working with shared folders">
+			<param name="Local" value="html/eudo9jar.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Eudora modes">
+		<param name="Name" value="Changing the Eudora Mode">
+		<param name="Local" value="html/eudo2uw5.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="EUDORA.INI Settings">
+		<param name="Name" value="EUDORA.INI Settings File">
+		<param name="Local" value="html/eudo87vt.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Eudora">
+		<param name="See Also" value="Eudora">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="registering">
+			<param name="Local" value="html/eudo8u75.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Excerpt bars">
+		<param name="Name" value="Remove or Add Excerpt Bars">
+		<param name="Local" value="html/eudo3c37.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Exiting">
+		<param name="Name" value="Starting and Quitting Eudora">
+		<param name="Local" value="html/eudo5y75.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Expand headers">
+		<param name="Name" value="BLAH ,BLAH, BLAH (Outgoing message option)">
+		<param name="Local" value="html/menu6kyw.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Extra Warnings Options Window">
+		<param name="Name" value="Extra Warnings Options Window">
+		<param name="Local" value="html/eudo1m7r.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Fetch (Outgoing message option)">
+		<param name="Name" value="Fetch (Outgoing message option)">
+		<param name="Local" value="html/menu4xnp.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Fetch all message headers to In mailbox (Mail Transfer Options dialog)">
+		<param name="Name" value="Fetch all message headers to In mailbox (Mail Transfer Options dialog)">
+		<param name="Local" value="html/dial629f.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="File Browser">
+		<param name="Name" value="File Browser">
+		<param name="Local" value="html/dial596a.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="File Browser Window">
+		<param name="Name" value="File Browser Window">
+		<param name="Local" value="html/eudo3z1z.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Filter Actions">
+		<param name="Name" value="Filter Actions">
+		<param name="Local" value="html/eudo6dir.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Filter Criteria (The Match Area)">
+		<param name="Name" value="Filter Criteria (The Match Area)">
+		<param name="Local" value="html/eudo3nc9.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Filter Messages (menu option)">
+		<param name="Name" value="Filter Messages">
+		<param name="Local" value="html/menu92yb.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Filter Report">
+		<param name="Name" value="Filter Report">
+		<param name="Local" value="html/dial5oms.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Filter Report (menu option)">
+		<param name="Name" value="Filter Report">
+		<param name="Local" value="html/menu156c.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Filter Report Window">
+		<param name="Name" value="Filter Report Window">
+		<param name="Local" value="html/eudo88tz.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Filtering Messages">
+		<param name="Name" value="Filtering Messages">
+		<param name="Local" value="html/eudo3v77.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Filters">
+		<param name="Name" value="Filters">
+		<param name="Local" value="html/dial4bcj.htm">
+		<param name="Name" value="Quick and Simple Filters with the Make Filter Dialog">
+		<param name="Local" value="html/eudo6isn.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Filters (menu option)">
+		<param name="Name" value="Filters">
+		<param name="Local" value="html/menu1b77.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Find (menu option)">
+		<param name="Name" value="Find">
+		<param name="Local" value="html/menu02r8.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Find Text (menu option)">
+		<param name="Name" value="Find Text">
+		<param name="Local" value="html/menu53p0.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Find Text Again (menu option)">
+		<param name="Name" value="Find Text Again">
+		<param name="Local" value="html/menu4zvy.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Finding a sound file (Getting Attention options)">
+		<param name="Name" value="Select Sound File (Getting Attention Options)">
+		<param name="Local" value="html/opti2qxw.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Finding Messages in mailboxes">
+		<param name="Name" value="Finding Messages in Mailboxes">
+		<param name="Local" value="html/eudo7j1v.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Finding Text Within One Message">
+		<param name="Name" value="Finding Text Within One Message">
+		<param name="Local" value="html/eudo4p45.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Finish Address Book Entry (menu option)">
+		<param name="Name" value="Finish Address Book Entry">
+		<param name="Local" value="html/menu055x.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Finish Address Book Entry Command">
+		<param name="Name" value="The &quot;Finish Address Book Entry&quot; Command">
+		<param name="Local" value="html/eudo2sbo.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Fixed-width (Fonts options)">
+		<param name="Name" value="Fixed-width (Fonts Options)">
+		<param name="Local" value="html/opti0rjo.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Floating Windows">
+		<param name="Name" value="Floating Windows">
+		<param name="Local" value="html/eudo1wz7.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Folder">
+		<param name="See Also" value="Folder">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="creating">
+			<param name="Name" value="Creating Mailboxes and Folders">
+			<param name="Local" value="html/eudo5t6b.htm">
+			<param name="Name" value="Creating a New Mailbox or Folder">
+			<param name="Local" value="html/eudo4lyq.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="creating using Mailbox menu">
+			<param name="Local" value="html/eudo9zsl.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="removing">
+			<param name="Local" value="html/eudo2khe.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="renaming">
+			<param name="Local" value="html/eudo84aa.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Font">
+		<param name="Name" value="Font (Edit menu)">
+		<param name="Local" value="html/menu9bp0.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Font (screen) (Fonts options)">
+		<param name="Name" value="Font (screen) (Fonts Options)">
+		<param name="Local" value="html/opti1iwk.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Fonts Options Window">
+		<param name="Name" value="Fonts Options Window">
+		<param name="Local" value="html/eudo41tj.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Forget Password (menu option)">
+		<param name="Name" value="Forget Password">
+		<param name="Local" value="html/menu5s6c.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Format Painter">
+		<param name="Name" value="Using Format Painter">
+		<param name="Local" value="html/eudo1gs2.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Format Painter (menu option)">
+		<param name="Name" value="Format Painter (Edit menu)">
+		<param name="Local" value="html/menu684y.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Format=Flowed Text">
+		<param name="Name" value="Auto-wrapping Plain Text Messages">
+		<param name="Local" value="html/eudo6i0j.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Formatting Text">
+		<param name="Name" value="Formatting Text">
+		<param name="Local" value="html/eudo7tkk.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Forward (menu option)">
+		<param name="Name" value="Forward">
+		<param name="Local" value="html/menu8kf8.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Forward files that are not in the attachment directory (Extra Warningoptions)">
+		<param name="Name" value="Forward files that are not in theattachment directory (Extra Warning Options)">
+		<param name="Local" value="html/opti29wu.htm">
+		<param name="Name" value="Forward files that are not in theattachment directory (Extra Warning Options)">
+		<param name="Local" value="html/opti81ys.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Forward To (Filter Action)">
+		<param name="Name" value="None (Filter Action)">
+		<param name="Local" value="html/dial5qpc.htm#hidc_action_combo4">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Forward To (menu option)">
+		<param name="Name" value="Forward To">
+		<param name="Local" value="html/menu2g9w.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Forwarding a Message">
+		<param name="Name" value="Forwarding a Message">
+		<param name="Local" value="html/eudo03dx.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Generate Filter Report (Getting Attention options)">
+		<param name="Name" value="Generate Filter Report (Getting Attention Options)">
+		<param name="Local" value="html/opti98qc.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Getting Attention Options Window">
+		<param name="Name" value="Getting Attention Options Window">
+		<param name="Local" value="html/eudo8b3r.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Getting Started Options Window">
+		<param name="Name" value="Getting Started Options Window">
+		<param name="Local" value="html/eudo93nb.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Graph Type (in statistics options window">
+		<param name="Name" value="Graph Type (in statistics options window)">
+		<param name="Local" value="html/opti1sx1.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Group by Subject (sort in an open mailbox)">
+		<param name="Name" value="Group by Subject (in open mailbox)">
+		<param name="Local" value="html/menu3uic.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Hang up after receiving and sending (Internet Dialup options)">
+		<param name="Name" value="Hang up after receiving and sending">
+		<param name="Local" value="html/opti3h7p.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Have Eudora connect using Dial-up networking (Internet Dialup options)">
+		<param name="Name" value="Have Eudora connect using Dial-up networking">
+		<param name="Local" value="html/opti9eem.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Header (Filters window)">
+		<param name="Name" value="Header (Filters window)">
+		<param name="Local" value="html/dial7hkg.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Headers (expanded)">
+		<param name="Name" value="BLAH ,BLAH, BLAH (Outgoing message option)">
+		<param name="Local" value="html/menu6kyw.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Help">
+		<param name="Name" value="Online Help">
+		<param name="Local" value="html/eudo1dv4.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Hide address books from simple viruses (Miscellaneous options)">
+		<param name="Name" value="Hide address books from simple viruses">
+		<param name="Local" value="html/opti63oz.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="History File (Auto-completion options)">
+		<param name="Name" value="History File (auto-completion)">
+		<param name="Local" value="html/opti93xs.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Horizontal Line (menu option)">
+		<param name="Name" value="Horizontal Line">
+		<param name="Local" value="html/menu4lte.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Hotkeys">
+		<param name="Name" value="Shortcuts">
+		<param name="Local" value="html/eudo31wz.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Hours to be ANCIENT (Date Display options)">
+		<param name="Name" value="Hours to be ANCIENT (Date Display Options)">
+		<param name="Local" value="html/opti7iic.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Hours to be OLD (Date Display options)">
+		<param name="Name" value="Hours to be OLD (Date Display Options)">
+		<param name="Local" value="html/opti5ldf.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Hyperlink">
+		<param name="Name" value="Creating a Hyperlink in a Message">
+		<param name="Local" value="html/eudo1uw5.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="in a message">
+			<param name="Local" value="html/eudo1uw5.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="If the message is on fire (MoodWatch options]">
+		<param name="Name" value="If the message is on fire (MoodWatch]">
+		<param name="Local" value="html/opti082t.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="If the message is probably offensive (MoodWatch options)">
+		<param name="Name" value="If the message is probably offensive (MoodWatch)">
+		<param name="Local" value="html/opti8xet.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="If the message seems like it might be offensive (MoodWatch options)">
+		<param name="Name" value="If the message seems like it might be offensive (MoodWatch)">
+		<param name="Local" value="html/opti7vad.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Ignore capitalized words (Spell Checking options)">
+		<param name="Name" value="Ignore capitalized words (Spell Checking Options)">
+		<param name="Local" value="html/opti62nn.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Ignore Original Text (Spell Checking options)">
+		<param name="Name" value="Ignore Original Text (Spell Checking Options)">
+		<param name="Local" value="html/opti0xpo.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Ignore words with all capitals (Spell Checking options)">
+		<param name="Name" value="Ignore words with all capitals (Spell Checking Options)">
+		<param name="Local" value="html/opti7iib.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Ignore words with mixed case (Spell Checking options)">
+		<param name="Name" value="Ignore words with mixed case (Spell Checking Options)">
+		<param name="Local" value="html/opti5jtx.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Ignore words with numbers (Spell Checking options)">
+		<param name="Name" value="Ignore words with numbers (Spell Checking Options)">
+		<param name="Local" value="html/opti06lv.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="IMAP">
+		<param name="Name" value="Configuring Eudora">
+		<param name="Local" value="html/eudo9wwx.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="IMAP (Incoming Mail options)">
+		<param name="Name" value="IMAP (Incoming Mail Options)">
+		<param name="Local" value="html/opti36ls.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="IMAP Mailbox Location Prefix  (Incoming Mail options)">
+		<param name="Name" value="IMAP Mailbox Location Prefix">
+		<param name="Local" value="html/opti6ta0.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="IMAP server">
+		<param name="See Also" value="IMAP server">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="deleting a message">
+			<param name="Local" value="html/eudo9mwi.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="leaving mail on the server">
+			<param name="Local" value="html/eudo58aa.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="refreshing IMAP mailboxes">
+			<param name="Local" value="html/eudo6lf7.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="resynchronizing IMAP mailboxes">
+			<param name="Local" value="html/eudo5m42.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="IMAP">
+		<param name="See Also" value="IMAP">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="deleting a message">
+			<param name="Local" value="html/eudo7739.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="downloading minimal headers">
+			<param name="Local" value="html/eudo3jj9.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="mailbox and folder management">
+			<param name="Local" value="html/eudo4xma.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="managing your mail">
+			<param name="Local" value="html/eudo1x2q.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="offline tasks">
+			<param name="Local" value="html/eudo6nz9.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Immediate send (Sending Mail options)">
+		<param name="Name" value="Immediate send (Sending Mail options)">
+		<param name="Local" value="html/opti4604.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Importing Settings to Create a New Account">
+		<param name="Name" value="Configuring Eudora">
+		<param name="Local" value="html/eudo9wwx.htm">
+		<param name="Name" value="Importing Settings to Create a New Account">
+		<param name="Local" value="html/eudo4juc.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Importing">
+		<param name="See Also" value="Importing">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="from Netscape">
+			<param name="Local" value="html/eudo4juc.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="from Outlook 2000">
+			<param name="Local" value="html/eudo4juc.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="from Outlook 98">
+			<param name="Local" value="html/eudo4juc.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="from Outlook Express">
+			<param name="Local" value="html/eudo4juc.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="In (Mailbox menu option)">
+		<param name="Name" value="In (Mailbox menu command)">
+		<param name="Local" value="html/menu8d2m.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="In (Transfer menu option)">
+		<param name="Name" value="In (Transfer menu command)">
+		<param name="Local" value="html/menu89pq.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Include original text (MoodWatch options)">
+		<param name="Name" value="Include original text (MoodWatch)">
+		<param name="Local" value="html/opti6p4c.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Include outdated 'Return-Receipt-To' (Miscellaneous options)">
+		<param name="Name" value="Include outdated 'Return-Receipt-To' (Miscellaneous Options)">
+		<param name="Local" value="html/opti0fat.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Include signature on reply (Replying options)">
+		<param name="Name" value="Include signature on reply">
+		<param name="Local" value="html/opti2igp.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Include yourself (Replying options)">
+		<param name="Name" value="Include yourself (Replying Options)">
+		<param name="Local" value="html/opti5ujq.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Including a Signature in Messages">
+		<param name="Name" value="Including a Signature in Messages">
+		<param name="Local" value="html/eudo6qer.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Including a URL in a Message">
+		<param name="Name" value="Including a URL in a Message">
+		<param name="Local" value="html/eudo6145.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Including Nicknames on the Quick Recipient List">
+		<param name="Name" value="Including Nicknames on the Quick Recipient List">
+		<param name="Local" value="html/eudo1mwk.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Incoming Mail Options Window">
+		<param name="Name" value="Incoming Mail Options Window">
+		<param name="Local" value="html/eudo8rp3.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Incoming Message Window">
+		<param name="Name" value="The Incoming Message Window">
+		<param name="Local" value="html/eudo8qpj.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="BLAH BLAH BLAH (expand headers)">
+			<param name="Local" value="html/eudo8qpj.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="Fixed Width">
+			<param name="Local" value="html/eudo8qpj.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="Mailbox (with arrow)">
+			<param name="Local" value="html/eudo8qpj.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="Pencil">
+			<param name="Local" value="html/eudo8qpj.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="Title Bar">
+			<param name="Local" value="html/eudo8qpj.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="Toolbar">
+			<param name="Local" value="html/eudo8qpj.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Incoming messages">
+		<param name="See Also" value="Incoming messages">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="editing">
+			<param name="Local" value="html/eudo43sj.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Indent Out (menu option)">
+		<param name="Name" value="Indent Out">
+		<param name="Local" value="html/menu97ec.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Insert Object (Outgoing message option)">
+		<param name="Name" value="Insert Object (Outgoing message option)">
+		<param name="Local" value="html/menu2a9g.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Insert Recipient (menu option)">
+		<param name="Name" value="Insert Recipient">
+		<param name="Local" value="html/menu8f78.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Insert System Configuration (menu option)">
+		<param name="Name" value="Insert System Configuration">
+		<param name="Local" value="html/menu9s4u.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Inserting Objects in Message Text">
+		<param name="Name" value="Inserting Objects in Message Text">
+		<param name="Local" value="html/eudo63g4.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Installing ESP">
+		<param name="Name" value="Installing ESP">
+		<param name="Local" value="html/eudo25yo.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Internet Dialup">
+		<param name="Name" value="Internet Dialup">
+		<param name="Local" value="html/eudo1now.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Introducing ESP">
+		<param name="Name" value="Introducing ESP">
+		<param name="Local" value="html/eudo7xrk.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Inviting Members to Join Your Group">
+		<param name="Name" value="Inviting Members to Join Your Group">
+		<param name="Local" value="html/eudo6kvk.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Joining an ESP Group">
+		<param name="Name" value="Joining an ESP Group">
+		<param name="Local" value="html/eudo75tc.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Junk (Mailbox menu option)">
+		<param name="Name" value="Junk (Mailbox menu command)">
+		<param name="Local" value="html/menu1qzv.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Junk (menu option)">
+		<param name="Name" value="Junk">
+		<param name="Local" value="html/menu0dt7.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Junk (Transfer menu option)">
+		<param name="Name" value="Junk (Transfer menu command)">
+		<param name="Local" value="html/menu9oiz.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Junk Mail Filter">
+		<param name="Name" value="Using the Junk Mail Filter for Incoming Messages">
+		<param name="Local" value="html/eudo9eer.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Junk Mailbox">
+		<param name="Name" value="Junk Mailbox">
+		<param name="Local" value="html/eudo386w.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Junk Mailbox Options">
+		<param name="Name" value="Junk Mailbox Options Window">
+		<param name="Local" value="html/eudo7c1j.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Junk Score as a filter criteria">
+		<param name="Name" value="Filter Criteria (The Match Area)">
+		<param name="Local" value="html/eudo3nc9.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Junk Score column (sort in an open mailbox)">
+		<param name="Name" value="Sort by Junk (in open mailbox)">
+		<param name="Local" value="html/menu7yzv.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Junk Threshold">
+		<param name="Name" value="Junk Threshold">
+		<param name="Local" value="html/opti1kdn.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Junk Threshold scoring">
+		<param name="Name" value="Junk Mailbox Options Window">
+		<param name="Local" value="html/eudo7c1j.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Keep copies (Composing Mail options)">
+		<param name="Name" value="Keep copies (Sending Mail Options)">
+		<param name="Local" value="html/opti24vn.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Keep Copy (menu option)">
+		<param name="Name" value="Keep Copy (Outgoing message option)">
+		<param name="Local" value="html/menu5kxf.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Keeping Copies of Outgoing Messages">
+		<param name="Name" value="Keeping Copies of Outgoing Messages">
+		<param name="Local" value="html/eudo6n8z.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Keeping the Directory Services Window on Top">
+		<param name="Name" value="Keeping the Directory Services Window on Top">
+		<param name="Local" value="html/eudo5qcw.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Kerberos 4">
+		<param name="Name" value="Kerberos 4 (POP only) OFF">
+		<param name="Local" value="html/opti4siu.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Kerberos 4 POP only  ON">
+		<param name="Name" value="Kerberos 4 (POP only) ON">
+		<param name="Local" value="html/opti3ctq.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Kerberos Authentication">
+		<param name="Name" value="Kerberos Authentication (ON)">
+		<param name="Local" value="html/opti1qge.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Kerberos Options Window">
+		<param name="Name" value="Kerberos Options Window">
+		<param name="Local" value="html/eudo6nnb.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Kerberos POP3 port (Kerberos options)">
+		<param name="Name" value="Kerberos POP3 port (Kerberos Options)">
+		<param name="Local" value="html/opti1vuc.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Keyboard shortcuts">
+		<param name="Name" value="Shortcuts">
+		<param name="Local" value="html/eudo31wz.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Labels (Labels options)">
+		<param name="Name" value="Labels (Labels Options)">
+		<param name="Local" value="html/opti24j5.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Labels Options Window">
+		<param name="Name" value="Labels Options Window">
+		<param name="Local" value="html/eudo0ojb.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Last SSL Info">
+		<param name="Name" value="Last SSL Info">
+		<param name="Local" value="html/opti85ic.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Last Text Color">
+		<param name="Name" value="Last Text Color (Edit menu)">
+		<param name="Local" value="html/menu3kfm.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Launch a program from a message (Extra Warnings options)">
+		<param name="Name" value="Launch a program from a message">
+		<param name="Local" value="html/opti2ilp.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Launching Eudora">
+		<param name="Name" value="Starting and Quitting Eudora">
+		<param name="Local" value="html/eudo5y75.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Leave mail on server (Incoming Mail options)">
+		<param name="Name" value="Leave mail on server (Options)">
+		<param name="Local" value="html/opti7fle.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Leaving an ESP Group">
+		<param name="Name" value="Leaving an ESP Group">
+		<param name="Local" value="html/eudo73n4.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Leaving Mail on the Server">
+		<param name="Name" value="Leaving Mail on the Server">
+		<param name="Local" value="html/eudo58aa.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Light mode">
+		<param name="Name" value="Changing the Eudora Mode">
+		<param name="Local" value="html/eudo2uw5.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Link History">
+		<param name="Name" value="Link History">
+		<param name="Local" value="html/dial6ovt.htm">
+		<param name="Name" value="Link History">
+		<param name="Local" value="html/eudo7d2x.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Linking a Signature and Stationery to a Personality">
+		<param name="Name" value="Linking a Signature and Stationery to a Personality">
+		<param name="Local" value="html/eudo2qyh.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Longer headers">
+		<param name="Name" value="BLAH ,BLAH, BLAH (Outgoing message option)">
+		<param name="Local" value="html/menu6kyw.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Looking Someone Up (Making a Query)">
+		<param name="Name" value="Looking Someone Up (Making a Query)">
+		<param name="Local" value="html/eudo4sq1.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Mail Server (Incoming POP/IMAP)">
+		<param name="Name" value="Mail Server (Incoming POP/IMAP)">
+		<param name="Local" value="html/opti6jow.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Mail Server (Incoming) (Getting Started options)">
+		<param name="Name" value="Mail Server (Incoming)">
+		<param name="Local" value="html/opti1m42.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Mailbox preview pane">
+		<param name="Name" value="The Message Preview Pane">
+		<param name="Local" value="html/eudo2x9h.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Mailbox">
+		<param name="See Also" value="Mailbox">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="creating">
+			<param name="Name" value="Creating Mailboxes and Folders">
+			<param name="Local" value="html/eudo5t6b.htm">
+			<param name="Name" value="Creating a New Mailbox or Folder">
+			<param name="Local" value="html/eudo4lyq.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="creating using Mailbox menu">
+			<param name="Local" value="html/eudo9zsl.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="message summaries">
+			<param name="Local" value="html/eudo2h4j.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="moving from one folder to another">
+			<param name="Local" value="html/eudo3gvm.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="opening">
+			<param name="Local" value="html/eudo29iw.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="preview pane">
+			<param name="Local" value="html/eudo2x9h.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="removing">
+			<param name="Local" value="html/eudo2khe.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="renaming">
+			<param name="Local" value="html/eudo84aa.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="size display">
+			<param name="Local" value="html/eudo1d15.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="window">
+			<param name="Local" value="html/eudo6ed3.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Mailboxes">
+		<param name="Name" value="Mailboxes">
+		<param name="Local" value="html/dial9flf.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Mailboxes (menu option)">
+		<param name="Name" value="Mailboxes">
+		<param name="Local" value="html/menu4ks3.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Mailboxes Options Window">
+		<param name="Name" value="Mailboxes Options Window">
+		<param name="Local" value="html/eudo4uyf.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Mailboxes Window">
+		<param name="Name" value="Mailboxes Window">
+		<param name="Local" value="html/dial78fl.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Maintaining ESP Group Members">
+		<param name="Name" value="Maintaining ESP Group Members">
+		<param name="Local" value="html/eudo74hf.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Make Address Book Entry Command">
+		<param name="Name" value="The &quot;Make Address Book Entry&quot; Command">
+		<param name="Local" value="html/eudo7tk4.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Make Filter (menu option)">
+		<param name="Name" value="Make Filter">
+		<param name="Local" value="html/menu53n6.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Make Filter dialog">
+		<param name="Name" value="Quick and Simple Filters with the Make Filter Dialog">
+		<param name="Local" value="html/eudo6isn.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Make Label (Filter Action)">
+		<param name="Name" value="None (Filter Action)">
+		<param name="Local" value="html/dial5qpc.htm#hidc_action_combo4">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Make Priority (Filter Action)">
+		<param name="Name" value="None (Filter Action)">
+		<param name="Local" value="html/dial5qpc.htm#hidc_action_combo4">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Make Status (Filter Action)">
+		<param name="Name" value="None (Filter Action)">
+		<param name="Local" value="html/dial5qpc.htm#hidc_action_combo4">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Make Subject (Filter Action)">
+		<param name="Name" value="None (Filter Action)">
+		<param name="Local" value="html/dial5qpc.htm#hidc_action_combo4">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Making an Address Book Entry from Your Query Results">
+		<param name="Name" value="Making an Address Book Entry from Your Query Results">
+		<param name="Local" value="html/eudo1fqr.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Managing your Mail on a POP Server.">
+		<param name="Name" value="Managing your Mail on a POP Server.">
+		<param name="Local" value="html/eudo8kku.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Managing Your Mail on the IMAP Server">
+		<param name="Name" value="Managing your Mail on the IMAP Server">
+		<param name="Local" value="html/eudo1x2q.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Manually Decoding Attachments">
+		<param name="Name" value="Manually Decoding Attachments">
+		<param name="Local" value="html/eudo3m9f.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Map Ctrl+R to &quot;Reply to All&quot; (Replying options)">
+		<param name="Name" value="Map Ctrl+R to &quot;Reply to All&quot; (Replying Options)">
+		<param name="Local" value="html/opti6r1o.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="MAPI">
+		<param name="Name" value="The Messaging Application Program Interface (MAPI)">
+		<param name="Local" value="html/eudo1u95.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="MAPI Options Window">
+		<param name="Name" value="MAPI Options Window">
+		<param name="Local" value="html/eudo2o8n.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Mappings">
+		<param name="Name" value="EUDORA.INI Settings File">
+		<param name="Local" value="html/eudo87vt.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="Eudora.ini file">
+			<param name="Local" value="html/eudo87vt.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Mark previewed messages as read after _ second(s) (Viewing Mail options)">
+		<param name="Name" value="Mark previewed messages as read after _ second(s) (Viewing Mail Options)">
+		<param name="Local" value="html/opti0ooj.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Match Case">
+		<param name="Name" value="Match Case">
+		<param name="Local" value="html/eudo5fdx.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Match Type (Filters window)">
+		<param name="Name" value="Match Type (Filters window)">
+		<param name="Local" value="html/dial4ils.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Match Whole Word Only">
+		<param name="Name" value="Match Whole Word Only">
+		<param name="Local" value="html/eudo5tyx.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Maximum entries to keep in history (Auto-completion options)">
+		<param name="Name" value="Maximum entries to keep in history">
+		<param name="Local" value="html/opti8ag5.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="May use Quoted-Printable (Composing Mail Options)">
+		<param name="Name" value="May use Quoted-Printable (Sending Mail Options)">
+		<param name="Local" value="html/opti675c.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="message body">
+		<param name="Name" value="Using the Composition Window">
+		<param name="Local" value="html/eudo9n3r.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Message Plug-ins Settings... (menu option)">
+		<param name="Name" value="Message Plug-ins Settings...">
+		<param name="Local" value="html/menu87zn.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Message Plugins (menu option)">
+		<param name="Name" value="Message Plugins">
+		<param name="Local" value="html/menu5zoz.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Message Preview Pane">
+		<param name="Name" value="The Message Preview Pane">
+		<param name="Local" value="html/eudo2x9h.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Message priority">
+		<param name="Name" value="Setting the Message Priority">
+		<param name="Local" value="html/eudo1hx5.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Message Summaries in Mailboxes">
+		<param name="Name" value="Message Summaries in Mailboxes">
+		<param name="Local" value="html/eudo2h4j.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Message window height (Viewing Mail options)">
+		<param name="Name" value="Message window height">
+		<param name="Local" value="html/opti5sfn.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Message window width (Viewing Mail options)">
+		<param name="Name" value="Message window width">
+		<param name="Local" value="html/opti0grs.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Messaging Application Program Interface (MAPI)">
+		<param name="Name" value="The Messaging Application Program Interface (MAPI)">
+		<param name="Local" value="html/eudo1u95.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="MIME (Attachments options)">
+		<param name="Name" value="MIME (Attchments Options)">
+		<param name="Local" value="html/opti0izp.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="MIME digest">
+		<param name="Name" value="Receive MIME digest as a mailbox attachment">
+		<param name="Local" value="html/opti9pys.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="MIME Encoding">
+		<param name="Name" value="MIME Encoding">
+		<param name="Local" value="html/eudo1sx1.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Minimal Headers Only (IMAP)  (Incoming Mail options)">
+		<param name="Name" value="Minimal Headers Only (IMAP)">
+		<param name="Local" value="html/opti52n8.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Miscellaneous Options Window">
+		<param name="Name" value="Miscellaneous Options Window">
+		<param name="Local" value="html/eudo8nuf.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Modifier Keys">
+		<param name="Name" value="Modifier Keys">
+		<param name="Local" value="html/eudo8ier.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Mood Watch column (sort in an open mailbox)">
+		<param name="Name" value="Sort by MoodWatch (in open mailbox)">
+		<param name="Local" value="html/menu4aw4.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="MoodWatch">
+		<param name="Name" value="MoodWatch Options Window">
+		<param name="Local" value="html/eudo8zav.htm">
+		<param name="Name" value="Using MoodWatch">
+		<param name="Local" value="html/eudo2fu0.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="Settings">
+			<param name="Local" value="html/eudo8zav.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Moving a Mailbox from One Folder to Another">
+		<param name="Name" value="Moving a Mailbox from One Folder to Another">
+		<param name="Local" value="html/eudo3gvm.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Moving Toolbar buttons">
+		<param name="Name" value="Adding, Moving, and Removing Toolbar Buttons">
+		<param name="Local" value="html/eudo2ynn.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Multiple Users on One PC">
+		<param name="Name" value="Putting Multiple Users on One PC">
+		<param name="Local" value="html/eudo3m8z.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Names should appear in alphabetical order (Auto-completion options)">
+		<param name="Name" value="Names should appear in alphabetical order">
+		<param name="Local" value="html/opti8601.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Network buffer size of _ bytes (Advanced Network options)">
+		<param name="Name" value="Network buffer size of _ bytes (Advanced Network Options)">
+		<param name="Local" value="html/opti1un9.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Network Open timeout _ seconds (Advanced Network options)">
+		<param name="Name" value="Network Open timeout _ seconds (Advanced Network Options)">
+		<param name="Local" value="html/opti40fo.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Network timeout after _ seconds (Advanced Network options)">
+		<param name="Name" value="Network timeout after _ seconds (Advanced Network Options)">
+		<param name="Local" value="html/opti75f8.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Never (Automatically purge deleted IMAP messages)">
+		<param name="Name" value="Never (Automatically purge deleted IMAP messages)">
+		<param name="Local" value="html/opti55wy.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Never (MoodWatch options)">
+		<param name="Name" value="Never (MoodWatch)">
+		<param name="Local" value="html/opti8zoy.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="New (Internet Dialup options)">
+		<param name="Name" value="New">
+		<param name="Local" value="html/opti5whj.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="New Account">
+		<param name="Name" value="Configuring Eudora">
+		<param name="Local" value="html/eudo9wwx.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="New features">
+		<param name="Name" value="What's New in Eudora Email 7.0">
+		<param name="Local" value="html/eudo71gw.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="New Message (menu option)">
+		<param name="Name" value="New Message">
+		<param name="Local" value="html/menu10rp.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="New Message To (menu option)">
+		<param name="Name" value="New Message To">
+		<param name="Local" value="html/menu91r9.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="New Message With (menu option)">
+		<param name="Name" value="New Message With">
+		<param name="Local" value="html/menu53oo.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="New Signature">
+		<param name="Name" value="New Signature">
+		<param name="Local" value="html/menu6kdz.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="New... (Mailbox menu option)">
+		<param name="Name" value="New...">
+		<param name="Local" value="html/menu6xis.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="New... (Transfer menu option)">
+		<param name="Name" value="New... (Transfer menu command)">
+		<param name="Local" value="html/menu9p6f.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="New… (Mailbox menu option)">
+		<param name="Name" value="New… (Mailbox menu command)">
+		<param name="Local" value="html/menu2a44.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="None (do not change Label) (menu option)">
+		<param name="Name" value="None (do not change Label)">
+		<param name="Local" value="html/menu5eqt.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="None (Filter Action)">
+		<param name="Name" value="None (Filter Action)">
+		<param name="Local" value="html/dial5qpc.htm#hidc_action_combo4">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Normal Windows">
+		<param name="Name" value="Normal Windows">
+		<param name="Local" value="html/eudo516b.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Not Junk (menu option)">
+		<param name="Name" value="Not Junk">
+		<param name="Local" value="html/menu6sx7.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Notify Application (Filter Action)">
+		<param name="Name" value="None (Filter Action)">
+		<param name="Local" value="html/dial5qpc.htm#hidc_action_combo4">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Notify User (Filter Action)">
+		<param name="Name" value="None (Filter Action)">
+		<param name="Local" value="html/dial5qpc.htm#hidc_action_combo4">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Objects in message text">
+		<param name="Name" value="Inserting Objects in Message Text">
+		<param name="Local" value="html/eudo63g4.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Offline (Incoming Mail options)">
+		<param name="Name" value="Offline">
+		<param name="Local" value="html/opti6t0l.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Offline IMAP Tasks">
+		<param name="Name" value="IMAP Tasks Performed Offline">
+		<param name="Local" value="html/eudo6nz9.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="OLD format (Date Display options)">
+		<param name="Name" value="OLD format (Date Display Options)">
+		<param name="Local" value="html/opti2ng4.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Online Help">
+		<param name="Name" value="Online Help">
+		<param name="Local" value="html/eudo1dv4.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Open (Filter Action)">
+		<param name="Name" value="None (Filter Action)">
+		<param name="Local" value="html/dial5qpc.htm#hidc_action_combo4">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Open mailbox (Getting Attention options)">
+		<param name="Name" value="Open mailbox (Getting Attention Options)">
+		<param name="Local" value="html/opti7yns.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Opening a Mailbox">
+		<param name="Name" value="Opening a Mailbox">
+		<param name="Local" value="html/eudo29iw.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Opening and Activating Tabbed Windows">
+		<param name="Name" value="Opening and Activating Tabbed Windows">
+		<param name="Local" value="html/eudo3b5f.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Opening Directory Services">
+		<param name="Name" value="Opening Directory Services">
+		<param name="Local" value="html/eudo30oj.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Opening Eudora">
+		<param name="Name" value="Starting and Quitting Eudora">
+		<param name="Local" value="html/eudo5y75.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Options... (menu option)">
+		<param name="Name" value="Options...">
+		<param name="Local" value="html/menu93ub.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Options">
+		<param name="See Also" value="Options">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="advanced network">
+			<param name="Local" value="html/eudo7ulz.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="attachments">
+			<param name="Local" value="html/eudo0ref.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="auto completion">
+			<param name="Local" value="html/eudo5lx3.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="auto configure">
+			<param name="Local" value="html/eudo9kfr.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="automation">
+			<param name="Local" value="html/eudo7m0n.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="background tasks">
+			<param name="Local" value="html/eudo3nsn.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="checking mail">
+			<param name="Local" value="html/eudo8saf.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="composing mail">
+			<param name="Local" value="html/eudo4mnr.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="date display">
+			<param name="Local" value="html/eudo0ud3.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="display">
+			<param name="Local" value="html/eudo6cs7.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="extra warnings">
+			<param name="Local" value="html/eudo1m7r.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="fonts">
+			<param name="Local" value="html/eudo41tj.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="getting attention">
+			<param name="Local" value="html/eudo8b3r.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="getting started">
+			<param name="Local" value="html/eudo93nb.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="incoming mail">
+			<param name="Local" value="html/eudo8rp3.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="Kerberos">
+			<param name="Local" value="html/eudo6nnb.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="labels">
+			<param name="Local" value="html/eudo0ojb.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="mailbox options">
+			<param name="Local" value="html/eudo4uyf.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="MAPI">
+			<param name="Local" value="html/eudo2o8n.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="miscellaneous">
+			<param name="Local" value="html/eudo8nuf.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="replying">
+			<param name="Local" value="html/eudo3zuf.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="sending mail">
+			<param name="Local" value="html/eudo1fp3.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="spelling">
+			<param name="Local" value="html/eudo1ign.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="styled text">
+			<param name="Local" value="html/eudo2d9z.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="viewing mail">
+			<param name="Local" value="html/eudo6szb.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Out (Mailbox menu option)">
+		<param name="Name" value="Out (Mailbox menu command)">
+		<param name="Local" value="html/menu5s1g.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Out (Transfer menu option)">
+		<param name="Name" value="Out (Transfer menu command)">
+		<param name="Local" value="html/menu9t4k.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Outgoing message">
+		<param name="See Also" value="Outgoing message">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="(Spell Checking options)">
+			<param name="Local" value="html/opti2j1j.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Paid mode">
+		<param name="Name" value="Changing the Eudora Mode">
+		<param name="Local" value="html/eudo2uw5.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Password (ACAP) (Auto Configure options)">
+		<param name="Name" value="Password (ACAP)">
+		<param name="Local" value="html/opti7co4.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Passwords">
+		<param name="Name" value="Using Your Password">
+		<param name="Local" value="html/eudo5cdg.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="changing">
+			<param name="Local" value="html/eudo2i90.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Paste As Quotation (menu option)">
+		<param name="Name" value="Paste As Quotation">
+		<param name="Local" value="html/menu5ga6.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Paste Special (menu option)">
+		<param name="Name" value="Paste Special">
+		<param name="Local" value="html/menu8qp8.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Pay for Eudora">
+		<param name="Name" value="Payment and Registration">
+		<param name="Local" value="html/dial98dq.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Payment and Registration">
+		<param name="Name" value="Payment and Registration">
+		<param name="Local" value="html/dial98dq.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Pencil icon">
+		<param name="Name" value="Edit the Message">
+		<param name="Local" value="html/menu4s9x.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Persona (Task Status) (Background Tasks options)">
+		<param name="Name" value="Persona (Task Status)">
+		<param name="Local" value="html/opti3469.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Personalities">
+		<param name="Name" value="Personalities">
+		<param name="Local" value="html/dial9cqb.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Personalities Window">
+		<param name="Name" value="Personalities Window">
+		<param name="Local" value="html/eudo6lrr.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Personalities">
+		<param name="See Also" value="Personalities">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="setting up using the Account Settings dialog">
+			<param name="Local" value="html/eudo19gn.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="window">
+			<param name="Local" value="html/eudo6lrr.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Personality">
+		<param name="Name" value="Using an Alternate Email Account">
+		<param name="Local" value="html/eudo6et0.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Ph Database">
+		<param name="Name" value="Adding a Ph Database">
+		<param name="Local" value="html/eudo8a79.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Picture (menu option)">
+		<param name="Name" value="Picture">
+		<param name="Local" value="html/menu0qqt.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Play a sound (Getting Attention options)">
+		<param name="Name" value="Play a sound (Getting Attention Options)">
+		<param name="Local" value="html/opti9jok.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Play Sound (Filter Action)">
+		<param name="Name" value="None (Filter Action)">
+		<param name="Local" value="html/dial5qpc.htm#hidc_action_combo4">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Plug-in Addresses (Auto-completion options)">
+		<param name="Name" value="Plug-in Addresses (Auto-completion)">
+		<param name="Local" value="html/opti6rhs.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Plugins (Extended Messaging Services)">
+		<param name="Name" value="Plugins (Extended Messaging Services)">
+		<param name="Local" value="html/eudo8nzd.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="POP">
+		<param name="Name" value="Configuring Eudora">
+		<param name="Local" value="html/eudo9wwx.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="POP (Incoming Mail options)">
+		<param name="Name" value="POP (Incoming Mail Options)">
+		<param name="Local" value="html/opti075c.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="POP server">
+		<param name="See Also" value="POP server">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="deleting a message">
+			<param name="Local" value="html/eudo1sc2.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="leaving mail on the server">
+			<param name="Local" value="html/eudo58aa.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="POP">
+		<param name="See Also" value="POP">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="deleting a message">
+			<param name="Local" value="html/eudo7739.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="mailbox and folder management">
+			<param name="Local" value="html/eudo4xma.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="managing your mail">
+			<param name="Local" value="html/eudo8kku.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Preview Pane">
+		<param name="Name" value="The Message Preview Pane">
+		<param name="Local" value="html/eudo2x9h.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Print (Filter Action)">
+		<param name="Name" value="None (Filter Action)">
+		<param name="Local" value="html/dial5qpc.htm#hidc_action_combo4">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Print (menu option)">
+		<param name="Name" value="Print">
+		<param name="Local" value="html/menu225w.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Print One">
+		<param name="Name" value="Print One">
+		<param name="Local" value="html/menu2rzo.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Print Preview (menu option)">
+		<param name="Name" value="Print Preview">
+		<param name="Local" value="html/menu7q2f.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Print Setup (menu option)">
+		<param name="Name" value="Print Setup">
+		<param name="Local" value="html/menu0434.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Print usage statistics">
+		<param name="Name" value="Statistics">
+		<param name="Local" value="html/eudo2koj.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Printer Font (Fonts options)">
+		<param name="Name" value="Printer Font (Fonts Options)">
+		<param name="Local" value="html/opti1fn8.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Printing">
+		<param name="Name" value="Printing">
+		<param name="Local" value="html/eudo2vzb.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Printing Your Query Results">
+		<param name="Name" value="Printing Your Query Results">
+		<param name="Local" value="html/eudo8m7n.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Priority">
+		<param name="Name" value="Setting the Message Priority">
+		<param name="Local" value="html/eudo1hx5.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Progress (Task Status) (Background Tasks options)">
+		<param name="Name" value="Progress (Task Status)">
+		<param name="Local" value="html/opti7r8z.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Proportional (Fonts options)">
+		<param name="Name" value="Proportional (Fonts &amp; Display Options)">
+		<param name="Local" value="html/opti0t84.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Protocols">
+		<param name="Name" value="Protocols">
+		<param name="Local" value="html/dial1303.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="PureVoice">
+		<param name="Name" value="Attaching a PureVoice File to a Message">
+		<param name="Local" value="html/eudo3xk5.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="using">
+			<param name="Local" value="html/eudo24kl.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Purge messages (menu option)">
+		<param name="Name" value="Purge Messages">
+		<param name="Local" value="html/menu6085.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Put original &quot;To&quot; recipient in &quot;Cc&quot; field (Replying options)">
+		<param name="Name" value="Put original To: recipients in Cc: field (Replying Options)">
+		<param name="Local" value="html/opti1elf.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Put text attachments in body of message (Attachments options)">
+		<param name="Name" value="Put text attachments in body of message (Attachments Options)">
+		<param name="Local" value="html/opti296h.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Putting Multiple Users on One PC">
+		<param name="Name" value="Putting Multiple Users on One PC">
+		<param name="Local" value="html/eudo3m8z.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="QP">
+		<param name="Name" value="May use Quoted-Printable (Sending Mail Options)">
+		<param name="Local" value="html/opti675c.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Queue a message bigger than _ K (Extra Warnings options)">
+		<param name="Name" value="Queue a message bigger than _ K (Extra Warnings Options)">
+		<param name="Local" value="html/opti195x.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Queue a message with no subject (Extra Warnings options)">
+		<param name="Name" value="Queue a message with no subject (Extra Warnings Options)">
+		<param name="Local" value="html/opti4zw4.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Queue For Delivery (menu option)">
+		<param name="Name" value="Queue For Delivery">
+		<param name="Local" value="html/menu2jy1.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Queueing a Message to Send at a Certain Time">
+		<param name="Name" value="Queueing a Message to Send at a Certain Time">
+		<param name="Local" value="html/eudo7iqt.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Queueing a Message to Send Later">
+		<param name="Name" value="Queueing a Message to Send Later">
+		<param name="Local" value="html/eudo3j1u.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Quick and Simple Filters with the Make Filter Dialog">
+		<param name="Name" value="Quick and Simple Filters with the Make Filter Dialog">
+		<param name="Local" value="html/eudo6isn.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Quick Recipient List">
+		<param name="Name" value="Using the Quick Recipient List">
+		<param name="Local" value="html/eudo7l84.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Quit with messages queued to be sent (Extra Warnings options)">
+		<param name="Name" value="Quit with messages queued to be sent (Extra Warnings Options)">
+		<param name="Local" value="html/opti39r8.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Quitting Eudora">
+		<param name="Name" value="Starting and Quitting Eudora">
+		<param name="Local" value="html/eudo5y75.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Quoted-Printable Encoding (Outgoing message option)">
+		<param name="Name" value="Quoted-Printable Encoding (Outgoing message option)">
+		<param name="Local" value="html/menu5isl.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Reading Your Query Results">
+		<param name="Name" value="Reading Your Query Results">
+		<param name="Local" value="html/eudo2mlv.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Real Name (Getting Started options)">
+		<param name="Name" value="Real name (Options)">
+		<param name="Local" value="html/opti678l.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Realm (Kerberos options)">
+		<param name="Name" value="Realm (Kerberos Options)">
+		<param name="Local" value="html/opti23xp.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Receipt">
+		<param name="Name" value="Requesting a Return Receipt">
+		<param name="Local" value="html/eudo30j8.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Receiving Attachments">
+		<param name="Name" value="Receiving Attachments">
+		<param name="Local" value="html/eudo6acz.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Receiving New Mail">
+		<param name="Name" value="Receiving New Mail">
+		<param name="Local" value="html/eudo06jw.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="RECENT format (Date Display options)">
+		<param name="Name" value="RECENT format (Date Display Options)">
+		<param name="Local" value="html/opti72gk.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Recipient List">
+		<param name="Name" value="Using the Quick Recipient List">
+		<param name="Local" value="html/eudo7l84.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Redirect (menu option)">
+		<param name="Name" value="Redirect">
+		<param name="Local" value="html/menu5mwk.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Redirect and Signatures">
+		<param name="Name" value="Redirect and Signatures">
+		<param name="Local" value="html/eudo960j.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Redirect To (Filter Action)">
+		<param name="Name" value="None (Filter Action)">
+		<param name="Local" value="html/dial5qpc.htm#hidc_action_combo4">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Redirect To (menu option)">
+		<param name="Name" value="Redirect To">
+		<param name="Local" value="html/menu49f8.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Redirecting a Message">
+		<param name="Name" value="Redirecting a Message">
+		<param name="Local" value="html/eudo08f9.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Refreshing Your List of IMAP Mailboxes and Folders">
+		<param name="Name" value="Refreshing Your List of IMAP Mailboxes and Folders">
+		<param name="Local" value="html/eudo6lf7.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="RegEx">
+		<param name="Name" value="Regular Expressions">
+		<param name="Local" value="html/eudo2ub7.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Register Eudora">
+		<param name="Name" value="Payment and Registration">
+		<param name="Local" value="html/dial98dq.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Registering Eudora">
+		<param name="Name" value="Registering Eudora">
+		<param name="Local" value="html/eudo8u75.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Regular Expressions">
+		<param name="Name" value="Regular Expressions">
+		<param name="Local" value="html/eudo2ub7.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Rejected messages">
+		<param name="Name" value="Sending Rejected Messages Again">
+		<param name="Local" value="html/eudo7eem.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Remove or Add Excerpt Bars">
+		<param name="Name" value="Remove or Add Excerpt Bars">
+		<param name="Local" value="html/eudo3c37.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Remove Recipient (menu option)">
+		<param name="Name" value="Remove Recipient">
+		<param name="Local" value="html/menu5dd1.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Removing a Mailbox or Folder">
+		<param name="Name" value="Removing a Mailbox or Folder">
+		<param name="Local" value="html/eudo2khe.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Renaming a Mailbox or Folder">
+		<param name="Name" value="Renaming a Mailbox or Folder">
+		<param name="Local" value="html/eudo84aa.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Reorganizing Tabbed Windows">
+		<param name="Name" value="Reorganizing Tabbed Windows">
+		<param name="Local" value="html/eudo31o3.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Reply (menu option)">
+		<param name="Name" value="Reply">
+		<param name="Local" value="html/menu54l5.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Reply functions">
+		<param name="Name" value="Using the Reply Functions">
+		<param name="Local" value="html/eudo4z5f.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Reply to All">
+		<param name="Name" value="Reply to All">
+		<param name="Local" value="html/menu8k18.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Reply With (Filter Action)">
+		<param name="Name" value="None (Filter Action)">
+		<param name="Local" value="html/dial5qpc.htm#hidc_action_combo4">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Reply With (menu option)">
+		<param name="Name" value="Reply With">
+		<param name="Local" value="html/menu0z54.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Replying Options Window">
+		<param name="Name" value="Replying Options Window">
+		<param name="Local" value="html/eudo3zuf.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Replying to a Message">
+		<param name="Name" value="Replying to a Message">
+		<param name="Local" value="html/eudo22p1.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Replying with a Stationery File">
+		<param name="Name" value="Replying with a Stationery File">
+		<param name="Local" value="html/eudo4mw5.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Replying with Selected Text">
+		<param name="Name" value="Replying with Selected Text">
+		<param name="Local" value="html/eudo34z8.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Replying">
+		<param name="See Also" value="Replying">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="options">
+			<param name="Local" value="html/eudo3zuf.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="with selected text">
+			<param name="Local" value="html/eudo34z8.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Report doubled words (Spell Checking options)">
+		<param name="Name" value="Report doubled words (Spell Checking Options)">
+		<param name="Local" value="html/opti4msz.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Reporting Bugs">
+		<param name="Name" value="Reporting Bugs">
+		<param name="Local" value="html/eudo3iyb.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Requesting a Return Receipt">
+		<param name="Name" value="Requesting a Return Receipt">
+		<param name="Local" value="html/eudo30j8.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Reset Statistics button (in the statistical options window)">
+		<param name="Name" value="Reset Statistics button (in the statistical options window)">
+		<param name="Local" value="html/opti10ac.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Results List">
+		<param name="Name" value="Results List">
+		<param name="Local" value="html/dial6qw3.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Resynchronizing an IMAP Mailbox or Folder">
+		<param name="Name" value="Resynchronizing an IMAP Mailbox or Folder">
+		<param name="Local" value="html/eudo5m42.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Retrieve Settings Now (Auto Configure options)">
+		<param name="Name" value="Retrieve Settings Now">
+		<param name="Local" value="html/opti6hm6.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Return Receipt">
+		<param name="Name" value="Requesting a Return Receipt">
+		<param name="Local" value="html/eudo30j8.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Return Receipt (menu option)">
+		<param name="Name" value="Return Receipt (Outgoing message option)">
+		<param name="Local" value="html/menu0gok.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Right-click context menu">
+		<param name="Name" value="Window Context Menu">
+		<param name="Local" value="html/eudo4jcl.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Save As Stationery (menu option)">
+		<param name="Name" value="Save As Stationery">
+		<param name="Local" value="html/menu3vy1.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Save password (Checking Mail options)">
+		<param name="Name" value="Save password (Checking Mail Options)">
+		<param name="Local" value="html/opti7lyc.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Saving a Message for Later Changes">
+		<param name="Name" value="Saving a Message for Later Changes">
+		<param name="Local" value="html/eudo9ir7.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Saving a Message to a File">
+		<param name="Name" value="Saving a Message to a File">
+		<param name="Local" value="html/eudo6a91.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Say OK to alerts after _ seconds (Miscellaneous options)">
+		<param name="Name" value="Say OK to alerts after _ seconds (Miscellaneous Options)">
+		<param name="Local" value="html/opti808k.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Scan Incoming Mail (MoodWatch options)">
+		<param name="Name" value="Scan Incoming Mail (MoodWatch)">
+		<param name="Local" value="html/opti1p7r.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Scan stored mail in the background (MoodWatch options)">
+		<param name="Name" value="Scan stored mail in the background (MoodWatch)">
+		<param name="Local" value="html/opti7f8k.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Search for Messages">
+		<param name="Name" value="Finding Messages in Mailboxes">
+		<param name="Local" value="html/eudo7j1v.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Search Messages">
+		<param name="Name" value="Search Messages">
+		<param name="Local" value="html/dial41no.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Searching in the address book">
+		<param name="Name" value="Changing, Moving, Copying, Seaching, and Deleting Entries">
+		<param name="Local" value="html/eudo614j.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Secure Sockets when Receiving">
+		<param name="Name" value="Secure Sockets when Receiving">
+		<param name="Local" value="html/opti2mw7.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Secure Sockets when Sending">
+		<param name="Name" value="Secure Sockets when Sending">
+		<param name="Local" value="html/opti20vb.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Secure Sockets when Sending or Receiving">
+		<param name="Name" value="Secure Sockets when Sending or Receiving">
+		<param name="Local" value="html/opti5h83.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Security">
+		<param name="Name" value="About Security">
+		<param name="Local" value="html/eudo07i1.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Select newly inserted messages (FUMLUB) (Mailboxes options)">
+		<param name="Name" value="Select newly inserted messages (FUMLUB)">
+		<param name="Local" value="html/opti19ya.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Send Again (menu option)">
+		<param name="Name" value="Send Again">
+		<param name="Local" value="html/menu9bji.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Send Immediately (menu option)">
+		<param name="Name" value="Send Immediately">
+		<param name="Local" value="html/menu3htl.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Send on check (Checking Mail options)">
+		<param name="Name" value="Send on check (Checking Mail Options)">
+		<param name="Local" value="html/opti8yzv.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Send Queued Messages (menu option)">
+		<param name="Name" value="Send Queued Messages">
+		<param name="Local" value="html/menu23eb.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Send single MAPI file attachment as inline attachment (MAPI options)">
+		<param name="Name" value="Send single MAPI file attachment as inline attachment (TXT and HTML files only)">
+		<param name="Local" value="html/opti346s.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Send the signature with styles (Styled Text options)">
+		<param name="Name" value="Send the signature with styles">
+		<param name="Local" value="html/opti1gkn.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Send To Back (menu option)">
+		<param name="Name" value="Send To Back">
+		<param name="Local" value="html/menu9p63.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Sending a Message Immediately">
+		<param name="Name" value="Sending a Message Immediately">
+		<param name="Local" value="html/eudo10mx.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Sending a Stationery Message">
+		<param name="Name" value="Sending a Stationery Message">
+		<param name="Local" value="html/eudo9usl.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Sending Mail Options Window">
+		<param name="Name" value="Sending Mail Options Window">
+		<param name="Local" value="html/eudo1fp3.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Sending Messages with Special Server Instructions">
+		<param name="Name" value="Sending Messages with Special Server Instructions">
+		<param name="Local" value="html/eudo2v3n.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Sending Queued Messages When Checking Mail">
+		<param name="Name" value="Sending Queued Messages When Checking Mail">
+		<param name="Local" value="html/eudo07u4.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Sending Rejected Messages Again">
+		<param name="Name" value="Sending Rejected Messages Again">
+		<param name="Local" value="html/eudo7eem.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Series (Statistics options)">
+		<param name="Name" value="Series (in statistics options window)">
+		<param name="Local" value="html/opti8s37.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Server Actions (Filter Action)">
+		<param name="Name" value="None (Filter Action)">
+		<param name="Local" value="html/dial5qpc.htm#hidc_action_combo4">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Server Name (ACAP) (Auto Configure options)">
+		<param name="Name" value="Server Name (ACAP)">
+		<param name="Local" value="html/opti8ywi.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Service format (Kerberos options)">
+		<param name="Name" value="Service format (Kerberos Options)">
+		<param name="Local" value="html/opti8d2s.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Service name (Kerberos options)">
+		<param name="Name" value="Service name (Kerberos Options)">
+		<param name="Local" value="html/opti5rtx.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Setting the Message Priority">
+		<param name="Name" value="Setting the Message Priority">
+		<param name="Local" value="html/eudo1hx5.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Setting up a personality using the Account Settings dialog">
+		<param name="Name" value="Account Settings Dialog">
+		<param name="Local" value="html/eudo19gn.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Settings Category (Options)">
+		<param name="Name" value="Settings Category (Options)">
+		<param name="Local" value="html/opti8w2t.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Shortcuts keys">
+		<param name="Name" value="Shortcuts">
+		<param name="Local" value="html/eudo31wz.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Show category icons (Display options)">
+		<param name="Name" value="Show category icons (Display Options)">
+		<param name="Local" value="html/opti6ovn.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Show cool bars (Display options)">
+		<param name="Name" value="Show cool bars (Display Options)">
+		<param name="Local" value="html/opti9v02.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Show count of selected messages in size box (Mailboxes options)">
+		<param name="Name" value="Show count of selected messages in size box">
+		<param name="Local" value="html/opti5a7o.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Show formatting toolbar (Styled Text options)">
+		<param name="Name" value="Show formatting toolbar">
+		<param name="Local" value="html/opti3uwi.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Show large buttons (Display options)">
+		<param name="Name" value="Show large buttons">
+		<param name="Local" value="html/opti1rw3.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Show Mailbox Columns  Junk">
+		<param name="Name" value="Show Mailbox Columns: Junk">
+		<param name="Local" value="html/opti7je3.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Show Mailbox Columns  MoodWatch">
+		<param name="Name" value="Show Mailbox Columns: MoodWatch">
+		<param name="Local" value="html/opti3vac.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Show mailbox lines (Mailboxes options)">
+		<param name="Name" value="Show mailbox lines">
+		<param name="Local" value="html/opti94j7.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Show MDI task bar (Display options)">
+		<param name="Name" value="Show MDI task bar (Display Options)">
+		<param name="Local" value="html/opti87qq.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Show message preview pane (Viewing Mail options)">
+		<param name="Name" value="Show message preview pane (Viewing Mail Options)">
+		<param name="Local" value="html/opti9b6t.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Show signature when composing (Composing Mail options)">
+		<param name="Name" value="Show signature when composing (Composing Mail)">
+		<param name="Local" value="html/opti91b9.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Show status bar (Display options)">
+		<param name="Name" value="Show status bar (Display Options)">
+		<param name="Local" value="html/opti1l82.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Show toolbar (Display options)">
+		<param name="Name" value="Show toolbar (Display Options)">
+		<param name="Local" value="html/opti6saa.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Show toolbar tips (Display options)">
+		<param name="Name" value="Show toolbar tips (Display Options)">
+		<param name="Local" value="html/opti64fn.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Signature">
+		<param name="Name" value="Signatures">
+		<param name="Local" value="html/dial5o6r.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Signature (Outgoing message option)">
+		<param name="Name" value="Signature (Outgoing message option)">
+		<param name="Local" value="html/menu1fu7.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Signature">
+		<param name="See Also" value="Signature">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="creating">
+			<param name="Local" value="html/eudo9k6d.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="default">
+			<param name="Local" value="html/dial1tyd.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="deleting">
+			<param name="Local" value="html/eudo33ol.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="in a message">
+			<param name="Local" value="html/eudo6qer.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="linking to a personality">
+			<param name="Local" value="html/eudo2qyh.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="modifying">
+			<param name="Local" value="html/eudo4jxh.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="window">
+			<param name="Local" value="html/eudo3kc7.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="with Redirecting command">
+			<param name="Local" value="html/eudo960j.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Signatures">
+		<param name="Name" value="Using a Signature">
+		<param name="Local" value="html/eudo5ahx.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Signatures (menu option)">
+		<param name="Name" value="Signatures">
+		<param name="Local" value="html/menu0ier.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Signatures Window">
+		<param name="Name" value="Signatures Window">
+		<param name="Local" value="html/eudo3kc7.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Size (Fonts options)">
+		<param name="Name" value="Size (Fonts Options)">
+		<param name="Local" value="html/opti0iqt.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Size (printer) (Fonts options)">
+		<param name="Name" value="Size (printer) (Fonts Options)">
+		<param name="Local" value="html/opti49gl.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Size (screen) (Fonts options)">
+		<param name="Name" value="Size (screen) (Fonts Options)">
+		<param name="Local" value="html/opti4w9x.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Skip messages over _ K in size  (Incoming Mail options)">
+		<param name="Name" value="Skip messages over _ K in size">
+		<param name="Local" value="html/opti4z77.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Skip rest (Filter Action)">
+		<param name="Name" value="None (Filter Action)">
+		<param name="Local" value="html/dial5qpc.htm#hidc_action_combo4">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Skipping Attachments Over a Certain Size">
+		<param name="Name" value="Skipping Attachments Over a Certain Size">
+		<param name="Local" value="html/eudo3pet.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Skipping Messages Over a Certain Size">
+		<param name="Name" value="Skipping Messages Over a Certain Size">
+		<param name="Local" value="html/eudo5k2t.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="SMTP Authentication">
+		<param name="Name" value="Using_SMTP_Athentication">
+		<param name="Local" value="html/eudo6tke.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="SMTP Relay">
+		<param name="Name" value="Sending Mail Through One Account (SMTP Relay)">
+		<param name="Local" value="html/eudo16vz.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="SMTP Relay Personality">
+		<param name="Name" value="SMTP Relay Personality">
+		<param name="Local" value="html/opti3hwh.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="SMTP server (Outgoing) (Getting Started options)">
+		<param name="Name" value="SMTP server (Outgoing)">
+		<param name="Local" value="html/opti37w2.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Sort by Attachment (menu option)">
+		<param name="Name" value="Sort by Attachment">
+		<param name="Local" value="html/menu9kz8.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Sort by Date (menu option)">
+		<param name="Name" value="Sort by Date">
+		<param name="Local" value="html/menu2ig5.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Sort by Label (menu option)">
+		<param name="Name" value="Sort by Label">
+		<param name="Local" value="html/menu5yy4.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Sort by Priority (menu option)">
+		<param name="Name" value="Sort by Priority">
+		<param name="Local" value="html/menu4y9l.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Sort by Sender (menu option)">
+		<param name="Name" value="Sort by Sender">
+		<param name="Local" value="html/menu5xgy.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Sort by Server Status (menu option)">
+		<param name="Name" value="Sort by Server Status">
+		<param name="Local" value="html/menu1ho3.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Sort by Size (menu option)">
+		<param name="Name" value="Sort by Size">
+		<param name="Local" value="html/menu7i3p.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Sort by Status (menu option)">
+		<param name="Name" value="Sort by Status">
+		<param name="Local" value="html/menu881f.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Sort by Subject (menu option)">
+		<param name="Name" value="Sort by Subject">
+		<param name="Local" value="html/menu2aes.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Sorting Messages in Mailboxes">
+		<param name="Name" value="Sorting Messages in Mailboxes">
+		<param name="Local" value="html/eudo1w37.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="Complex sorting">
+			<param name="Local" value="html/eudo1w37.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="Group by subject">
+			<param name="Local" value="html/eudo1w37.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="Simple sorting">
+			<param name="Local" value="html/eudo1w37.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Sorting Messages Within Mailboxes">
+		<param name="Name" value="Sorting Messages Within Mailboxes">
+		<param name="Local" value="html/eudo66gj.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="SpamWatch Junk mailbox">
+		<param name="Name" value="Junk Mailbox">
+		<param name="Local" value="html/eudo386w.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="SpamWatch mail filter">
+		<param name="Name" value="Using the Junk Mail Filter for Incoming Messages">
+		<param name="Local" value="html/eudo9eer.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="SpamWatch options">
+		<param name="Name" value="Junk Mailbox Options Window">
+		<param name="Local" value="html/eudo7c1j.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Speak (Filter Action)">
+		<param name="Name" value="None (Filter Action)">
+		<param name="Local" value="html/dial5qpc.htm#hidc_action_combo4">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Special server instructions">
+		<param name="Name" value="Checking for Mail with Special Server Instructions">
+		<param name="Local" value="html/eudo2jub.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Specifying an Attachment Directory">
+		<param name="Name" value="Specifying an Attachment Directory">
+		<param name="Local" value="html/eudo37jt.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Spell Checking Options Window">
+		<param name="Name" value="Spell Checking Options Window">
+		<param name="Local" value="html/eudo1ign.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Spelling">
+		<param name="Name" value="Checking Your Spelling">
+		<param name="Local" value="html/eudo0kx3.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="automatic spell checking">
+			<param name="Local" value="html/eudo9p7r.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="dialog">
+			<param name="Local" value="html/eudo0m1z.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="Match Whole Word Only">
+			<param name="Local" value="html/eudo5tyx.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="options">
+			<param name="Local" value="html/eudo1ign.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Sponsored mode">
+		<param name="Name" value="Changing the Eudora Mode">
+		<param name="Local" value="html/eudo2uw5.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="SSL">
+		<param name="Name" value="About Security">
+		<param name="Local" value="html/eudo07i1.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Standard Signature">
+		<param name="Name" value="Standard Signature">
+		<param name="Local" value="html/menu2tet.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Start Eudora and it's not the default mailer (Extra Warnings options)">
+		<param name="Name" value="Start Eudora and it's not the default mailer (Extra Warnings Options)">
+		<param name="Local" value="html/opti6l7z.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Starting Eudora">
+		<param name="Name" value="Starting and Quitting Eudora">
+		<param name="Local" value="html/eudo5y75.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="STARTTLS">
+		<param name="Name" value="About Security">
+		<param name="Local" value="html/eudo07i1.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Stationery">
+		<param name="Name" value="Stationery">
+		<param name="Local" value="html/dial0ubd.htm">
+		<param name="Name" value="Using Stationery">
+		<param name="Local" value="html/eudo2ph5.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Stationery Window">
+		<param name="Name" value="Stationery Window">
+		<param name="Local" value="html/eudo577b.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Stationery">
+		<param name="See Also" value="Stationery">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="create a message">
+			<param name="Local" value="html/eudo4yrd.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="creating">
+			<param name="Local" value="html/eudo70md.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="default">
+			<param name="Local" value="html/dial2fax.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="deleting">
+			<param name="Local" value="html/eudo8pgl.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="for all outgoing messages">
+			<param name="Local" value="html/eudo56lv.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="linking to a personality">
+			<param name="Local" value="html/eudo2qyh.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="modifying">
+			<param name="Local" value="html/eudo631h.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="replying with">
+			<param name="Local" value="html/eudo4mw5.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="sending a stationery message">
+			<param name="Local" value="html/eudo9usl.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="window">
+			<param name="Local" value="html/eudo577b.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Statistics">
+		<param name="Name" value="Statistics">
+		<param name="Local" value="html/eudo2koj.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Statistics (menu option)">
+		<param name="Name" value="Statistics">
+		<param name="Local" value="html/menu5vkz.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Statistics Options Window">
+		<param name="Name" value="Statistics Options Window">
+		<param name="Local" value="html/eudo116f.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Status (Task Status) (Background Tasks options)">
+		<param name="Name" value="Status (Task Status)">
+		<param name="Local" value="html/opti1ttf.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Stopping a Find">
+		<param name="Name" value="Stopping a Find">
+		<param name="Local" value="html/eudo3yw4.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Styled Text Options Window">
+		<param name="Name" value="Styled Text Options Window">
+		<param name="Local" value="html/eudo2d9z.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Subject (Outgoing message option)">
+		<param name="Name" value="Subject (Outgoing message option)">
+		<param name="Local" value="html/menu0ng4.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Submission Port (Sending Mail options)">
+		<param name="Name" value="Use Submission Port">
+		<param name="Local" value="html/opti69o4.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Suggest word (Spell Checking options)">
+		<param name="Name" value="Suggest word (Spell Checking Options)">
+		<param name="Local" value="html/opti0jar.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Suggestions">
+		<param name="Name" value="Suggestions">
+		<param name="Local" value="html/eudo1njn.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="how to submit">
+			<param name="Local" value="html/eudo1njn.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Tab Display in Single-Tabbed Windows">
+		<param name="Name" value="Tab Display in Single-Tabbed Windows">
+		<param name="Local" value="html/eudo1tbn.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Tabbed Window">
+		<param name="See Also" value="Tabbed Window">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="creating">
+			<param name="Local" value="html/eudo1i9j.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="defaults">
+			<param name="Local" value="html/eudo7mb7.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="opening and activating">
+			<param name="Local" value="html/eudo3b5f.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="reorganizing">
+			<param name="Local" value="html/eudo31o3.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="using">
+			<param name="Local" value="html/eudo6boz.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="window states">
+			<param name="Local" value="html/eudo1pv7.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Tabbed Windows">
+		<param name="Name" value="Tabbed Windows">
+		<param name="Local" value="html/eudo6boz.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="closing">
+			<param name="Local" value="html/eudo484z.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Tabs in Body (Outgoing message option)">
+		<param name="Name" value="Tabs in Body (Outgoing message option)">
+		<param name="Local" value="html/menu9z09.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Tabs in body of message (Composing Mail Options)">
+		<param name="Name" value="Tabs in body of message (Sending Mail Options)">
+		<param name="Local" value="html/opti9fuh.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Taking a Message Out of the Queue">
+		<param name="Name" value="Taking a Message Out of the Queue">
+		<param name="Local" value="html/eudo7tph.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Task Error (menu option)">
+		<param name="Name" value="Task Error">
+		<param name="Local" value="html/menu4242.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Task Error Window">
+		<param name="Name" value="Task Error Window">
+		<param name="Local" value="html/eudo7rg7.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Task Status (menu option)">
+		<param name="Name" value="Task Status">
+		<param name="Local" value="html/menu02b7.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Task Status Window">
+		<param name="Name" value="Task Status Window">
+		<param name="Local" value="html/eudo1fp4.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Taskbar">
+		<param name="Name" value="Using the Eudora Taskbar">
+		<param name="Local" value="html/eudo3yk2.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Technical Support (menu option)">
+		<param name="Name" value="Technical Support (menu option)">
+		<param name="Local" value="html/menu42nk.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Text as Document (Outgoing message option)">
+		<param name="Name" value="Text as Document (Outgoing message option)">
+		<param name="Local" value="html/menu375g.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Text Editing Menu Commands">
+		<param name="Name" value="Text Editing Menu Commands">
+		<param name="Local" value="html/eudo4veb.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Text">
+		<param name="See Also" value="Text">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="formatting">
+			<param name="Local" value="html/eudo7tkk.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Tile Horizontal (menu option)">
+		<param name="Name" value="Tile Horizontal">
+		<param name="Local" value="html/menu3at6.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Tile Vertical (menu option)">
+		<param name="Name" value="Tile Vertical">
+		<param name="Local" value="html/menu1304.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Time to wait before popping up - Auto-completion box (Milliseconds) (Auto-completion options)">
+		<param name="Name" value="Time to wait before popping up - Auto-completion box (Milliseconds)">
+		<param name="Local" value="html/opti2y0p.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Tip of the Day">
+		<param name="Name" value="Tip of the Day">
+		<param name="Local" value="html/eudo2g1l.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Tips on Using ESP">
+		<param name="Name" value="Tips on Using ESP">
+		<param name="Local" value="html/eudo2n8w.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="TOC/Preview Pane">
+		<param name="Name" value="TOC/Preview Pane">
+		<param name="Local" value="html/dial0rz7.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Toolbar buttons">
+		<param name="Name" value="Toolbar buttons">
+		<param name="Local" value="html/eudo5m2b.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Toolbar">
+		<param name="See Also" value="Toolbar">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="customizing">
+			<param name="Local" value="html/eudo0ylu.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Topics (menu option)">
+		<param name="Name" value="Topics">
+		<param name="Local" value="html/menu31v7.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Transfer menu">
+		<param name="Name" value="Using the Transfer menu">
+		<param name="Local" value="html/eudo3ks5.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Transfer To (Filter Action)">
+		<param name="Name" value="None (Filter Action)">
+		<param name="Local" value="html/dial5qpc.htm#hidc_action_combo4">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Transferring Messages">
+		<param name="Name" value="Transferring Messages">
+		<param name="Local" value="html/eudo056b.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Trash (Mailbox menu option)">
+		<param name="Name" value="Trash (Mailbox menu command)">
+		<param name="Local" value="html/menu9y5k.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Trash (Transfer menu option)">
+		<param name="Name" value="Trash (Transfer menu command)">
+		<param name="Local" value="html/menu7k4o.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Turbo redirect by default (Miscellaneous options)">
+		<param name="Name" value="Turbo redirect by default (Miscellaneous Options)">
+		<param name="Local" value="html/opti3tpw.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Turbo Redirecting">
+		<param name="Name" value="Turbo Redirecting">
+		<param name="Local" value="html/eudo83xj.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="UnDelete (menu option)">
+		<param name="Name" value="UnDelete">
+		<param name="Local" value="html/menu615x.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Uninstalling Eudora">
+		<param name="Name" value="Uninstalling Eudora">
+		<param name="Local" value="html/eudo7lr5.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Unload Winsock DLL after closing socket (Advanced Network options)">
+		<param name="Name" value="Unload Winsock DLL after closing socket(Advanced Network Options)">
+		<param name="Local" value="html/opti0mcl.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Unmodified arrow keys (Miscellaneous options)">
+		<param name="Name" value="Unmodified arrow keys (Miscellaneous Options)">
+		<param name="Local" value="html/opti92cz.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="URL">
+		<param name="Name" value="Using Active URLs">
+		<param name="Local" value="html/eudo6zg3.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="in message">
+			<param name="Local" value="html/eudo6145.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Usage statistics">
+		<param name="Name" value="Statistics">
+		<param name="Local" value="html/eudo2koj.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Use an alert dialog box (Getting Attention options)">
+		<param name="Name" value="Use an alert dialog box (Getting Attention Options)">
+		<param name="Local" value="html/opti8lmc.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Use default sound when checking mail (Getting Attention options)">
+		<param name="Name" value="Use Default">
+		<param name="Local" value="html/opti3hv5.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Use drop down list for completion choices (Auto-completion options)">
+		<param name="Name" value="Use drop down list for completion choices">
+		<param name="Local" value="html/opti7kc2.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Use Eudora MAPI Server">
+		<param name="See Also" value="Use Eudora MAPI Server">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="Always (MAPI options)">
+			<param name="Local" value="html/opti4isz.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="Never (MAPI options)">
+			<param name="Local" value="html/opti319u.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Keyword" value="When Eudora is running (MAPI options)">
+			<param name="Local" value="html/opti1dy9.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Use Microsoft Viewer (Viewing Mail options)">
+		<param name="Name" value="Use Microsoft Viewer (Viewing Mail Options)">
+		<param name="Local" value="html/opti7l0z.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Use proportional as default (Fonts options)">
+		<param name="Name" value="Use proportional as default (Fonts Options)">
+		<param name="Local" value="html/opti8x2s.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Use Submission Port (Sending Mail options)">
+		<param name="Name" value="Use Submission Port">
+		<param name="Local" value="html/opti69o4.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="User Name (ACAP) (Auto Configure options)">
+		<param name="Name" value="User Name (ACAP)">
+		<param name="Local" value="html/opti69ic.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="User Name (Getting Started options)">
+		<param name="Name" value="User Name">
+		<param name="Local" value="html/opti084l.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Using a Signature">
+		<param name="Name" value="Using a Signature">
+		<param name="Local" value="html/eudo5ahx.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Using a Stationery File for all Outgoing Messages">
+		<param name="Name" value="Using a Stationery File for all Outgoing Messages">
+		<param name="Local" value="html/eudo56lv.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Using Active URLs">
+		<param name="Name" value="Using Active URLs">
+		<param name="Local" value="html/eudo6zg3.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Using Address Book Files Not Created by Eudora">
+		<param name="Name" value="Using Address Book Files Not Created by Eudora">
+		<param name="Local" value="html/eudo5iox.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Using an Alternate Email Account">
+		<param name="Name" value="Using an Alternate Email Account">
+		<param name="Local" value="html/eudo6et0.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Using Automatic Name Completion">
+		<param name="Name" value="Using Automatic Name Completion">
+		<param name="Local" value="html/eudo1ajy.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Using Central Address Book Files on a Server">
+		<param name="Name" value="Using Central Address Book Files on a Server">
+		<param name="Local" value="html/eudo6hf6.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Using MoodWatch">
+		<param name="Name" value="Using MoodWatch">
+		<param name="Local" value="html/eudo2fu0.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Using PureVoice">
+		<param name="Name" value="Using PureVoice">
+		<param name="Local" value="html/eudo24kl.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Using SMTP Authentication">
+		<param name="Name" value="Using_SMTP_Athentication">
+		<param name="Local" value="html/eudo6tke.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Using Stationery">
+		<param name="Name" value="Using Stationery">
+		<param name="Local" value="html/eudo2ph5.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Using the Address Book">
+		<param name="Name" value="Using the Address Book">
+		<param name="Local" value="html/eudo9mi3.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Using the Composition Window">
+		<param name="Name" value="Using the Composition Window">
+		<param name="Local" value="html/eudo9n3r.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Using the ESP Mailbox and Folder">
+		<param name="Name" value="Using the ESP Mailbox and Folder">
+		<param name="Local" value="html/eudo7bqq.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Using the Eudora Taskbar">
+		<param name="Name" value="Using the Eudora Taskbar">
+		<param name="Local" value="html/eudo3yk2.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Using the Mailbox Size Display">
+		<param name="Name" value="Using the Mailbox Size Display">
+		<param name="Local" value="html/eudo1d15.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Using the Mailboxes Window">
+		<param name="Name" value="Using the Mailboxes Window">
+		<param name="Local" value="html/eudo6ed3.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Using the Quick Recipient List">
+		<param name="Name" value="Using the Quick Recipient List">
+		<param name="Local" value="html/eudo7l84.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Using the Reply Functions">
+		<param name="Name" value="Using the Reply Functions">
+		<param name="Local" value="html/eudo4z5f.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Using the Transfer menu">
+		<param name="Name" value="Using the Transfer menu">
+		<param name="Local" value="html/eudo3ks5.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Using Web Words">
+		<param name="Name" value="Using Web Words">
+		<param name="Local" value="html/eudo8z5f.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Using Your Password">
+		<param name="Name" value="Using Your Password">
+		<param name="Local" value="html/eudo5cdg.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Uuencode (Attachments options)">
+		<param name="Name" value="Uuencode (Attchments Options)">
+		<param name="Local" value="html/opti0mzp.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Uuencode Encoding">
+		<param name="Name" value="Uuencode Encoding">
+		<param name="Local" value="html/eudo3e91.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Vacation message">
+		<param name="Name" value="Creating an Auto-Reply Message">
+		<param name="Local" value="html/eudo1yxx.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Viewing Mail Options Window">
+		<param name="Name" value="Viewing Mail Options Window">
+		<param name="Local" value="html/eudo6szb.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Wait for _ seconds of user inactivity before processing/filtering downloaded messages (Background Tasks options)">
+		<param name="Name" value="Wait for _ seconds of user inactivity before processing/filtering downloaded messages">
+		<param name="Local" value="html/opti3d0l.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Warn on Automation auto-send of messages (Automation options)">
+		<param name="Name" value="Warn on Automation auto-send of messages">
+		<param name="Local" value="html/opti45es.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Warn when queueing a message (MoodWatch options)">
+		<param name="Name" value="Warn when queueing a message (MoodWatch)">
+		<param name="Local" value="html/opti8e3r.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Web Words">
+		<param name="Name" value="Using Web Words">
+		<param name="Local" value="html/eudo8z5f.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Whats New in Eudora Email Email 7.0">
+		<param name="Name" value="What's New in Eudora Email 7.0">
+		<param name="Local" value="html/eudo71gw.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="When _ % of messages are deleted (Automatically purge deleted IMAP messages)">
+		<param name="Name" value="When _ % of messages are deleted (Automatically purge deleted IMAP messages)">
+		<param name="Local" value="html/opti2ldg.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="When sending mail with styled text (HTML) (Styled Text options)">
+		<param name="Name" value="When sending mail with styled text (HTML)">
+		<param name="Local" value="html/opti8so4.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Window Context Menu">
+		<param name="Name" value="Window Context Menu">
+		<param name="Local" value="html/eudo4jcl.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Window State Considerations">
+		<param name="Name" value="Window State Considerations">
+		<param name="Local" value="html/eudo6ygj.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Window States and Tabbed Windows">
+		<param name="Name" value="Window States and Tabbed Windows">
+		<param name="Local" value="html/eudo1pv7.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Without completing the spell check (Spell Checking options)">
+		<param name="Name" value="Without completing the spell check (Spell Checking Options)">
+		<param name="Local" value="html/opti1f8u.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Word Wrap">
+		<param name="Name" value="Word Wrap">
+		<param name="Local" value="html/eudo7640.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Word wrap (Composing Mail Options)">
+		<param name="Name" value="Word wrap (Sending Mail Options)">
+		<param name="Local" value="html/opti4mgg.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Word Wrap (Outgoing message option)">
+		<param name="Name" value="Word Wrap (Outgoing message option)">
+		<param name="Local" value="html/menu58a8.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Work Offline (menu option)">
+		<param name="Name" value="Work Offline (File mailbox)">
+		<param name="Local" value="html/menu6w9x.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Working with Shared Folders">
+		<param name="Name" value="Working with Shared Folders">
+		<param name="Local" value="html/eudo9jar.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Wrap Selection (menu option)">
+		<param name="Name" value="Wrap Selection">
+		<param name="Local" value="html/menu5zfy.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Writing a new message">
+		<param name="Name" value="Creating an Outgoing Message">
+		<param name="Local" value="html/eudo5eat.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Your Mailbox (Mailbox menu option">
+		<param name="Name" value="Your Mailbox (Mailbox menu command)">
+		<param name="Local" value="html/menu3d82.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Your Mailbox (Transfer menu option)">
+		<param name="Name" value="Your Mailbox (Transfer menu command)">
+		<param name="Local" value="html/menu1ar6.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Keyword" value="Zoom windows when opening (Viewing Mail options)">
+		<param name="Name" value="Zoom windows when opening (Viewing Mail Options)">
+		<param name="Local" value="html/opti52yb.htm">
+		</OBJECT>
+</UL></HTML>

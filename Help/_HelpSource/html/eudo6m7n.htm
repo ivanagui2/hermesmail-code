@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:MSHelp="http://msdn.microsoft.com/mshelp" xmlns:mshelp="http://msdn.microsoft.com/mshelp">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<meta name="Microsoft.Help.Locale" content="en-us" />
+<meta name="Microsoft.Help.TopicLocale" content="en-us" />
+<meta name="Microsoft.Help.SelfBranded" content="true" />
+<meta name="Microsoft.Help.Id" content="Eudora-B01B840A-00015D" />
+<meta name="Microsoft.Help.Keywords" content="Configuring Group Change Notifications" />
+<meta name="Microsoft.Help.Keywords" content="ESP, configuring group change notifications" />
+<meta name="Microsoft.Help.Category" content="Eudora" />
+<meta name="Microsoft.Help.DisplayVersion" content="" />
+
+<title>Configuring Group Change Notifications</title>
+<script type="text/javascript" src="h3m.js"></script>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+
+
+
+<h2><a name="configuring_group_change_notifications"></a>Configuring Group Change Notifications</h2>
+
+<p>You can specify the role you want to play in the group, which determines whether or not you can send or receive updates to the shared folder. When you’ve determined your ESP role, you can then decide how you want ESP to handle updates to the shared folder and group membership.</p>
+
+<p>1.From the <b>Tools</b> menu, choose <b>ESP Groups</b>. The ESP Groups window appears.</p>
+
+<p>2.In the left column, choose the Group name whose change notifications you want to set for your role. </p>
+
+<p>3.Click the <b>Notifications </b>tab. The Notifications dialog box appears.</p>
+
+<p>4.Click one of the following in the <i>Role</i> area: </p>
+
+<p><font face="Wingdings">§</font><b>Full Membership</b> (user sends and receives updates). This allows you to receive from and send files to the group, either automatically or manually.</p>
+
+<p><font face="Wingdings">§</font><b>Broadcasting Member </b>(user only sends updates, ignores any incoming updates). This you to only send files to the group, either automatically or manually. Incoming files are ignored.</p>
+
+<p><font face="Wingdings">§</font><b>Receiving Member</b> (user never sends updates, but processes incoming updates). This allows you to only receive files from the group. Any changes you make to the shared folder are ignored.</p>
+
+<p><font face="Wingdings">§</font><b>Custom Member </b>(use the settings in the Advanced tab). Go to step 6.</p>
+
+<p>The<b> Full Member </b>role is the default.</p>
+
+<p>5.In the <i>Notifications</i> area, do the following:</p>
+
+<p><font face="Wingdings">§</font>If you want ESP to notify you when updates are coming into your shared folder, check the <b>Ask before processing any updates INCOMING TO my shared folder</b> box. This box is checked by default. </p>
+
+<p><font face="Wingdings">§</font>If you want ESP to notify you when updates are going out of your shared folder, check the <b>Ask before processing any updates OUTGOING FROM my shared folder</b> box. This box is checked by default.</p>
+
+<p><font face="Wingdings">§</font>If you want ESP to monitor any of the group actions, check the <b>Log any group actions</b> box. The box is checked by default. A log file is created and placed in a subfolder in the Eudora folder.</p>
+
+<p><font face="Wingdings">§</font>If you want ESP to notify you prior to changes in the group’s membership, check the <b>Ask before responding to a membership update</b> box. The box is checked by default.</p>
+
+<p><font face="Wingdings">§</font>If you want ESP to record all changes to group membership, check the <b>Log any membership update</b> box. A log file is created and placed in a subfolder in the Eudora folder. The box is checked by default.</p>
+
+<p>If you chose <b>Custom Member</b> as your role, you must click the <b>Advanced</b> tab to display the Advanced dialog box to configure your role settings. In this dialog box, you are required to make various decisions about how you want ESP to handle modifications to the shared folder. It also enables you to choose how ESP should track group membership. </p>
+
+<p>6.In the <i>Shared Folder Action (Custom Member)</i> area, do the following:</p>
+
+<p><font face="Wingdings">§</font>Determine which type of incoming or outgoing items—<b>New Items</b>, <b>Updated</b>, or <b>Deleted Items—</b>you want ESP to handle.</p>
+
+<p><font face="Wingdings">§</font>From the drop-down lists, choose one of the following:</p>
+
+<p><font face="Wingdings">§</font>To have ESP notify you before specific files in the shared folder are added, updated or deleted, choose <b>Ask first</b>.</p>
+
+<p><font face="Wingdings">§</font>To have ESP modify specific files in the share folder automatically, choose <br />
+<b>Do file updates</b>.</p>
+
+<p><font face="Wingdings">§</font>To have Eudora ignore proposed updates to specific files in the shared folder automatically, choose <b>Ignore file updates</b>.</p>
+
+<p>7.If you want Eudora to record the activity for each type of incoming or outgoing item, check the <b>Log</b> box. </p>
+
+<p>The system default options from the drop-down menus for all incoming and outgoing menus correspond to the last chosen options you selected in the Notifications dialog box. The Role buttons combined with the <i>Ask before processing any updates INCOMING TO my shared folder</i> and <i>Ask before processing any updates OUTGOING FROM my shared folder</i> are then equal to the choices in the drop-down menus. The Advanced tab dialog box allows you to add, update, and delete settings independently of each other. Whereas in the Notifications dialog box, while simpler, keeps the settings locked. For example, you could use the Advanced tab dialog box to specify that you want to be asked when a delete occurs, but not when additions and updates occur. </p>
+
+<p>8.To set a group password, click <b>Set Shared Secret</b>. The Set Shared Secret dialog box appears.</p>
+
+<p>9.In the text box, enter a secret word or phrase that will be known only to you and the other members in your group. You will need to share the secret word or phrase with the other group members. The secret word or phrase is used to make the transmission of file changes more secure so that ESP can verify any incoming file changes were actually sent by a group member.</p>
+
+<p>If your shared secret does not match the shared secret of other group members, you will get a security error when you receive file changes from them. So if you choose to use a shared secret word or phrase for improved security, be sure that all group members set the <b>exact</b> same shared secret word or phrase. The secret word or phrase is case-sensitive. </p>
+
+<p>10.When finished, click <b>OK</b>. </p>
+
+<script type="text/javascript">
+<!--
+h3m_fix();
+-->
+</script>
+
+</body>
+</html>

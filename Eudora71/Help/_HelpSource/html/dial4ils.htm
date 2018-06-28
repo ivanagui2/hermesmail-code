@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:MSHelp="http://msdn.microsoft.com/mshelp" xmlns:mshelp="http://msdn.microsoft.com/mshelp">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<meta name="Microsoft.Help.Locale" content="en-us" />
+<meta name="Microsoft.Help.TopicLocale" content="en-us" />
+<meta name="Microsoft.Help.SelfBranded" content="true" />
+<meta name="Microsoft.Help.Id" content="Eudora-B01B840A-000053" />
+<meta name="Microsoft.Help.Keywords" content="Match Type (Filters window)" />
+<meta name="Microsoft.Help.Category" content="Eudora" />
+<meta name="Microsoft.Help.DisplayVersion" content="" />
+
+<title>Match Type (Filters window)</title>
+<script type="text/javascript" src="h3m.js"></script>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+
+
+
+<p><b><a name="hidc_verb0"></a><a name="hidc_verb1"></a><sup></sup>Match</b></p>
+
+<p>Specifies the type of match the filter performs when comparing the character string to the specified header.</p>
+
+<p><b>contains </b>or<b> does not contain</b><br />
+If the specified header item contains or does not contain the text string, filter the message.</p>
+
+<p><b>is </b>or<b> is not<br />
+</b>If the specified header item is or is not a complete match of the text string, filter the message.</p>
+
+<p><b>starts with </b>or<b> ends with</b><br />
+If the specified header item starts with or ends with the text string, filter the message. The <b>starts with</b> item refers to the first non-whitespace character after the colon, so any spaces after the colon are ignored.</p>
+
+<p><b>appears </b>or<b> does not appear</b><br />
+If the header item appears or does not appear in the message, filter the message (the text field is ignored). This is useful for filtering messages based only on the types of fields they contain.</p>
+
+<p><b>intersects nickname</b><br />
+If the text string is included in a nickname (whether it is a full address or a nickname within the nickname), filter the message.</p>
+
+<h1>doesn’t intersect nickname</h1>
+
+<p>If the text string is not included in a nickname, whether it is a full address or a nickname within the nickname, filter the message.</p>
+
+<h1>intersects address book</h1>
+
+<p>If the text string or nickname is included in any one of your address books, whether it is a full address or a nickname within the nickname, filter the message. In other words, the filter looks in all of your address books for <i>all</i> nicknames. If the nickname that appears in the header of the message is in the address book, Eudora filters the message accordingly. This match criterion is good to use if you wish all messages that are not from the entries in your address book to go in other mailboxes. This is an alternate method to control SPAM. </p>
+
+<h1>doesn’t intersect address book</h1>
+
+<p>If the text string or nickname is not included in an address book, whether it is a full address or a nickname within the nickname, filter the message. </p>
+
+<p><b>matches regexp (case insensitive)</b> (Sponsored and Paid modes only)</p>
+
+<p>If the specific item matches the regular expressions characters with no case sensitivity, filter those messages.</p>
+
+<p><i>Note. Regular Expressions is an advanced and complex method of searching for text. </i></p>
+
+<p>Regular Expression is a search string that uses special characters to match text characters. For example, if you are filtering messages sent to you by two people, choose From in the first drop-down options list, then choose matches regexp, then type their usernames between parentheses separated by a vertical slash, for example <code>(bobclark)|(janedoe)</code>in the text box. Eudora searches and displays all messages from these two people.  </p>
+
+<p><b>matches regexp</b></p>
+
+<p>If the specific item matches the regular expressions characters, filter those messages. </p>
+
+<script type="text/javascript">
+<!--
+h3m_fix();
+-->
+</script>
+
+</body>
+</html>

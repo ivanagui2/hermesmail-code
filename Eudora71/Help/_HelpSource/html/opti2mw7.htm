@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:MSHelp="http://msdn.microsoft.com/mshelp" xmlns:mshelp="http://msdn.microsoft.com/mshelp">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<meta name="Microsoft.Help.Locale" content="en-us" />
+<meta name="Microsoft.Help.TopicLocale" content="en-us" />
+<meta name="Microsoft.Help.SelfBranded" content="true" />
+<meta name="Microsoft.Help.Id" content="Eudora-B01B840A-0002DA" />
+<meta name="Microsoft.Help.Keywords" content="Secure Sockets when Receiving" />
+<meta name="Microsoft.Help.Category" content="Eudora" />
+<meta name="Microsoft.Help.DisplayVersion" content="" />
+
+<title>Secure Sockets when Receiving</title>
+<script type="text/javascript" src="h3m.js"></script>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+
+
+
+<p><b><a name="hidc_static_ssl_receiving"></a><a name="hids_ini_ssl_receive_use"></a><sup></sup>Secure Sockets when Receiving</b></p>
+
+<p>The following are the SSL options when receiving mail.</p>
+
+<p><b>Never—</b> Do not use SSL for server authentication and mail transfer security, even if SSL is available on the server. </p>
+
+<p><b>If Available STARTTLS</b> (default)— Use SSL for server authentication and mail transfer security by having Eudora automatically invoke the STARTTLS command method to start SSL, that is, if the server supports STARTTLS. If your server doesn’t support STARTTLS, mail transfers will occur successfully, but they will not be secured with SSL.</p>
+
+<p><b>Required, Alternate Port—</b> Use SSL for server authentication and mail transfer security by having Eudora automatically use the older style alternate port method for starting SSL. If your server does not support SSL on the appropriate ports, mail transfers will fail. </p>
+
+<p><b>Required STARTTLS—</b> Use SSL for server authentication and mail transfer security by having Eudora automatically invoke the STARTTLS command method to start SSL. If your server does not support STARTTLS, mail transfers will fail. </p>
+
+<p><i><b>Important.</b> If you use SSL and cannot make a connection when receiving or sending mail, you may need to check with your ISP to update any invalid SSL certificates. However, to override any issues with SSL when retrieving or sending mail, choose </i>Never <i>from the drop-down menu to make a successful connection.</i></p>
+
+<script type="text/javascript">
+<!--
+h3m_fix();
+-->
+</script>
+
+</body>
+</html>

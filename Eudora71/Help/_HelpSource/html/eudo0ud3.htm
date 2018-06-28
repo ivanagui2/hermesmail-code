@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:MSHelp="http://msdn.microsoft.com/mshelp" xmlns:mshelp="http://msdn.microsoft.com/mshelp">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<meta name="Microsoft.Help.Locale" content="en-us" />
+<meta name="Microsoft.Help.TopicLocale" content="en-us" />
+<meta name="Microsoft.Help.SelfBranded" content="true" />
+<meta name="Microsoft.Help.Id" content="Eudora-B01B840A-0000C8" />
+<meta name="Microsoft.Help.Keywords" content="Date Display Options Window" />
+<meta name="Microsoft.Help.Keywords" content="Options, date display" />
+<meta name="Microsoft.Help.Category" content="Eudora" />
+<meta name="Microsoft.Help.DisplayVersion" content="" />
+
+<title>Date Display Options Window</title>
+<script type="text/javascript" src="h3m.js"></script>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+
+
+
+<h2><a name="date_display_options_window"></a>Date Display Options Window</h2>
+
+<p>The Date Display Options determine how message dates are displayed in the Date column of mailbox window message summaries.</p>
+
+<p>To display the Date Display options window, do the following:</p>
+
+<p>1. From the <b>Tools</b> menu, select <b>Options</b>.</p>
+
+<p>2. Scroll and click <b>Date Display</b>. The Date Display options window appears.</p>
+
+<p>Listed below are field descriptions for Date Display:</p>
+
+<p><b>Display dates using</b> —— This specifies what time zone to use to display dates. </p>
+
+<p><b>Sender’s timezone</b> —— If on, messages are displayed with the sender’s time and date, as determined by the sender’s time zone. </p>
+
+<p><b>Local timezone</b> —— If on, messages are displayed with your time and date, based on your local time zone.</p>
+
+<p><b>Date formats</b> [default: Fixed] —— These options and fields specify how to display message dates whether with a fixed or an age-sensitive format and the specific formatting for the selected option. A fixed format means that all dates are displayed under the same formatting rule. An age-sensitive format means that message dates are displayed differently depending on how old the messages are. Formatting is entered in the text fields using the format key at the bottom of the Date Display Options window (discussed further below).</p>
+
+<p><b>Fixed </b>[defaults: %1 %2 %4] —<b>—</b><b> </b>If this is on, all message dates are displayed using the formatting entered in the edit field, based on the formatting key (see below). The default format (%1%2%4) specifies that all message dates will be in this format: message time followed by message date followed by message time zone (but only if the message did not originate from your local time zone). Example: 02:56PM11/21/97-0800.</p>
+
+<p><b>Age-sensitive</b> —<b>—</b><b> </b>If this is on, message dates are displayed differently based on the age of the messages. The three age categories are RECENT, OLD, and ANCIENT. The age of a message is measured from the date and time at which the message was composed or sent, based on the sender’s email package, and this depends on your setting for the Display dates using option. RECENT messages are all those that are "younger" than the hours you specify in the Hours to be OLD field. ANCIENT messages are all those that are older than the "expiration time" entered in the Hours to be ANCIENT field. OLD messages are all those whose age falls between that of RECENT and ANCIENT messages: they are older than the number of hours specified in the Hours to be OLD field, but younger than the number of hours specified in the Hours to be ANCIENT field. The date display format for all messages falling in the RECENT, OLD, and ANCIENT categories is determined by your entry in the RECENT format, OLD format, and ANCIENT format fields, respectively.</p>
+
+<p><b>RECENT format</b> [default: %1] —<b>—</b><b> </b>Your entry in this field determines the format in which the dates of RECENT messages are displayed. RECENT messages are all those younger than the number in the Hours to be OLD field. The default RECENT format of %1 and the default Hours to be OLD of 24 means that all messages from the past 24 hours are displayed with the time.</p>
+
+<p><b>Hours to be OLD</b> [default: 24] —<b>—</b><b> </b>Your entry in this field determines the point at which RECENT messages become OLD messages. The default entry of 24 hours means that messages become OLD after one day.</p>
+
+<p><b>OLD format</b> [default: %3] —<b>—</b><b> </b>Your entry in this field determines the format in which the dates of OLD messages are displayed. OLD messages are those that are older than the Hours to be OLD but younger than the Hours to be ANCIENT. The default OLD format of %3, the default Hours to be OLD of 24, and the default Hours to be ANCIENT of 168 means that all messages older than one day and younger than one week are displayed with the day of the week.</p>
+
+<p><b>Hours to be ANCIENT</b> [default: 168] —<b>—</b><b> </b>Your entry in this field determines the point at which OLD messages become ANCIENT messages. The default entry of 168 hours means that messages become ANCIENT after a week.</p>
+
+<p><b>ANCIENT format</b> [default: %2] —<b>—</b><b> </b>Your entry in this field determines the format in which the dates of ANCIENT messages are displayed. ANCIENT messages are all those older than the number in the Hours to be ANCIENT field. The default entry of %2 and the default Hours to be ANCIENT of 168 means that all those messages older than a week are displayed with the date.</p>
+
+<p><b>Format Key</b> —<b>—</b><b> </b>Use the format key to determine how to program entries in the Fixed field and the format fields (RECENT, OLD, and ANCIENT) of this Options window. In each field, enter %1 to stand for the Time, enter %2 to stand for the Date, enter %3 to stand for the Day of the week, and enter %4 to stand for the Time zone, but only if the message did not originate from the local time zone. Separate each entry with a space to improve readability of the display output: for example, %1%2%4.</p>
+
+<script type="text/javascript">
+<!--
+h3m_fix();
+-->
+</script>
+
+</body>
+</html>

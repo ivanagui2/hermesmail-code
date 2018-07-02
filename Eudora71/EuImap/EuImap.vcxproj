@@ -20,6 +20,7 @@
     </SccProvider>
     <Keyword>MFCProj</Keyword>
     <ProjectGuid>{D50F60F5-CFCF-48F4-867F-EF743A8FD120}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -60,7 +61,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\SearchEngine\PublicInc;..\QCUtils\public\inc;..\Eudora;..\EuMemMgr\Include;.\public\inc;..\OT501\Include;..\Imapdll\public\inc;..\;..\expat\Source\lib;..\PlaylistClient\plstclnt_dll;..\QCSocket\inc;..\tae;..\QCSSL\SSLPlus\include;..\QCSSL\SSLPlus\tools\securitybuilder\win32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_DEBUG;COMMERCIAL=1;OEMRESOURCE;WIN32_COMPILE;WIN32;_WINDOWS;IMAP4;THREADED;WINVER=0x0410;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;COMMERCIAL=1;OEMRESOURCE;WIN32_COMPILE;WIN32;_WINDOWS;IMAP4;THREADED;WINVER=0x0501;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -85,7 +86,7 @@
       <Optimization>MinSpace</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <AdditionalIncludeDirectories>..\SearchEngine\PublicInc;..\QCUtils\public\inc;..\Eudora;..\EuMemMgr\Include;.\public\inc;..\OT501\Include;..\Imapdll\public\inc;..\;..\expat\Source\lib;..\PlaylistClient\plstclnt_dll;..\QCSocket\inc;..\tae;..\QCSSL\SSLPlus\include;..\QCSSL\SSLPlus\tools\securitybuilder\win32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NDEBUG;COMMERCIAL=1;OEMRESOURCE;WIN32_COMPILE;WIN32;_WINDOWS;IMAP4;THREADED;WINVER=0x0410;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;COMMERCIAL=1;OEMRESOURCE;WIN32_COMPILE;WIN32;_WINDOWS;IMAP4;THREADED;WINVER=0x0501;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>

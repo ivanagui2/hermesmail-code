@@ -44,6 +44,7 @@ DAMAGE.
     <RootNamespace>AccountWizard</RootNamespace>
     <Keyword>MFCProj</Keyword>
     <ProjectGuid>{A3893849-E600-4229-859C-FB2E524A02AF}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">

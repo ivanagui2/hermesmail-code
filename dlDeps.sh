@@ -53,7 +53,11 @@ defineDependency() {
     export ${name}Server=$server
     export ${name}Path=$dlpath
     if ! [ $name = libexpat ]; then
-        export ${name}Url=$protocol://$server/$dlpath/$name-$version.tar.$suffix
+        if ![ $name = googletest ]; then
+            export ${name}Url=$protocol://$server/$dlpath/$name-$version.tar.$suffix
+        else
+            export ${name}Url=http://$server/$dlpath/release-$version.tar.gz
+        fi
     else
         export ${name}Url=$protocol://$server/$dlpath/$version.tar.$suffix
     fi
@@ -93,6 +97,9 @@ echo "OPEN SOURCE DEPENDENCIES"
 defineDependency firefox  61.0.source xz archive.mozilla.org pub/firefox/releases/61.0/source $buildDepDir https 
 echo "$firefoxName"
 
+defineDependency googletest 1.8.0 gz github.com google/googletest/archive $buildDepsDir https 
+echo "$googletestName"
+
 defineDependency libexpat R_2_2_5 gz github.com libexpat/libexpat/archive $buildDepDir https
 echo "$libexpatName"
 
@@ -128,6 +135,8 @@ echo
 downloadPackage $firefoxName $firefoxFilename $firefoxUrl
 echo
 
+downloadPackage $googletestName $googletestFilename $googletestUrl
+echo
 
 downloadPackage $libexpatName $libexpatFilename $libexpatUrl
 echo

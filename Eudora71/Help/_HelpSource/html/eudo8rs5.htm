@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:MSHelp="http://msdn.microsoft.com/mshelp" xmlns:mshelp="http://msdn.microsoft.com/mshelp">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<meta name="Microsoft.Help.Locale" content="en-us" />
+<meta name="Microsoft.Help.TopicLocale" content="en-us" />
+<meta name="Microsoft.Help.SelfBranded" content="true" />
+<meta name="Microsoft.Help.Id" content="Eudora-B01B840A-000193" />
+<meta name="Microsoft.Help.Keywords" content="Adding an LDAP Database" />
+<meta name="Microsoft.Help.Keywords" content="Directory Services, adding an LDAP database" />
+<meta name="Microsoft.Help.Category" content="Eudora" />
+<meta name="Microsoft.Help.DisplayVersion" content="" />
+
+<title>Adding an LDAP Database</title>
+<script type="text/javascript" src="h3m.js"></script>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+
+
+
+<h2><a name="adding_an_ldap_database"></a>Adding an LDAP Database</h2>
+
+<p>LDAP means Lightweight Directory Access Protocol. An LDAP server is a service that provides information about individuals. You can look up virtually anyone on the Internet using public LDAP servers. And furthermore, you can add new LDAP servers to query in Eudora.   </p>
+
+<p>To add a new LDAP database, do the following: </p>
+
+<p>1.In the <b>Protocols</b> list, click the <b>LDAP</b> protocol to select it. </p>
+
+<p>2.Click <b>New Database</b>. Or, just double-click <b>LDAP</b> in the Protocols list. The New Database window, Network panel, appears.</p>
+
+<p>3.In the <b>Network </b>panel, enter a descriptive name for the server, the <b>Host Name</b> or IP address of the server, and the <b>Port</b> number in the respective fields. If you select the <b>This server requires me to log on</b> option, new fields appear in which to enter an <b>Account name</b> and a <b>Password</b>. However, most LDAP servers do not require you to log in. Enter values in these fields if you have specific instructions from your LDAP administrator to so do. </p>
+
+<p>4.Select the <b>Attributes</b> tab to display the Attributes panel.<br />
+<br />
+In the <b>Attributes </b>panel, you can add, edit, or remove attribute mappings using the buttons displayed just below the window. You use the Attribute list to manage how information appears in the query results list and query results details portion of the screen. </p>
+
+<p>5.To add an attribute mapping, click <b>Add</b>. The Add Attribute list appears. </p>
+
+<p>6.In the <b>Attribute Name</b> text box, enter the name for the new attribute you wish map, for example, <b>cn</b> for common name. You must know the raw field names for the particular LDAP server you are adding.</p>
+
+<p>Listed are the most common raw LDAP field name attributes. </p>
+
+<p><font face="Symbol">·</font><b>c</b> — Country, expressed in a two-letter country code, such as US (United States), CA (Canada), UK (United Kingdom), FR (France), and so forth. </p>
+
+<p><font face="Symbol">·</font><b>st</b> — State or province, expressed in a two-letter state code, such as, California (CA), Massachusetts (MA), Ontario (ON). and so forth. Also, if a country is considered a "state," for example, France, then this field can show a city name, such as Paris.</p>
+
+<p><font face="Symbol">·</font><b>l </b>— Location, that is a city, county, and so forth., such as San Diego, Montreal, London, Paris, and so on.</p>
+
+<p><font face="Symbol">·</font><b>mail </b>— Person’s email address. More than one email address may be listed, and more than one search listing may be returned for an individual with multiple email addresses.</p>
+
+<p><font face="Symbol">·</font><b>gn</b> — Also Givenname. The person’s first name and/or middle initial, or any part of the person’s name before the last name, for example, John W, A Raymond, and so forth. Titles are sometimes given, such as Dr., Ms., and so forth. </p>
+
+<p><font face="Symbol">·</font><b>sn</b> — Person’s surname or last name. Suffixes are sometimes given, such as Jr., III, M.D., Esq., and so forth.</p>
+
+<p><font face="Symbol">·</font><b>cn</b> — Person’s common name. This includes the given name: first, middle initial, prefix and the person’s last name including suffixes.</p>
+
+<p><font face="Symbol">·</font><b>o</b>— Organization, which includes companies, universities, non-profit organizations, government agencies, and so forth.</p>
+
+<p>7.In the <b>Presented As</b> text box, enter the text for the attribute you wish to see displayed on the query results list, or click the down arrow to display some common attribute names.</p>
+
+<p><i>Note:Three of the four columns in the query results list window can be assigned to any attribute you wish, but you cannot change the name of the column heading. To change the attribute that is assigned to each column, enter an attribute in the Attribute Name field, such as, cn, sn, gn, and so forth. Then select either Name, Email(w), or Phone(w) in the "Present As" list, which corresponds to the Name, Email, and Phone columns in the Results List. You cannot change what appears in the "Database" column. It always contains the name of the server where the data was found.</i></p>
+
+<p><i>For example, if you want to display "cn" in the Name column, "TelephoneNumber" in the Phone column, and "mail" in the Email column, you would set up the attributes like this.</i></p>
+
+<p><b><i>Attribute NamePresent As</i></b></p>
+
+<p><b>cnName</b> - select from Present As drop-down list.</p>
+
+<p><b>TelephoneNumberPhone(w)</b> - select from Present As drop-down list.</p>
+
+<p><b>mailEmail(w)</b> - select from Present As drop-down list.</p>
+
+<p>In the Details portion of the Results window, you can assign attribute names to something more readable.</p>
+
+<p><b><i>Attribute Name   Present As</i></b></p>
+
+<p><b>lLocation</b> - select from Present As drop-down list</p>
+
+<p><b>stState</b> -select from Present As drop-down list</p>
+
+<p>So instead of displaying "st: Texas, "State: Texas" would display.</p>
+
+<p>In the attribute list, check the <b>only display these attributes</b> box if you want to limit what appears to only those attributes that are mapped. </p>
+
+<p><i>Note:In the Present As drop down list, there is a choice called Not Displayed. If you choose "Not Displayed," you can prevent a particular attribute from being displayed. For example, mapping the c (country) attribute to "Not Displayed" will have "c" removed from the displayed results in the Details List. This is useful if there is an usually long or confusing attribute you don’t want to display in the window.</i></p>
+
+<p>8.Select the <b>Search Options</b> tab to display the Search Options panel.</p>
+
+<p>9.On the <b>Search Options</b> panel, specify the <b>Search timeout</b> by moving the bar indicator. You can adjust the bar indicator for a short to long timeout.</p>
+
+<p>10.In the <b>Maximum number of matches to return</b> text box, you can select the up arrow to increase or the down arrow to decrease the number of matches you’d like to see displayed. Or select the <b>No Limit</b> option to specify unlimited matches.</p>
+
+<p>11.In the <b>Search Base</b> text box, you can specify a part of the LDAP server to limit your search. See your LDAP administrator to specify the value in this field. However, the default is usually sufficient. </p>
+
+<p>12.In the <b>Worldwise Search Filter</b>, you enter a type of search filter to form word queries. <b>cn=*^0*</b> is the default.   The ^0 is substituted for each word to form a set of word queries. The purpose of this filter is to form a term for a word and then (AND) the terms together. Examples are displayed below.</p>
+
+<p><b>Query:</b> John Smith</p>
+
+<p><b>Configuration:</b> default (cn=*^0*)</p>
+
+<p><b>Filter: </b>(&amp; (cn=*John*)(cn=*Smith*) )</p>
+
+<p>Records in which "cn" attributes contain "john" and "smith" are returned. Using the wildcard asterisks (*) before and after "john" and "smith" would return matches such as "Johnathon Smithson." If you wish to search whole words, remove the wildcard asterisks. The above example would also return records such as "John Dean Smith" and "Smithers Johnson."</p>
+
+<p><b>Query:</b> John Smith</p>
+
+<p><b>Configuration:</b> ( | (cn=*^0*)(sn=*^0*)(gn=*^0*)(givenname=*^0*))</p>
+
+<p><b>Filter: </b></p>
+
+<p>(&amp;</p>
+
+<p>(|(givenname=*John*)(cn=*John*)(sn=*John*)(gn=*John*)) </p>
+
+<p>(|(givenname=*Smith*)(cn=*Smith*)(sn=*Smith*)(gn=*Smith*))</p>
+
+<p>) </p>
+
+<p>The default search filter in this example would possibly return more records than the default because it searches more fields for a substring match of the word.</p>
+
+<p>13.In the <b>Whole-query Search Filter</b>, you enter a type of search filter to create a term for the whole query. You can set this filter as an alternate (OR) for the worldwise search filter results. Examples are displayed below. </p>
+
+<p><b>Query:</b> John Smith: whole query search filter</p>
+
+<p><b>Configuration: </b></p>
+
+<p>whole word (cn=*^0*) </p>
+
+<p>word-wise (|(cn=*^0*)(sn=*^0*)(gn=*^0*)(givenname=*^0*))</p>
+
+<p><b>Filter: </b></p>
+
+<p>(|</p>
+
+<p>(cn=*John Smith") </p>
+
+<p>(&amp;</p>
+
+<p>(|(givenname=*John*)(cn=*John*)(sn=*John*)(gn=*John*)) </p>
+
+<p>(|(givenname=*Smith*)(cn=*Smith*)(sn=*Smith*)(gn=*Smith*))</p>
+
+<p>)</p>
+
+<p>) </p>
+
+<p>14.Select the <b>Log</b> tab to display the Log panel.</p>
+
+<p>15.In the <b>Log </b>panel, specify whether you want to generate log files and if so, how to store them; specify whether you want to enable logs for <b>Protocol interactions</b> and/or a <b>Configuration data load/store</b>. </p>
+
+<p>16.Enter a <b>Log file name</b> or select one using the <b>Browse</b> button. And if you want new logs to replace the old ones, select the <b>Overwrite existing log file</b> option. </p>
+
+<p>17.When all your information is entered in the New Database window, click <b>OK</b> and your new LDAP database is created with its checkbox.</p>
+
+<script type="text/javascript">
+<!--
+h3m_fix();
+-->
+</script>
+
+</body>
+</html>

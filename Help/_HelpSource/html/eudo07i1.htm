@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:MSHelp="http://msdn.microsoft.com/mshelp" xmlns:mshelp="http://msdn.microsoft.com/mshelp">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<meta name="Microsoft.Help.Locale" content="en-us" />
+<meta name="Microsoft.Help.TopicLocale" content="en-us" />
+<meta name="Microsoft.Help.SelfBranded" content="true" />
+<meta name="Microsoft.Help.Id" content="Eudora-B01B840A-0000BB" />
+<meta name="Microsoft.Help.Keywords" content="About Security" />
+<meta name="Microsoft.Help.Keywords" content="Security" />
+<meta name="Microsoft.Help.Keywords" content="SSL" />
+<meta name="Microsoft.Help.Keywords" content="STARTTLS" />
+<meta name="Microsoft.Help.Category" content="Eudora" />
+<meta name="Microsoft.Help.DisplayVersion" content="" />
+
+<title>About Security</title>
+<script type="text/javascript" src="h3m.js"></script>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+
+
+
+<h2><a name="about_security"></a>About Security</h2>
+
+<p>Eudora supports Secure Sockets (SSL), a security protocol for transferring information. SSL allows you to authenticate the server that sends and receives your email messages. Also, SSL is used to encrypt mail transfers so no one can read your messages while they are being sent to or received from your mail server. </p>
+
+<p>SSL uses a security certificate system, just as most web browsers, to authenticate and encrypt your messages. Valid certificates should be present for SSL to work properly. These certificates are included in SSL and are usually updated by your ISP, email administrator, or Eudora. Valid certificates come with Eudora, and more will be provided to you as needed.</p>
+
+<p>For your dominant personality, Eudora supports SSL through the Checking Mail and Sending Mail options window.</p>
+
+<p>For any other personality, Eudora support SSL through the Account Settings dialogs accessed from the Personalities window. When you set up a new personality, Eudora will be able to detect if the POP, IMAP, or the SMTP server for that personality supports SSL depending on which SSL setting you choose.</p>
+
+<h2><br />
+ Using SSL for your Dominant Personality</h2>
+
+<p>To access SSL settings for your dominant personality, do the following:</p>
+
+<p>1.From the <b>Tools</b> menu, choose <b>Options</b>. </p>
+
+<p>2.For SSL when receiving mail, scroll and choose <b>Checking Mail</b>. The Checking Mail options window appears. </p>
+
+<p>For SSL when sending mail, scroll and choose <b>Sending Mail</b>. The Sending Mail options window appears.</p>
+
+<p>3.In the <b>Secure Sockets when Receiving (or Sending)</b> field, click the down arrow to display the drop-down menu. <br />
+<br />
+Following is a description of each option on the SSL drop-down menu:</p>
+
+<p><b>Never—</b> Do not use SSL for server authentication and mail transfer security, even if SSL is available on the server. </p>
+
+<p><b>If Available STARTTLS</b> (default)— Use SSL for server authentication and mail transfer security by having Eudora automatically invoke the STARTTLS command method to start SSL, that is, if the server supports STARTTLS. If your server doesn’t support STARTTLS, mail transfers will occur successfully, but they will not be secured with SSL.</p>
+
+<p><b>Required, Alternate Port—</b> Use SSL for server authentication and mail transfer security by having Eudora automatically use the older style alternate port method for starting SSL. If your server does not support SSL on the appropriate ports, mail transfers will fail. </p>
+
+<p><b>Required STARTTLS—</b> Use SSL for server authentication and mail transfer security by having Eudora automatically invoke the STARTTLS command method to start SSL. If your server does not support STARTTLS, mail transfers will fail. </p>
+
+<p><i><b>Important.</b> If you use SSL and cannot make a connection when receiving or sending mail, you may need to check with your ISP to update any invalid SSL certificates. However, to override any issues with SSL when retrieving or sending mail, choose Never from the drop-down menu to make a successful connection.</i></p>
+
+<p>To display the most current information for an SSL connection between a server and Eudora since the last time you started Eudora, click <b>Last SSL info</b>. The Eudora SSL Connection Information Manager window appears with SLL and certificate information. </p>
+
+<p>If you display the SSL information windows, make certain you don’t change any of the field information unless you are familiar with SSL.</p>
+
+<h2>Using SSL for Your Other Personalities</h2>
+
+<p>To access SSL settings for any other personality, do the following:</p>
+
+<p>1.From the <b>Tools</b> menu, choose <b>Personalities</b>. The Personalities window appears. </p>
+
+<p>2.For an existing personality, highlight the personality and choose <b>Properties </b>from the context menu. </p>
+
+<p>3.For a new personality, right-click anywhere in the Personalities window to display the context menu. Choose <b>New </b>and then choose <b>Skip directly to advanced account setup</b>. The Account Settings Generic Properties dialog appears.</p>
+
+<p>4.For SSL when sending mail, scroll and choose <b>Sending Mail</b>. The Sending Mail options window appears.</p>
+
+<p>For SSL when receiving mail, choose <b>Incoming Mail</b> tab. The Checking Mail options window appears.</p>
+
+<p>See above the for the option descriptions for the SSL drop-down menus.</p>
+
+<script type="text/javascript">
+<!--
+h3m_fix();
+-->
+</script>
+
+</body>
+</html>

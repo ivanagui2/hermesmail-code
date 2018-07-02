@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:MSHelp="http://msdn.microsoft.com/mshelp" xmlns:mshelp="http://msdn.microsoft.com/mshelp">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<meta name="Microsoft.Help.Locale" content="en-us" />
+<meta name="Microsoft.Help.TopicLocale" content="en-us" />
+<meta name="Microsoft.Help.SelfBranded" content="true" />
+<meta name="Microsoft.Help.Id" content="Eudora-B01B840A-0000D4" />
+<meta name="Microsoft.Help.Keywords" content="Options, sending mail" />
+<meta name="Microsoft.Help.Keywords" content="Sending Mail Options Window" />
+<meta name="Microsoft.Help.Category" content="Eudora" />
+<meta name="Microsoft.Help.DisplayVersion" content="" />
+
+<title>Sending Mail Options Window</title>
+<script type="text/javascript" src="h3m.js"></script>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+
+
+
+<h2><a name="sending_mail_options_window"></a>Sending Mail Options Window</h2>
+
+<p>The Sending Mail options determine how Eudora sends your outgoing messages from your primary email account (dominant personality).</p>
+
+<p>To display the Sending Mail options window, do the following:</p>
+
+<p>1. From the <b>Tools</b> menu, select <b>Options</b>.</p>
+
+<p>2. Click <b>Sending Mail</b>. The Sending Mail options window appears.</p>
+
+<p>Listed below are field descriptions for Sending Mail:</p>
+
+<p><b>Return address —</b>— This is your return email address, if different from your incoming mail account. See <a href="ms-xhelp:///?Id=Eudora-B01B840A-000199">Getting Started Options Window </a>for more details.</p>
+
+<p><b>Domain to add to unqualified addresses —</b>— This is the domain name that Eudora automatically adds to an unqualified address in messages sent from your primary account. An unqualified address is an address that doesn’t have an "@" sign followed by a domain name. This can be used to save time when addressing large numbers of messages to users in the same domain.</p>
+
+<p><b>SMTP server —</b>— This is the name of the outgoing mail server for your principal email account. All outgoing messages sent from your primary account are routed through this server. If the computer that your primary incoming mail account is on also runs an SMTP server, you can leave this field blank. SMTP stands for Simple Mail Transfer Protocol.</p>
+
+<p><b>SMTP Relay Personality</b> —<b>—</b><b> </b>You can choose from the personality previously set up for the SMTP relay from the drop-down list. None is the default. </p>
+
+<p><b>Allow authentication</b>— Eudora can log in to an SMTP server when sending mail, just like it does for receiving mail. Not all SMTP servers require or allow such authentication. Eudora will attempt authentication to servers that allow it. The preferred SMTP authentication method is CRAM-MD5. If CRAM-MD5 is not available, LOGIN or PLAIN will automatically be used.<b> </b></p>
+
+<p><b>Immediate send —</b>— If this is on, the rightmost button in the toolbar of the message composition window is labeled Send. Clicking this button immediately sends the message to the SMTP server. If this option is off, the button is labeled Queue and clicking it places the message in the Out mailbox marked ready for delivery (Q).</p>
+
+<p><b>Send on check —</b><b>—</b><b> </b>If this is on, any messages from your primary account that are queued in the Out mailbox are sent when mail is checked for this account, whether the mail-check is automatic or manual.</p>
+
+<p><b>Secure Sockets when Sending—</b>—You can choose how you wish to use SSL when sending messages by choosing one of the options in the SSL drop-down menu. The following are the SSL options when sending mail.</p>
+
+<p><b>Never</b>— Do not use SSL for server authentication and mail transfer security, even if SSL is available on the server. </p>
+
+<p><b>If Available STARTTLS</b> (default)— Use SSL for server authentication and mail transfer security by having Eudora automatically invoke the STARTTLS command method to start SSL, that is, if the server supports STARTTLS. If your server doesn’t support STARTTLS, mail transfers will occur successfully, but they will not be secured with SSL.</p>
+
+<p><b>Required, Alternate Port</b>— Use SSL for server authentication and mail transfer security by having Eudora automatically use the older style alternate port method for starting SSL. If your server does not support SSL on the appropriate ports, mail transfers will fail. </p>
+
+<p><b>Required STARTTLS</b>— Use SSL for server authentication and mail transfer security by having Eudora automatically invoke the STARTTLS command method to start SSL. If your server does not support STARTTLS, mail transfers will fail. </p>
+
+<p><i><b>Important.</b> If you use SSL and cannot make a connection when receiving or sending mail, you may need to check with your ISP to update any invalid SSL certificates. However, to override any issues with SSL when retrieving or sending mail, choose </i>Never <i>from the drop-down menu to make a successful connection.</i></p>
+
+<p><b>Last SSL info—</b>—To display the most current information for an SSL connection between a server and Eudora since the last time you started Eudora, click<b> Last SSL info</b>. The Eudora SSL Connection Information Manager window appears with SLL and certificate information. </p>
+
+<p><i><b>Caution:</b> If you display the SSL information windows, make certain you don’t change any of the field information unless you are familiar with SSL.</i></p>
+
+<script type="text/javascript">
+<!--
+h3m_fix();
+-->
+</script>
+
+</body>
+</html>

@@ -144,7 +144,6 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
 #include "ImapMailMgr.h"
 // END IMAP
 
-#include "QCSharewareManager.h"
 #include "QCLabelDirector.h"
 #include "QCCommandStack.h"
 #include "QCAutomationDirector.h"
@@ -888,7 +887,6 @@ BOOL CEudoraApp::InitInstance()
 	//if (!InitDebug())
 	if (! QCLogFileMT::InitDebug( GetIniLong(IDS_INI_DEBUG_LOG_LEVEL),
 								  GetIniLong(IDS_INI_DEBUG_LOG_FILE_SIZE),
-								  static_cast<short>( GetSharewareMode() ),
 								  EudoraDir,
 								  GetIniString(IDS_INI_DEBUG_LOG_FILE_NAME)) )
 	{
@@ -1072,8 +1070,12 @@ BOOL CEudoraApp::InitInstance()
 	// In particular force an update right after QCSharewareManager has loaded in 
 	// in case it displayed an error dialog about the pro reg code (very rare,
 	// but possible).
+    // HERMES NOTE: Since we are not utilizing the QCSharewareManager we might
+    // be able to do without this hack.
+    /*
 	if (pAboutDlg)
 		pAboutDlg->UpdateWindow();
+    */    
 
 	// Initialize the Content Concentrator -- must be destroyed when done
 	if ( !ContentConcentrator::Initialize() )

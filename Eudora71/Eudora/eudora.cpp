@@ -21,6 +21,44 @@ DAMAGE. */
 
 //
 
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
+    Removing references to the Paige Html component used by the legacy Eudora 
+    code.
+
+*/
+
 #include "stdafx.h"
 
 #include <afxcmn.h>
@@ -94,7 +132,7 @@ DAMAGE. */
 #include "ReadMessageDoc.h"
 
 // OG
-#include "PaigeEdtView.h"
+#include "HtmlEdtView.h"
 #include "TextFileView.h"
 #include "PgCompMsgView.h"
 #include "PgFixedCompMsgView.h"
@@ -939,7 +977,7 @@ BOOL CEudoraApp::InitInstance()
 		IDR_COMPMESS,
 		RUNTIME_CLASS(CCompMessageDoc),
 		RUNTIME_CLASS(CCompMessageFrame),
-		RUNTIME_CLASS(CPaigeEdtView));
+		RUNTIME_CLASS(CHtmlEdtView));
 	AddDocTemplate(CompMessageTemplate);
 
 	// Search class
@@ -979,7 +1017,7 @@ BOOL CEudoraApp::InitInstance()
 		IDR_MOREHELP,
 		RUNTIME_CLASS(CMoreHelpDoc),
 		RUNTIME_CLASS(CMDIChild),
-		RUNTIME_CLASS(CMoreHelpPaigeView));
+		RUNTIME_CLASS(CMoreHelpHtmlView));
 	AddDocTemplate(MoreHelpTemplate);
 
 	// Update nag class
@@ -987,7 +1025,8 @@ BOOL CEudoraApp::InitInstance()
 		IDR_UPDATE_NAG,
 		RUNTIME_CLASS(CUpdateNagDoc),
 		RUNTIME_CLASS(CUpdateNagWnd),
-		RUNTIME_CLASS(CUpdatePaigeView));
+        // CUpdatePaigeView deprecated for Hermes
+		// RUNTIME_CLASS(CUpdatePaigeView));
 	AddDocTemplate(UpdateNagTemplate);
 
 	// Usage Statistics class

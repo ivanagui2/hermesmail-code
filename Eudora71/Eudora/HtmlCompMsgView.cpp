@@ -21,14 +21,45 @@ DAMAGE. */
 
 //
 
+/*
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
+
+*/
+
 #include "stdafx.h"
 
 #include "QCUtils.h"	// required early else ugly stuff happens...
 #include "PgCompMsgView.h"
-#include "PgStyleUtils.h"
-#include "Paige_io.h"
-#include "pgosutl.h"
-#include "pghlevel.h"
 #include "msgutils.h"
 #include "utils.h"
 #include "QCFindMgr.h"
@@ -40,8 +71,6 @@ DAMAGE. */
 #include "rs.h"
 #include "resource.h"
 #include "compmessageframe.h"
-#include "pghtmdef.h"
-#include "QCSharewareManager.h"
 #include "MoodMailStatic.h"
 #include "MoodWatch.h"
 #include "Text2Html.h"
@@ -55,23 +84,23 @@ extern DWORD g_nMoodMailInterval;
 
 
 /////////////////////////////////////////////////////////////////////////////
-// PgCompMsgView
+// HtmlCompMsgView
 
-IMPLEMENT_DYNCREATE(PgCompMsgView, PgMsgView)
+IMPLEMENT_DYNCREATE(HtmlCompMsgView, HtmlMsgView)
 
-PgCompMsgView::PgCompMsgView()
+HtmlCompMsgView::HtmlCompMsgView()
 	:	m_SysKeyDownTime(0), m_pHeader(NULL)
 {
 	m_LastCharTypedTime = 0;
 	m_nScore = -1;
 }
 
-PgCompMsgView::~PgCompMsgView()
+HtmlCompMsgView::~HtmlCompMsgView()
 {
 }
 
 
-BEGIN_MESSAGE_MAP(PgCompMsgView, PgMsgView)
+BEGIN_MESSAGE_MAP(HtmlCompMsgView, HtmlMsgView)
     //{{AFX_MSG_MAP(PgCompMsgView)
     ON_WM_CONTEXTMENU()
     ON_WM_CHAR()
@@ -91,7 +120,7 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // PgCompMsgView drawing
 
-void PgCompMsgView::OnDraw( CDC* pDC )
+void HtmlCompMsgView::OnDraw( CDC* pDC )
 {
 	// BOG: paige doesn't always call our signature glitter proc---not sure why.
 	// here's a little hack to make sure the SigBar always gets drawn.
@@ -100,53 +129,22 @@ void PgCompMsgView::OnDraw( CDC* pDC )
 	VERIFY(pDoc = (CCompMessageDoc *) GetDocument());
 	ASSERT_KINDOF(CCompMessageDoc, pDoc);
 
-	if ( pDoc && pDoc->m_Sum && (pDoc->m_Sum->GetFlagsEx() & MSFEX_INL_SIGNATURE) ) {
-		rectangle visBounds;
-		pgAreaBounds( m_paigeRef, NULL, &visBounds );
-
-		select_pair sigRng, visRng;
-		visRng.begin = pgPtToChar( m_paigeRef, &visBounds.top_left, NULL );
-		visRng.end = pgPtToChar( m_paigeRef, &visBounds.bot_right, NULL );
-
-		if ( find_signature( &sigRng, &visRng ) ) {
-			select_pair firstLine;
-			pgFindLine( m_paigeRef, sigRng.begin, &firstLine.begin, &firstLine.end );
-
-			rectangle lineRect;
-			pgTextRect( m_paigeRef, &firstLine, TRUE, FALSE, &lineRect );
-			lineRect.bot_right.h = visBounds.bot_right.h - visBounds.top_left.h;
-
-			shape_ref sigRgn, visRgn, hackRgn;
-			hackRgn = pgRectToShape( PgMemGlobalsPtr(), NULL );
-			sigRgn  = pgRectToShape( PgMemGlobalsPtr(), &lineRect );
-			visRgn  = pgGetVisArea( m_paigeRef );
-
-			pgSectShape( sigRgn, visRgn, hackRgn );
-			pgErasePageArea( m_paigeRef, hackRgn );
-			pgDisplay( m_paigeRef, NULL, hackRgn, MEM_NULL, NULL, bits_emulate_or );
-
-			// don't dispose the VisArea!
-			pgDisposeShape( sigRgn );
-			pgDisposeShape( hackRgn );
-		}
-	}
-
-	CPaigeEdtView::OnDraw( pDC );
+	CHtmlEditView::OnDraw( pDC );
 }
 
 
 /////////////////////////////////////////////////////////////////////////////
-// PgCompMsgView diagnostics
+// HtmlCompMsgView diagnostics
 
 #ifdef _DEBUG
 void PgCompMsgView::AssertValid() const
 {
-	PgMsgView::AssertValid();
+	HtmlMsgView::AssertValid();
 }
 
-void PgCompMsgView::Dump(CDumpContext& dc) const
+void HtmlCompMsgView::Dump(CDumpContext& dc) const
 {
-	PgMsgView::Dump(dc);
+	HtmlMsgView::Dump(dc);
 }
 #endif //_DEBUG
 
@@ -154,224 +152,54 @@ void PgCompMsgView::Dump(CDumpContext& dc) const
 // PgCompMsgView message handlers
 
 
-void PgCompMsgView::OnInitialUpdate() 
+void HtmlCompMsgView::OnInitialUpdate() 
 {
-    PgMsgView::OnInitialUpdate();
+    HtmlMsgView::OnInitialUpdate();
 
     CCompMessageDoc* pDoc = (CCompMessageDoc *) GetDocument();
     ASSERT_KINDOF(CCompMessageDoc, pDoc);
 
-	// make ImportMessage use our translator
-	PgDataTranslator txr( m_paigeRef );
-
-	// cause it knows what we want
-	if ( pDoc->m_ResponseType != MS_REDIRECT )
-		txr.m_importFlags |= IMPORT_SIG_FORMAT_FLAG;
-
-	CString		szBody;
-
-	// For now relax local file ref stripping when we were created
-	// from stationery. We may or may not want to keep this. It doesn't
-	// seem like much of a security risk, but OTOH stationery that
-	// Eudora creates doesn't contain local file refs.
-	GetMessageForDisplay( pDoc, ContentConcentrator::kCCNoConcentrationContext,
-						  false, (pDoc->WasStationeryApplied() == TRUE), szBody );
-    ImportMessage(szBody, &txr);
-
-	if ( pDoc->m_Sum->CantEdit() )
-	{
-		// Can't edit - so just put the cursor at the start
-		pgSetSelection(m_paigeRef, 0, 0, 0, FALSE);
-	}
-	else
-	{
-		// Select according to settings and whether or not the composition window
-		// was just created because of a reply.
-		long	nTextSize = pgTextSize(m_paigeRef);
-
-		select_pair		selAllText = { 0, nTextSize };
-		select_pair		selSig;
-		
-		// If there's a signature - the end of the text is before it
-		if ( find_signature(&selSig, &selAllText) )
-			nTextSize = selSig.begin - 1;
-
-		if (pDoc->m_ResponseType == MS_REPLIED)
-		{
-			if ( GetIniShort(IDS_INI_WHEN_REPLYING_SELECT_ALL) )
-			{
-				pgSetSelection(m_paigeRef, 0, nTextSize, 0, FALSE);
-			}
-			else if ( GetIniShort(IDS_INI_WHEN_REPLYING_TYPE_AFTER) )
-			{
-				pgSetSelection(m_paigeRef, nTextSize, nTextSize, 0, FALSE);
-
-				// If message is long enough bottom may not be in view - scroll to cursor
-				ScrollToCursor();
-			}
-			else if ( GetIniShort(IDS_INI_WHEN_REPLYING_TYPE_BEFORE) )
-			{
-				pgSetSelection(m_paigeRef, 0, 0, 0, FALSE);
-			}
-		}
-		else
-		{
-			if ( GetIniShort(IDS_INI_WHEN_OPENING_COMP_WIN_SELECT_ALL) )
-			{
-				pgSetSelection(m_paigeRef, 0, nTextSize, 0, FALSE);
-			}
-			else if ( GetIniShort(IDS_INI_WHEN_OPENING_COMP_WIN_SELECT_AFTER) )
-			{
-				pgSetSelection(m_paigeRef, nTextSize, nTextSize, 0, FALSE);
-
-				// If message is long enough bottom may not be in view - scroll to cursor
-				ScrollToCursor();
-			}
-			else if ( GetIniShort(IDS_INI_WHEN_OPENING_COMP_WIN_SELECT_BEFORE) )
-			{
-				pgSetSelection(m_paigeRef, 0, 0, 0, FALSE);
-			}
-		}
-	}
-
-	if (! pgTextSize(m_paigeRef) )
-        pgApplyNamedStyle(m_paigeRef, NULL, body_style, draw_none);
-
-	load_signature( NULL, false );
-
-    if (pDoc->m_Sum->CantEdit())	
-        SetReadOnly();
-
-    if (GetIniShort(IDS_INI_SEND_PLAIN_ONLY) && !GetIniShort(IDS_INI_WARN_QUEUE_STYLED_TEXT))
-        SetAllowStyled(false);
-
-    CCompMessageFrame* pFrame = (CCompMessageFrame*) GetParentFrame();
-    m_pHeader = pFrame->GetHeaderView();
-    UpdateScrollBars(true);
-
-    if (UsingFullFeatureSet())
-	if ( !g_bInteractiveSpellCheck && pgTextSize( m_paigeRef ) && !IsReadOnly() ) {
-        select_pair sp;
-        sp.begin = 0;
-        sp.end = pgTextSize( m_paigeRef );
-        m_spell.Check( &sp );
-    }
-
-    g_nMoodMailInterval = GetIniLong( IDS_INI_MOOD_MAIL_INTERVAL);
-	g_bMoodMailCheck = GetIniShort( IDS_INI_MOOD_MAIL_CHECK );
-	if(UsingFullFeatureSet())
-	{
-		//Mood Mail changes
-		if( !IsReadOnly())
-		{
-			SetMoodTimer();
-		}
-		else
-		{
-			UpdateMoodMailButton(pDoc->m_Sum->m_nMood);
-		}
-	}
-
-	// See if the message has been addressed & has a subject
-	if ( ( pDoc->m_Headers[ HEADER_TO ] == "" ) || ( pDoc->m_Headers[ HEADER_SUBJECT ] == "" ) ) 
-	{
-		// Disable the cursor in "this" view
-		pgSetHiliteStates(m_paigeRef, deactivate_verb, no_change_verb, TRUE);
-		// Set the focus in the header & appropriately in the field
-		m_pHeader->SetFocus();
-		if (pDoc->m_Headers[HEADER_TO] == "")
-			m_pHeader->SetFocusToHeader(HEADER_TO);
-		else if (pDoc->m_Headers[HEADER_SUBJECT] == "")
-			m_pHeader->SetFocusToHeader(HEADER_SUBJECT);
-		// Show the caret
-		m_pHeader->ShowCaret();
-	}
 }
 
 
-void PgCompMsgView::SetMoreMessageStuff(
-	PgStuffBucket *						pStuffBucket)
-{
-	pStuffBucket->subkind = PgStuffBucket::kCompMessage;
-}
-
-
-BOOL PgCompMsgView::GetMessageAsHTML( CString& szText, BOOL IncludeHeaders )
+BOOL HtmlCompMsgView::GetMessageAsHTML( CString& szText, BOOL IncludeHeaders )
 {
 	szText.Empty();
 
 	if (IncludeHeaders)
 	{
-		select_pair sel;
-		sel.begin = 0;
-		sel.end = pgTextSize(m_paigeRef);
-		pg_ref impRef = pgCopy(m_paigeRef, &sel);
-
-		CString hdrs;
-		( (CCompMessageDoc *)GetDocument() )->GetMessageHeaders(hdrs);
-
-		szText = Text2Html(hdrs, TRUE, FALSE, FALSE);
-
-		// pgCopy() will return a NULL memory ref if the selection is empty,
-		// which in this case means that the body of the message is empty.
-		if (impRef)
-		{
-			CString Body;
-
-			GetTextAs(impRef, Body, PgDataTranslator::kFmtHtml);
-			szText += Body;
-			UnuseAndDispose(impRef);
-		}
 	}
 	else
-		GetTextAs( m_paigeRef, szText, PgDataTranslator::kFmtHtml );
+    {
+    }
 
 	return (TRUE);
 }
 
 
-BOOL PgCompMsgView::GetMessageAsText( CString& szText, BOOL IncludeHeaders )
+BOOL HtmlCompMsgView::GetMessageAsText( CString& szText, BOOL IncludeHeaders )
 {
 	szText.Empty();
 
 	if (IncludeHeaders)
 	{
-		select_pair sel;
-		sel.begin = 0;
-		sel.end = pgTextSize(m_paigeRef);
-		pg_ref impRef = pgCopy(m_paigeRef, &sel);
-
-		CString hdrs;
-		( (CCompMessageDoc *)GetDocument() )->GetMessageHeaders(hdrs);
-
-		szText = hdrs;
-
-		// pgCopy() will return a NULL memory ref if the selection is empty,
-		// which in this case means that the body of the message is empty.
-		if (impRef)
-		{
-			CString Body;
-
-			GetTextAs(impRef, Body, PgDataTranslator::kFmtText);
-			szText += Body;
-			UnuseAndDispose(impRef);
-		}
 	}
 	else
-		GetTextAs( m_paigeRef, szText, PgDataTranslator::kFmtText );
-
-
+    {
+    }
 
 	return ( TRUE );
 }
 
 // import type of sig---text or html
-inline PgDataTranslator::FormatType sig_format( const char* sig ) {
+/*
+inline HtmlDataTranslator::FormatType sig_format( const char* sig ) {
 	return IsFancy( sig ) ? PgDataTranslator::kFmtHtml : PgDataTranslator::kFmtText;
 }
+*/
 
 #include "sendmail.h"
-bool PgCompMsgView::load_signature( CCompMessageDoc* pDoc /*= 0*/, bool bReplace /*=false*/ )
+bool HtmlCompMsgView::load_signature( CCompMessageDoc* pDoc /*= 0*/, bool bReplace /*=false*/ )
 {
 	if ( !UsingFullFeatureSet() || !GetIniShort( IDS_INI_INLINE_SIGNATURE ) )
 		return false;
@@ -394,13 +222,11 @@ bool PgCompMsgView::load_signature( CCompMessageDoc* pDoc /*= 0*/, bool bReplace
 	}
 	else if ( foundSig ) {
 		// smoke existing sig
-		pgDelete( m_paigeRef, &sigRng, best_way );
 
 		// sigs that were imported [i.e. from the outbox] are hard to remove.
 		// if we can find it again, smoke the preceeding CR as well.
 		if ( foundSig = find_signature(&sigRng) ) {
 			sigRng.begin -= 1;
-			pgDelete( m_paigeRef, &sigRng, best_way );
 		}
 
 		// update the toc flags---we no longer have a sig
@@ -413,27 +239,21 @@ bool PgCompMsgView::load_signature( CCompMessageDoc* pDoc /*= 0*/, bool bReplace
 	if ( curSig && *curSig ) {
 		// sig's always at end of document
 		select_pair curSel;
-		long sigOffset = pgTextSize( m_paigeRef );
-		pgGetSelection( m_paigeRef, &curSel.begin, &curSel.end );
-		pgSetSelection( m_paigeRef, sigOffset, sigOffset, 0, FALSE );
 
-		TCHAR cr = (TCHAR) PgGlobalsPtr()->line_wrap_char;
+		// TCHAR cr = (TCHAR) PgGlobalsPtr()->line_wrap_char;
 
 		// always start on our own line, never on offset zero
 		if ( !sigOffset || !pgCharType(m_paigeRef, sigOffset-1, PAR_SEL_BIT) ) {
-			pgInsert( m_paigeRef, (pg_char_ptr)&cr, 1, CURRENT_POSITION,
-					data_insert_mode, 0, best_way );
 			sigOffset++;
 		}
 
 		SetTextAs( curSig, 0, sig_format(curSig), false, false, false );
 
 		sigRng.begin = sigOffset;
-		sigRng.end = pgTextSize( m_paigeRef );
+		//sigRng.end = pgTextSize( m_paigeRef );
 		m_styleEx->ApplySignature( true, &sigRng );
 
 		pDoc->m_Sum->SetFlagEx( MSFEX_INL_SIGNATURE );
-        pgSetSelection( m_paigeRef, curSel.begin, curSel.end, 0, TRUE );
 		delete [] curSig;
 	}
 
@@ -441,7 +261,7 @@ bool PgCompMsgView::load_signature( CCompMessageDoc* pDoc /*= 0*/, bool bReplace
 }
 
 // qcprotocol: qcp_get_message
-BOOL PgCompMsgView::OnSignatureChanged()
+BOOL HtmlCompMsgView::OnSignatureChanged()
 {
 	return load_signature() == true;
 }
@@ -450,14 +270,14 @@ BOOL PgCompMsgView::OnSignatureChanged()
 // OnContextMenu [protected]
 //
 ////////////////////////////////////////////////////////////////////////
-void PgCompMsgView::OnContextMenu(CWnd* pWnd, CPoint ptScreen)
+void HtmlCompMsgView::OnContextMenu(CWnd* pWnd, CPoint ptScreen)
 {
 	CCompMessageDoc* pDoc = (CCompMessageDoc *) GetDocument();
 	ASSERT_KINDOF(CCompMessageDoc, pDoc);
 	pDoc->DoContextMenu(this, WPARAM(pWnd->GetSafeHwnd()), MAKELPARAM(ptScreen.x, ptScreen.y));
 } 
 
-void PgCompMsgView::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags) 
+void HtmlCompMsgView::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags) 
 {
 	// Process the keystrokes only if the document is not read only.
 	// The arrow keys are processed in OnKeyDown
@@ -486,18 +306,18 @@ void PgCompMsgView::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags)
 			else
 			{
 				if ( !PreventDestroyingSignatureStyle(false, false) )
-					CPaigeEdtView::OnChar(nChar, nRepCnt, nFlags); 
+					CHtmlEditView::OnChar(nChar, nRepCnt, nFlags); 
 			}
 		}
 		else
 		{
 			if ( !PreventDestroyingSignatureStyle( (nChar == VK_BACK), false ) )
-				CPaigeEdtView::OnChar(nChar, nRepCnt, nFlags); 
+				CHtmlEditView::OnChar(nChar, nRepCnt, nFlags); 
 		}
 	}
 }
 
-void PgCompMsgView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) 
+void HtmlCompMsgView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) 
 {
     bool	bPreventDestroyingSignatureStyle = false;
 
@@ -505,11 +325,11 @@ void PgCompMsgView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		bPreventDestroyingSignatureStyle = PreventDestroyingSignatureStyle(false, true);
 
 	if (!bPreventDestroyingSignatureStyle)
-		CPaigeEdtView::OnKeyDown(nChar, nRepCnt, nFlags);
+		CHtmlEditView::OnKeyDown(nChar, nRepCnt, nFlags);
 }
 
 
-BOOL PgCompMsgView::PreTranslateMessage( MSG* pMsg )
+BOOL HtmlCompMsgView::PreTranslateMessage( MSG* pMsg )
 {
     if ( pMsg->message == WM_SYSKEYDOWN ) {
         int nVirtKey = (int) pMsg->wParam;
@@ -525,7 +345,7 @@ BOOL PgCompMsgView::PreTranslateMessage( MSG* pMsg )
 }
 
 
-void PgCompMsgView::OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo)
+void HtmlCompMsgView::OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo)
 {
 	//Insert the message headers
 	SetRedraw( FALSE );
@@ -534,17 +354,15 @@ void PgCompMsgView::OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo)
 	{
 		//Remember the currect selection and reset it after inserting the headers
 		select_pair sel;
-		pgGetSelection(m_paigeRef, &sel.begin, &sel.end);
 		
 		InsertPrintHeader();
-		
+
 		sel.begin += chrgHeader.cpMax;
 		sel.end += chrgHeader.cpMax;
-		pgSetSelection(m_paigeRef, sel.begin, sel.end, 0, TRUE);
 	}
 
 	// call the base class
-	CPaigeEdtView::OnBeginPrinting( pDC, pInfo );
+	CHtmlMsgView::OnBeginPrinting( pDC, pInfo );
 }
 
 
@@ -554,9 +372,9 @@ void PgCompMsgView::OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo)
 // This is where ya do cleanup after the job. We need to remove the message
 // header text, and turn redraw back on.
 
-void PgCompMsgView::OnEndPrinting(CDC* pDC, CPrintInfo* pInfo)
+void HtmlCompMsgView::OnEndPrinting(CDC* pDC, CPrintInfo* pInfo)
 {
-	CPaigeEdtView::OnEndPrinting( pDC, pInfo );
+	CHtmlEditView::OnEndPrinting( pDC, pInfo );
 
 	// Remove the message headers. 
 	// Done at the end to avoid redraw problems due to undo_format after printing
@@ -567,7 +385,6 @@ void PgCompMsgView::OnEndPrinting(CDC* pDC, CPrintInfo* pInfo)
 		//by the size of the header
 		m_thePrintInfo.m_currSelection.begin -= chrgHeader.cpMax;
 		m_thePrintInfo.m_currSelection.end -= chrgHeader.cpMax;
-		pgSetSelection(m_paigeRef, m_thePrintInfo.m_currSelection.begin, m_thePrintInfo.m_currSelection.end, 0, TRUE);
 	}
 }
 
@@ -580,7 +397,7 @@ void PgCompMsgView::OnEndPrinting(CDC* pDC, CPrintInfo* pInfo)
 // pretty darn good. Currently we print like v2.2 does, but it might be
 // nice to fancy it up with a little character/paragraph formatting.
 
-void PgCompMsgView::InsertPrintHeader()
+void HtmlCompMsgView::InsertPrintHeader()
 {
 	// suck out the text for each field *and* its associated label, building
 	// up one big block of text to be inserted at the top of the document.
@@ -606,15 +423,12 @@ void PgCompMsgView::InsertPrintHeader()
 	pgSetSelection(m_paigeRef, 0, 0, 0, TRUE);	
 	
 	// stuff it in at the beginning of the message
-	pgInsert( m_paigeRef, (pg_byte_ptr)pBuffer, nLength, CURRENT_POSITION, 
-							data_insert_mode, 0, best_way );
-
 	theHeaderText.ReleaseBuffer();
 
 	//Need to clear any formatting that the inserted text may have picked up along the way
 	//Pg will clear the style/formatting from the current selection point to the end of a paragraph ,i.e until a \r\n is 
 	//found.  We only insert one of these pairs (see above) at the end of the header information.
-	pgSetSelection(m_paigeRef, 0, nLength - 3, 0, TRUE); //- 3 for /n/r/n found on the end	
+    // pgSetSelection(m_paigeRef, 0, nLength - 3, 0, TRUE); //- 3 for /n/r/n found on the end	
 
 	//Clear the style first
 	ClearStyle();
@@ -626,46 +440,35 @@ void PgCompMsgView::InsertPrintHeader()
 	sel.end = nLength - 3;
 
 	style_info	mask, info;
-	pgFillBlock( &mask, sizeof(style_info), SET_MASK_BITS );
+	// pgFillBlock( &mask, sizeof(style_info), SET_MASK_BITS );
 
 	//info = PgGlobalsPtr()->def_style;
-	long styleID = pgGetNamedStyleIndex (m_paigeRef, body_style);
+	//long styleID = pgGetNamedStyleIndex (m_paigeRef, body_style);
 	ASSERT(styleID);
 
 	//Apply the message font and size because we change it to the printer font and size
 	//in the base class for the whole document.
-	if ( pgGetStyle(m_paigeRef, (short)styleID, &info) )
-		pgSetStyleInfo(m_paigeRef, &sel, &info, &mask, draw_none);
-	else
-	{
-		info = PgGlobalsPtr()->def_style;
-		pgSetStyleInfo(m_paigeRef, &sel, &info, &mask, draw_none);
-	}
 }
 
 
 // RemovePrintHeader:
 // Removes the header text created with InsertPrintHeader
 
-void PgCompMsgView::RemovePrintHeader()
+void HtmlCompMsgView::RemovePrintHeader()
 {
-	// this just set the selection using the range we saved-off in
-	// InsertPrintHeader(), and replaces it with nothing.
-	pgSetSelection(m_paigeRef, chrgHeader.cpMin, chrgHeader.cpMax, 0, TRUE);	
-	pgDelete(m_paigeRef, NULL, best_way);
 }
 
 
-void PgCompMsgView::OnSetFocus(CWnd* pOldWnd) 
+void HtmlCompMsgView::OnSetFocus(CWnd* pOldWnd) 
 {
-    PgMsgView::OnSetFocus(pOldWnd);
+    HtmlMsgView::OnSetFocus(pOldWnd);
 
 	if( UsingFullFeatureSet() && !IsReadOnly() )
 		SetMoodTimer();
 }
 
 
-void PgCompMsgView::OnEditPaste() 
+void HtmlCompMsgView::OnEditPaste() 
 {
 	COleDataObject clipboardData;
 
@@ -676,7 +479,7 @@ void PgCompMsgView::OnEditPaste()
 	{
 		// Let base class get a whack at it.  If there's nothing it can
 		// handle, then see if there's some file(s) we can attach.
-		if (!CPaigeEdtView::OnPaste( &clipboardData, undo_ole_paste ))
+		if (!CHtmlEditView::OnPaste( &clipboardData, undo_ole_paste ))
 		{
 			if ( clipboardData.IsDataAvailable( CF_HDROP ) )
 			{
@@ -693,7 +496,7 @@ void PgCompMsgView::OnEditPaste()
 }
 
 
-void PgCompMsgView::OnUpdateEditPaste(CCmdUI* pCmdUI) 
+void HtmlCompMsgView::OnUpdateEditPaste(CCmdUI* pCmdUI) 
 {
 	if ( !m_fRO ) {
 		COleDataObject clipBoardData;
@@ -715,10 +518,10 @@ void PgCompMsgView::OnUpdateEditPaste(CCmdUI* pCmdUI)
 		}
 	}
 
-	CPaigeEdtView::OnUpdateEditPaste( pCmdUI );
+	CHtmlEditView::OnUpdateEditPaste( pCmdUI );
 }
 
-void PgCompMsgView::OnUpdateInsertPicture(CCmdUI* pCmdUI) 
+void HtmlCompMsgView::OnUpdateInsertPicture(CCmdUI* pCmdUI) 
 {
 	CCompMessageDoc* pDoc = (CCompMessageDoc*) GetDocument();
 	ASSERT_KINDOF( CCompMessageDoc, pDoc );
@@ -736,7 +539,7 @@ Input: Sesstion State
 Output : Score of Mood Mail
 -------------------------------------------------------------------------------------*/
 
-int PgCompMsgView::DoMoodMailCheck(CMoodWatch *pmoodwatch)
+int HtmlCompMsgView::DoMoodMailCheck(CMoodWatch *pmoodwatch)
 {
 	int nRetVal = -1;
 	CMoodWatch moodwatch;
@@ -750,7 +553,7 @@ int PgCompMsgView::DoMoodMailCheck(CMoodWatch *pmoodwatch)
 				m_pHeader->AddMoodText(&moodwatch, i);				
 			}
 		}
-		CPaigeEdtView::DoMoodMailCheck(&moodwatch);
+		CHtmlEditView::DoMoodMailCheck(&moodwatch);
 		nRetVal =moodwatch.GetScore();
 		if (nRetVal != -1)
 			return nRetVal+1;
@@ -759,10 +562,10 @@ int PgCompMsgView::DoMoodMailCheck(CMoodWatch *pmoodwatch)
 }
 
 
-void PgCompMsgView::OnTimer(UINT nIDEvent) 
+void HtmlCompMsgView::OnTimer(UINT nIDEvent) 
 {
 	if (nIDEvent != AUTO_MOOD_MAIL_TIMER || !UsingFullFeatureSet())
-		CPaigeEdtView::OnTimer(nIDEvent);
+		CHtmlEditView::OnTimer(nIDEvent);
 	else
 	{
 		if (IsReadOnly())
@@ -815,7 +618,7 @@ Input: Calculated Mood Mail Score
 Output : void
 -------------------------------------------------------------------------------------*/
 
-void PgCompMsgView::UpdateMoodMailButton(int nScore)
+void HtmlCompMsgView::UpdateMoodMailButton(int nScore)
 {
 	CCompMessageFrame* pFrame = DYNAMIC_DOWNCAST(CCompMessageFrame, GetParentFrame());
 
@@ -845,7 +648,7 @@ void PgCompMsgView::UpdateMoodMailButton(int nScore)
 	if the header fields contain any BP addresses
 -------------------------------------------------------------------------------------*/
 
-void PgCompMsgView::UpdateBPButton(bool bBPWarning)
+void HtmlCompMsgView::UpdateBPButton(bool bBPWarning)
 {
 	CCompMessageFrame* pFrame = DYNAMIC_DOWNCAST(CCompMessageFrame, GetParentFrame());
 
@@ -878,7 +681,7 @@ Output : void
 -------------------------------------------------------------------------------------*/
 
 
-void PgCompMsgView::ShowMoodMailButton(BOOL bStatus)
+void HtmlCompMsgView::ShowMoodMailButton(BOOL bStatus)
 {
 	CCompMessageFrame* pFrame = DYNAMIC_DOWNCAST(CCompMessageFrame, GetParentFrame());
 
@@ -916,7 +719,7 @@ void PgCompMsgView::ShowMoodMailButton(BOOL bStatus)
 }
 
 
-void PgCompMsgView::SetMoodTimer()
+void HtmlCompMsgView::SetMoodTimer()
 {
 	// Set the mood timer if:
 	// * We're using the full feature set
@@ -936,7 +739,7 @@ void PgCompMsgView::SetMoodTimer()
 }
 
 
-void PgCompMsgView::KillMoodTimer()
+void HtmlCompMsgView::KillMoodTimer()
 {
 	KillTimer(AUTO_MOOD_MAIL_TIMER);
 }

@@ -113,12 +113,9 @@ public:
     bool ApplyBullet();
         
     bool ApplySigned();
-    bool ApplySigned();
     bool IsSigned();
 
 	bool ApplySignature();
-	static bool ApplySignature();
-	static bool IsSignature();
 	bool IsSignature();
 
 	bool IsWithinURLRange();

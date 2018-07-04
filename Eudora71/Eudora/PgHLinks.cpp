@@ -29,23 +29,6 @@ DAMAGE. */
 #include "guiutils.h"
 #include "HTMLUtils.h"
 
-// standard Paige includes
-#include "Paige.h"
-#include "pgTraps.h"
-#include "pgOSUtl.h"
-#include "pgUtils.h"
-#include "pgTxrCPP.h"
-#include "defprocs.h"
-#include "pgErrors.h"
-#include "pgDefStl.h"
-#include "pgHTMDef.h"
-#include "pgEmbed.h"
-#include "pgdeftbl.h"
-#include "machine.h"
-#include "pgTables.h"
-#include "pgHText.h"
-#include "pgFrame.h"
-
 // editor protocols
 #include "qcprotocol.h"
 
@@ -95,99 +78,6 @@ static void clean_filepath( char* url, bool decode );
 void PgInitHyperlinks( pg_ref pg )
 {
     pgSetHyperlinkCallback( pg, hlCallback, NULL );
-}
-
-
-// PgProcessHyperlinks - hyperlink handling for any pg_ref. if the user has
-// clicked a link, its id will be set in the Paige reference's "stuff bucket";
-// this routine is called in CPaigeEdtView's "OnLButtonUp" handler.
-//
-// UGLY: this is gettin' there!
-
-void PgProcessHyperlinks( pg_ref pg )
-{
-    // only if there is a link id a-waiting
-    long hlinkID = 0;
-    paige_rec_ptr pgRec = (paige_rec_ptr) UseMemory( pg );
-    PgStuffBucket* pSB = (PgStuffBucket*) pgRec->user_refcon;
-
-    if ( pSB->hlinkProcessing == true ) {
-        // BOG: this should catch any instance of a paige editor trying to
-        // process a hyperlink while one is currently being processed. note
-        // this condition cannot be addressed here; it's the caller's problem.
-        UnuseMemory( pg );
-        assert( 0 );
-        return;
-    }
-    else {
-        // dupe the eventID  and blank it out right now; ya never know if we
-        // might get called again too soon. Schmookie!!
-        pSB->hlinkProcessing = true;
-        hlinkID = pSB->hlinkEvent;
-        pSB->hlinkEvent = 0;
-    }
-
-    if ( hlinkID ) {
-        pg_hyperlink pgHLink;
-        long begin, end;
-        char url[1024];
-
-        bool all_schmooked_up = get_hyperlink_schmookie( pg, hlinkID, &pgHLink,
-                                                         &begin, &end, url );
-
-        if ( all_schmooked_up ) {
-
-            // BOG: don't really know how big a run_plugin path can get; i
-            // assume it's MAX_PATH + the size of the trans_id. That would
-            // mean, of course, that the following code has a never to be
-            // found bug.
-                        
-            if ( pgHLink.type & HYPERLINK_EUDORA_PLUGIN ) {
-				// BOG [2/11/00]: apparently no need to decode this url. never
-				// have in the past; better not to start now.
-                clean_filepath( url, false );
-                run_plugin_schmookie( pgRec, begin, end, url );
-            }
-			else if (pgHLink.type & HYPERLINK_EUDORA_INFO) {
-                clean_filepath( url, true );
-				process_eudorainfo_schmookie(pgRec, end, url);
-			}
-            else if ( pgHLink.target_id && *url == '#' ) {
-                scroll_to_target( pgRec->doc_pg, &url[1] );
-
-                // here comes da butt-ugliest hack...
-                ((CPaigeEdtView*)pSB->pWndOwner)->UpdateScrollBars();
-            }
-            else /*if ( pgHLink.type & HYPERLINK_EUDORA_AUTOURL )*/ {
-                ::SetCursor( ::LoadCursor( 0, IDC_APPSTARTING ) );
-
-				CPaigeEdtView* pPEV = DYNAMIC_DOWNCAST(CPaigeEdtView, pSB->pWndOwner);
-				if (pPEV)
-				{
-					char			szLinkText[1024];
-					select_pair		linkSel;
-
-					linkSel.begin = begin;
-					linkSel.end = end;
-
-					pPEV->GetPgText(szLinkText, sizeof(szLinkText), linkSel, FALSE);
-					
-					pPEV->LaunchURL((LPCSTR)url, szLinkText);
-				}
-				else
-				{
-					// Why didn't we get a CPaigeEdtView object?
-					// Oh well, just launch the URL anyway, as
-					// we'd hate to make the user pay for our mistake.
-					ASSERT(0);
-					LaunchURL((LPCSTR)url);
-				}
-            }
-        }
-    }
-
-    pSB->hlinkProcessing = false;
-    UnuseMemory( pg );
 }
 
 

@@ -56,6 +56,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     Removed references to obselete IsRestrictedFilterAction procedure now that 
     there is effectively only a pro version.   
+    Removed references to Qualcomm's Shareware Manager.
 
 */
 
@@ -100,7 +101,6 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
 #include "TextToSpeech.h"
 #include "hsregex.h"
 
-#include "QCSharewareManager.h"
 #include "QCFindMgr.h"
 
 #include "DebugNewHelpers.h"
@@ -1044,12 +1044,6 @@ void CFiltersViewRight::OnInitialUpdate()
 #endif
 	OnSize(SIZE_RESTORED, -1, -1);
 
-	// Shareware: Register that we want to know of feature mode changes
-	QCSharewareManager *pSWM = GetSharewareManager();
-	if (pSWM)
-	{
-		pSWM->QCCommandDirector::Register((QICommandClient*)this);
-	}
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -1058,13 +1052,6 @@ void CFiltersViewRight::OnInitialUpdate()
 ////////////////////////////////////////////////////////////////////////
 void CFiltersViewRight::OnDestroy()
 {
-	// Shareware: Unregister ourselves from notifications
-	QCSharewareManager *pSWM = GetSharewareManager();
-	if (pSWM)
-	{
-		pSWM->UnRegister(this);
-	}
-
 	CFormView::OnDestroy();
 }
 
@@ -2765,26 +2752,12 @@ void CFiltersViewRight::OnSelOKAction()
 		case ID_FLT_FORWARD:
 		{
 			SetupEdit(m_CurFilter->m_Forward[m_ActionIndex]);
-
-			// Shareware: Disable the forwared edit field in REDUCED FEATURE mode
-			if (!UsingFullFeatureSet())
-			{
-				// REDUCED FEATURE
-				m_FiltEdit[m_ActionIndex].EnableWindow( FALSE );
-			}
 		}
 		break;
 
 		case ID_FLT_REDIRECT:
 		{
 			SetupEdit(m_CurFilter->m_Redirect[m_ActionIndex]);
-
-			// Shareware: Disable the redirect edit field in REDUCED FEATURE mode
-			if (!UsingFullFeatureSet())
-			{
-				// REDUCED FEATURE
-				m_FiltEdit[m_ActionIndex].EnableWindow( FALSE );
-			}
 		}
 		break;
 
@@ -3069,13 +3042,6 @@ void CFiltersViewRight::SetupReplyWith(const char* text)
 	{
 		m_StationeryCombo[m_ActionIndex].SetCurSel( 0 );
 	}
-
-	// Shareware: Disable the stationary combo control in REDUCED FEATURE mode
-	if (!UsingFullFeatureSet())
-	{
-		// REDUCED FEATURE
-		m_StationeryCombo[m_ActionIndex].EnableWindow( FALSE );
-	}
 }
 
 void CFiltersViewRight::SetupEdit(const char* text)
@@ -3291,13 +3257,6 @@ void CFiltersViewRight::SetupSound()
 
 	m_FiltEdit[m_ActionIndex].SetWindowText(m_CurFilter->m_Sound[m_ActionIndex]);
 
-	// Shareware: Disable the something in REDUCED FEATURE mode
-	if (!UsingFullFeatureSet())
-	{
-		// REDUCED FEATURE
-		m_AppBrz[m_ActionIndex].EnableWindow( FALSE );
-		m_FiltEdit[m_ActionIndex].EnableWindow( FALSE );
-	}
 }
 
 void CFiltersViewRight::SetupSpeak() 
@@ -3473,12 +3432,6 @@ void CFiltersViewRight::SetupPersonaAction(const char* persona)
 	else
 		m_PersonaCombo[m_ActionIndex].SetCurSel( 0 );
 
-	// Shareware: Disable the personality combo control in REDUCED FEATURE mode
-	if (!UsingFullFeatureSet())
-	{
-		// REDUCED FEATURE
-		m_PersonaCombo[m_ActionIndex].EnableWindow( FALSE );
-	}
 }
 
 void

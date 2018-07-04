@@ -54,8 +54,9 @@ AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
-    Removed reference to the IsRestrictedFilterAction procedure which is obselete
-    since there is now only one mode for the program to run (Pro).
+    Removed reference to IsRestrictedFilterAction  and ContainsProAction 
+    procedures because they are obselete since there is now only one mode for 
+    the program to run (Pro).
 */    
 
 #include "stdafx.h"
@@ -1484,51 +1485,32 @@ int CFilter::Action(const char* text, CSummary*& Sum, CFilterActions* fltAct, CO
 				}
 			}
 
-			// Shareware: REDUCED FEATURE mode only has one global setting for opening mbxs
-			if (UsingFullFeatureSet())
+			// FULL-FEATURE
+			// Open Mailbox by either "option" or specified Filter
+			if(((m_NotfyUserNR >= 0) && (m_NotfyUserNR & NO_NORMAL)) ||
+			   ((m_OpenMM < 0 && GetIniShort(IDS_INI_OPEN_IN_MAILBOX)) || 
+				(m_OpenMM > 0 && (m_OpenMM & OM_MAILBOX))))
 			{
-				// FULL-FEATURE
-				// Open Mailbox by either "option" or specified Filter
-				if(((m_NotfyUserNR >= 0) && (m_NotfyUserNR & NO_NORMAL)) ||
-				   ((m_OpenMM < 0 && GetIniShort(IDS_INI_OPEN_IN_MAILBOX)) || 
-					(m_OpenMM > 0 && (m_OpenMM & OM_MAILBOX))))
-				{
-					if (fltAct->m_FilterOpenMBoxTocList.Find(pDestToc) == NULL)
-						fltAct->m_FilterOpenMBoxTocList.AddTail(pDestToc);
-				}
-			}
-			else
-			{
-				// REDUCED FEATURE
-				if( GetIniShort(IDS_INI_OPEN_IN_MAILBOX) )
-				{
-					if (fltAct->m_FilterOpenMBoxTocList.Find(pDestToc) == NULL)
-						fltAct->m_FilterOpenMBoxTocList.AddTail(pDestToc);
-				}
+				if (fltAct->m_FilterOpenMBoxTocList.Find(pDestToc) == NULL)
+					fltAct->m_FilterOpenMBoxTocList.AddTail(pDestToc);
 			}
 		}
 
 		// The following actions require a summary.
 		if (Sum)
 		{
-			// Shareware: Open, Print and Junk msg are FULL FEATURE mode only
-			if (UsingFullFeatureSet())
+			// Open Message by specified Filter
+			if (m_OpenMM > 0 && m_OpenMM & OM_MESSAGE)
+			{	
+				// Add this mailbox to the list of mailboxes that have had messages filtered into them
+				if (fltAct->m_FilterOpenSumList.Find(Sum) == NULL)
+					fltAct->m_FilterOpenSumList.AddTail(Sum);
+			}
+			
+			if (m_Print)
 			{
-				// FULL-FEATURE
-
-				// Open Message by specified Filter
-				if (m_OpenMM > 0 && m_OpenMM & OM_MESSAGE)
-				{	
-					// Add this mailbox to the list of mailboxes that have had messages filtered into them
-					if (fltAct->m_FilterOpenSumList.Find(Sum) == NULL)
-						fltAct->m_FilterOpenSumList.AddTail(Sum);
-				}
-				
-				if (m_Print)
-				{
-					if (fltAct->m_FilterPrintSum.Find(Sum) == NULL)
-						fltAct->m_FilterPrintSum.AddTail(Sum);
-				}
+				if (fltAct->m_FilterPrintSum.Find(Sum) == NULL)
+					fltAct->m_FilterPrintSum.AddTail(Sum);
 			}
 		}
 	}
@@ -3588,70 +3570,6 @@ BOOL CFilterActions::EndFiltering()
 	((CMainFrame*)AfxGetMainWnd())->SaveOpenWindows(FALSE);
 
 	return (Normal);
-}
-
-/////////////////////////////////////////////////////////////////////////////
-BOOL CFilterActions::ContainsProActions()
-{
-	// Shareware: Should only call this in REDUCED FEATURE mode
-	if (UsingFullFeatureSet())
-	{
-		// FULL FEATURE mode
-		ASSERT(0);
-		return (FALSE);
-	}
-	
-	// Make sure filters are loaded up
-	if (!g_Filters)
-	{
-		if (!(g_Filters = (CFiltersDoc*)NewChildDocument(FiltersTemplate)))
-			return (FALSE);
-	}
-	if (g_Filters->m_Filters.IsEmpty() && !g_Filters->Read())
-	{
-		g_Filters->OnCloseDocument();
-		return (FALSE);
-	}
-
-	POSITION pos = g_Filters->m_Filters.GetHeadPosition();
-
-	while (pos)
-	{
-		CFilter* filt = g_Filters->m_Filters.GetNext(pos);
-
-		for (int i = 0; i < NUM_FILT_ACTS; i++)
-		{
-			// is it a pro action?
-			switch ( filt->m_Actions[i] )
-			{
-				//Light actions
-				//case ID_FLT_NONE:
-				//case ID_FLT_PRIORITY:
-				//case ID_FLT_SUBJECT:
-				//case ID_FLT_COPY:
-				//case ID_FLT_TRANSFER:
-				//case ID_FLT_SKIP_REST:
-
-				//Pro actions
-				//case ID_FLT_STATUS:
-				case ID_FLT_LABEL:
-				case ID_FLT_PERSONALITY:
-				case ID_FLT_SOUND:
-				case ID_FLT_OPEN:
-				case ID_FLT_PRINT:
-				//case ID_FLT_NOTIFY_USER:
-				//case ID_FLT_NOTIFY_APP:
-				case ID_FLT_FORWARD:
-				case ID_FLT_REDIRECT:
-				case ID_FLT_REPLY:
-				case ID_FLT_SERVER_OPT:
-					return TRUE;
-					break;
-			}
-		}
-	}
-
-	return FALSE;
 }
 
 //

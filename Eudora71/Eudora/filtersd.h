@@ -52,8 +52,8 @@ AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
-    Removed a function (IsRestrictedFilterAction) as it is no longer needed
-    because Hermes is not shareware.
+    Removed functions (IsRestrictedFilterAction and ContainsProActions) as they 
+    are no longer needed because Hermes is not shareware.
 */    
 
 //
@@ -411,7 +411,6 @@ public:
 				  bool bNoJunkAction = false,
 				  CSummary **ppSumNew = NULL);
 	BOOL EndFiltering();
-	BOOL ContainsProActions();
 	static void ForgetHashes(CString &strABName);
 	static bool AnyManualFilters();
 

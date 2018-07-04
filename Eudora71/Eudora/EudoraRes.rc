@@ -3830,31 +3830,6 @@ BEGIN
     PUSHBUTTON      "I Lost the Code",IDC_LOST_CODE,135,120,59,14
 END
 
-IDD_NAG_AUDIT DIALOGEX 0, 0, 290, 242
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | 
-    WS_CAPTION | WS_SYSMENU
-CAPTION "Send Usage Information"
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    PUSHBUTTON      "&Generate Info",IDOK,171,221,50,14
-    PUSHBUTTON      "Cancel",IDCANCEL,233,221,50,14
-    LTEXT           "<Insert real text here>",IDC_AUDIT_STATIC,16,18,260,123
-    GROUPBOX        "We'd like to know how you use Eudora.",IDC_STATIC,7,7,
-                    276,137
-    CONTROL         "Your &demographic data",IDC_AUDIT_SENDDEMO,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,15,195,110,10
-    CONTROL         "Your Network/&Eudora usage",IDC_AUDIT_SENDUSAGE,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,15,165,107,10
-    CONTROL         "&Advertisement information",IDC_AUDIT_SENDADINFO,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,145,180,97,10
-    CONTROL         "Eudora &features you use",IDC_AUDIT_SENDFEATURES,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,15,180,93,10
-    CONTROL         "&Non-personal settings",IDC_AUDIT_SENDNONSETTINGS,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,145,165,84,10
-    GROUPBOX        "It's OK to transmit statistics regarding:",IDC_STATIC,7,
-                    150,276,62
-END
-
 IDD_NAG_REGISTER DIALOGEX 0, 0, 264, 199
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | 
     WS_VISIBLE | WS_CAPTION | WS_SYSMENU
@@ -3863,163 +3838,10 @@ FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "&Take me to the registration page!",IDOK,26,178,120,14
     PUSHBUTTON      "&Maybe later",IDCANCEL,177,178,50,14
-    LTEXT           "Registration will enable us to provide you better service when you contact us for technical support and it comes with these benefits:",
+    LTEXT           "Registration will enable us to provide you with the best open source email client:",
                     IDC_NAGTEXT,15,21,234,19
-    LTEXT           "We'll also erect a giant statue in your image on the front lawn of our corporate headquarters.*  How cool is that?  C'mon, register!  It's easy and it'll stop this stupid box from popping up!",
-                    IDC_STATIC,15,117,234,27
-    LTEXT           "*Giant statue offer void to Eudora users living on the planet Earth",
-                    IDC_STATIC,15,156,204,8
     GROUPBOX        "Please Register Your Copy of Eudora",IDC_STATIC,6,7,251,
                     163
-    LTEXT           "Sponsored mode users -- Free upgrades.",IDC_STATIC,15,
-                    45,234,19
-    LTEXT           "Paid mode users -- Free upgrades and technical support (up to 6 incidents) per subscription year.",
-                    IDC_STATIC,15,69,234,20
-    LTEXT           "Light mode users -- All the latest maintenance releases free.",
-                    IDC_STATIC,15,92,234,12
-END
-
-IDD_NAG_DEADBEAT DIALOGEX 0, 0, 312, 114
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | 
-    WS_CAPTION | WS_SYSMENU
-CAPTION "Reverting to Light Mode"
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    DEFPUSHBUTTON   "Sadly, OK",IDOK,25,93,50,14
-    PUSHBUTTON      "Take me to the Eudora web site",IDC_WEBSITE,113,93,168,
-                    14
-    LTEXT           "<Insert real text here>",IDC_DEADBEAT_STATIC,15,21,285,
-                    56
-    GROUPBOX        "Eudora will now revert to reduced features",IDC_STATIC,
-                    7,7,298,78
-END
-
-IDD_NAG_FULLFEATURED DIALOGEX 0, 0, 316, 214
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | 
-    WS_CAPTION | WS_SYSMENU
-CAPTION "Upgrade to Full Featured Eudora"
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    DEFPUSHBUTTON   "Wow!  I want to try all the features!",IDOK,44,193,123,
-                    14
-    PUSHBUTTON      "Cancel",IDCANCEL,209,193,50,14
-    GROUPBOX        "Would you like to try the full featured version of Eudora?",
-                    IDC_STATIC,7,7,301,176
-    LTEXT           "While Eudora in Light mode remains a very capable email program, it lacks many more powerful features available in other versions of Eudora. Here are some of the capabilities you could be using to manage your email:",
-                    IDC_NAGTEXT,20,24,280,28,SS_NOPREFIX
-    LTEXT           "These features will be turned on automatically, at no charge, when you click that enticing button below.  (C'mon... take a chance.)",
-                    IDC_STATIC,20,158,280,20,SS_NOPREFIX
-    EDITTEXT        IDC_MISSINGFEATURESTEXT,20,52,279,78,ES_MULTILINE | 
-                    ES_READONLY | WS_VSCROLL
-    LTEXT           "In return for getting all these neat features for free, this version will display ads, but they are displayed in a way that's sensitive to what you're doing when you're in email.",
-                    IDC_STATIC,20,134,280,20,SS_NOPREFIX
-END
-
-IDD_NAG_ADFAILURE DIALOGEX 0, 0, 287, 116
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | 
-    WS_CAPTION | WS_SYSMENU
-CAPTION "Ad Failure"
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    DEFPUSHBUTTON   "Take me to the Eudora web site",IDOK,29,95,154,14
-    PUSHBUTTON      "Cancel",IDCANCEL,214,95,50,14
-    LTEXT           "For some reason, Eudora is unable to download new ads. Downloading and displaying ads is a requirement for the free full-featured version of Eudora. Please visit the Eudora web site for information about how to resume getting ads.",
-                    IDC_NAGTEXT,15,20,250,34,SS_NOPREFIX
-    LTEXT           "If ad downloading continues to fail, Eudora will eventually revert to the Light version which is less powerful.",
-                    IDC_STATIC,15,59,250,22
-    GROUPBOX        "Eudora doesn't seem to be getting ads",IDC_STATIC,7,7,
-                    273,79
-END
-
-IDD_NAG_DEMOEXPIRE DIALOGEX 0, 0, 273, 119
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | 
-    WS_CAPTION | WS_SYSMENU
-CAPTION "Demo"
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    DEFPUSHBUTTON   "&OK",IDOK,69,100,56,14
-    PUSHBUTTON      "&Pay Now...",IDC_DEMO_PAY_NOW_BTN,148,100,56,14
-    GROUPBOX        "Your Paid mode demo is about to expire",IDC_STATIC,7,7,
-                    261,89
-    LTEXT           "You only have %d more day(s) left in your preview of Paid mode.",
-                    IDC_NAGTEXT,20,24,236,16,SS_NOPREFIX
-    LTEXT           "After that time you will either have to purchase a Paid mode registration code, or you will be placed in Sponsored mode.  You can purchase a registration code by clicking on the ""Pay Now..."" button below.",
-                    IDC_STATIC,20,45,236,27
-    LTEXT           "In Sponsored mode you will lose features such as SpamWatch and ultra-fast indexed search.",
-                    IDC_STATIC,20,69,236,18
-END
-
-IDD_NAG_DEMOEXPIRED DIALOGEX 0, 0, 273, 119
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | 
-    WS_CAPTION | WS_SYSMENU
-CAPTION "Demo"
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    DEFPUSHBUTTON   "&OK",IDOK,69,100,56,14
-    PUSHBUTTON      "&Pay Now...",IDC_DEMO_PAY_NOW_BTN,148,100,56,14
-    GROUPBOX        "Your Paid mode demo has expired",IDC_STATIC,7,7,261,89
-    LTEXT           "Your free preview of Paid mode has come to an end.  You will now be placed in Sponsored mode where you will no longer be able to access features such as SpamWatch and ultra-fast indexed search.",
-                    IDC_STATIC,19,21,233,26
-    LTEXT           "If you would like to remain in Paid mode permanently you must purchase a Paid mode registration code.  This will also entitle you to technical support and 12 months of upgrades.  Click on the ""Pay Now..."" button below to start the purchase.",
-                    IDC_STATIC,20,52,236,32
-END
-
-IDD_HIDDEN_AD_WINDOW DIALOGEX 0, 0, 264, 161
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
-CAPTION "Hmmmmmmm..."
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,207,140,50,14
-    LTEXT           "%s",IDC_ALERT_TEXT,18,21,233,109,SS_NOPREFIX
-    GROUPBOX        "Something Seems to be Covering the Ad",IDC_STATIC,7,7,
-                    250,127
-END
-
-IDD_DOWNGRADE_WINDOW DIALOGEX 0, 0, 316, 202
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | 
-    WS_CAPTION | WS_SYSMENU
-CAPTION "Downgrading to Eudora Light"
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    DEFPUSHBUTTON   "Reduce features",IDOK,59,182,74,14
-    PUSHBUTTON      "Cancel",IDCANCEL,201,182,50,14
-    GROUPBOX        "Do you really want to switch to Light mode?",IDC_STATIC,
-                    7,7,302,168
-    LTEXT           "While Eudora in Light mode remains a very capable email client, it lacks the power of the full version. Here are some of the features you would be giving up:",
-                    IDC_STATIC,20,24,280,21,SS_NOPREFIX
-    EDITTEXT        IDC_MISSINGFEATURESTEXT,20,47,279,72,ES_MULTILINE | 
-                    ES_READONLY | WS_VSCROLL
-    LTEXT           "If you don't mind the ads, and can live without SpamWatch, simply click ""Cancel"" and stay in Sponsored mode.\r\n\r\nHowever if you need the automated spam protection of SpamWatch, and want to make the ads go away, click ""Cancel"" and select ""Paid mode"".",
-                    IDC_STATIC,20,125,280,45,SS_NOPREFIX
-END
-
-IDD_WARN_PERMANENT_SWITCH DIALOGEX 0, 0, 247, 87
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
-CAPTION "Warning"
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    DEFPUSHBUTTON   "&Permanently Switch",IDOK,63,67,73,14
-    PUSHBUTTON      "&Cancel",IDCANCEL,168,67,50,14
-    ICON            32515,IDC_WARN_ICON,7,7,21,20
-    LTEXT           "In order to receive a refund for your Eudora purchase, you should contact a Eudora representative at 1-800-2EUDORA. If you have not done so, press Cancel now.",
-                    IDC_STATIC,49,21,186,34,SS_NOPREFIX
-    GROUPBOX        "Switch permanently to sponsored mode?",IDC_STATIC,38,7,
-                    202,54
-END
-
-IDD_REFUND_CODE DIALOGEX 0, 0, 186, 76
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
-CAPTION "Eudora Refund"
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    LTEXT           "Your refund code is:",IDC_STATIC,7,7,69,11,SS_NOPREFIX
-    LTEXT           "",IDC_REFUND_CODE,74,7,69,11,SS_NOPREFIX
-    DEFPUSHBUTTON   "&OK",IDOK,129,55,50,14
-    LTEXT           "In order to receive your refund, you must submit this code to the Eudora representative.",
-                    IDC_STATIC,7,24,172,20,SS_NOPREFIX
 END
 
 IDD_OFFLINE_LINK DIALOGEX 0, 0, 274, 150
@@ -4387,69 +4209,6 @@ BEGIN
                     BS_AUTOCHECKBOX | WS_TABSTOP,64,62,100,10
 END
 
-IDD_NAG_LEVEL_1 DIALOGEX 0, 0, 316, 245
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | 
-    WS_VISIBLE | WS_CAPTION | WS_SYSMENU
-CAPTION "Eudora"
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    GROUPBOX        "If you don't profile, you'll lose features",IDC_HEADING,
-                    7,7,302,204
-    LTEXT           "While Eudora in Light mode remains a very capable email client, it lacks the power of the full version. Here are some of the features you would be giving up:",
-                    -1,20,50,280,19,SS_NOPREFIX
-    EDITTEXT        IDC_MISSINGFEATURESTEXT,20,70,279,104,ES_MULTILINE | 
-                    ES_READONLY | WS_VSCROLL
-    LTEXT           "You can continue to enjoy the time-saving power of these features, at no charge, simply by taking a few minutes to fill out a profile. To find out more, click ""About Profiling."" If you are ready to fill out a profile, click ""Profile.""",
-                    -1,20,178,280,28,SS_NOPREFIX
-    DEFPUSHBUTTON   "&Profile",IDOK,259,224,50,14
-    PUSHBUTTON      "&Later",IDCANCEL,193,224,50,14
-    PUSHBUTTON      "&About profiling",IDC_ABOUT,7,224,81,14
-    LTEXT           "<server text goes here>",IDC_NAGTEXT,20,21,280,26,
-                    SS_NOPREFIX
-END
-
-IDD_NAG_LEVEL_0 DIALOGEX 0, 0, 287, 116
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | 
-    WS_VISIBLE | WS_CAPTION | WS_SYSMENU
-CAPTION "Eudora"
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    DEFPUSHBUTTON   "&Profile",IDOK,230,95,50,14
-    PUSHBUTTON      "&Later",IDCANCEL,164,95,50,14
-    LTEXT           "<text from server>",IDC_NAGTEXT,15,20,257,58,
-                    SS_NOPREFIX
-    GROUPBOX        "Please profile yourself",IDC_HEADING,7,7,273,79
-    PUSHBUTTON      "&About profiling",IDC_ABOUT,7,95,81,14
-END
-
-IDD_NAG_DEADBEAT2 DIALOGEX 0, 0, 254, 79
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | 
-    WS_CAPTION
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,197,58,50,14
-    PUSHBUTTON      "&Profile",IDC_PROFILE,40,58,50,14
-    LTEXT           "Downgrading your Eudora to Light mode",IDC_HEADING,40,7,
-                    193,12,NOT WS_GROUP
-    LTEXT           "Because you have not profiled yourself, you may no longer use Eudora in Sponsored Mode. You will now be placed in Light Mode until you fill out a profile.",
-                    IDC_NAGTEXT,40,22,207,27,NOT WS_GROUP
-    ICON            IDR_MAINFRAME,AFX_IDC_PICTURE,7,7,20,20
-END
-
-IDD_NAG_WAITING DIALOGEX 0, 0, 254, 78
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | 
-    WS_CAPTION
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,197,57,50,14
-    PUSHBUTTON      "Cancel",IDCANCEL,131,57,50,14
-    ICON            IDR_MAINFRAME,AFX_IDC_PICTURE,7,7,20,20
-    LTEXT           "Waiting to Profile",IDC_HEADING,40,7,193,11,NOT 
-                    WS_GROUP
-    LTEXT           "When you have finished filling out your profile on our web site, click OK.",
-                    IDC_NAGTEXT,40,22,207,19,NOT WS_GROUP
-END
-
 IDD_SETTINGS_STATISTICS DIALOGEX 0, 0, 250, 166
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_CAPTION
 CAPTION "Statistics"
@@ -4542,42 +4301,6 @@ BEGIN
     CONTROL         "Sh&ow signature while composing",
                     IDS_INI_INLINE_SIGNATURE,"Button",BS_AUTOCHECKBOX | 
                     WS_TABSTOP,2,118,130,10
-END
-
-IDD_NAG_LEVEL_2 DIALOGEX 0, 0, 287, 207
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | 
-    WS_CAPTION | WS_SYSMENU
-CAPTION "Eudora"
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    PUSHBUTTON      "&Tell Me More",IDC_ABOUT,7,186,64,14
-    LTEXT           "Eudora now is licensed in three ways. This copy is installed in full-featured Sponsored mode; it will display ads.  We have done our best to present the ads in a way that respects the work you do in email.",
-                    IDC_STATIC,17,21,253,26,SS_NOPREFIX
-    LTEXT           "By allowing Eudora to display ads, you get the full power of Eudora for free and we can still pay our bills.  On that point:  after a trial period, Eudora will ask you to profile yourself to continue to use the full free Eudora.  This will enable Eudora to",
-                    IDC_STATIC,17,50,253,25,SS_NOPREFIX
-    LTEXT           "Did we mention that profiling yourself gets you ongoing use of the full Eudora for free?  Thought so.  You also get all future versions of Eudora for free.  See, it just keeps getting better and better.",
-                    IDC_STATIC,17,112,253,25,SS_NOPREFIX
-    LTEXT           "To switch forms of Eudora, please use the ""Payment & Registration"" item in the Help menu.  To learn more about the three modes, click on the ""Tell Me More"" button below.",
-                    IDC_STATIC,17,143,253,26,SS_NOPREFIX
-    GROUPBOX        "Welcome to Eudora!",IDC_HEADING,7,7,273,168
-    PUSHBUTTON      "&Profile",IDOK,230,186,50,14
-    PUSHBUTTON      "&Cancel",IDCANCEL,164,186,50,14
-    LTEXT           "display ads more relevant to your interests and, yes, advertisers pay more when they think you're interested.  We do not associate the personally identifiable info. you give us (i.e. your name, your email address) with your profile, unless you give",
-                    IDC_STATIC,17,74,253,25
-    LTEXT           "us permission.",IDC_STATIC,17,98,253,8
-END
-
-IDD_NAG_DEADBEAT2ADWARE DIALOGEX 0, 0, 254, 78
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | 
-    WS_CAPTION
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    DEFPUSHBUTTON   "&Profile",IDC_PROFILE,197,57,50,14
-    PUSHBUTTON      "&Cancel",IDCANCEL,131,57,50,14
-    ICON            IDR_MAINFRAME,AFX_IDC_PICTURE,7,7,20,20
-    LTEXT           "You must profile",IDC_HEADING,40,7,193,11,NOT WS_GROUP
-    LTEXT           "Before switching to Sponsored mode you must provide the required profile information. To proceed to the Eudora web site, click ""Profile.""",
-                    IDC_NAGTEXT,40,22,207,25,NOT WS_GROUP
 END
 
 IDD_TOC_TIME1 DIALOGEX 0, 0, 220, 94
@@ -5222,106 +4945,12 @@ BEGIN
         BOTTOMMARGIN, 131
     END
 
-    IDD_PAYMENT_REGISTRATION, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 244
-        TOPMARGIN, 7
-    END
-
     IDD_INTRODUCTION, DIALOG
     BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 257
         TOPMARGIN, 7
         BOTTOMMARGIN, 214
-    END
-
-    IDD_REGISTRATION_CODE, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 246
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 157
-    END
-
-    IDD_NAG_AUDIT, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 283
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 235
-    END
-
-    IDD_NAG_REGISTER, DIALOG
-    BEGIN
-        LEFTMARGIN, 6
-        RIGHTMARGIN, 257
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 192
-    END
-
-    IDD_NAG_DEADBEAT, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 305
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 107
-    END
-
-    IDD_NAG_FULLFEATURED, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 308
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 207
-    END
-
-    IDD_NAG_ADFAILURE, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 280
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 109
-    END
-
-    IDD_NAG_DEMOEXPIRE, DIALOG
-    BEGIN
-        BOTTOMMARGIN, 114
-    END
-
-    IDD_NAG_DEMOEXPIRED, DIALOG
-    BEGIN
-        BOTTOMMARGIN, 114
-    END
-
-    IDD_HIDDEN_AD_WINDOW, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 257
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 154
-    END
-
-    IDD_DOWNGRADE_WINDOW, DIALOG
-    BEGIN
-        BOTTOMMARGIN, 198
-    END
-
-    IDD_WARN_PERMANENT_SWITCH, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 240
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 78
-    END
-
-    IDD_REFUND_CODE, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 179
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 69
     END
 
     IDD_OFFLINE_LINK, DIALOG
@@ -5340,14 +4969,6 @@ BEGIN
         BOTTOMMARGIN, 121
     END
 
-    IDD_PAYMENT_REG_INFO, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 242
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 174
-    END
-
     IDD_PROFILE_CONFIRMATION, DIALOG
     BEGIN
         LEFTMARGIN, 7
@@ -5364,14 +4985,6 @@ BEGIN
         BOTTOMMARGIN, 40
     END
 
-    IDD_PAYMENT_REG_INFO_SMALL, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 242
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 77
-    END
-
     IDD_SETTINGS_JUNK_EXTRAS, DIALOG
     BEGIN
         RIGHTMARGIN, 242
@@ -5385,38 +4998,6 @@ BEGIN
         BOTTOMMARGIN, 91
     END
 
-    IDD_NAG_LEVEL_1, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 309
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 238
-    END
-
-    IDD_NAG_LEVEL_0, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 280
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 109
-    END
-
-    IDD_NAG_DEADBEAT2, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 247
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 72
-    END
-
-    IDD_NAG_WAITING, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 247
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 71
-    END
-
     IDD_IMPORT_ADV, DIALOG
     BEGIN
         BOTTOMMARGIN, 161
@@ -5425,22 +5006,6 @@ BEGIN
     IDD_SETTINGS_COMPOSING, DIALOG
     BEGIN
         RIGHTMARGIN, 249
-    END
-
-    IDD_NAG_LEVEL_2, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 280
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 200
-    END
-
-    IDD_NAG_DEADBEAT2ADWARE, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 247
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 71
     END
 
     IDD_DIALOG_SSL_CONNECTION, DIALOG
@@ -8391,20 +7956,12 @@ END
 
 STRINGTABLE 
 BEGIN
-    IDS_NAG_DEADBEAT_TEXT   "Eudora has been unable to retrieve ads for quite some time and will now revert to the Light version, which is less powerful. If you would like more information about why Eudora's features are being reduced at this time, please visit the Eudora web site. You will find information there about how the full-featured version can be reactivated.\n\nWe're sorry for this inconvenience."
-    IDS_NAG_FULLFEATURED_TEXT 
-                            "Spellchecking of your email messages\r\nMoodWatch helps you avoid ""flaming"" messages\r\nStatistics on how much email you send and receive\r\nAutocompletion of addresses as you type\r\nMultiple personalities for managing multiple mail accounts or identities\r\nMessage stationery to help you respond to your mail more quickly\r\nMultiple signatures to help you personalize your mail\r\nMultiple address books to help organize your contact information\r\nFinding messages based on multiple search criteria\r\nToolbar customization\r\nAdvanced editing features like centering and indentation\r\nMore powerful filtering:\r\n    Change the personality associated with messages\r\n    Play various sounds when mail arrives depending on your filters\r\n    Open a message or mailbox in response to a filter\r\n    Print mail directly from filters"
     IDS_NAG_UPDATE_URL_FILE "updateurl.htm"
     IDS_WEB_STEP_INFO_DIALOG_UPDATE_REG_DLG_TITLE "Updating your registration"
     IDS_WEB_STEP_INFO_DIALOG_UPDATE_REG_MSG_TITLE 
                             "Thank you for updating your Eudora registration!"
     IDS_WEB_STEP_INFO_DIALOG_UPDATE_REG_MSG 
                             "You will now be taken to the Eudora Web Site to update your registration information."
-END
-
-STRINGTABLE 
-BEGIN
-    IDS_NAG_AUDIT_TEXT      "To make Eudora work as well as possible, it's important that we know how people use it. We ask users for this information at random. Looks like it's your turn. If you're open to helping us this way, all you have to do is click ""Generate Info"" below and a message will be created. You can review the contents of the message if you like, and then send it to us or not -- that's up to you.\n\nWe value our privacy; we're pretty sure you value yours. So we want you to know what information we'll be collecting and give you a chance to eliminate information you don't want to send. Simply uncheck the boxes next to any information you'd rather not send.\n\nPlease understand that as soon as we receive your email, we will throw away the headers that identify the mail as coming from you. You see, we don't actually need to know who you are to find your information helpful. So we promise to protect your privacy and turn you into ""just a number."" :-)"
 END
 
 STRINGTABLE 

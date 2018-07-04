@@ -592,7 +592,6 @@
 #define IDS_MESSAGE_Q4_DELIVERY         1033
 #define IDS_CTRL_R                      1034
 #define IDC_FROM_TEXT                   1035
-#define IDC_MISSINGFEATURESTEXT         1036
 #define IDC_DOWNLOAD_AS_TEXT            1037
 #define IDC_RIGHT_NOW                   1038
 #define IDC_NEXT_TIME                   1039
@@ -2598,9 +2597,6 @@
 #define IDD_NAG_ADFAILURE               8701
 #define IDD_NAG_AUDIT                   8702
 #define IDS_NAG_AUDIT_TEXT              8703
-#define IDD_NAG_DEADBEAT2               8704
-#define IDD_NAG_DEADBEAT                8705
-#define IDS_NAG_DEADBEAT_TEXT           8706
 #define IDD_NAG_FULLFEATURED            8707
 #define IDS_NAG_FULLFEATURED_TEXT       8708
 #define IDD_NAG_REGISTER                8709

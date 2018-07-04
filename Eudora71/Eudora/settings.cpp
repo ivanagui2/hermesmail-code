@@ -21,6 +21,44 @@ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
 DAMAGE. */
 
+/*
+ 
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
+    Removed references to Qualcomm's Shareware Manager as well as removed
+    conditional compile blocks that hobbled the shareware version of Eudora.
+
+*/
+
 //
 
 #include "stdafx.h"
@@ -70,7 +108,6 @@ DAMAGE. */
 #include "TaskStatusView.h"
 #include "EudoraMsgs.h"
 #include "QCTaskManager.h"
-#include "QCSharewareManager.h"
 #include "statmng.h"
 #include "ExtLaunchMgr.h"
 #include "SSLConnectionDlg.h"
@@ -385,29 +422,8 @@ BOOL CSettingsDialog::OnInitDialog()
 	// Go through the category dialogs sequentially through resource ID
 	for (;; nID++)
 	{
-		//If not full feature then dont add Mood Watch, Statistics, Auto-Completion & Spell-Checking categories
-		if( nID == IDD_SETTINGS_MOODMAIL || 
-			nID == IDD_SETTINGS_JUNK || 
-			nID == IDD_SETTINGS_JUNK_EXTRAS || 
-			nID == IDD_SETTINGS_CON_CON ||
-			nID == IDD_SETTINGS_STATISTICS || 
-			nID == IDD_SETTINGS_FIELD_COMP ||
-			nID == IDD_SETTINGS_SPELL || 
-			nID == IDD_SETTINGS_FIND_MESSAGES )
-		{
-			if(!UsingFullFeatureSet()) continue;
-		}	
-
-		if( nID == IDD_SETTINGS_BOSS_PROTECTOR ) {
-			if (!UsingPaidFeatureSet()) 
-				continue;
-		}
-
-
-#ifndef COMMERCIAL
 		if (nID != IDD_SETTINGS_LABELS && 
 			nID != IDD_SETTINGS_SPELL )
-#endif // COMMERCIAL
 		{
 			LPCSTR DlgName = MAKEINTRESOURCE(nID);
 			HINSTANCE hResInst = QCFindResourceHandle(DlgName, RT_DIALOG);
@@ -2185,7 +2201,6 @@ void CSettingsDialog::OnSelChange()
 		}
 	}
 
-#ifdef COMMERCIAL
 	// make sure all those context-sensitive checkboxes are set up
 	if ( Cat->m_DlgID == IDD_SETTINGS_COMPOSING )
 	{
@@ -2200,7 +2215,6 @@ void CSettingsDialog::OnSelChange()
 
 		::SetWindowPos( hNextWnd, hPrevWnd, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOREDRAW );
 	}
-#endif //COMMERCIAL
 
 	// This will disable the control after IDS_INI_SPELL_ON_QUEUE
 	if ( Cat->m_DlgID == IDD_SETTINGS_SPELL )
@@ -2263,7 +2277,7 @@ void CSettingsDialog::OnSelChange()
 		CWnd *pWnd = GetDlgItem(IDS_INI_MBOX_SHOW_MOOD);
 		if (pWnd)
 		{
-			if(GetIniShort(IDS_INI_MOOD_MAIL_CHECK) && UsingFullFeatureSet())
+			if(GetIniShort(IDS_INI_MOOD_MAIL_CHECK))
 				pWnd->EnableWindow(TRUE);
 			else
 				pWnd->EnableWindow(FALSE);
@@ -2271,44 +2285,7 @@ void CSettingsDialog::OnSelChange()
 		pWnd = GetDlgItem(IDS_INI_MBOX_SHOW_JUNK);
 		if (pWnd)
 		{
-			if (UsingFullFeatureSet())
-				pWnd->EnableWindow(TRUE);
-			else
-				pWnd->EnableWindow(FALSE);
-		}
-	}
-	// Shareware: Do whatever is needed depending on the feature set
-	if (!UsingFullFeatureSet())
-	{
-		// REDUCED FEATURE mode
-		switch (Cat->m_DlgID)
-		{
-			case IDD_SETTINGS_REPLYING:
-			{
-				CWnd *pCtrl = GetDlgItem(IDS_INI_REPLY_AUTOFCC);
-				ASSERT(pCtrl);
-				if (pCtrl)
-					pCtrl->EnableWindow(FALSE);
-
-				pCtrl = GetDlgItem(IDS_INI_MULT_REPLIES_FOR_MULT_SEL);
-				ASSERT(pCtrl);
-				if (pCtrl)
-					pCtrl->EnableWindow(FALSE);
-			}
-			break;
-			case IDD_SETTINGS_COMPOSING:
-			{
-				CWnd *pCtrl = GetDlgItem( IDS_INI_INLINE_SIGNATURE );
-				ASSERT( pCtrl );
-				if ( pCtrl )
-					pCtrl->EnableWindow( FALSE );
-			}
-			break;
-
-			default:
-			{
-				// Do nothing
-			}
+			pWnd->EnableWindow(TRUE);
 		}
 	}
 	

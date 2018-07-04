@@ -657,10 +657,6 @@ public:
 	afx_msg LRESULT OnMCINotifyMode(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnUserMCINotifyMode(WPARAM wParam, LPARAM lParam);
 
-	// factors out Notify events for SWMstate management
-	virtual void SWMNotify(QCCommandObject*	pCommand,
-						COMMAND_ACTION_TYPE	theAction,
-						void*				pData); 
 	static int GetAdFailure( );
 
 protected:

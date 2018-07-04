@@ -7251,9 +7251,6 @@ void CMainFrame::Notify(QCCommandObject* pObject, COMMAND_ACTION_TYPE theAction,
 	QCMailboxCommand*	pCommand;
 	UnreadStatusType	theStatus;
 
-	if (theAction == CA_SWM_CHANGE_FEATURE) 
-		SWMNotify(pObject, theAction, pData);
-
 	if (theAction != CA_DELETE &&
 		theAction != CA_NEW &&
 		theAction != CA_GRAFT &&

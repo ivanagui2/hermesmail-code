@@ -19,6 +19,50 @@ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
 DAMAGE. */
 
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
+    Removed reference to the Qualcomm Shareware Manager header file.
+    Removed code that was temporaily commented with FOR NOW comments
+    TODO: There are likely more dependencies to Qualcomm Shareware Manager but
+    I could not find them.
+
+*/
+
+
+
+
+
 //
 
 // CMboxTreeCtrl
@@ -53,7 +97,6 @@ DAMAGE. */
 #include "QCCommandStack.h"
 #include "QCMailboxCommand.h"
 #include "QCMailboxDirector.h"
-#include "QCSharewareManager.h"
 
 #include "QCFindMgr.h"
 #include "SearchEngine.h"
@@ -141,8 +184,7 @@ BOOL ImapTargetIsDroppable (QCMailboxCommand *pSourceCommand, int iSourceItemTyp
 
 CMboxTreeCtrl::CMboxTreeCtrl() :
 	m_hDragMbox(NULL),
-	m_pDragImage(NULL)/*FORNOW,
-	m_bHadFocusWhenSavingState(FALSE)FORNOW*/
+	m_pDragImage(NULL)
 {
 //FORNOW	m_selectedItemFilename.Empty();		// good hygiene
 	g_theMailboxDirector.Register( this );
@@ -159,406 +201,6 @@ CMboxTreeCtrl::~CMboxTreeCtrl()
 	g_theMailboxDirector.UnRegister( this );
 }
 
-
-//FORNOW////////////////////////////////////////////////////////////////////////
-//FORNOW// SetSelectedItemFilename [public]
-//FORNOW//
-//FORNOW// This is used during "rename" and "new" operations to update the internal
-//FORNOW// pathname to the "selected" item.  In this case, the selected item
-//FORNOW// (and its corresponding disk file) has just been renamed, so it doesn't
-//FORNOW// make sense to use the old pathname to the selected item anymore.
-//FORNOW////////////////////////////////////////////////////////////////////////
-//FORNOWvoid CMboxTreeCtrl::SetSelectedItemFilename(const CString& newFilename)
-//FORNOW{
-//FORNOW	ASSERT(m_selectedItemFilename.IsEmpty());
-//FORNOW	ASSERT(! newFilename.IsEmpty());
-//FORNOW
-//FORNOW	m_selectedItemFilename = newFilename;
-//FORNOW}
-
-
-//FORNOW////////////////////////////////////////////////////////////////////////
-//FORNOW// SaveVisualState [public]
-//FORNOW//
-//FORNOW// Save the list of current "open" folders, in preparation for a tree
-//FORNOW// rebuild.  We only need to save the "open" folders, since the tree
-//FORNOW// control initializes all folders to the closed state.
-//FORNOW//
-//FORNOW// Also, save the currently selected item in the tree.
-//FORNOW////////////////////////////////////////////////////////////////////////
-//FORNOWvoid CMboxTreeCtrl::SaveVisualState(void)
-//FORNOW{
-//FORNOW	//
-//FORNOW	// Empty out the existing strings.
-//FORNOW	//
-//FORNOW	ASSERT(m_openFolderList.IsEmpty());
-//FORNOW
-//FORNOW	//
-//FORNOW	// Save the fact whether we had focus or not.
-//FORNOW	//
-//FORNOW	ASSERT(! m_bHadFocusWhenSavingState);
-//FORNOW	if (GetFocus() == this)
-//FORNOW		m_bHadFocusWhenSavingState = TRUE;
-//FORNOW
-//FORNOW	//
-//FORNOW	// Okay, hack alert.  In the normal case where we're just
-//FORNOW	// saving/restoring the visual state of the tree without
-//FORNOW	// actually renaming an item, then the 'm_selectedItemFilename'
-//FORNOW	// member will be empty, which means that it's okay to go
-//FORNOW	// ahead and overwrite it.  However, if we get here and
-//FORNOW	// somebody has already set it (e.g., see the Rename and Delete
-//FORNOW	// code), then honor it and don't overwrite it.  Don't worry,
-//FORNOW	// it'll get cleared during the restore procedure anyway.
-//FORNOW	//
-//FORNOW	if (m_selectedItemFilename.IsEmpty())
-//FORNOW	{
-//FORNOW		//
-//FORNOW		// Save the file pathname associated with the selected
-//FORNOW		// item, if any.
-//FORNOW		//
-//FORNOW		HTREEITEM h_selitem = GetSelectedItem();
-//FORNOW		if (h_selitem != NULL)
-//FORNOW		{
-//FORNOW			//
-//FORNOW			// Save the filename associated with the selected item.
-//FORNOW			//
-//FORNOW			CMboxTreeItemData* p_itemdata = (CMboxTreeItemData *) GetItemData(h_selitem);
-//FORNOW			ASSERT(p_itemdata != NULL);
-//FORNOW			if (p_itemdata->m_pCommand != NULL)
-//FORNOW				SetSelectedItemFilename( p_itemdata->m_pCommand->GetPathname() );
-//FORNOW		}
-//FORNOW	}
-//FORNOW
-//FORNOW	//
-//FORNOW	// Well, just do a recursive, exhaustive walk of the tree in search
-//FORNOW	// of open "folder" items and save the file pathname for each such
-//FORNOW	// folder item.  For the MDI child version of this tree control,
-//FORNOW	// it may be in the process of being initialized for the first time,
-//FORNOW	// so silently cut it some slack if the tree control doesn't contain
-//FORNOW	// any items.
-//FORNOW	//
-//FORNOW	HTREEITEM h_root = GetRootItem();
-//FORNOW	if (h_root != NULL)
-//FORNOW		DoSaveFolderStates(h_root);
-//FORNOW}
-
-
-//FORNOW////////////////////////////////////////////////////////////////////////
-//FORNOW// DoSaveFolderStates [private]
-//FORNOW//
-//FORNOW// Recursively process the subtree rooted at the given item node, in
-//FORNOW// search of "open" folders.  Note:  This doesn't work for empty folders
-//FORNOW// which are visually "open", but which actually contain no children.
-//FORNOW////////////////////////////////////////////////////////////////////////
-//FORNOWvoid CMboxTreeCtrl::DoSaveFolderStates(HTREEITEM hItem)
-//FORNOW{
-//FORNOW	//
-//FORNOW	// Check the item itself to see if it is an open folder.
-//FORNOW	//
-//FORNOW	ASSERT(hItem != NULL);
-//FORNOW	CMboxTreeItemData* p_itemdata = (CMboxTreeItemData *) GetItemData(hItem);
-//FORNOW	ASSERT(p_itemdata != NULL);
-//FORNOW	
-//FORNOW	switch (p_itemdata->m_itemType)
-//FORNOW	{
-//FORNOW	case ITEM_ROOT:
-//FORNOW		//
-//FORNOW		// The root item doesn't have a pointer to the menu object, therefore 
-//FORNOW		// it doesn't contain a pathname to the Eudora mail directory.  So,
-//FORNOW		// skip it since there's nothing else we can do with it.  At restore 
-//FORNOW		// time, we *always* open the root item anyway.
-//FORNOW		//
-//FORNOW		break;
-//FORNOW	case ITEM_FOLDER:
-//FORNOW		{
-//FORNOW			UINT state = GetItemState(hItem, TVIS_EXPANDED);
-//FORNOW			if (state & TVIS_EXPANDED)
-//FORNOW			{
-//FORNOW				// Found an open folder, so save the corresponding folder file pathname
-//FORNOW				ASSERT(p_itemdata->m_pCommand );
-//FORNOW				m_openFolderList.AddTail( p_itemdata->m_pCommand->GetPathname() );
-//FORNOW			}
-//FORNOW			break;
-//FORNOW		}
-//FORNOW	case ITEM_IN_MBOX:
-//FORNOW	case ITEM_OUT_MBOX:
-//FORNOW	case ITEM_JUNK_MBOX:
-//FORNOW	case ITEM_TRASH_MBOX:
-//FORNOW	case ITEM_USER_MBOX:
-//FORNOW		return;
-//FORNOW
-//FORNOW#ifdef IMAP4
-//FORNOW	// Treat these like folders..
-//FORNOW	case ITEM_IMAP_ACCOUNT:
-//FORNOW	case ITEM_IMAP_NAMESPACE:
-//FORNOW		{
-//FORNOW			UINT state = GetItemState(hItem, TVIS_EXPANDED);
-//FORNOW			if (state & TVIS_EXPANDED)
-//FORNOW			{
-//FORNOW				// Found an open folder, so save the corresponding folder file pathname
-//FORNOW				ASSERT(p_itemdata->m_pCommand );
-//FORNOW				m_openFolderList.AddTail( p_itemdata->m_pCommand->GetPathname() );
-//FORNOW			}
-//FORNOW			break;
-//FORNOW		}
-//FORNOW	// This is complicated.
-//FORNOW	case ITEM_IMAP_MAILBOX:
-//FORNOW		{
-//FORNOW			if (p_itemdata->m_pCommand->CanHaveChildren())
-//FORNOW			{
-//FORNOW				// Treat as a folder.
-//FORNOW				UINT state = GetItemState(hItem, TVIS_EXPANDED);
-//FORNOW				if (state & TVIS_EXPANDED)
-//FORNOW				{
-//FORNOW					// Found an open folder, so save the corresponding folder file pathname
-//FORNOW					ASSERT(p_itemdata->m_pCommand );
-//FORNOW					m_openFolderList.AddTail( p_itemdata->m_pCommand->GetPathname() );
-//FORNOW				}
-//FORNOW				break;
-//FORNOW			}
-//FORNOW			else
-//FORNOW				return;
-//FORNOW		}
-//FORNOW#endif // IMAP
-//FORNOW
-//FORNOW	default:
-//FORNOW		ASSERT(0);
-//FORNOW		return;
-//FORNOW	}
-//FORNOW
-//FORNOW	//
-//FORNOW	// If we get this far, then recursively process the children of
-//FORNOW	// this folder node.
-//FORNOW	//
-//FORNOW	if (ItemHasChildren(hItem))
-//FORNOW	{
-//FORNOW		HTREEITEM h_child = GetChildItem(hItem);
-//FORNOW		while (h_child != NULL)
-//FORNOW		{
-//FORNOW			DoSaveFolderStates(h_child);
-//FORNOW			h_child = GetNextSiblingItem(h_child);
-//FORNOW		}
-//FORNOW	}
-//FORNOW}
-
-
-//FORNOW////////////////////////////////////////////////////////////////////////
-//FORNOW// RestoreVisualState [public]
-//FORNOW//
-//FORNOW// Restore the saved folder open/close states, presumably just after
-//FORNOW// the tree has been rebuilt.  If there are any errors encountered
-//FORNOW// during the restore process (e.g, an entire subtree is missing
-//FORNOW// or something drastic like that) then don't sweat it.  It's not
-//FORNOW// that big a deal.
-//FORNOW//
-//FORNOW// Also, restore the previous selection, if any.
-//FORNOW////////////////////////////////////////////////////////////////////////
-//FORNOWvoid CMboxTreeCtrl::RestoreVisualState(void)
-//FORNOW{
-//FORNOW	HTREEITEM h_root = GetRootItem();
-//FORNOW
-//FORNOW	if (h_root != NULL)
-//FORNOW	{
-//FORNOW		//
-//FORNOW		// Special processing for the root node -- we *always*
-//FORNOW		// open it.
-//FORNOW		//
-//FORNOW		Expand(h_root, TVE_EXPAND);
-//FORNOW
-//FORNOW		//
-//FORNOW		// Now, process the previously stored list of open
-//FORNOW		// folders.
-//FORNOW		//
-//FORNOW		while (! m_openFolderList.IsEmpty())
-//FORNOW		{
-//FORNOW			CString pathname = m_openFolderList.RemoveHead();
-//FORNOW
-//FORNOW			DoRestoreFolderStates(h_root, pathname);
-//FORNOW		}
-//FORNOW
-//FORNOW		//
-//FORNOW		// Finally, restore the selection to the previously
-//FORNOW		// selected item.
-//FORNOW		//
-//FORNOW		if (! m_selectedItemFilename.IsEmpty())
-//FORNOW		{
-//FORNOW			DoRestoreSelection(h_root, m_selectedItemFilename);
-//FORNOW			m_selectedItemFilename.Empty();
-//FORNOW		}
-//FORNOW	}
-//FORNOW	else
-//FORNOW	{
-//FORNOW		//
-//FORNOW		// Something is wrong, but make sure we reset the 
-//FORNOW		// visual state items anyway.
-//FORNOW		//
-//FORNOW		ASSERT(0);
-//FORNOW		while (! m_openFolderList.IsEmpty())
-//FORNOW			m_openFolderList.RemoveHead();
-//FORNOW		m_selectedItemFilename.Empty();
-//FORNOW	}
-//FORNOW
-//FORNOW	if (m_bHadFocusWhenSavingState)
-//FORNOW		SetFocus();
-//FORNOW	m_bHadFocusWhenSavingState = FALSE;
-//FORNOW}
-
-
-//FORNOW////////////////////////////////////////////////////////////////////////
-//FORNOW// DoRestoreFolderStates [private]
-//FORNOW//
-//FORNOW// Recursively search the tree rooted at the given HTREEITEM for an
-//FORNOW// item with a matching file pathname.  Return TRUE as soon as a match is
-//FORNOW// found for the given pathname.
-//FORNOW////////////////////////////////////////////////////////////////////////
-//FORNOWBOOL CMboxTreeCtrl::DoRestoreFolderStates(HTREEITEM hItem, const CString& fileName)
-//FORNOW{
-//FORNOW	//
-//FORNOW	// Check the item itself to see if it is an open folder.
-//FORNOW	//
-//FORNOW	ASSERT(hItem != NULL);
-//FORNOW	CMboxTreeItemData* p_itemdata = (CMboxTreeItemData *) GetItemData(hItem);
-//FORNOW	ASSERT(p_itemdata != NULL);
-//FORNOW	
-//FORNOW	switch (p_itemdata->m_itemType)
-//FORNOW	{
-//FORNOW	case ITEM_ROOT:
-//FORNOW		//
-//FORNOW		// The root item doesn't have a pointer to the menu object, therefore 
-//FORNOW		// it doesn't contain a pathname to the Eudora mail directory.  So,
-//FORNOW		// be sure to skip it.
-//FORNOW		//
-//FORNOW		break;
-//FORNOW	case ITEM_FOLDER:
-//FORNOW		ASSERT( p_itemdata->m_pCommand );
-//FORNOW		if ( fileName.CompareNoCase( p_itemdata->m_pCommand->GetPathname() ) == 0)
-//FORNOW		{
-//FORNOW			Expand(hItem, TVE_EXPAND);
-//FORNOW			return TRUE;
-//FORNOW		}
-//FORNOW		break;
-//FORNOW	case ITEM_IN_MBOX:
-//FORNOW	case ITEM_OUT_MBOX:
-//FORNOW	case ITEM_JUNK_MBOX:
-//FORNOW	case ITEM_TRASH_MBOX:
-//FORNOW	case ITEM_USER_MBOX:
-//FORNOW		return FALSE;
-//FORNOW
-//FORNOW#ifdef IMAP4
-//FORNOW	case ITEM_IMAP_ACCOUNT:
-//FORNOW	case ITEM_IMAP_NAMESPACE:
-//FORNOW		ASSERT( p_itemdata->m_pCommand );
-//FORNOW		if ( fileName.CompareNoCase( p_itemdata->m_pCommand->GetPathname() ) == 0)
-//FORNOW		{
-//FORNOW			Expand(hItem, TVE_EXPAND);
-//FORNOW			return TRUE;
-//FORNOW		}
-//FORNOW		break;
-//FORNOW	case ITEM_IMAP_MAILBOX:
-//FORNOW		ASSERT( p_itemdata->m_pCommand );
-//FORNOW		if ( p_itemdata->m_pCommand->CanHaveChildren())
-//FORNOW		{
-//FORNOW			if ( fileName.CompareNoCase( p_itemdata->m_pCommand->GetPathname() ) == 0)
-//FORNOW			{
-//FORNOW				Expand(hItem, TVE_EXPAND);
-//FORNOW				return TRUE;
-//FORNOW			}
-//FORNOW			break;
-//FORNOW		}
-//FORNOW		else
-//FORNOW			return FALSE;
-//FORNOW#endif // IMAP4
-//FORNOW
-//FORNOW	default:
-//FORNOW		ASSERT(0);
-//FORNOW		return FALSE;
-//FORNOW	}
-//FORNOW
-//FORNOW	//
-//FORNOW	// If we get this far, then recursively process the children of
-//FORNOW	// this root/folder node.
-//FORNOW	//
-//FORNOW	if (ItemHasChildren(hItem))
-//FORNOW	{
-//FORNOW		HTREEITEM h_child = GetChildItem(hItem);
-//FORNOW		while (h_child != NULL)
-//FORNOW		{
-//FORNOW			if (DoRestoreFolderStates(h_child, fileName))
-//FORNOW				return TRUE;
-//FORNOW			h_child = GetNextSiblingItem(h_child);
-//FORNOW		}
-//FORNOW	}
-//FORNOW	return FALSE;
-//FORNOW}
-
-
-//FORNOW////////////////////////////////////////////////////////////////////////
-//FORNOW// DoRestoreSelection [private]
-//FORNOW//
-//FORNOW// Recursively search the tree rooted at the given HTREEITEM for an
-//FORNOW// item with a matching file pathname.  Return TRUE as soon as a match is
-//FORNOW// found for the given pathname.  When a match is found, set the
-//FORNOW// selection to that item.
-//FORNOW////////////////////////////////////////////////////////////////////////
-//FORNOWBOOL CMboxTreeCtrl::DoRestoreSelection(HTREEITEM hItem, const CString& fileName)
-//FORNOW{
-//FORNOW	//
-//FORNOW	// Check the item itself to see if it is the one we're looking for.
-//FORNOW	//
-//FORNOW	ASSERT(! fileName.IsEmpty());
-//FORNOW	ASSERT(hItem != NULL);
-//FORNOW	CMboxTreeItemData* p_itemdata = (CMboxTreeItemData *) GetItemData(hItem);
-//FORNOW	ASSERT(p_itemdata != NULL);
-//FORNOW	
-//FORNOW	switch (p_itemdata->m_itemType)
-//FORNOW	{
-//FORNOW	case ITEM_ROOT:
-//FORNOW		//
-//FORNOW		// The root item doesn't have a pointer to the menu object, therefore 
-//FORNOW		// it doesn't contain a pathname to the Eudora mail directory.  So,
-//FORNOW		// be sure to skip it.
-//FORNOW		//
-//FORNOW		break;
-//FORNOW	case ITEM_FOLDER:
-//FORNOW	case ITEM_IN_MBOX:
-//FORNOW	case ITEM_OUT_MBOX:
-//FORNOW	case ITEM_JUNK_MBOX:
-//FORNOW	case ITEM_TRASH_MBOX:
-//FORNOW	case ITEM_USER_MBOX:
-//FORNOW#ifdef IMAP4
-//FORNOW	case ITEM_IMAP_ACCOUNT:
-//FORNOW	case ITEM_IMAP_NAMESPACE:
-//FORNOW	case ITEM_IMAP_MAILBOX:
-//FORNOW#endif // IMAP4
-//FORNOW		ASSERT(p_itemdata->m_pCommand);
-//FORNOW		if (fileName.CompareNoCase( p_itemdata->m_pCommand->GetPathname() ) == 0)
-//FORNOW		{
-//FORNOW			SelectItem(hItem);
-//FORNOW			EnsureVisible(hItem);
-//FORNOW			return TRUE;
-//FORNOW		}
-//FORNOW		break;
-//FORNOW	default:
-//FORNOW		ASSERT(0);
-//FORNOW		return FALSE;
-//FORNOW	}
-//FORNOW
-//FORNOW	//
-//FORNOW	// If we get this far, then recursively process the children of
-//FORNOW	// this root/folder node.
-//FORNOW	//
-//FORNOW	if (ItemHasChildren(hItem))
-//FORNOW	{
-//FORNOW		HTREEITEM h_child = GetChildItem(hItem);
-//FORNOW		while (h_child != NULL)
-//FORNOW		{
-//FORNOW			if (DoRestoreSelection(h_child, fileName))
-//FORNOW				return TRUE;
-//FORNOW			h_child = GetNextSiblingItem(h_child);
-//FORNOW		}
-//FORNOW	}
-//FORNOW	return FALSE;
-//FORNOW}
 
 // --------------------------------------------------------------------------
 
@@ -1701,7 +1343,6 @@ void CMboxTreeCtrl::OnEndLabelEdit(NMHDR* pNMHDR, LRESULT* pResult)
                         // do the rename and rebuild the user menus.
                         //
                         CMboxTreeItemData* p_itemdata = (CMboxTreeItemData  *) GetItemData(p_dispinfo->item.hItem);
-                        ASSERT(p_itemdata != NULL);
                         ASSERT(p_itemdata->m_pCommand != NULL);
 
 //FORNOW                                                        //
@@ -1830,38 +1471,6 @@ long CMboxTreeCtrl::OnRightButtonDown(WPARAM wParam, LPARAM lParam)
     tvhit.hItem = 0;
 
 	HitTest(&tvhit);
-
-#ifdef FORNOW_DEBUG
-	CString msg;
-	static unsigned count = 0;
-	msg.Format("CMboxTreeCtrl::OnRButtonDown(%d, %d), hItem=%d", client_pt.x, client_pt.y, tvhit.hItem);
-	if (tvhit.flags & TVHT_ABOVE)
-		msg += ", ABOVE";
-	if (tvhit.flags & TVHT_BELOW)
-		msg += ", BELOW";
-	if (tvhit.flags & TVHT_NOWHERE)
-		msg += ", NOWHERE";
-	if (tvhit.flags & TVHT_ONITEM)
-		msg += ", ONITEM";
-	if (tvhit.flags & TVHT_ONITEMBUTTON)
-		msg += ", ONITEMBUTTON";
-	if (tvhit.flags & TVHT_ONITEMICON)
-		msg += ", ONITEMICON";
-	if (tvhit.flags & TVHT_ONITEMINDENT)
-		msg += ", ONITEMINDENT";
-	if (tvhit.flags & TVHT_ONITEMLABEL)
-		msg += ", ONITEMLABEL";
-	if (tvhit.flags & TVHT_ONITEMRIGHT)
-		msg += ", ONITEMRIGHT";
-	if (tvhit.flags & TVHT_ONITEMSTATEICON)
-		msg += ", ONITEMSTATEICON";
-	if (tvhit.flags & TVHT_TOLEFT)
-		msg += ", TOLEFT";
-	if (tvhit.flags & TVHT_TORIGHT)
-		msg += ", TORIGHT";
-	msg += ")\n";
-	TRACE0((const char *) msg);
-#endif //FORNOW_DEBUG
 
 	SetFocus();
 	if ((tvhit.flags & TVHT_ONITEM) && (tvhit.hItem != NULL))

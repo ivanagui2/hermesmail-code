@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
 
 HERMES MAIL SOFTWARE LICENSE AGREEMENT | Hermes Email Client Source Code
@@ -246,7 +246,6 @@ MakeDox.pl Eudora.sln DevDox
     <ClCompile Include="acapdlg.cpp" />
     <ClCompile Include="address.cpp" />
     <ClCompile Include="AdView.cpp" />
-    <ClCompile Include="AdWazooBar.cpp" />
     <ClCompile Include="AdWazooWnd.cpp" />
     <ClCompile Include="AMBIENTS.CPP" />
     <ClCompile Include="AuditEvents.cpp" />
@@ -625,7 +624,6 @@ MakeDox.pl Eudora.sln DevDox
     <ClInclude Include="acapdlg.h" />
     <ClInclude Include="address.h" />
     <ClInclude Include="AdView.h" />
-    <ClInclude Include="AdWazooBar.h" />
     <ClInclude Include="AdWazooWnd.h" />
     <ClInclude Include="all.h" />
     <ClInclude Include="Anchor.h" />

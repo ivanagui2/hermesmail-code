@@ -57,7 +57,7 @@ class CWazooBarMgr;
 // CWazooBar
 //
 ///////////////////////////////////////////////////////////////////////
-class CWazooBar : public SECControlBar
+class CWazooBar : public CControlBar
 {
 	friend class CWazooBarOleDropTarget;				// mi casa es su casa
 	friend class CWazooBarMgr;

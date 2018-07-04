@@ -29,7 +29,6 @@ DAMAGE. */
 #include "trnslate.h"
 #include "eudora.h"
 
-#include "DebugNewHelpers.h"
 
 //------------------------------------------------------------------------------------------
 

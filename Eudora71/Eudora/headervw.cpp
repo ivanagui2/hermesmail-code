@@ -55,6 +55,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     Changing reference from PaigeStyle.h to HtmlStyle.h
+    Removed references to Qualcomm's Shareware Manager as Hermes will have only
+    a Pro mode.
 
 */    
 
@@ -106,7 +108,6 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
 #include "AutoCompleteSearcher.h"
 #include "CompMessageFrame.h"
 #include "PgCompMsgView.h"
-#include "QCSharewareManager.h"
 
 #include "PgStyleUtils.h"
 #include "HtmlStyle.h"
@@ -2986,19 +2987,14 @@ void CHeaderField::OnCheckSpelling()
 
 int CHeaderField::OnCheckSpelling(BOOL bAutoCheck/*=FALSE*/)
 {
-	// Shareware: Reduced feature mode does not allow spell checking
-	if (UsingFullFeatureSet())
-	{
-		// FULL FEATURE mode
-		CSpell Spell(TRUE);
+	CSpell Spell(TRUE);
 
-		if (GetDlgCtrlID() == IDC_HDRFLD_EDIT3 ) 
-		{
-			int bRetVal = Spell.Check(this,0,bAutoCheck);
-			((CHeaderView*)GetParent())->SetJustQueue(Spell.m_bJustQueue);
-			m_bSpellDirty = TRUE;
-			return bRetVal;
-		}
+	if (GetDlgCtrlID() == IDC_HDRFLD_EDIT3 ) 
+	{
+		int bRetVal = Spell.Check(this,0,bAutoCheck);
+		((CHeaderView*)GetParent())->SetJustQueue(Spell.m_bJustQueue);
+		m_bSpellDirty = TRUE;
+		return bRetVal;
 	}
 	return 0;
 }
@@ -3007,28 +3003,23 @@ int CHeaderField::CheckSpelling()
 {
 	int ret = 0;
 
-	// Shareware: Reduced feature mode does not allow spell checking
-	if (UsingFullFeatureSet())
-	{
-		// FULL FEATURE mode
-		CSpell Spell(TRUE);
+	CSpell Spell(TRUE);
 
 		
-		int stCh, endCh;
-		this->GetSel(stCh, endCh);
+	int stCh, endCh;
+	this->GetSel(stCh, endCh);
 
-		// See if there's a selection made?
-		if (stCh != endCh)
-			ret = Spell.Check(this);
-		// Otherwise check subject + body
-		else
+	// See if there's a selection made?
+	if (stCh != endCh)
+		ret = Spell.Check(this);
+	// Otherwise check subject + body
+	else
+	{
+		QCProtocol* pProtocol = QCProtocol::QueryProtocol( QCP_SPELL, m_pWndParent->GetDocument()->GetView() );
+
+		if( pProtocol )
 		{
-			QCProtocol* pProtocol = QCProtocol::QueryProtocol( QCP_SPELL, m_pWndParent->GetDocument()->GetView() );
-
-			if( pProtocol )
-			{
-				ret = pProtocol->CheckSpelling( FALSE );
-			}
+			ret = pProtocol->CheckSpelling( FALSE );
 		}
 	}
 	

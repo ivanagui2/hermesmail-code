@@ -67,7 +67,6 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
 #include "fileutil.h"
 #include "summary.h"
 #include "tocdoc.h"
-#include "QCSharewareManager.h"
 
 #include "DebugNewHelpers.h"
 

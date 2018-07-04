@@ -57,6 +57,7 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     Removed references to obselete IsRestrictedFilterAction procedure now that 
     there is effectively only a pro version.   
     Removed references to Qualcomm's Shareware Manager.
+    Removed Notify method that is only used by Qualcomm's Shareware Manager.
 
 */
 
@@ -3432,22 +3433,6 @@ void CFiltersViewRight::SetupPersonaAction(const char* persona)
 	else
 		m_PersonaCombo[m_ActionIndex].SetCurSel( 0 );
 
-}
-
-void
-CFiltersViewRight::Notify(QCCommandObject*	pCommand,
-						COMMAND_ACTION_TYPE	theAction,
-						void*				pData)
-{
-	if (theAction == CA_SWM_CHANGE_FEATURE)
-	{
-
-		// Make sure previous filter info is saved
-		UpdateData(TRUE);
-		
-		// Refresh the view from the doc -- this will cause restricted actions to be grayed
-		UpdateData(FALSE);
-	}
 }
 
 /////////////////////////////////////////////////////////////////////////////

@@ -54,6 +54,7 @@ AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018.
+    Removed references to the Paige Html Editor and the QC Shareware Manager.
 
 */
 
@@ -99,8 +100,8 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018.
 #include "msgopts.h"
 //#include "guiutils.h"
 
-#include "PgMsgView.h"
-#include "PgCompMsgView.h"
+#include "HtmlMsgView.h"
+#include "HtmlCompMsgView.h"
 #include "Text2Html.h"
 
 #include "ems-wglu.h"
@@ -126,10 +127,9 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018.
 #include "QCPluginDirector.h"
 #include "Automation.h"
 #include "AutoCompleteSearcher.h"
-#include "QCSharewareManager.h"
 #include "QCFindMgr.h"
 #include "TridentPreviewView.h"
-#include "PgReadMsgPreview.h"
+#include "HtmlReadMsgPreview.h"
 #include "TextToSpeech.h"
 #include "SearchManager.h"
 

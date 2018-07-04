@@ -19,6 +19,47 @@ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
 DAMAGE. */
 
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2017
+    Removed debug methods that were not currently implemented in mainfrm.cpp.
+    Removed a protected member function that reconciled differences that
+    occur between shareware ini files and commercial ini files. Hermes will have
+    only one section in the ini file as it will be all inclusive.
+
+*/
+
+
 //
 
 
@@ -390,16 +431,13 @@ protected:
 protected:
 	void SplitPOPACCOUNT() ; // splits POP_ACCOUNT into LOGIN_NAME and POP_SERVER
 
-	void FlushIncompatibleToolBarState(void);
-
 	enum
 	{
 		//
 		// Hardcoded version numbers for determining state of toolbar
 		// state info in the INI file.
 		//
-		COMMERCIAL_32_VERSION = 16,
-		LIGHT_32_VERSION = 16,
+		HERMES_32_VERSION = 16,
 		AUTOACTIVATE_TIMER_EVENT_ID = 1000,
 		GENERAL_BACKGROUND_TIMER_ID = 1001
 	};
@@ -619,23 +657,6 @@ public:
 	afx_msg LRESULT OnMCINotifyMode(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnUserMCINotifyMode(WPARAM wParam, LPARAM lParam);
 
-#ifdef _DEBUG
-	afx_msg void OnSharewareChangeStateLight();
-	afx_msg void OnUpdateSharewareChangeStateLight(CCmdUI* pCmdUI);
-	afx_msg void OnSharewareChangeStatePro();
-	afx_msg void OnUpdateSharewareChangeStatePro(CCmdUI* pCmdUI);
-	afx_msg void OnSharewareChangeStateAdware();
-	afx_msg void OnUpdateSharewareChangeStateAdware(CCmdUI* pCmdUI);
-	afx_msg void OnRequestBrandNewPlaylist();
-	afx_msg void OnUpdateRequestBrandNewPlaylist(CCmdUI* pCmdUI);
-	afx_msg void OnRequestNewPlaylist();
-	afx_msg void OnUpdateRequestNewPlaylist(CCmdUI* pCmdUI);
-	afx_msg void OnDumpAdState();
-	afx_msg void OnUpdateDumpAdState(CCmdUI* pCmdUI);
-	afx_msg void OnChangePlaylistServer(UINT uCmdID);
-	afx_msg void OnUpdateChangePlaylistServer(CCmdUI* pCmdUI);
-
-#endif // _DEBUG
 	// factors out Notify events for SWMstate management
 	virtual void SWMNotify(QCCommandObject*	pCommand,
 						COMMAND_ACTION_TYPE	theAction,

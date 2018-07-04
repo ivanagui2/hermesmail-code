@@ -55,6 +55,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018.
     Removed reference to Paige header file.
+    Removed references to Qualcomm's Shareware Manager as Hermes is not shareware.
 
 */
 
@@ -157,7 +158,6 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018.
 #include "SearchBar.h"
 
 #include "QCLabelDirector.h"
-#include "QCSharewareManager.h"
 #include "QCRASConnection.h"
 #include "QCCommandActions.h"
 #include "QCCommandObject.h"
@@ -652,15 +652,10 @@ BEGIN_MESSAGE_MAP(CMainFrame, QCWorkbook)
 	ON_MESSAGE(WM_TRAY_CALLBACK,OnTrayCallback)
 	ON_MESSAGE(WM_USER_CHECKMAIL, OnUserCheckMail)
 	ON_MESSAGE(WM_USER_REGISTER_MAILTO, OnUserRegisterMailto)
-#ifdef EXPIRING
-	ON_MESSAGE(WM_USER_EVAL_EXPIRED, OnUserEvalExpired)
-#endif // EXPIRING
 	ON_MESSAGE(WM_USER_AUTOMATION_MSG, OnUserAutomationMsg)
 	ON_REGISTERED_MESSAGE(umsgShowProgress, OnShowProgress)
-#ifdef COMMERCIAL
 	ON_COMMAND(ID_EDIT_CHECKSPELLING, CheckSpelling)
 	ON_UPDATE_COMMAND_UI(ID_EDIT_CHECKSPELLING, OnEditable)
-#endif // COMMERCIAL
 	ON_MESSAGE( WM_SETMESSAGESTRING, OnSetMessageString )
 //	ON_REGISTERED_MESSAGE(umsgRefreshTaskStatusPane, OnRefreshTaskStatusPane)
 
@@ -1288,156 +1283,11 @@ void CMainFrame::WriteToolBarMarkerToIni() const
 {
 	if (!m_bFlushBars)
 	{
-		int ID_TO_FLUSH = 0;
-
-		// Shareware: We should eventually remove this, but for now it stays
-		if (UsingFullFeatureSet())
-		{
-			// FULL-FEATURE
-			ID_TO_FLUSH = IDS_INI_LIGHT_32_VERSION;
-			SetIniLong(IDS_INI_COMMERCIAL_32_VERSION, COMMERCIAL_32_VERSION);
-		}
-		else
-		{
-			// REDUCED-FEATURE
-			ID_TO_FLUSH = IDS_INI_COMMERCIAL_32_VERSION;
-			SetIniLong(IDS_INI_LIGHT_32_VERSION, LIGHT_32_VERSION);
-		}
-
-		ASSERT(ID_TO_FLUSH != 0);
-
-		//
-		// Flush the conflicting INI setting, if any, from the INI file.
-		//
-		PurgeIniSetting(ID_TO_FLUSH);
+		SetIniLong(IDS_INI_HERMES_32_VERSION, HERMES_32_VERSION);
 	}
 
 	FlushINIFile();
 }
-
-////////////////////////////////////////////////////////////////////////
-// FlushIncompatibleToolBarState [protected]
-//
-// Check to see if the current EUDORA.INI that we're about to read has
-// compatible ToolBar state info.  If not, then flush the old
-// [ToolBar-xxx] sections from the INI file to avoid crashes in MFC's
-// LoadBarState() method.  There is a known incompatibility between
-// "old" 32-bit versions which don't support the dockable mailbox 
-// "toolbar" and even betweeen "contemporary" Pro 32 and Light 32 
-// versions which somehow have incompatible toolbar state info.
-////////////////////////////////////////////////////////////////////////
-void CMainFrame::FlushIncompatibleToolBarState()
-{
-	//
-	// Load up the Commercial32Version and Light32Version settings
-	// from the [Settings] section of the INI file.  If the version
-	// strings are not present in the INI file, the default values are
-	// supposed to be set to 0 (zero) in the resource files to
-	// indicate that the setting is not valid for that version of
-	// Eudora.
-	//
-	long commercial32_version = GetIniLong(IDS_INI_COMMERCIAL_32_VERSION);
-	long light32_version = GetIniLong(IDS_INI_LIGHT_32_VERSION);
-
-	BOOL contains_compatible_bar_state = FALSE;
-
-	// Shareware: We should eventually remove this, but for now it stays
-	if (UsingFullFeatureSet())
-	{
-		// FULL-FEATURE
-		if (COMMERCIAL_32_VERSION == commercial32_version &&
-			0 == light32_version)
-		{
-			contains_compatible_bar_state = TRUE;
-		}
-	}
-	else
-	{
-		// REDUCED-FEATURE
-		if (0 == commercial32_version &&
-			LIGHT_32_VERSION == light32_version)
-		{
-			contains_compatible_bar_state = TRUE;
-		}
-	}
-
-	//
-	// Okay, we have reached the decision point....  To Flush or Not
-	// To Flush.  That is The Question(tm).
-	//
-	if (contains_compatible_bar_state && !m_bFlushBars)
-	{
-		//
-		// We're running a "contemporary" INI file, so it's normal and
-		// expected to have toolbar state in the INI file, so don't
-		// flush it.
-		//
-		return;
-	}
-	else
-	{
-		//
-		// Otherwise, if the toolbar state is missing, then let's
-		// assume that it's an "old" INI file, so flush it, just in case.
-		//
-	}
-
-	//
-	// Read up the number of [ToolBar-BarXX] sections from the
-	// [ToolBar-Summary] key.
-	//
-	const CString TOOLBAR_SUMMARY("ToolBar-Summary");
-	const CString BARS("Bars");
-	const CString TOOLBAR_SECTION_FMT("ToolBar-Bar%d");
-	char buf[32];
-
-	if (::GetPrivateProfileString(TOOLBAR_SUMMARY, BARS, "",
-				      buf, sizeof(buf), INIPath)) {
-	    int num_sections = atoi(buf);
-	    if (num_sections <= 0 || num_sections > 100) {
-		ASSERT(0);			// let's be reasonable
-	    }
-	    else {
-		//
-		// Flush the [ToolBar-Summary] section.
-		//
-		::WritePrivateProfileString(TOOLBAR_SUMMARY, NULL, NULL,
-					    INIPath);
-		//
-		// Flush the [ToolBar-BarXX] sections.
-		//
-		for (int i = 0; i < num_sections; i++) {
-		    wsprintf(buf, TOOLBAR_SECTION_FMT, i);
-		    ::WritePrivateProfileString(buf, NULL, NULL, INIPath);
-		}
-	    }
-	}
-
-	//
-	// Flush certain mailbox window settings from the INI file.
-	//
-	PurgeIniSetting(IDS_INI_SHOW_MBOX_BAR);
-	PurgeIniSetting(IDS_INI_DOCK_MBOX_BAR);
-
-	//
-	// Flush the [WazooBars] section.
-	//
-	::WritePrivateProfileString(CRString(IDS_INI_WAZOOBAR_SECTION_NAME), NULL, NULL, INIPath);
-
-	//
-	// Flush nickname window settings from the INI file.  Really, this
-	// has nothing to do with toolbar settings, but its a convenient place
-	// to handle INI upgrades from older versions of Eudora as related
-	// to nickname window settings.
-	//
-	PurgeIniSetting(IDS_INI_NICKNAMES_WINDOW_SPLITTER);
-
-	// HACK ALERT! -- sorry, it's not the place for this, I know.  
-	// But it does work and I'm in a hurry.
-
-	UpdateFontSettings();
-}
-
 
 //////////////////////////////////////////////////////////////////////////////
 //	SplitPOPACCOUNT() : In Eudora.ini, if POP_SERVER or LOGIN_NAME fields
@@ -1585,13 +1435,6 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	
 	if (QCWorkbook::OnCreate(lpCreateStruct) == -1)
 		return (-1);
-
-	// Shareware: Register that we want to know of feature changes
-	QCSharewareManager *pSWM = GetSharewareManager();
-	if (pSWM)
-	{
-		pSWM->QCCommandDirector::Register((QICommandClient*)this);
-	}
 
 	// Check if the user wants the Ctrl-F and Shift-Ctrl-F accels swapped (Find Text / Find Msgs)
 	m_bSwitchFindAccel = (GetIniShort(IDS_INI_SEARCH_ACCEL_SWITCH) != 0);
@@ -3141,11 +2984,7 @@ void CMainFrame::AttachContextText()
 		}
 	}
 
-#ifdef COMMERCIAL
 	int AttachOffset = 15;
-#else
-	int AttachOffset = 12;
-#endif // COMMERCIAL
 	char  attachString[255];
 
 	// Attach Submenu can be Attach or Attach to New Message.  This menu may or may not be there...
@@ -4234,7 +4073,6 @@ void CMainFrame::OnSpecialEmptyTrash()
 
 void CMainFrame::OnUpdateTrimJunk(CCmdUI* pCmdUI)
 {
-	OnUpdateFullFeatureSet(pCmdUI);
 }
 
 void CMainFrame::OnSpecialTrimJunk()
@@ -4390,114 +4228,23 @@ void CMainFrame::OnWindowFilters()
 void CMainFrame::OnWindowMailboxes()
 {
 	m_WazooBarMgr.ActivateWazooWindow(this, RUNTIME_CLASS(CMboxWazooWnd));
-
-//FORNOW	if (m_wndWazooBar.IsMDIChild())
-//FORNOW	{
-//FORNOW		//
-//FORNOW		// Activate the MDI child window containing the tree control.
-//FORNOW		//
-//FORNOW		SECWorksheet* p_childframe = (SECWorksheet *) m_wndWazooBar.GetParentFrame();
-//FORNOW		ASSERT(p_childframe);
-//FORNOW		ASSERT_KINDOF(SECWorksheet, p_childframe);
-//FORNOW		p_childframe->MDIActivate();
-//FORNOW	}
-//FORNOW
-//FORNOW	if (m_wndWazooBar.IsVisible())
-//FORNOW	{
-//FORNOW		// Set focus to the tree control window
-//FORNOW		m_wndWazooBar.ActivateWazooWindow(RUNTIME_CLASS(CMboxWazooWnd));
-//FORNOW	}
-//FORNOW	else
-//FORNOW	{
-//FORNOW		// Not visible, so make it visible.
-//FORNOW		OnShowMboxBar();
-//FORNOW	}
 }
 
 void CMainFrame::OnViewStationery()
 {
-#ifdef COMMERCIAL
 	m_WazooBarMgr.ActivateWazooWindow(this, RUNTIME_CLASS(CStationeryWazooWnd));
-#endif // COMMERCIAL
-
-
-//FORNOW	if (m_wndWazooBar.IsMDIChild())
-//FORNOW	{
-//FORNOW		//
-//FORNOW		// Activate the MDI child window containing the tree control.
-//FORNOW		//
-//FORNOW		SECWorksheet* p_childframe = (SECWorksheet *) m_wndWazooBar.GetParentFrame();
-//FORNOW		ASSERT(p_childframe);
-//FORNOW		ASSERT_KINDOF(SECWorksheet, p_childframe);
-//FORNOW		p_childframe->MDIActivate();
-//FORNOW	}
-//FORNOW
-//FORNOW	if (m_wndWazooBar.IsVisible())
-//FORNOW	{
-//FORNOW		// Set focus to the tree control window
-//FORNOW		m_wndWazooBar.ActivateWazooWindow(RUNTIME_CLASS(CStationeryWazooWnd));
-//FORNOW	}
-//FORNOW	else
-//FORNOW	{
-//FORNOW		// Not visible, so make it visible.
-//FORNOW		OnShowStationery();
-//FORNOW	}
 }
 
 
 void CMainFrame::OnViewFilterReport()
 {
 	m_WazooBarMgr.ActivateWazooWindow(this, RUNTIME_CLASS(CFilterReportWazooWnd));
-
-//FORNOW	if (m_wndWazooBar2.IsMDIChild())
-//FORNOW	{
-//FORNOW		//
-//FORNOW		// Activate the MDI child window containing the tree control.
-//FORNOW		//
-//FORNOW		SECWorksheet* p_childframe = (SECWorksheet *) m_wndWazooBar2.GetParentFrame();
-//FORNOW		ASSERT(p_childframe);
-//FORNOW		ASSERT_KINDOF(SECWorksheet, p_childframe);
-//FORNOW		p_childframe->MDIActivate();
-//FORNOW	}
-//FORNOW
-//FORNOW	if (m_wndWazooBar2.IsVisible() )
-//FORNOW	{
-//FORNOW		// Set focus to the filter report window
-//FORNOW		m_wndWazooBar2.ActivateWazooWindow(RUNTIME_CLASS(CFilterReportWazooWnd));
-//FORNOW	}
-//FORNOW	else
-//FORNOW	{
-//FORNOW		// Not visible, so make it visible.
-//FORNOW		OnShowFilterReport();
-//FORNOW	}
 }
 
 
 void CMainFrame::OnViewFileBrowser()
 {
 	m_WazooBarMgr.ActivateWazooWindow(this, RUNTIME_CLASS(CFileBrowseWazooWnd));
-
-//FORNOW	if (m_wndWazooBar.IsMDIChild())
-//FORNOW	{
-//FORNOW		//
-//FORNOW		// Activate the MDI child window containing the tree control.
-//FORNOW		//
-//FORNOW		SECWorksheet* p_childframe = (SECWorksheet *) m_wndWazooBar.GetParentFrame();
-//FORNOW		ASSERT(p_childframe);
-//FORNOW		ASSERT_KINDOF(SECWorksheet, p_childframe);
-//FORNOW		p_childframe->MDIActivate();
-//FORNOW	}
-//FORNOW
-//FORNOW	if (m_wndWazooBar.IsVisible())
-//FORNOW	{
-//FORNOW		// Set focus to the file browser window
-//FORNOW		m_wndWazooBar.ActivateWazooWindow(RUNTIME_CLASS(CFileBrowseWazooWnd));
-//FORNOW	}
-//FORNOW	else
-//FORNOW	{
-//FORNOW		// Not visible, so make it visible.
-//FORNOW		OnShowFileBrowser();
-//FORNOW	}
 }
 
 
@@ -4508,9 +4255,7 @@ void CMainFrame::OnViewSignatures()
 
 void CMainFrame::OnViewPersonalities()
 {
-#ifdef COMMERCIAL
 	m_WazooBarMgr.ActivateWazooWindow(this, RUNTIME_CLASS(CPersonalityWazooWnd));
-#endif // COMMERCIAL
 }
 
 void CMainFrame::OnViewTaskStatus()
@@ -5080,12 +4825,6 @@ void CMainFrame::OnClose()
 	// Shut down automation if running
 	AutomationStop();
 
-	// Unregister from shareware notifications
-	QCSharewareManager *pSWM = GetSharewareManager();
-	if (pSWM)
-	{
-		pSWM->UnRegister(this);
-	}
 }
 
 BOOL CMainFrame::CloseDown()
@@ -5357,42 +5096,28 @@ void CMainFrame::OnUpdateOvrIndicator(CCmdUI* pCmdUI)
 ////////////////////////////////////////////////////////////////////////
 void CMainFrame::OnUpdateControlBarMenu(CCmdUI* pCmdUI)
 {
-	if (pCmdUI->m_nID == ID_CUSTOMIZE_LINK)
+	BOOL	bIsVisible = FALSE;
+
+	switch (pCmdUI->m_nID)
 	{
-		// Shareware: Reduced feature set does not include customizable toolbar
-		//
-		// We shouldn't get here in that case because the menu item should
-		// have been disabled.
-		if (UsingFullFeatureSet())
-		{
-			pCmdUI->Enable(TRUE);
-		}
+		case ID_CTRLBAR_SHOW_TOOLBAR:
+			bIsVisible = m_pToolBar->IsVisible();
+			break;
+
+		case ID_CTRLBAR_SHOW_SEARCHBAR:
+			bIsVisible = m_pSearchBar->IsVisible();
+			break;
+
+		case ID_CTRLBAR_SHOW_STATUSBAR:
+			bIsVisible = m_wndStatusBar.IsVisible();
+			break;
+
+		default:
+			ASSERT(0);
+			break;
 	}
-	else
-	{
-		BOOL	bIsVisible = FALSE;
 
-		switch (pCmdUI->m_nID)
-		{
-			case ID_CTRLBAR_SHOW_TOOLBAR:
-				bIsVisible = m_pToolBar->IsVisible();
-				break;
-
-			case ID_CTRLBAR_SHOW_SEARCHBAR:
-				bIsVisible = m_pSearchBar->IsVisible();
-				break;
-
-			case ID_CTRLBAR_SHOW_STATUSBAR:
-				bIsVisible = m_wndStatusBar.IsVisible();
-				break;
-
-			default:
-				ASSERT(0);
-				break;
-		}
-
-		pCmdUI->SetCheck(bIsVisible);
-	}
+	pCmdUI->SetCheck(bIsVisible);
 }
 
 
@@ -6411,11 +6136,8 @@ void CMainFrame::OnCustomizeLink()
 	{
 		OnResetTools();
 	}
-	// Shareware: Only allow customization of toolbar in FULL FEATURE version.
-	else if (UsingFullFeatureSet())
-	{
-		( ( QCToolBarManager * ) m_pControlBarManager ) ->OnCustomize();
-	}
+	( ( QCToolBarManager * ) m_pControlBarManager ) ->OnCustomize();
+
 }
 
 //Dont have a clue about this, so we'll comment it out for now
@@ -6682,22 +6404,6 @@ UINT DDEClientThreadFunc(LPVOID lpParameter)
 }
 
 
-#ifdef EXPIRING
-////////////////////////////////////////////////////////////////////////
-// OnUserEvalExpired [protected]
-//
-// Command handler for user-defined message, WM_USER_EVAL_EXPIRED.
-////////////////////////////////////////////////////////////////////////
-LRESULT CMainFrame::OnUserEvalExpired(WPARAM wParam, LPARAM lParam)
-{            
-	if (WarnYesNoDialog(0, IDS_TIME_BOMB_MESSAGE_BETA) == IDOK)
-		LaunchURLWithQuery(NULL, ACTION_UPDATE);
-
- 	return 0;
-}
-
-#endif // EXPIRING
-
 ////////////////////////////////////////////////////////////////////////
 // OnUserAutomationMsg [protected]
 //
@@ -6763,8 +6469,6 @@ void CMainFrame::OnAboutEmsPlugins()
 // CheckSpelling (on any edit text)
 void CMainFrame::CheckSpelling()
 {
-#ifdef COMMERCIAL
-
 	CWnd *focusWnd = CWnd::GetFocus();
 
 	if (!focusWnd)
@@ -6791,8 +6495,6 @@ void CMainFrame::CheckSpelling()
 		CEdit& theCtrl = ( ( CEditView* ) focusWnd )->GetEditCtrl();
 		Spell.Check( &theCtrl );
 	}
-
-#endif // COMMERCIAL
 
 	return;
 }
@@ -8973,14 +8675,8 @@ void CMainFrame::OnTimeChange()
 
 void CMainFrame::OnUpdateStatistics(CCmdUI* pCmdUI) 
 {
-	// Pass it down to the SharewareManager & let it decide what to do
-	OnUpdateFullFeatureSet(pCmdUI);
-
-	if (UsingFullFeatureSet())
-	{
-		if(GetIniShort(IDS_INI_STATISTICS_DISABLE))
-			pCmdUI->Enable(FALSE);
-	}
+	if(GetIniShort(IDS_INI_STATISTICS_DISABLE))
+		pCmdUI->Enable(FALSE);
 }
 
 void CMainFrame::OnOpenEudora()

@@ -21,6 +21,43 @@ DAMAGE. */
 
 //
 
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
+    Removed reference to the IsRestrictedFilterAction procedure which is obselete
+    since there is now only one mode for the program to run (Pro).
+*/    
+
 #include "stdafx.h"
 
 #include <afxcmn.h>
@@ -69,7 +106,6 @@ DAMAGE. */
 #include "Automation.h"
 #include "TextToSpeech.h"
 #include "hsregex.h" //Regex support
-#include "QCSharewareManager.h"
 
 #ifdef IMAP4
 #include "ImapMailbox.h"
@@ -1022,59 +1058,6 @@ BOOL CFilter::PreventAutoRepsonse(const char* text)
 	return bNoResponse;
 }
 
-// --------------------------------------------------------------------------
-
-//
-// IsRestrictedFilterAction [PUBLIC]
-//
-// Returns true if the action is restricted.
-//
-/* static */ bool CFilter::IsRestrictedFilterAction(UINT nAction)
-{
-	// Shareware: Restrict some filters in REDUCED FEATURE mode
-	if (UsingFullFeatureSet())
-	{
-		// FULL FEATURE mode
-		// All filter actions are allowed, so return non-restricted
-		return (false);
-	}
-
-	// REDUCED FEATURE mode
-	switch (nAction)
-	{
-		// These are the only actions permitted in REDUCED FEATURE mode
-		case ID_FLT_NONE:
-		case ID_FLT_STATUS:
-		case ID_FLT_PRIORITY:
-		case ID_FLT_SUBJECT:
-		case ID_FLT_NOTIFY_APP:
-		case ID_FLT_COPY:
-		case ID_FLT_TRANSFER:
-		case ID_FLT_SKIP_REST:
-			return (false);
-
-		// These actions are not allowed in REDUCED FEATURE mode
-		case ID_FLT_LABEL:
-		case ID_FLT_PERSONALITY:
-		case ID_FLT_SOUND:
-		case ID_FLT_SPEAK:
-		case ID_FLT_OPEN:
-		case ID_FLT_PRINT:
-		case ID_FLT_NOTIFY_USER:
-		case ID_FLT_FORWARD:
-		case ID_FLT_REDIRECT:
-		case ID_FLT_REPLY:
-		case ID_FLT_SERVER_OPT:
-		case ID_FLT_JUNK:
-			return (true);
-	}
-
-	// Uh-oh!  We should never get here.
-	// Just assume the action is restricted.
-	ASSERT(0);
-	return (true);
-}
-
 /////////////////////////////////////////////////////////////////////////////
 int CFilter::Action(const char* text, CSummary*& Sum, CFilterActions* fltAct, CObArray * poaABHashes, bool bNoJunkAction)
 {
@@ -1093,10 +1076,6 @@ int CFilter::Action(const char* text, CSummary*& Sum, CFilterActions* fltAct, CO
 	// First Level
 	for (int i = 0; i < NUM_FILT_ACTS; i++)
 	{
-		// Skip restricted actions
-		if (IsRestrictedFilterAction(m_Actions[i]))
-			continue;
-
 		switch(m_Actions[i])
 		{
 			case ID_FLT_NONE:
@@ -1222,10 +1201,6 @@ int CFilter::Action(const char* text, CSummary*& Sum, CFilterActions* fltAct, CO
 	// Second Level
 	for (i = 0; i < NUM_FILT_ACTS; i++)
 	{
-		// Skip restricted actions
-		if (IsRestrictedFilterAction(m_Actions[i]))
-			continue;
-
 		switch(m_Actions[i])
 		{
 			case ID_FLT_SUBJECT:
@@ -1305,10 +1280,6 @@ int CFilter::Action(const char* text, CSummary*& Sum, CFilterActions* fltAct, CO
 	// those actions will change the status of the message.
 	for (i = 0; i < NUM_FILT_ACTS; i++)
 	{
-		// Skip restricted actions
-		if (IsRestrictedFilterAction(m_Actions[i]))
-			continue;
-
 		switch(m_Actions[i])
 		{
 			case ID_FLT_STATUS:
@@ -1330,10 +1301,6 @@ int CFilter::Action(const char* text, CSummary*& Sum, CFilterActions* fltAct, CO
 	// Fourth Level
 	for (i = 0; i < NUM_FILT_ACTS; i++)
 	{
-		// Skip restricted actions
-		if (IsRestrictedFilterAction(m_Actions[i]))
-			continue;
-
 		switch(m_Actions[i])
 		{
 			case ID_FLT_SKIP_REST:

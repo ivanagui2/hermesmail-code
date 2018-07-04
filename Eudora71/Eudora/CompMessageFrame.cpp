@@ -19,6 +19,41 @@ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
 DAMAGE. */
 
+/*
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) - July 4, 2018 
+
+*/
+
 //
 
 #include "stdafx.h"
@@ -399,12 +434,6 @@ CCreateContext* pContext)
 
 		// Set the active view to the body
 		m_wndSplitter.SetActivePane( 1, 0 );
-	}
-	else {
-		// HACK - Paige view must be "active" for a moment following creation
-		// or things get kinda fubar. Strange goings-on indeed.
-		SetActiveView( (CView*) m_wndSplitter.GetPane( 1, 0 ) );
-		SetActiveView( (CView*) m_wndSplitter.GetPane( 0, 0 ) );
 	}
 
 	pSummary = pDoc->m_Sum;
@@ -949,7 +978,7 @@ void CCompMessageFrame::OnCheckSpelling()
 					::MessageBox( NULL, (LPCTSTR)CRString(IDS_SPELL_NO_MISSPELLINGS), 
 					(LPCTSTR)CRString(IDS_EUDORA), MB_OK);
 		}
-		else if (pProtocol && ((CPaigeEdtView*)pProtocol)->HasSelection())
+		else if (pProtocol && ((CEditorView*)pProtocol)->HasSelection())
 		{
 			if(pProtocol->CheckSpelling(FALSE)==NO_MISSPELLINGS)
 					::MessageBox( NULL, (LPCTSTR)CRString(IDS_SPELL_NO_MISSPELLINGS), 
@@ -1258,8 +1287,8 @@ void*				pData)
 		//	Tell the body to mark all instances of the word as not being misspelled
 		CView *			pView = (CView*) m_wndSplitter.GetPane(1, 0);
 
-		if ( pView && pView->IsKindOf(RUNTIME_CLASS(CPaigeEdtView)) )
-			reinterpret_cast<CPaigeEdtView *>(pView)->MarkWordNotMisspelled( reinterpret_cast<char *>(pData) );
+		if ( pView && pView->IsKindOf(RUNTIME_CLASS(CEditorView)) )
+			reinterpret_cast<CEditorView *>(pView)->MarkWordNotMisspelled( reinterpret_cast<char *>(pData) );
 	}
 	else
 	{

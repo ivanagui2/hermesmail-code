@@ -54,8 +54,8 @@ AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
-    Removing references to the Paige Html component used by the legacy Eudora 
-    code.
+    Removing references to the Paige Html component and the Qualcomm Shareware
+    Manager.
 
 */
 
@@ -311,14 +311,13 @@ void CEudoraApp::OnReportABug()
 		// Joe Blow part comes from the current RealName and the number is the build
 		// number followed by the current mode followed by the current time (seconds since
 		// whenever Microsoft's t=0 was).
-		strLine.Format("Subject: %s [%s %d%d%d%d.%d.%lX]",
+		strLine.Format("Subject: %s [%s %d%d%d%d.%lX]",
 						(LPCTSTR) CRString(IDS_REPORT_BUG_EMAIL_SUBJECT),
 						(LPCTSTR) GetIniString(IDS_INI_REAL_NAME),
 						EUDORA_VERSION1,
 						EUDORA_VERSION2,
 						EUDORA_VERSION3,
 						EUDORA_VERSION4,
-						GetSharewareMode(),
 						time(NULL));
 		jjTmpFile.PutLine(strLine);
 
@@ -2261,7 +2260,7 @@ BOOL CEudoraApp::IdleCalculateMood()
 	
 	// Idle time is in Seconds whereas Threshold time is in Milliseconds.
 	if( m_nCurrentIdlePeriod > (unsigned long) GetIniShort(IDS_INI_MOODWATCH_DELTATIME)
-		&& UsingFullFeatureSet() && GetIniShort(IDS_INI_MOODCHECK_BACKGROUND)
+		&& GetIniShort(IDS_INI_MOODCHECK_BACKGROUND)
 		&& GetIniShort(IDS_INI_MOOD_MAIL_CHECK) ) 
 	{
 		POSITION TocPos = (TocTemplate? TocTemplate->GetFirstDocPosition() : NULL);
@@ -4274,7 +4273,6 @@ static void ResetEudoraIni(void)
 		IDS_INI_AUTO_CONNECTION_NAME,
 
 		// mode/registration stuff
-		IDS_INI_MODE,
 		IDS_INI_REG_STATUS,
 		IDS_INI_PROFILE,
 		IDS_INI_DISTRIBUTOR,

@@ -3320,7 +3320,6 @@
 #define IDS_INI_NAG_LOC_5               10617
 #define IDS_INI_USE_JUNK_MAILBOX        10618
 #define IDS_INI_ASKED_ABOUT_JUNK        10619
-#define IDS_INI_MODE                    10620
 #define IDS_INI_NAG_SECS_PER_DAY        10621
 #define IDS_INI_NAG_EMAIL_ADDRESS       10622
 #define IDS_INI_NAG_EMAIL_SUBJECT       10623

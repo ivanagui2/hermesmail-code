@@ -21,6 +21,42 @@ DAMAGE. */
 
 //
 
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018.
+
+*/
+
 #include "stdafx.h"
 
 #include <afxcmn.h>
@@ -825,10 +861,13 @@ BOOL CCompMessageDoc::Queue(BOOL autoSend /*= FALSE*/)
 
 
 	//check for Mood Mail
+    // MOOD MAIL FEATURE REMOVED FOR HERMES 0.0.1 release.
+    //
+    /*
 	PgCompMsgView* pCompMsgView = DYNAMIC_DOWNCAST(PgCompMsgView, View);
     if ( pCompMsgView && GetIniShort( IDS_INI_MOOD_MAIL_CHECK )&& UsingFullFeatureSet()) 
 	{
-		if (pCompMsgView->IsPaigeMoodDirty()||
+		if (pCompMsgView->IsBodyMoodDirty()||
 			pCompMsgView->IsHeaderMoodDirty())
 		{
 			int nScore = pCompMsgView->DoMoodMailCheck();
@@ -873,6 +912,7 @@ BOOL CCompMessageDoc::Queue(BOOL autoSend /*= FALSE*/)
 			}
 		}
     }
+    */
 
 	//check for additional BP warning with dialog
     if ( pCompMsgView && GetIniShort( IDS_INI_BP_ADDITIONAL_WARN_DIALOG ) && UsingPaidFeatureSet() && pCompMsgView->IsHeaderBPWarnDlgDirty()) 
@@ -1561,6 +1601,9 @@ HRESULT CCompMessageDoc::Write(JJFile* out)
 		// BADSTUFF - Here we just hacked it to use our Paige derived view. This
 		// sucks just as bad; we need to use protocols to solve this view-
 		// dependancy stuff.
+        // HACKS DUE TO PAIGE REMOVED BECAUSE PAIGE WILL NOT BE PRESENT IN
+        // IN HERMES 0.0.1
+        /*
 		CView* View = GetView();
 		if ( View && pHView )
 		{
@@ -1574,6 +1617,7 @@ HRESULT CCompMessageDoc::Write(JJFile* out)
 
 			OutToc->SetModifiedFlag();
 		}
+        */
 	}
 
     // Let's not waste time and disk space, shall we

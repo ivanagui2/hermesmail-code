@@ -19,6 +19,46 @@ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
 DAMAGE. */
 
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
+    Removed reference to Qualcomm's Shareware Manager.
+    Removed commented out FORNOW code.
+    TODO: There are likely other dependencies on Qualcomm's Shareware Manager, but
+    I was not able to find them.
+
+*/
+
 //
 
 #include "stdafx.h"
@@ -44,7 +84,6 @@ DAMAGE. */
 #include "WizardPropSheet.h"
 #include "ModifyAcctSheet.h"
 #include "EudoraMsgs.h"
-#include "QCSharewareManager.h"
 
 // IMAP4
 #include "ImapAccountMgr.h"
@@ -451,61 +490,6 @@ void CPersonalityView::OnColumnClick(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	::MessageBeep(MB_OK);		// FORNOW, not implemented
 
-//FORNOW	CListCtrl&		theCtrl = GetListCtrl();
-//FORNOW	NM_LISTVIEW*	pNMListView = (NM_LISTVIEW*)pNMHDR;
-//FORNOW	BOOL			bResult;
-//FORNOW	BOOL			bSaveOrder;
-//FORNOW
-//FORNOW	if( pNMListView->iItem == -1 )
-//FORNOW	{
-//FORNOW		// the user clicked on a header button
-//FORNOW			
-//FORNOW		bResult = FALSE;
-//FORNOW		
-//FORNOW		bSaveOrder = m_bAscendingOrder;
-//FORNOW
-//FORNOW		if(	m_iSortIndex == pNMListView->iSubItem )
-//FORNOW		{
-//FORNOW			// if the index is the same, toggle between 
-//FORNOW			// ascending and descending order
-//FORNOW			m_bAscendingOrder = !m_bAscendingOrder;
-//FORNOW		}
-//FORNOW		else
-//FORNOW		{					
-//FORNOW			// always do ascending first
-//FORNOW			m_bAscendingOrder = TRUE;
-//FORNOW		}
-//FORNOW
-//FORNOW		if( pNMListView->iSubItem == 0 )
-//FORNOW		{
-//FORNOW			// sort by mailbox
-//FORNOW			PFNLVCOMPARE fn = SortByMailbox;
-//FORNOW
-//FORNOW			bResult = theCtrl.SortItems( SortByMailbox, m_bAscendingOrder );
-//FORNOW		}
-//FORNOW		else if( pNMListView->iSubItem == 1 )
-//FORNOW		{
-//FORNOW			// sort by count
-//FORNOW			bResult = theCtrl.SortItems( SortByCount, m_bAscendingOrder );
-//FORNOW		}
-//FORNOW		else if( pNMListView->iSubItem == 2 )
-//FORNOW		{
-//FORNOW			// sort by time
-//FORNOW			bResult = theCtrl.SortItems( SortByTime, m_bAscendingOrder );
-//FORNOW		}
-//FORNOW
-//FORNOW		if( bResult )
-//FORNOW		{
-//FORNOW			// set the sort index
-//FORNOW			m_iSortIndex = pNMListView->iSubItem;
-//FORNOW		}
-//FORNOW		else
-//FORNOW		{
-//FORNOW			// restore the order
-//FORNOW			m_bAscendingOrder = bSaveOrder;
-//FORNOW		}
-//FORNOW	}
-	
 	*pResult = 0;
 }
 
@@ -1053,170 +1037,6 @@ void CPersonalityView::OnUpdateNeedSingleSelection(CCmdUI* pCmdUI)
 			pCmdUI->Enable(FALSE);
 	}
 }
-
-
-//FORNOWint CALLBACK SortByMailbox(
-//FORNOWLPARAM lParam1,
-//FORNOWLPARAM lParam2, 
-//FORNOWLPARAM lParamSort)
-//FORNOW{
-//FORNOW	CPersonalityView::CEntry*	pEntry1;
-//FORNOW	CPersonalityView::CEntry*	pEntry2;
-//FORNOW	
-//FORNOW	pEntry1 = ( CPersonalityView::CEntry* ) lParam1;
-//FORNOW	pEntry2 = ( CPersonalityView::CEntry* ) lParam2;
-//FORNOW	
-//FORNOW	if( lParamSort )
-//FORNOW	{
-//FORNOW		return ( stricmp( pEntry1->m_szMailbox, pEntry2->m_szMailbox ) );
-//FORNOW	}
-//FORNOW	else
-//FORNOW	{
-//FORNOW		return ( stricmp( pEntry2->m_szMailbox, pEntry1->m_szMailbox ) );
-//FORNOW	}
-//FORNOW}
-//FORNOW
-//FORNOW
-//FORNOWint CALLBACK SortByCount(
-//FORNOWLPARAM lParam1,
-//FORNOWLPARAM lParam2, 
-//FORNOWLPARAM lParamSort)
-//FORNOW{
-//FORNOW	CPersonalityView::CEntry*	pEntry1;
-//FORNOW	CPersonalityView::CEntry*	pEntry2;
-//FORNOW	
-//FORNOW	pEntry1 = ( CPersonalityView::CEntry* ) lParam1;
-//FORNOW	pEntry2 = ( CPersonalityView::CEntry* ) lParam2;
-//FORNOW	
-//FORNOW	if( lParamSort )
-//FORNOW	{
-//FORNOW		return ( pEntry1->m_uCount - pEntry2->m_uCount );
-//FORNOW	}
-//FORNOW	else
-//FORNOW	{
-//FORNOW		return ( pEntry2->m_uCount - pEntry1->m_uCount );
-//FORNOW	}
-//FORNOW}
-//FORNOW
-//FORNOW
-//FORNOWint CALLBACK SortByTime(
-//FORNOWLPARAM lParam1,
-//FORNOWLPARAM lParam2, 
-//FORNOWLPARAM lParamSort)
-//FORNOW{
-//FORNOW	CPersonalityView::CEntry*	pEntry1;
-//FORNOW	CPersonalityView::CEntry*	pEntry2;
-//FORNOW	
-//FORNOW	pEntry1 = ( CPersonalityView::CEntry* ) lParam1;
-//FORNOW	pEntry2 = ( CPersonalityView::CEntry* ) lParam2;
-//FORNOW	
-//FORNOW	CTime	time1( pEntry1->m_Time );
-//FORNOW	CTime	time2( pEntry2->m_Time );
-//FORNOW	
-//FORNOW	if( !lParamSort )
-//FORNOW	{
-//FORNOW		// swap 'em
-//FORNOW		CTime time3;
-//FORNOW
-//FORNOW		time3 = time2;
-//FORNOW		time2 = time1;
-//FORNOW		time1 = time3;
-//FORNOW	}
-//FORNOW
-//FORNOW	if( time1 < time2 )
-//FORNOW	{
-//FORNOW		return -1;
-//FORNOW	}
-//FORNOW	else if ( time2 < time1 )
-//FORNOW	{
-//FORNOW		return 1;
-//FORNOW	}
-//FORNOW	
-//FORNOW	return 0;
-//FORNOW}
-//FORNOW
-//FORNOW
-//FORNOWBOOL CPersonalityView::AddEntry( 
-//FORNOWUINT	uCount,
-//FORNOWLPCSTR	szMailbox,
-//FORNOWtime_t	tNow )
-//FORNOW{
-//FORNOW	CEntry*		pEntry;
-//FORNOW
-//FORNOW	pEntry = new CEntry;
-//FORNOW
-//FORNOW	if( pEntry == NULL )
-//FORNOW	{
-//FORNOW		return FALSE;
-//FORNOW	}
-//FORNOW
-//FORNOW	pEntry->m_szMailbox = szMailbox;
-//FORNOW	pEntry->m_uCount = uCount;
-//FORNOW	pEntry->m_Time = tNow;
-//FORNOW
-//FORNOW	( ( CEudoraApp* ) AfxGetApp() )->AddFilterListEntry( pEntry );
-//FORNOW	
-//FORNOW	return AddEntry( pEntry );
-//FORNOW}
-//FORNOW
-//FORNOW
-//FORNOW
-//FORNOWBOOL CPersonalityView::AddEntry(
-//FORNOWCEntry*	pEntry )
-//FORNOW{							
-//FORNOW	CListCtrl&	theCtrl = GetListCtrl();
-//FORNOW	char		szTime[256];
-//FORNOW	LV_ITEM		theItem;
-//FORNOW	INT			iRet;
-//FORNOW	CString		szCount;
-//FORNOW
-//FORNOW	// format the strings
-//FORNOW	*szTime = 0;
-//FORNOW
-//FORNOW	if( pEntry->m_Time > 0L )
-//FORNOW	{
-//FORNOW		TimeDateString( szTime, pEntry->m_Time, TRUE );
-//FORNOW	}
-//FORNOW
-//FORNOW	szCount.Format( "%u", pEntry->m_uCount );
-//FORNOW
-//FORNOW	// setup the item structure
-//FORNOW	theItem.mask = LVIF_TEXT | LVIF_IMAGE | LVIF_PARAM;
-//FORNOW	theItem.iItem = theCtrl.GetItemCount();	
-//FORNOW	theItem.iSubItem = 0;
-//FORNOW	theItem.pszText = ( char* ) ( const char* ) ( pEntry->m_szMailbox );
-//FORNOW	theItem.iImage = QCMailboxImageList::IMAGE_NORMAL_MBOX;
-//FORNOW	theItem.lParam = ( LPARAM ) pEntry;
-//FORNOW
-//FORNOW	// to do:	
-//FORNOW	// IMAGE_TRASH_MBOX
-//FORNOW	// IMAGE_IN_MBOX;
-//FORNOW	//IMAGE_OUT_MBOX;
-//FORNOW	
-//FORNOW	// insert the item
-//FORNOW	iRet = theCtrl.InsertItem( &theItem );
-//FORNOW
-//FORNOW	if( iRet < 0 )
-//FORNOW	{
-//FORNOW		return FALSE;
-//FORNOW	}
-//FORNOW
-//FORNOW	//
-//FORNOW	// Set the "focus" to the newly added item and make sure it
-//FORNOW	// is visible in the display.
-//FORNOW	//
-//FORNOW	theCtrl.SetItemState(iRet, LVIS_FOCUSED, LVIS_FOCUSED);
-//FORNOW	theCtrl.EnsureVisible(iRet, TRUE);
-//FORNOW
-//FORNOW	// set the message column
-//FORNOW	theCtrl.SetItemText( theItem.iItem, 1, szCount );
-//FORNOW
-//FORNOW
-//FORNOW	// set the time column
-//FORNOW	theCtrl.SetItemText( theItem.iItem, 2, szTime );
-//FORNOW
-//FORNOW	return TRUE;
-//FORNOW}
 
 
 ////////////////////////////////////////////////////////////////////////

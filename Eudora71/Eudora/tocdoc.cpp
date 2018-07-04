@@ -3796,9 +3796,7 @@ BOOL EmptyTrash()
 	{
 		Progress(0, CRString(IDS_EMPTYING_TRASH), listTrashSums.GetCount() - 1);
 
-#ifdef COMMERCIAL
 		CString CurPersona = g_Personalities.GetCurrent();
-#endif // COMMERCIAL
 		
 		POSITION pos;
 		for (int i = 0; pos = listTrashSums.GetHeadPosition(); i++)
@@ -3914,10 +3912,8 @@ BOOL EmptyTrash()
 				break;
 		}
 
-#ifdef COMMERCIAL
 		// restore the current personality
 		g_Personalities.SetCurrent( CurPersona );
-#endif // COMMERCIAL
 	}
 	
 	if ( listTrashSums.IsEmpty() )

@@ -20,6 +20,7 @@ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVE
 DAMAGE. */
 
 /*
+
 HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
 Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
 
@@ -51,6 +52,7 @@ AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 File revised by Jeff Prickett (kg4ygs@gmail.com) - July 4, 2018 
+    Removed references to the Paige Html Editor and the QCSharewareManager.
 
 */
 
@@ -596,17 +598,8 @@ CCreateContext* pContext)
 	m_pToolBarManager->SetToolBarInfo( m_pFormattingToolBar );
 	m_pFormattingToolBar->EnableDocking(CBRS_ALIGN_TOP);
 
-	// Shareware: In reduced feature mode, you get a less-capable format toolbar
-	if (UsingFullFeatureSet())
-	{
-		// FULL FEATURE mode
-		m_pFormattingToolBar->SetButtons( theFullFeatureFormatButtons, DIM( theFullFeatureFormatButtons ) );
-	}
-	else
-	{
-		// REDUCED FEATURE mode
-		m_pFormattingToolBar->SetButtons( theReducedFeatureFormatButtons, DIM( theReducedFeatureFormatButtons ) );
-	}
+    // FULL FEATURE mode
+	m_pFormattingToolBar->SetButtons( theFullFeatureFormatButtons, DIM( theFullFeatureFormatButtons ) );
 
 	DockControlBar( m_pFormattingToolBar );
 	
@@ -724,37 +717,32 @@ CCreateContext* pContext)
 			
 			if (pEditTextMenu)
 			{
-				// Shareware: In reduced feature mode, you get a less-capable format toolbar
-				if (UsingFullFeatureSet())
-				{
-					// FULL FEATURE mode
-					
-					// get the insert menu
-					VERIFY( pMenu = pEditTextMenu->GetSubMenu( 11 ) );	
-					i = m_pFormattingToolBar->CommandToIndex( ID_EDIT_INSERT );
-					VERIFY( pMenuButton = ( CTBarMenuButton* ) ( m_pFormattingToolBar->GetButton( i ) ) );
-
-					if (pMenu && pMenuButton)
-						pMenuButton->SetHMenu( pMenu->GetSafeHmenu() );
-				}
 				
-				// get the text menu
-				VERIFY( pEditTextMenu = pEditTextMenu->GetSubMenu( 10 ) );
-				
-				if (pEditTextMenu)
-				{
-					// get the size menu
-					VERIFY( pMenu = pEditTextMenu->GetSubMenu( 10 ) );
-					i = m_pFormattingToolBar->CommandToIndex( ID_EDIT_TEXT_SIZE );
-					VERIFY( pMenuButton = ( CTBarMenuButton* ) ( m_pFormattingToolBar->GetButton( i ) ) );
+				// get the insert menu
+				VERIFY( pMenu = pEditTextMenu->GetSubMenu( 11 ) );	
+				i = m_pFormattingToolBar->CommandToIndex( ID_EDIT_INSERT );
+				VERIFY( pMenuButton = ( CTBarMenuButton* ) ( m_pFormattingToolBar->GetButton( i ) ) );
 
-					if (pMenu && pMenuButton)
-						pMenuButton->SetHMenu( pMenu->GetSafeHmenu() );
-					
-					// force the toolbar to recalculate the button sizes
-					m_pToolBarManager->SetToolBarInfo( m_pToolBar );
-					RecalcLayout();
-				}
+				if (pMenu && pMenuButton)
+					pMenuButton->SetHMenu( pMenu->GetSafeHmenu() );
+			}
+				
+			// get the text menu
+			VERIFY( pEditTextMenu = pEditTextMenu->GetSubMenu( 10 ) );
+			
+			if (pEditTextMenu)
+			{
+				// get the size menu
+				VERIFY( pMenu = pEditTextMenu->GetSubMenu( 10 ) );
+				i = m_pFormattingToolBar->CommandToIndex( ID_EDIT_TEXT_SIZE );
+				VERIFY( pMenuButton = ( CTBarMenuButton* ) ( m_pFormattingToolBar->GetButton( i ) ) );
+
+				if (pMenu && pMenuButton)
+					pMenuButton->SetHMenu( pMenu->GetSafeHmenu() );
+				
+				// force the toolbar to recalculate the button sizes
+				m_pToolBarManager->SetToolBarInfo( m_pToolBar );
+				RecalcLayout();
 			}
 		}
 	}
@@ -1001,42 +989,38 @@ BOOL CCompMessageFrame::GetCheck( UINT nCommandID )
 
 void CCompMessageFrame::OnCheckSpelling()
 {
-	// Shareware: In reduced feature mode, you cannot spell check
-	if (UsingFullFeatureSet())
+	// FULL FEATURE mode
+	
+	CView* View = (CView*) m_wndSplitter.GetPane( 1, 0 );
+	QCProtocol*	pProtocol = QCProtocol::QueryProtocol( QCP_SPELL, View );
+	//if subject has selection highlighted then just spell check the header
+	if (GetHeaderView()->IsSelSubject())
 	{
-		// FULL FEATURE mode
-		
-		CView* View = (CView*) m_wndSplitter.GetPane( 1, 0 );
-		QCProtocol*	pProtocol = QCProtocol::QueryProtocol( QCP_SPELL, View );
-		//if subject has selection highlighted then just spell check the header
-		if (GetHeaderView()->IsSelSubject())
-		{
-			if(GetHeaderView()->OnCheckSpelling()==NO_MISSPELLINGS)
-					::MessageBox( NULL, (LPCTSTR)CRString(IDS_SPELL_NO_MISSPELLINGS), 
-					(LPCTSTR)CRString(IDS_EUDORA), MB_OK);
-		}
-		else if (pProtocol && ((CEditorView*)pProtocol)->HasSelection())
-		{
-			if(pProtocol->CheckSpelling(FALSE)==NO_MISSPELLINGS)
-					::MessageBox( NULL, (LPCTSTR)CRString(IDS_SPELL_NO_MISSPELLINGS), 
-					(LPCTSTR)CRString(IDS_EUDORA), MB_OK);
-		}
-		else 
-		{
-				int nHeaderResult = GetHeaderView()->OnCheckSpelling();
-				int nBodyResult = NO_MISSPELLINGS;
-				if (pProtocol)
-					nBodyResult = pProtocol->CheckSpelling(FALSE);
-				if (nHeaderResult == NO_MISSPELLINGS && nBodyResult == NO_MISSPELLINGS)
-					AfxMessageBox(IDS_SPELL_NO_MISSPELLINGS);
-		}
+		if(GetHeaderView()->OnCheckSpelling()==NO_MISSPELLINGS)
+				::MessageBox( NULL, (LPCTSTR)CRString(IDS_SPELL_NO_MISSPELLINGS), 
+				(LPCTSTR)CRString(IDS_EUDORA), MB_OK);
+	}
+	else if (pProtocol && ((CEditorView*)pProtocol)->HasSelection())
+	{
+		if(pProtocol->CheckSpelling(FALSE)==NO_MISSPELLINGS)
+				::MessageBox( NULL, (LPCTSTR)CRString(IDS_SPELL_NO_MISSPELLINGS), 
+				(LPCTSTR)CRString(IDS_EUDORA), MB_OK);
+	}
+	else 
+	{
+			int nHeaderResult = GetHeaderView()->OnCheckSpelling();
+			int nBodyResult = NO_MISSPELLINGS;
+			if (pProtocol)
+				nBodyResult = pProtocol->CheckSpelling(FALSE);
+			if (nHeaderResult == NO_MISSPELLINGS && nBodyResult == NO_MISSPELLINGS)
+				AfxMessageBox(IDS_SPELL_NO_MISSPELLINGS);
 	}
 }
 
 void CCompMessageFrame::OnUpdateCheckSpelling(CCmdUI* pCmdUI)
 {
-	// Shareware: In reduced feature mode, you cannot spell check
-	pCmdUI->Enable(UsingFullFeatureSet());
+	// No reduced feature mode in Hermes hard code the enabling of the spellcheck.
+	pCmdUI->Enable(true);
 }
 
 void CCompMessageFrame::OnUpdateInsertSystemConfiguration(CCmdUI* pCmdUI)

@@ -55,6 +55,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018.
     Removed references to the Paige Html Editor and the QC Shareware Manager.
+    Removed definitions and conditional compiles due to the COMMERCIAL flag.
 
 */
 
@@ -2215,8 +2216,6 @@ CCompMessageDoc* NewCompDocument
 {
 	CCompMessageDoc* NewCompDoc = NULL;
 	
-#ifdef COMMERCIAL
-
 	CString csStationery = Stationery;
 	CString	csPersona = Persona;
 	CString csStatPersona;
@@ -2273,8 +2272,6 @@ CCompMessageDoc* NewCompDocument
 	if ( ! csPersona.IsEmpty() && g_Personalities.IsA( csPersona ) )
 		g_Personalities.SetCurrent( csPersona );
 
-#endif // COMMERCIAL
-
 	// create the new doc with the defaults
 	NewCompDoc = (CCompMessageDoc*)NewChildDocument(CompMessageTemplate);
 	if (NewCompDoc)
@@ -2284,7 +2281,6 @@ CCompMessageDoc* NewCompDocument
 
 
 	//No need for Persona and stationery in 4.1 Light
-#ifdef COMMERCIAL
 
 	// Do not apply stationery if redirecting
 	// or if call is from Automation
@@ -2359,13 +2355,6 @@ CCompMessageDoc* NewCompDocument
 	NewCompDoc->ApplyPersona( csPersona );
 	
 	g_Personalities.SetCurrent( csCurPersona );	// go back to default persona
-
-#else
-	//for Light 4.1 - don't know whethere we really need to apply persona, but anyways :)
-	// Add personality overrides
-	NewCompDoc->ApplyPersona( Persona );
-#endif // COMMERCIAL
-
 
 	return (NewCompDoc);
 }
@@ -2579,7 +2568,6 @@ BOOL CCompMessageDoc::ApplyPersona(const char* Persona)
 
 	m_Sum->SetPersona( Persona );
 
-#ifdef COMMERCIAL
 	// IDS_INI_SIGNATURE_NAME must be the same string as IDS_INI_PERSONA_SIGNATURE
 	char szEntry[ 80 ];
 
@@ -2611,24 +2599,6 @@ BOOL CCompMessageDoc::ApplyPersona(const char* Persona)
 		//Note the signature could be Empty or "No Default", Set signature handles all cases
 		m_Sum->SetSignature( szEntry );
 	}
-#else
-
-	if ( GetIniShort( IDS_INI_USE_SIGNATURE ) )
-	{
-
-		CRString csStandard( IDS_STANDARD_SIGNATURE );
-		CRString csNone( IDS_SIGNATURE_NONE);
-		CRString csAlternate( IDS_ALTERNATE_SIGNATURE32);
-
-		CString strSig = GetIniString( IDS_INI_SIGNATURE_NAME);
-		if(strSig == csStandard)
-			m_Sum->SetSignature( csStandard );
-		else if(strSig == csAlternate)
-			m_Sum->SetSignature( csAlternate );
-		
-	}
-
-#endif //COMMERCIAL
 
 	// fix up the From: line
 	if (IsRedirect())

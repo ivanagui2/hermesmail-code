@@ -305,7 +305,6 @@ public:
 				m_fnFreeFunc(NULL),
 				m_IdleFreq(idleFreq),
 				m_LastTimeCalled(0),
-				m_ModeNeeded(EMS_ModeFree)
 				{}
 
 	
@@ -322,7 +321,6 @@ public:
 	// Informational functions
 	HINSTANCE	GetInstance()	{return m_HInstance;}
 	void FAR*	GetGlobals()	{return m_Globals;}
-	bool		IsFullFeatureSetOnly() const { return m_ModeNeeded > EMS_ModeFree; }
 	
 	void GetDesc(CString &str)	{str = m_Desc;}
 	BOOL GetIcon(HICON &icn);
@@ -350,7 +348,6 @@ private:
 	void		 FAR*m_Globals;		// This is the globals that gets passed around
 	DWORD		 m_IdleFreq;
 	DWORD		 m_LastTimeCalled;
-	CCachedProcAddress	m_fnEudoraModeNotification;
 };									
 
 

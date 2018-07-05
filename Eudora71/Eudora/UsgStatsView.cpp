@@ -50,6 +50,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     Removed a conditional debug code section.
+    Removed references to Qualcomm's Shareware Manager.
 
 */    
 
@@ -68,8 +69,6 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
 
 #include "mainfrm.h"
 #include "usgstatsdoc.h"
-
-#include "QCSharewareManager.h"
 
 #include "EuLang.h"
 #include "locale.h"
@@ -132,12 +131,6 @@ CUsageStatisticsDoc* CUsageStatisticsView::GetDocument() // non-debug version is
 CUsageStatisticsView::CUsageStatisticsView()
 {
 	int i = 0,nVal = 0;
-	// Shareware: Register that we want to know of feature changes
-	QCSharewareManager *pSWM = GetSharewareManager();
-	if (pSWM)
-	{
-		pSWM->Register((QICommandClient*)this);
-	}
 
 	for (i = 0; i < STATCOUNT; i++)
 		m_Graph[i] = NULL;
@@ -286,12 +279,7 @@ CUsageStatisticsView::~CUsageStatisticsView()
 {
 	SetUsgStatsViewPtr(NULL);
 
-	QCSharewareManager *pSWM = GetSharewareManager();
-	if (pSWM)
-	{
-		pSWM->UnRegister(this);
-	}	
-}
+
 
 void CUsageStatisticsView::Clear()
 {

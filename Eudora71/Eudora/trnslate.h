@@ -21,6 +21,43 @@ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
 DAMAGE. */
 
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
+    Removed a references to Qualcomm's Shareware Manager. 
+
+*/
+
 //
 
 #ifndef TRNSLATE_H
@@ -32,8 +69,6 @@ DAMAGE. */
 #include "ems-wglu.h"
 #endif
  
-#include "QCSharewareManager.h"
-
 class QCProtocol;
 
 // =============================================================================  
@@ -288,7 +323,6 @@ public:
 	HINSTANCE	GetInstance()	{return m_HInstance;}
 	void FAR*	GetGlobals()	{return m_Globals;}
 	bool		IsFullFeatureSetOnly() const { return m_ModeNeeded > EMS_ModeFree; }
-	ModeTypeEnum ModeNeeded()  {return (m_ModuleID>=29 && m_ModuleID<=31) ? EMS_ModePaid : m_ModeNeeded;}
 	
 	void GetDesc(CString &str)	{str = m_Desc;}
 	BOOL GetIcon(HICON &icn);
@@ -300,8 +334,6 @@ public:
 	
 	FARPROC GetIdleFunc();
 	BOOL IdleFunc(const long idleTime, const long idleFlag);
-
-	void EudoraModeNotification( ModeTypeEnum newMode );
 
 	ems2_free_t					*m_fnFreeFunc;
 
@@ -318,7 +350,6 @@ private:
 	void		 FAR*m_Globals;		// This is the globals that gets passed around
 	DWORD		 m_IdleFreq;
 	DWORD		 m_LastTimeCalled;
-	ModeTypeEnum m_ModeNeeded;
 	CCachedProcAddress	m_fnEudoraModeNotification;
 };									
 
@@ -478,8 +509,6 @@ public:
 						long *out_code);
 
 	virtual IsInYerFace() { return (m_TLflags & EMSF_TOOLBAR_PRESENCE);}
-
-	ModeTypeEnum ModeNeeded()  {return m_TransAPI ? m_TransAPI->ModeNeeded() : EMS_ModeFree;}
 
 private:
 
@@ -684,13 +713,12 @@ private:
 
 	CTranslatorSortedList *m_SortedList;  // Cache a sorted list for a given context
 	long m_SortedListContext;  
-	ModeTypeEnum m_SortedListMode;  
 	CEMSMailConfig m_MailConfig;
 
 	static WORD			m_HeaderFlags;	
 	
 public:
-	BOOL LoadModule(const char *path, HINSTANCE libHndl, ModeTypeEnum theMode );
+	BOOL LoadModule(const char *path, HINSTANCE libHndl );
 	
 	// Return All Translators DLL's
 	CTransAPIArray *GetModules() {return &m_TranAPIs;}
@@ -710,8 +738,8 @@ public:
 
 	// Get an ordered list by type, this will return a reference to and member varible..
 	// don't delete what's returned
-	CTranslatorSortedList *GetSortedTranslators(const char*sel, const long context = 0,const ModeTypeEnum forMode = GetCurrentPaidMode());
-	CTranslatorSortedList *GetSortedTranslators(const long context = 0,const ModeTypeEnum forMode = GetCurrentPaidMode());
+	CTranslatorSortedList *GetSortedTranslators(const char*sel, const long context = 0 );
+	CTranslatorSortedList *GetSortedTranslators(const long context = 0 );
 	
 	// Are there any junk scorers about?
 	BOOL CanScoreJunk(void);
@@ -791,7 +819,6 @@ public:
 	static void SetHeaderFlag(WORD flag) {m_HeaderFlags |= flag;}
 
 	BOOL IdleEveryone(const long idleTime, const long idleFlag);
-	void NotifyEveryoneOfModeChange(ModeTypeEnum newMode);
 	BOOL MboxContextMenu(CTocDoc *tocdoc, CRect &rect);
 	BOOL MboxContextFolder(CTocDoc *tocdoc, CString& FolderPath);
 

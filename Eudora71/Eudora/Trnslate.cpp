@@ -21,6 +21,42 @@ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
 DAMAGE. */
 
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
+    Removed references to Qualcomm's Shareware Manager
+*/    
+
 //
  
 #include "stdafx.h" 
@@ -3007,27 +3043,6 @@ BOOL CTransAPI::IdleFunc(const long idleTime, long idleFlags)
 
 
 
-void CTransAPI::EudoraModeNotification( ModeTypeEnum newMode )
-{
-	long ret = EMSR_UNKNOWN_FAIL;
-	
-	if ( m_fnEudoraModeNotification.DoesProcExist(m_HInstance, EMS_EUDORA_MODE_NOTIFICATION) )
-	{
-		emsEudoraModeNotificationData	modeNotificationData;
-		modeNotificationData.size = sizeof(emsEudoraModeNotificationData);
-		modeNotificationData.modeEvent = EMS_ModeChanged;
-		modeNotificationData.isFullFeatureSet = newMode;
-		modeNotificationData.needsFullFeatureSet = EMS_ModeFree;
-		modeNotificationData.productCode = 0; // ???
-		modeNotificationData.modeFlags = 0;
-		ret = (*(ems_eudora_mode_notification *) m_fnEudoraModeNotification.GetCachedAddr())(m_Globals, &modeNotificationData);
-
-		m_ModeNeeded = modeNotificationData.needsFullFeatureSet;
-	}
-}
-
-
-
 // =======================================================================
 // CTranslatorSortedList 
 // =======================================================================
@@ -3183,13 +3198,6 @@ CTranslatorManager::CTranslatorManager(short numArgs, ...)
 					break;
 				}
 			}
-			if (i >= 0)
-				continue;
-
-		//	This relies on the QCSharewareManager being loaded first, which it
-		//	currently is.
-			DebugLog(DEBUG_MASK_TRANS_BASIC, IDS_EMS_LOADING, dllPathStr);
-			LoadModule(dllPathStr, libHandle, GetCurrentPaidMode ());
 
 		} while(FindNextFile(dirHandle, &dllFileInfo));
 		
@@ -3207,7 +3215,7 @@ CTranslatorManager::CTranslatorManager(short numArgs, ...)
 //================================================================
 // CTranslatorManager: this manages the dll's and all the translators
 // =======================================================================
-CTranslatorManager::LoadModule(const char *path, HINSTANCE libHandle, ModeTypeEnum theMode )
+CTranslatorManager::LoadModule(const char *path, HINSTANCE libHandle )
 {
 	CTransAPI *ptrapi = NULL;
 	void FAR*globals = NULL;
@@ -3385,8 +3393,6 @@ CTranslatorManager::LoadModule(const char *path, HINSTANCE libHandle, ModeTypeEn
 									DEBUG_NEW CMBoxContext(ptrapi, trIndex) );
 		}
 		
-		//	EudoraModeNotification will only call into the plugin if the callback is available
-		ptrapi->EudoraModeNotification( theMode );
 	}
 
 	TRACE("Plugin (%s): Successfully loaded [ID=%i, VER=%i, DESC=\"%s\"].\n", (const char *)path, (int)id, (int)APIVersion, desc);
@@ -3633,10 +3639,10 @@ CTranslatorManager::GetNextTranslator(short* index, const long type /*= 0*/, con
 // This will sort list according to type
 //================================================================
 CTranslatorSortedList *
-CTranslatorManager::GetSortedTranslators(const long context /*= 0*/,const ModeTypeEnum forMode/*=GetCurrentPaidMode()*/)
+CTranslatorManager::GetSortedTranslators(const long context /*= 0*/)
 {
 	// If list is already loaded, return it
-	if (m_SortedListContext == context && m_SortedListMode == forMode) 
+	if (m_SortedListContext == context) 
 		return m_SortedList;
 
 	else
@@ -3649,16 +3655,9 @@ CTranslatorManager::GetSortedTranslators(const long context /*= 0*/,const ModeTy
 		while (index >= 0)
 		{
 			CTranslator *tr = GetNextTranslator(&index,  0, context);
-
-			// Stop if we didn't get a valid translator, otherwise add the
-			// translator if it will run in the designated mode.
-			if (!tr)
-				break;
-			else if (tr->ModeNeeded() <= forMode)
-				m_SortedList->Add(tr);
+			m_SortedList->Add(tr);
 		}
 		m_SortedListContext = context;
-		m_SortedListMode = forMode;
 	}
 
 	return m_SortedList;
@@ -3668,7 +3667,7 @@ CTranslatorManager::GetSortedTranslators(const long context /*= 0*/,const ModeTy
 // This will sort list according to type ... given a selection
 //================================================================
 CTranslatorSortedList *
-CTranslatorManager::GetSortedTranslators(const char* sel, const long context /*= 0*/, const ModeTypeEnum forMode/*= GetCurrentPaidMode()*/)
+CTranslatorManager::GetSortedTranslators(const char* sel, const long context /*= 0*/)
 {       
     // Just reset, so next time wont use this cache
     m_SortedListContext = -1; 
@@ -3707,7 +3706,7 @@ CTranslatorManager::GetSortedTranslators(const char* sel, const long context /*=
         space = strchr(sel,' ');
         CTranslator *tltr = GetTranslator(ModuleID, TransID);
 
-        if ( tltr && tltr->ModeNeeded()<=forMode ) {
+        if ( tltr ) {
             tltr->m_Properties.Empty();
 
             if (comma && space)
@@ -3845,16 +3844,6 @@ BOOL CTranslatorManager::IdleEveryone(const long idleTime, const long idleFlags)
 			t->IdleFunc(idleTime, idleFlags);
 	}
 	return TRUE;
-}
-
-
-void CTranslatorManager::NotifyEveryoneOfModeChange( ModeTypeEnum newMode )
-{
-	for (int i = 0; i < m_TranAPIs.GetSize(); i++)
-	{
-		CTransAPI *t = m_TranAPIs.GetAt(i);
-		t->EudoraModeNotification( newMode );
-	}
 }
 
 

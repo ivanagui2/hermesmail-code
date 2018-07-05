@@ -57,6 +57,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 File revised by Jeff Prickett (kg4ygs@gmail.com) July 4, 2018
     Removed commented out unused FORNOW code.
+    Removed 2 conditional DEBUG code sections
 
 */        
 
@@ -154,15 +155,6 @@ void QCWorksheet::OnCmdUpdateMdiMaximize(CCmdUI* pCmdUI)
 ////////////////////////////////////////////////////////////////////////
 void QCWorksheet::OnMDIActivate(BOOL bActivate, CWnd* pActivateWnd, CWnd* pDeactivateWnd)
 {
-#ifdef _DEBUG
-	if (GetSafeHwnd())
-	{
-		CString strTitle;
-		GetWindowText(strTitle);
-		//TRACE2("QCWorksheet::OnMDIActivate(%d) - %s\n", bActivate, (const char *) strTitle);
-	}
-#endif // _DEBUG
-
 	//
 	// HACK ALERT.  Deliberately bypass the parent class implementation in
 	// favor of the grandparent class implementation.
@@ -378,14 +370,6 @@ void QCControlBarWorksheet::OnCmdUpdateMdiMaximize(CCmdUI* pCmdUI)
 ////////////////////////////////////////////////////////////////////////
 void QCControlBarWorksheet::OnMDIActivate(BOOL bActivate, CWnd* pActivateWnd, CWnd* pDeactivateWnd)
 {
-#ifdef _DEBUG
-	if (GetSafeHwnd())
-	{
-		CString strTitle;
-		GetWindowText(strTitle);
-		//TRACE2("QCControlBarWorksheet::OnMDIActivate(%d) - %s\n", bActivate, (const char *) strTitle);
-	}
-#endif // _DEBUG
 
 	//
 	// HACK ALERT.  Deliberately bypass the parent class implementation in

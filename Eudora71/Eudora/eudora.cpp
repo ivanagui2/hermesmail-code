@@ -1504,22 +1504,6 @@ void CEudoraApp::InitJunkFeature()
 		askedBits |= boxAsked;
 	}
 
-	// if the user could have more junkers if they paid, tell them so, but only once
-	if (GetCurrentPaidMode()==EMS_ModePaid)
-		askedBits &= ~downAsked;	// if we unpay, we'll tell them again about missing junkers
-
-	else if ((askedBits&downAsked)==0)
-	{
-		int nJunk = pJunkList->GetCount();
-		pJunkList = m_TransManager->GetSortedTranslators(EMSF_JUNK_MAIL,EMS_ModePaid);
-
-		if (nJunk < pJunkList->GetCount())
-		{
-			CJunkDownDlg dlg;
-			dlg.DoModal();
-			askedBits |= downAsked;
-		}
-	}
 	SetIniShort(IDS_INI_ASKED_ABOUT_JUNK, askedBits);
 }
 

@@ -56,6 +56,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 File modified by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     Removed unused, commented out, FORNOW code.
+    Removed reference to Qualcomm's Shareware Manager header file
+    TODO: Likely more references to the Shareware Manager but I could not find 
+    them.
 
 */
 
@@ -72,8 +75,6 @@ File modified by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
 #include "resource.h"
 #include "rs.h"
 #include "mainfrm.h"
-
-#include "QCSharewareManager.h"
 
 #include "MboxWazooWnd.h"
 #include "SignatureWazooWnd.h"

@@ -21,6 +21,43 @@ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
 DAMAGE. */
 
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
+    Removed references to Qualcomm's Shareware Manager.
+
+*/
+
 //
 
 
@@ -57,8 +94,6 @@ DAMAGE. */
 #include "PgReadMsgPreview.h"
 #include "TridentPreviewView.h"
 #include "TocFrame.h"
-
-#include "QCSharewareManager.h"
 
 #include "DebugNewHelpers.h"
 
@@ -132,72 +167,65 @@ BOOL CNameNickDialog::OnInitDialog()
 	SetWindowText(CRString(TitleID));
 	
 	// Shareware: Reduced feature mode only allows one nickname file
-	if (UsingFullFeatureSet())
+
+	// New and Make Nickname get list of nickname files
+	if (m_Type == IDC_NEW || m_Type == ID_SPECIAL_MAKENICKNAME)
 	{
-		// FULL-FEATURE
-
-		// New and Make Nickname get list of nickname files
-		if (m_Type == IDC_NEW || m_Type == ID_SPECIAL_MAKENICKNAME)
+		int select_idx = 0;
+		for (CNicknameFile* NickFile = g_Nicknames->GetFirstNicknameFile();
+			 NickFile != NULL;
+			 NickFile = g_Nicknames->GetNextNicknameFile())
 		{
-			int select_idx = 0;
-			for (CNicknameFile* NickFile = g_Nicknames->GetFirstNicknameFile();
-				 NickFile != NULL;
-				 NickFile = g_Nicknames->GetNextNicknameFile())
+			//
+			// Don't list read-only or invisible(peanut) nickname files as candidates for
+			// new nicknames.
+			//
+			if ((NickFile->m_ReadOnly == FALSE) && (NickFile->m_Invisible == FALSE))
 			{
-				//
-				// Don't list read-only or invisible(peanut) nickname files as candidates for
-				// new nicknames.
-				//
-				if ((NickFile->m_ReadOnly == FALSE) && (NickFile->m_Invisible == FALSE))
-				{
-					int idx = m_Filename.AddString(NickFile->m_Name);
+				int idx = m_Filename.AddString(NickFile->m_Name);
 
-					if (m_pSelectedNicknameFile == NickFile)
-						select_idx = idx;
-				}
+				if (m_pSelectedNicknameFile == NickFile)
+					select_idx = idx;
 			}
-
-			m_Filename.SetCurSel(select_idx);
-			m_Filename.ShowWindow(SW_SHOWNA);
-			GetDlgItem(IDC_NICK_FILE_PROMPT)->ShowWindow(SW_SHOWNA);
-		}
-		else if (m_Type == IDCANCEL)
-		{
-			//
-			// Add the one and only nickname file as the target in the combo box.
-			//
-			m_Filename.AddString(m_pSelectedNicknameFile->m_Name);
-			m_Filename.SetCurSel(0);
-			m_Filename.ShowWindow(SW_SHOWNA);
-			m_Filename.EnableWindow(FALSE);
-			GetDlgItem(IDC_NICK_FILE_PROMPT)->ShowWindow(SW_SHOWNA);
-			GetDlgItem(IDC_FULLNAME_LABEL)->EnableWindow(FALSE);
-			GetDlgItem(IDC_NEW_FULLNAME)->EnableWindow(FALSE);
-			GetDlgItem(IDC_FIRSTNAME_LABEL)->EnableWindow(FALSE);
-			GetDlgItem(IDC_NEW_FIRSTNAME)->EnableWindow(FALSE);
-			GetDlgItem(IDC_LASTNAME_LABEL)->EnableWindow(FALSE);
-			GetDlgItem(IDC_NEW_LASTNAME)->EnableWindow(FALSE);
-			GetDlgItem(IDC_ADDRESS_LABEL)->EnableWindow(FALSE);
-			GetDlgItem(IDC_NEW_ADDRESS)->EnableWindow(FALSE);
-			GetDlgItem(IDC_SWAPNAMES)->EnableWindow(FALSE);
-			GetDlgItem(IDC_NICK_FILE_PROMPT)->EnableWindow(FALSE);
-			GetDlgItem(IDC_CREATE_NICKNAME_FILE)->EnableWindow(FALSE);
-			GetDlgItem(IDC_NICK_FILENAME_COMBO)->EnableWindow(FALSE);
-			GetDlgItem(IDC_RECIPIENT_LIST)->EnableWindow(FALSE);
-			GetDlgItem(IDC_BOSS_PROTECTOR_LIST)->EnableWindow(FALSE);
 		}
 
-		if (m_Type == IDC_NEW)
-		{
-			// Unhide the "make it a file" checkbox.
-			CButton* p_checkbox = (CButton *) GetDlgItem(IDC_CREATE_NICKNAME_FILE);
-			ASSERT(p_checkbox != NULL);
-			p_checkbox->ShowWindow(SW_SHOWNA);
-		}
+		m_Filename.SetCurSel(select_idx);
+		m_Filename.ShowWindow(SW_SHOWNA);
+		GetDlgItem(IDC_NICK_FILE_PROMPT)->ShowWindow(SW_SHOWNA);
 	}
-	//make the BossWatch checkbox visible only in paid mode
-	if (!UsingPaidFeatureSet()) 
-		GetDlgItem(IDC_BOSS_PROTECTOR_LIST)->ShowWindow(FALSE);
+	else if (m_Type == IDCANCEL)
+	{
+		//
+		// Add the one and only nickname file as the target in the combo box.
+		//
+		m_Filename.AddString(m_pSelectedNicknameFile->m_Name);
+		m_Filename.SetCurSel(0);
+		m_Filename.ShowWindow(SW_SHOWNA);
+		m_Filename.EnableWindow(FALSE);
+		GetDlgItem(IDC_NICK_FILE_PROMPT)->ShowWindow(SW_SHOWNA);
+		GetDlgItem(IDC_FULLNAME_LABEL)->EnableWindow(FALSE);
+		GetDlgItem(IDC_NEW_FULLNAME)->EnableWindow(FALSE);
+		GetDlgItem(IDC_FIRSTNAME_LABEL)->EnableWindow(FALSE);
+		GetDlgItem(IDC_NEW_FIRSTNAME)->EnableWindow(FALSE);
+		GetDlgItem(IDC_LASTNAME_LABEL)->EnableWindow(FALSE);
+		GetDlgItem(IDC_NEW_LASTNAME)->EnableWindow(FALSE);
+		GetDlgItem(IDC_ADDRESS_LABEL)->EnableWindow(FALSE);
+		GetDlgItem(IDC_NEW_ADDRESS)->EnableWindow(FALSE);
+		GetDlgItem(IDC_SWAPNAMES)->EnableWindow(FALSE);
+		GetDlgItem(IDC_NICK_FILE_PROMPT)->EnableWindow(FALSE);
+		GetDlgItem(IDC_CREATE_NICKNAME_FILE)->EnableWindow(FALSE);
+		GetDlgItem(IDC_NICK_FILENAME_COMBO)->EnableWindow(FALSE);
+		GetDlgItem(IDC_RECIPIENT_LIST)->EnableWindow(FALSE);
+		GetDlgItem(IDC_BOSS_PROTECTOR_LIST)->EnableWindow(FALSE);
+	}
+
+	if (m_Type == IDC_NEW)
+	{
+		// Unhide the "make it a file" checkbox.
+		CButton* p_checkbox = (CButton *) GetDlgItem(IDC_CREATE_NICKNAME_FILE);
+		ASSERT(p_checkbox != NULL);
+		p_checkbox->ShowWindow(SW_SHOWNA);
+	}
 
 	CenterWindow();
 	
@@ -231,36 +259,30 @@ void CNameNickDialog::OnOK()
 	if (!UpdateData(TRUE) || m_NewName.IsEmpty())
 		return;
 	
-	// Shareware: Reduced feature mode only allows one nickname file
-	if (UsingFullFeatureSet())
+	//
+	// Are we just creating a new nickname file?  If so, then do some
+	// error checking, then pass it off to the nickname file creation
+	// routine.
+	//
+	if ((IDC_NEW == m_Type) && m_CreateNicknameFile)
 	{
-		// FULL-FEATURE
-
-		//
-		// Are we just creating a new nickname file?  If so, then do some
-		// error checking, then pass it off to the nickname file creation
-		// routine.
-		//
-		if ((IDC_NEW == m_Type) && m_CreateNicknameFile)
+		// Check for illegal characters in base part of filename
+		int idx = m_NewName.FindOneOf("/\\:*?\"<>|");
+		if (idx >= 0)
 		{
-			// Check for illegal characters in base part of filename
-			int idx = m_NewName.FindOneOf("/\\:*?\"<>|");
-			if (idx >= 0)
-			{
-				ErrorDialog(IDS_NICKFILE_BAD_CHARACTER, char(m_NewName[idx]));
-				return;
-			}
-			else if (NicknameFileExists(m_NewName + CRString(IDS_NICK_FILE_EXTENSION)))
-			{
-				ErrorDialog(IDS_ERR_NICKFILE_EXISTS, (const char*) (m_NewName + CRString(IDS_NICK_FILE_EXTENSION)));
-				return;
-			}
-			else if (! CreateNewNicknameFile(m_NewName + CRString(IDS_NICK_FILE_EXTENSION)))
-				return;
-
-			CHelpxDlg::OnOK();		// dismiss dialog
+			ErrorDialog(IDS_NICKFILE_BAD_CHARACTER, char(m_NewName[idx]));
 			return;
 		}
+		else if (NicknameFileExists(m_NewName + CRString(IDS_NICK_FILE_EXTENSION)))
+		{
+			ErrorDialog(IDS_ERR_NICKFILE_EXISTS, (const char*) (m_NewName + CRString(IDS_NICK_FILE_EXTENSION)));
+			return;
+		}
+		else if (! CreateNewNicknameFile(m_NewName + CRString(IDS_NICK_FILE_EXTENSION)))
+			return;
+
+		CHelpxDlg::OnOK();		// dismiss dialog
+		return;
 	}
 
 	CNickname nickname(m_NewName);
@@ -367,43 +389,33 @@ void CNameNickDialog::OnMakeFileClicked()
 {
 
 	// Shareware: Reduced feature mode only allows one nickname file
-	if (UsingFullFeatureSet())
-	{
-		// FULL-FEATURE
-
-		// Retrieve "make it a file" button state.
-		if (! UpdateData(TRUE))
-			return;
+	// Retrieve "make it a file" button state.
+	if (! UpdateData(TRUE))
+		return;
 		
-		if (m_CreateNicknameFile)
-		{
-			//
-			// Checked, so disable nickname "file selection" combo box,
-			// its corresponding label, and the "put on recipient list"
-			// checkbox.
-			//
-			GetDlgItem(IDC_NICK_FILENAME_COMBO)->EnableWindow(FALSE);
-			GetDlgItem(IDC_NICK_FILE_PROMPT)->EnableWindow(FALSE);
-			GetDlgItem(IDC_RECIPIENT_LIST)->EnableWindow(FALSE);
-			GetDlgItem(IDC_BOSS_PROTECTOR_LIST)->EnableWindow(FALSE);
-		}
-		else
-		{
-			//
-			// Unchecked, so enable nickname "file selection" combo box,
-			// its corresponding label, and the "put on recipient list"
-			// checkbox.
-			//
-			GetDlgItem(IDC_NICK_FILENAME_COMBO)->EnableWindow(TRUE);
-			GetDlgItem(IDC_NICK_FILE_PROMPT)->EnableWindow(TRUE);
-			GetDlgItem(IDC_RECIPIENT_LIST)->EnableWindow(TRUE);
-			GetDlgItem(IDC_BOSS_PROTECTOR_LIST)->EnableWindow(TRUE);
-		}
+	if (m_CreateNicknameFile)
+	{
+		//
+		// Checked, so disable nickname "file selection" combo box,
+		// its corresponding label, and the "put on recipient list"
+		// checkbox.
+		//
+		GetDlgItem(IDC_NICK_FILENAME_COMBO)->EnableWindow(FALSE);
+		GetDlgItem(IDC_NICK_FILE_PROMPT)->EnableWindow(FALSE);
+		GetDlgItem(IDC_RECIPIENT_LIST)->EnableWindow(FALSE);
+		GetDlgItem(IDC_BOSS_PROTECTOR_LIST)->EnableWindow(FALSE);
 	}
 	else
 	{
-		// REDUCED FEATURE
-		ASSERT(0); // this should only occur in full feature mode
+		//
+		// Unchecked, so enable nickname "file selection" combo box,
+		// its corresponding label, and the "put on recipient list"
+		// checkbox.
+		//
+		GetDlgItem(IDC_NICK_FILENAME_COMBO)->EnableWindow(TRUE);
+		GetDlgItem(IDC_NICK_FILE_PROMPT)->EnableWindow(TRUE);
+		GetDlgItem(IDC_RECIPIENT_LIST)->EnableWindow(TRUE);
+		GetDlgItem(IDC_BOSS_PROTECTOR_LIST)->EnableWindow(TRUE);
 	}
 }
 
@@ -446,21 +458,7 @@ CChooseNicknameFileDlg::CChooseNicknameFileDlg
 ////////////////////////////////////////////////////////////////////////
 BOOL CChooseNicknameFileDlg::OnInitDialog()
 {
-	// Shareware: Reduced feature mode only allows one nickname file, so no CChooseNicknameFileDlg
-	if (!UsingFullFeatureSet())
-	{
-		// REDUCED FEATURE
-		ASSERT(0);
-		return (TRUE);
-	}
-
 	CHelpxDlg::OnInitDialog();
-	
-//FORNOW	if (! LoadNicknames())
-//FORNOW	{
-//FORNOW		OnCancel();
-//FORNOW		return (FALSE);
-//FORNOW	}
 	
 	//
 	// Populate list box with all writable nickname files.
@@ -1928,14 +1926,6 @@ BOOL NicknameFileExists(const char* nickFilename)
 ////////////////////////////////////////////////////////////////////////
 BOOL CreateNewNicknameFile(const char* newFilename)
 {
-	// Shareware: Reduced feature mode only allows one nickname file, so no CChooseNicknameFileDlg
-	if (!UsingFullFeatureSet())
-	{
-		// REDUCED FEATURE
-		ASSERT(0);
-		return (FALSE);
-	}
-
 	CString pathname(EudoraDir);
 	pathname += CRString(IDS_NICK_DIR_NAME);
 	pathname += SLASHSTR;

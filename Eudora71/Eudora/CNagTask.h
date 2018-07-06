@@ -53,6 +53,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     Removed an include of QCSharewareManager.h 
+File revised by Jeff Prickett                    on July 6, 2018.
+    Removed references to code that nagged the user to upgrade.
 
 */
 
@@ -88,12 +90,8 @@ const int CNM_NAG_FOREVER	= -1;
 const UINT	CNM_NAG_REGISTER		= 1;
 const UINT	CNM_NAG_UPDATE			= 2;
 const UINT	CNM_NAG_AUDIT			= 3;
-const UINT	CNM_NAG_DEADBEAT		= 4;
-const UINT	CNM_NAG_FULLFEATURED	= 5;
-const UINT	CNM_NAG_DEMOEXPIRE		= 6;
 
 const UINT	CNM_NAG_FIRST		= CNM_NAG_REGISTER;
-const UINT	CNM_NAG_LAST		= CNM_NAG_DEMOEXPIRE;
 
 const int	CNM_NAG_MAX_SCHEDULE	= 10;
 

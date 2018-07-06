@@ -57,6 +57,8 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     Changing reference from PaigeStyle.h to HtmlStyle.h
     Removed references to Qualcomm's Shareware Manager as Hermes will have only
     a Pro mode.
+File revised by Jeff Prickett                    on July 6, 2018
+    Removing additional references to Qualcomm's Shareware Manager.
 
 */    
 
@@ -480,11 +482,8 @@ void CHeaderView::OnSetFocusTo()
 {
 	m_CurrentHeader = HEADER_TO;
 
-	if ( UsingPaidFeatureSet() )
-	{
-		// Set the BP mail timer
-		SetTimer(AUTO_HEADER_BP_MAIL_TIMER, BP_INTERVAL, NULL);
-	}
+	// Set the BP mail timer
+	SetTimer(AUTO_HEADER_BP_MAIL_TIMER, BP_INTERVAL, NULL);
 }
 
 void CHeaderView::OnSetFocusFrom()
@@ -510,22 +509,16 @@ void CHeaderView::OnSetFocusCc()
 {
 	m_CurrentHeader = HEADER_CC;
 
-	if ( UsingPaidFeatureSet() )
-	{
-		// Set the BP mail timer
-		SetTimer(AUTO_HEADER_BP_MAIL_TIMER, BP_INTERVAL, NULL);
-	}
+	// Set the BP mail timer
+	SetTimer(AUTO_HEADER_BP_MAIL_TIMER, BP_INTERVAL, NULL);
 }
 
 void CHeaderView::OnSetFocusBcc()
 {
 	m_CurrentHeader = HEADER_BCC;
 
-	if ( UsingPaidFeatureSet() )
-	{
-		// Set the BP mail timer
-		SetTimer(AUTO_HEADER_BP_MAIL_TIMER, BP_INTERVAL, NULL);
-	}
+	// Set the BP mail timer
+	SetTimer(AUTO_HEADER_BP_MAIL_TIMER, BP_INTERVAL, NULL);
 }
 
 void CHeaderView::OnSetFocusAttachments()
@@ -803,12 +796,9 @@ void CHeaderView::OnInitialUpdate()
 			pOldWnd->SetFocus();
 	}
 
-	if ( UsingPaidFeatureSet() )
-	{
-		// Set the BP mail timer (probably not necessary, because we'll do this
-		// when headers get focus, but just in case).
-		SetTimer( AUTO_HEADER_BP_MAIL_TIMER, BP_INTERVAL, NULL );
-	}
+	// Set the BP mail timer (probably not necessary, because we'll do this
+	// when headers get focus, but just in case).
+	SetTimer( AUTO_HEADER_BP_MAIL_TIMER, BP_INTERVAL, NULL );
 
 	CCompMessageFrame * pFrame = DYNAMIC_DOWNCAST( CCompMessageFrame, GetParentFrame() );
 
@@ -945,38 +935,31 @@ void CHeaderView::OnTimer(UINT nIDEvent)
 {
 	if (nIDEvent == AUTO_HEADER_BP_MAIL_TIMER)
 	{
-		if ( UsingPaidFeatureSet() )
+		if ( IsHeaderBPDirty() )
 		{
-			if ( IsHeaderBPDirty() )
+			KillTimer( AUTO_HEADER_BP_MAIL_TIMER );
+
+			//////////////////////////////////
+			//do a BP check on all headers here
+			//////////////////////////////////
+			bool bBPWarning = DoBPCheck();
+			CCompMessageFrame* pFrame = DYNAMIC_DOWNCAST(CCompMessageFrame, GetParentFrame());
+			if (pFrame)
 			{
-				KillTimer( AUTO_HEADER_BP_MAIL_TIMER );
-
-				//////////////////////////////////
-				//do a BP check on all headers here
-				//////////////////////////////////
-				bool bBPWarning = DoBPCheck();
-				CCompMessageFrame* pFrame = DYNAMIC_DOWNCAST(CCompMessageFrame, GetParentFrame());
-				if (pFrame)
-				{
-					pFrame->SetBPWarning(bBPWarning);
-					pFrame->PostMessage(WM_USER_UPDATE_IMMEDIATE_SEND);
-				}
-
-				if (bBPWarning) 
-					ValidateFields(false, true);
-
-				SetHeaderBPDirty(FALSE);			
-
-				// If we're still focussed set the timer again
-				CWnd *		pFocusWnd = CWnd::GetFocus();
-				CWnd *		pParentOfFocusWnd = pFocusWnd ? pFocusWnd->GetParent() : NULL;
-				if ( (pFocusWnd == this) || (pParentOfFocusWnd == this) )
-					SetTimer( AUTO_HEADER_BP_MAIL_TIMER, BP_INTERVAL, NULL );
+				pFrame->SetBPWarning(bBPWarning);
+				pFrame->PostMessage(WM_USER_UPDATE_IMMEDIATE_SEND);
 			}
-		}
-		else
-		{
-			KillTimer(AUTO_HEADER_BP_MAIL_TIMER);
+
+			if (bBPWarning) 
+				ValidateFields(false, true);
+
+			SetHeaderBPDirty(FALSE);			
+
+			// If we're still focussed set the timer again
+			CWnd *		pFocusWnd = CWnd::GetFocus();
+			CWnd *		pParentOfFocusWnd = pFocusWnd ? pFocusWnd->GetParent() : NULL;
+			if ( (pFocusWnd == this) || (pParentOfFocusWnd == this) )
+				SetTimer( AUTO_HEADER_BP_MAIL_TIMER, BP_INTERVAL, NULL );
 		}
 	}
 }
@@ -1207,7 +1190,7 @@ void CHeaderField::ClearAllBPDirtyPairs()
 
 void CHeaderField::OnTimer(UINT nIDEvent)//OnDoInteractiveSpellCheck() 
 {
-	if (nIDEvent == AUTO_HEADER_SPELL_TIMER && UsingFullFeatureSet() && 
+	if (nIDEvent == AUTO_HEADER_SPELL_TIMER && 
 		GetDlgCtrlID() == IDC_HDRFLD_EDIT3 &&
 		m_bSpellDirty && !GetIniShort( IDS_INI_INTERACTIVE_SPELL_CHECK )&&
 		!m_bServicingSpellTimer)
@@ -1234,15 +1217,8 @@ void CHeaderField::DoSpellCheck()
 
 void CHeaderField::SetSpellTimer()
 {
-	if ( UsingFullFeatureSet() )
-	{
-		UINT nTimer = SetTimer( AUTO_HEADER_SPELL_TIMER, SPELL_INTERVAL, NULL );
-		ASSERT(nTimer);
-	}
-	else
-	{
-		KillSpellTimer();
-	}
+	UINT nTimer = SetTimer( AUTO_HEADER_SPELL_TIMER, SPELL_INTERVAL, NULL );
+	ASSERT(nTimer);
 }
 
 void CHeaderField::KillSpellTimer()
@@ -2822,7 +2798,7 @@ void CHeaderField::OnChar( UINT nChar, UINT nRepCnt, UINT nFlags )
 
 	AutoCompCEdit::OnChar(nChar, nRepCnt, nFlags);
 
-	const bool bDoAutoComplete = UsingFullFeatureSet() && GetIniShort(IDS_INI_DO_NN_AUTOCOMPLETE) && m_ACListBox;
+	const bool bDoAutoComplete = GetIniShort(IDS_INI_DO_NN_AUTOCOMPLETE) && m_ACListBox;
 	if (bDoAutoComplete)
 	{
 		if (nChar == ',')

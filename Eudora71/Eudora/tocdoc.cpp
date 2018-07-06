@@ -56,6 +56,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018.
     Removed conditional compile block that hobbled the shareware version of 
     Eudora.
+File revised by Jeff Prickett                    on July 6, 2018
+    Removed a reference to the Shareware Manager's UsingFullFeatureSet method.
 
 */
 
@@ -3954,8 +3956,7 @@ BOOL EmptyTrash()
 bool TrimJunk(bool bUserRequested, bool bOnMailCheck)
 {
 	// Only proceed if not light and user wants to trim junk.
-	if (!UsingFullFeatureSet() ||
-		!GetIniShort(IDS_INI_JUNK_AGEOFF))
+	if (!GetIniShort(IDS_INI_JUNK_AGEOFF))
 	{
 		return true;
 	}

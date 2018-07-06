@@ -22,6 +22,43 @@ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
 DAMAGE. */
 
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
+    Removed references to Qualcomm's Shareware Manager
+
+*/    
+
 //
 
 #include "stdafx.h"
@@ -66,10 +103,10 @@ BEGIN_MESSAGE_MAP(CSignatureWazooWnd, CWazooWnd)
 	ON_COMMAND( IDM_DELETE_SIGNATURE, OnDelete )
 	ON_COMMAND( IDM_RENAME_SIGNATURE, OnRename )
 
-	ON_UPDATE_COMMAND_UI( IDM_DELETE_SIGNATURE, EnableIfSelectedFullFeature )
-	ON_UPDATE_COMMAND_UI( ID_NEW_SIGNATURE, EnableIfFullFeature )
-	ON_UPDATE_COMMAND_UI( IDM_RENAME_SIGNATURE, EnableIfSelectedFullFeature )
-	ON_UPDATE_COMMAND_UI( IDM_EDIT_SIGNATURE, EnableIfSelected )
+	ON_UPDATE_COMMAND_UI( IDM_DELETE_SIGNATURE, true )
+	ON_UPDATE_COMMAND_UI( ID_NEW_SIGNATURE, true )
+	ON_UPDATE_COMMAND_UI( IDM_RENAME_SIGNATURE, true )
+	ON_UPDATE_COMMAND_UI( IDM_EDIT_SIGNATURE, true )
 	
 END_MESSAGE_MAP()
 
@@ -200,26 +237,9 @@ void CSignatureWazooWnd::EnableIfSelected(CCmdUI* pCmdUI)
 	pCmdUI->Enable( m_SignatureTree.GetSelectedItem() != NULL );
 }
 
-void CSignatureWazooWnd::EnableIfSelectedFullFeature(CCmdUI* pCmdUI)
-{
-	OnUpdateFullFeatureSet(pCmdUI);
-
-	if (UsingFullFeatureSet())
-		pCmdUI->Enable( m_SignatureTree.GetSelectedItem() != NULL );
-}
-
-
-void CSignatureWazooWnd::EnableIfFullFeature(CCmdUI* pCmdUI)
-{
-	OnUpdateFullFeatureSet(pCmdUI);
-}
-
 void CSignatureWazooWnd::OnNewSignature()
 {
 	BOOL bCanceled = FALSE;
-
-	if (!UsingFullFeatureSet())
-		return;
 
     CNewSignatureDialog	theDialog;
 	QCSignatureCommand*	pCommand;
@@ -280,9 +300,6 @@ void CSignatureWazooWnd::OnEdit()
 
 void CSignatureWazooWnd::OnDelete()
 {
-	if (!UsingFullFeatureSet())
-		return;
-
 	QCSignatureCommand*	pCommand;
 
 	pCommand = GetSelected();
@@ -293,9 +310,6 @@ void CSignatureWazooWnd::OnDelete()
 
 void CSignatureWazooWnd::OnRename()
 {
-	if (!UsingFullFeatureSet())
-		return;
-
 	HTREEITEM	hItem;
 	CEdit*		pEdit;
 

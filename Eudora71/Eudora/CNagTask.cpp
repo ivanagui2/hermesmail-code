@@ -341,11 +341,6 @@ bool CNagTask::MaybeDoNag(NagTimes context)
 	CTime		lastNag;
 	CTimeSpan	last_base_interval;
 
-#ifdef DEATH_BUILD
-	// The Death Build(TM) won't nag users about anything
-	return false;
-#endif
-
 	// If the main window is minimized, return out without nagging.
 	CWnd	*pwndMain = AfxGetMainWnd();
 	if (pwndMain)

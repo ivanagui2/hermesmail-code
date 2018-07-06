@@ -231,7 +231,6 @@ IDB_IMPORT_BANNER       BITMAP                  "res\\ImportBanner.bmp"
 IDB_STATUS_RECOVERED    BITMAP                  "res\\icons\\StatusRecovered.bmp"
 IDB_IL_DIGITS_4X5       BITMAP                  "res\\icons\\Digits_4x5.bmp"
 IDB_ADWARE_BUTTON       BITMAP                  "res\\icons\\AdwareButton.bmp"
-IDB_PAID_BUTTON         BITMAP                  "res\\icons\\PaidButton.bmp"
 IDB_FREE_BUTTON         BITMAP                  "res\\icons\\FreeButton.bmp"
 IDB_REGISTER_BUTTON     BITMAP                  "res\\icons\\RegisterButton.bmp"
 IDB_DEMOGRAPHICS_BUTTON BITMAP                  "res\\icons\\DemographicsButton.bmp"
@@ -3626,36 +3625,6 @@ BEGIN
                     ES_READONLY
 END
 
-IDD_REPAY DIALOGEX 0, 0, 245, 199
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
-CAPTION "Important Notice"
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    DEFPUSHBUTTON   "&OK",IDOK,14,178,65,14
-    PUSHBUTTON      "&Show Versions...",IDC_REPAY_SHOW_VERSIONS_BTN,90,178,
-                    65,14
-    PUSHBUTTON      "&Pay Now...",IDC_REPAY_PAY_NOW_BTN,166,178,65,14
-    LTEXT           "<Insert real text here>",IDC_REPAY_STATIC,13,19,217,144,
-                    SS_NOPREFIX
-    GROUPBOX        "You must pay to permanently use this version in Paid mode",
-                    IDC_STATIC,7,7,231,162
-    PUSHBUTTON      "Cancel",IDCANCEL,100,100,50,14,NOT WS_VISIBLE | NOT 
-                    WS_TABSTOP
-END
-
-IDD_REPAY_PAY_NOW_ALERT DIALOGEX 0, 0, 245, 81
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,97,59,50,14
-    LTEXT           "This version of Eudora will remain in Paid Mode for the trial period, but will then switch to Sponsored Mode until your purchase has been completed.",
-                    IDC_STATIC,18,20,209,28,SS_NOPREFIX
-    GROUPBOX        "Thanks for choosing to continue your support of Eudora!",
-                    IDC_STATIC,12,7,220,46
-END
-
 IDD_REPAY_SHOW_VERSIONS_ALERT DIALOGEX 0, 0, 245, 82
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
     WS_SYSMENU
@@ -3713,25 +3682,6 @@ BEGIN
     LTEXT           "Would you like to automatically put junk mail in your Junk mailbox?",
                     IDC_STATIC,37,109,177,16
     ICON            32515,IDC_ICON1,4,8,20,20
-END
-
-IDD_JUNK_DOWN_DIALOG DIALOGEX 0, 0, 245, 106
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
-CAPTION "Important Notice"
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    PUSHBUTTON      "&OK",IDC_REPAY_SPONSORED_MODE_BTN,14,87,65,14
-    PUSHBUTTON      "&Pay Now...",IDC_REPAY_PAY_NOW_BTN,90,87,65,14
-    PUSHBUTTON      "&Tell Me More",IDC_ABOUT,166,87,65,14
-    LTEXT           "The plug-ins supplied with Eudora operate only in Paid mode.  Until you enter a Paid mode registration code valid for this version, they have been disabled, and will not be filtering your email for junk.",
-                    IDC_STATIC,13,19,217,36
-    LTEXT           "For more information, click ""Tell Me More"" below.  If you would like to pay now and enable the plug-ins, click ""Pay Now..."", and you'll be taken to the Eudora web site to complete the purchase process.",
-                    IDC_STATIC,13,47,217,36
-    GROUPBOX        "Eudora Junk mail plug-ins have been disabled",
-                    IDC_STATIC,7,7,231,70
-    PUSHBUTTON      "Cancel",IDCANCEL,100,100,50,14,NOT WS_VISIBLE | NOT 
-                    WS_TABSTOP
 END
 
 IDD_JUNK_MAILBOX_EXISTS DIALOGEX 0, 0, 220, 70
@@ -6532,7 +6482,6 @@ STRINGTABLE
 BEGIN
     ID_JUNK                 "Marks current message(s) as junk\nMark as Junk"
     ID_NOT_JUNK             "Marks current message(s) as not junk\nMark as Not Junk"
-    IDS_REPAY_DLG_MSG       "You've been using an older version of Eudora. To permanently use this version of Eudora in Paid mode, you must purchase a new registration code. But that's easy to do, and you may be eligible for a special upgrade price.\r\n\r\nClick ""Pay Now"" to go to the Web to complete the purchase process. We will email back your new registration code. With your new code, Eudora will stay in Paid mode.\r\n\r\nBut there's more! Your new code makes you eligible for free upgrades to all new versions of Eudora that QUALCOMM releases for the next twelve months, access to live technical support, and additional features not available in Sponsored or Light modes.\r\n\r\nFor now, Eudora will run in Paid mode for a trial period of %d days, and then you must either purchase the product or revert to Sponsored mode."
     ID_EDIT_TEXT_LAST_TEXT_COLOR 
                             "Sets the color of the selected text to the text color that was used last\nLast Text Color"
     ID_EDIT_EMOTICON        "Inserts an Emoticon\nEmoticon"
@@ -7129,7 +7078,6 @@ BEGIN
     IDS_RI_LOG_SUCCESS      "Successfully reset Eudora.ini."
     IDS_RI_LOG_FAILURE      "Unsuccessful attempt to reset Eudora.ini."
     IDS_MODE_SPONSORED      "Sponsored Mode"
-    IDS_MODE_PAID           "Paid Mode"
     IDS_MODE_LIGHT          "Light Mode"
     IDS_HAB_REGNUM          "Reg #%s"
     IDS_HAB_REGTO           "Registered to "
@@ -10009,18 +9957,12 @@ BEGIN
     IDS_ERR_CANNOT_START_WITH_ATTACH 
                             "Cannot start Eudora the first time with attachments. \n\nPlease start Eudora by double clicking the Eudora icon or by the command line."
     IDS_ERR_HIDDEN_AD_WINDOW 
-                            "Probably inadvertently, but Eudora has determined that something is covering all or a significant portion of an ad. The software is designed to notify you when this happens (Eudora's just doing its job).  If you uncover the ad, this window won't keep popping up. You'd like that, right?\n\nWe're always working on good stuff back at the home office, and it's the ads in Eudora that pay the bills while we continue to develop the software.  We've worked hard to make sure the advertising isn't annoying, and we genuinely hope that you are not deliberately trying to cover the ads because they're bothering you.  Of course, you can pay us for Eudora by choosing ""Payment & Registration"" from the Help menu and clicking on ""Paid Mode (costs money, no ads).""  Or you can remove whatever is obscuring the ad and we'll shut up."
 END
 
 STRINGTABLE 
 BEGIN
     IDS_ERR_FEATURE_NOT_IN_FREE 
                             "This feature is not available when Eudora is running in Free mode."
-    IDS_ERR_INVALID_REGCODE "That registration code is either not valid for this version or is not in the correct format. Please check your registration confimation email and verify that you have entered your name and code correctly. If this problem persists contact our support group at 1-800-238-3672 (858-651-1017) or email: <eudora-callcenter@qualcomm.com>."
-    IDS_ERR_INVALID_REGCODE_PRO_AT_STARTUP 
-                            "Your paid registration information is invalid.\n\nFor now Eudora will start in Sponsored mode.  You'll need to revalidate your registration information once Eudora has finished launching."
-    IDS_ERR_INVALID_REGCODE_RECEIVED_MISSING_PARAM 
-                            "The attached registration file has been discarded, because it was not a valid registration file. Why was someone sending you a registration file anyway?"
     IDS_ERR_IMPORT_DLL_NOTINSTALLED 
                             "Hi!\nI couldn't find any Importers installed, you can get them installed by running the installer again and putting a check in the box next to 'Importers'\nor...\nYou can get them by clicking the link below and searching for Importers!"
     IDS_ERR_NO_IMPORT_PROVIDERS 
@@ -10638,8 +10580,6 @@ BEGIN
                             "Thank you for choosing to purchase Eudora!"
     IDS_WEB_STEP_INFO_DIALOG_REG_MSG_TITLE 
                             "Thank you for choosing to register Eudora!"
-    IDS_WEB_STEP_INFO_DIALOG_PAYMENT_MSG 
-                            "You'll next be walked through a few quick steps, as described below, before your purchase is complete:\n\n* Eudora will open your web browser and take you to our payment and registration page\n\n* You'll be asked to provide your payment and registration information on the web site\n\n* We'll then email a Eudora registration code back to you\n\n* The next time you check mail, Eudora will automatically recognize this code and display a dialog box inviting you to confirm your registration information\n\n* Ta-da! You'll then become a Paid mode user... Congratulations!"
 END
 
 STRINGTABLE 

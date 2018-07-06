@@ -53,6 +53,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     Removed Notify method as it was only used by Qualcomm's Shareware Manager.
+File revised by Jeff Prickett                    on July 6, 2018    
+    Removed references to the Shareware Manager's UsingFullFeatureSet method/
 
 */
 
@@ -1602,60 +1604,52 @@ void CSearchView::InitializeCriteriaCtrls(int nIdx)
 	m_CategoryCombo[nIdx].ResetContent();
 
 	int ret;
-	const bool bFullFeatured = UsingFullFeatureSet();
-
 	VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_ANYWHERE))) >= 0); // "Anywhere"
 	VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_ANYWHERE) != CB_ERR);
 
-	if (bFullFeatured)
-	{
-		VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_HEADERS))) >= 0); // "Headers"
-		VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_HEADERS) != CB_ERR);
-		VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_BODY))) >= 0); // "Body"
-		VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_BODY) != CB_ERR);
-		VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_ATTACHNAMES))) >= 0); // "Attachment Name(s)"
-		VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_ATTACHNAMES) != CB_ERR);
-	}
+	VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_HEADERS))) >= 0); // "Headers"
+	VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_HEADERS) != CB_ERR);
+	VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_BODY))) >= 0); // "Body"
+	VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_BODY) != CB_ERR);
+	VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_ATTACHNAMES))) >= 0); // "Attachment Name(s)"
+	VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_ATTACHNAMES) != CB_ERR);
 
 	VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_SUMMARY))) >= 0); // "Summary"
 	VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_SUMMARY) != CB_ERR);
 
-	if (bFullFeatured)
-	{
-		VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_STATUS))) >= 0); // "Status"
-		VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_STATUS) != CB_ERR);
-		VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_PRIORITY))) >= 0); // "Priority"
-		VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_PRIORITY) != CB_ERR);
-		VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_ATTACHCOUNT))) >= 0); // "Attachment Count"
-		VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_ATTACHCOUNT) != CB_ERR);
-		VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_JUNKSCORE))) >= 0); // "Junk Score"
-		VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_JUNKSCORE) != CB_ERR);
-		VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_LABEL))) >= 0); // "Label"
-		VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_LABEL) != CB_ERR);
-		VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_DATE))) >= 0); // "Date"
-		VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_DATE) != CB_ERR);
-		VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_SIZE))) >= 0); // "Size"
-		VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_SIZE) != CB_ERR);
-		VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_AGE))) >= 0); // "Age"
-		VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_AGE) != CB_ERR);
-		VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_PERSONA))) >= 0); // "Personality"
-		VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_PERSONA) != CB_ERR);
-		VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_MBXNAME))) >= 0); // "Mailbox Name"
-		VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_MAILBOXNAME) != CB_ERR);
+	VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_STATUS))) >= 0); // "Status"
+	VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_STATUS) != CB_ERR);
+	VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_PRIORITY))) >= 0); // "Priority"
+	VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_PRIORITY) != CB_ERR);
+	VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_ATTACHCOUNT))) >= 0); // "Attachment Count"
+	VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_ATTACHCOUNT) != CB_ERR);
+	VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_JUNKSCORE))) >= 0); // "Junk Score"
+	VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_JUNKSCORE) != CB_ERR);
+	VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_LABEL))) >= 0); // "Label"
+	VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_LABEL) != CB_ERR);
+	VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_DATE))) >= 0); // "Date"
+	VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_DATE) != CB_ERR);
+	VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_SIZE))) >= 0); // "Size"
+	VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_SIZE) != CB_ERR);
+	VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_AGE))) >= 0); // "Age"
+	VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_AGE) != CB_ERR);
+	VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_PERSONA))) >= 0); // "Personality"
+	VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_PERSONA) != CB_ERR);
+	VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_MBXNAME))) >= 0); // "Mailbox Name"
+	VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_MAILBOXNAME) != CB_ERR);
 
-		VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_TO))) >= 0); // "To"
-		VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_TO) != CB_ERR);
-		VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_FROM))) >= 0); // "From"
-		VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_FROM) != CB_ERR);
-		VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_SUBJECT))) >= 0); // "Subject"
-		VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_SUBJECT) != CB_ERR);
-		VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_CC))) >= 0); // "CC"
-		VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_CC) != CB_ERR);
-		VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_BCC))) >= 0); // "BCC"
-		VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_BCC) != CB_ERR);
-		VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_ANYRECIPIENT))) >= 0); // "Any recipient"
-		VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_ANYRECIP) != CB_ERR);
-	}
+	VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_TO))) >= 0); // "To"
+	VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_TO) != CB_ERR);
+	VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_FROM))) >= 0); // "From"
+	VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_FROM) != CB_ERR);
+	VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_SUBJECT))) >= 0); // "Subject"
+	VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_SUBJECT) != CB_ERR);
+	VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_CC))) >= 0); // "CC"
+	VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_CC) != CB_ERR);
+	VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_BCC))) >= 0); // "BCC"
+	VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_BCC) != CB_ERR);
+	VERIFY((ret = m_CategoryCombo[nIdx].AddString(CRString(IDS_SEARCH_CATEGORYSTR_ANYRECIPIENT))) >= 0); // "Any recipient"
+	VERIFY(m_CategoryCombo[nIdx].SetItemData(ret, CRITERIA_OBJECT_ANYRECIP) != CB_ERR);
 
 	VERIFY(m_CategoryCombo[nIdx].SetCurSel(0) != CB_ERR);
 
@@ -1667,159 +1661,133 @@ void CSearchView::InitializeCriteriaCtrls(int nIdx)
 
 	m_EqualCompareCombo[nIdx].ResetContent();
 
-	if (bFullFeatured)
-	{
-		VERIFY((ret = m_EqualCompareCombo[nIdx].AddString(CRString(IDS_SEARCH_COMPARESTR_IS))) >= 0); // "is"
-		VERIFY(m_EqualCompareCombo[nIdx].SetItemData(ret, CRITERIA_EQUAL_COMPARE_IS) != CB_ERR);
-		VERIFY((ret = m_EqualCompareCombo[nIdx].AddString(CRString(IDS_SEARCH_COMPARESTR_ISNOT))) >= 0); // "is not"
-		VERIFY(m_EqualCompareCombo[nIdx].SetItemData(ret, CRITERIA_EQUAL_COMPARE_ISNOT) != CB_ERR);
+	VERIFY((ret = m_EqualCompareCombo[nIdx].AddString(CRString(IDS_SEARCH_COMPARESTR_IS))) >= 0); // "is"
+	VERIFY(m_EqualCompareCombo[nIdx].SetItemData(ret, CRITERIA_EQUAL_COMPARE_IS) != CB_ERR);
+	VERIFY((ret = m_EqualCompareCombo[nIdx].AddString(CRString(IDS_SEARCH_COMPARESTR_ISNOT))) >= 0); // "is not"
+	VERIFY(m_EqualCompareCombo[nIdx].SetItemData(ret, CRITERIA_EQUAL_COMPARE_ISNOT) != CB_ERR);
 
-		VERIFY(m_EqualCompareCombo[nIdx].SetCurSel(0) != CB_ERR);
-	}
+	VERIFY(m_EqualCompareCombo[nIdx].SetCurSel(0) != CB_ERR);
 
 	// --------------------------------------------------
 
 	m_NumCompareCombo[nIdx].ResetContent();
 
-	if (bFullFeatured)
-	{
-		VERIFY((ret = m_NumCompareCombo[nIdx].AddString(CRString(IDS_SEARCH_COMPARESTR_IS))) >= 0); // "is"
-		VERIFY(m_NumCompareCombo[nIdx].SetItemData(ret, CRITERIA_NUM_COMPARE_IS) != CB_ERR);
-		VERIFY((ret = m_NumCompareCombo[nIdx].AddString(CRString(IDS_SEARCH_COMPARESTR_ISNOT))) >= 0); // "is not"
-		VERIFY(m_NumCompareCombo[nIdx].SetItemData(ret, CRITERIA_NUM_COMPARE_ISNOT) != CB_ERR);
-		VERIFY((ret = m_NumCompareCombo[nIdx].AddString(CRString(IDS_SEARCH_COMPARESTR_ISGREATERTHAN))) >= 0); // "is greater than"
-		VERIFY(m_NumCompareCombo[nIdx].SetItemData(ret, CRITERIA_NUM_COMPARE_ISGREATERTHAN) != CB_ERR);
-		VERIFY((ret = m_NumCompareCombo[nIdx].AddString(CRString(IDS_SEARCH_COMPARESTR_ISLESSTHAN))) >= 0); // "is less than"
-		VERIFY(m_NumCompareCombo[nIdx].SetItemData(ret, CRITERIA_NUM_COMPARE_ISLESSTHAN) != CB_ERR);
+	VERIFY((ret = m_NumCompareCombo[nIdx].AddString(CRString(IDS_SEARCH_COMPARESTR_IS))) >= 0); // "is"
+	VERIFY(m_NumCompareCombo[nIdx].SetItemData(ret, CRITERIA_NUM_COMPARE_IS) != CB_ERR);
+	VERIFY((ret = m_NumCompareCombo[nIdx].AddString(CRString(IDS_SEARCH_COMPARESTR_ISNOT))) >= 0); // "is not"
+	VERIFY(m_NumCompareCombo[nIdx].SetItemData(ret, CRITERIA_NUM_COMPARE_ISNOT) != CB_ERR);
+	VERIFY((ret = m_NumCompareCombo[nIdx].AddString(CRString(IDS_SEARCH_COMPARESTR_ISGREATERTHAN))) >= 0); // "is greater than"
+	VERIFY(m_NumCompareCombo[nIdx].SetItemData(ret, CRITERIA_NUM_COMPARE_ISGREATERTHAN) != CB_ERR);
+	VERIFY((ret = m_NumCompareCombo[nIdx].AddString(CRString(IDS_SEARCH_COMPARESTR_ISLESSTHAN))) >= 0); // "is less than"
+	VERIFY(m_NumCompareCombo[nIdx].SetItemData(ret, CRITERIA_NUM_COMPARE_ISLESSTHAN) != CB_ERR);
 
-		VERIFY(m_NumCompareCombo[nIdx].SetCurSel(0) != CB_ERR);
-	}
+	VERIFY(m_NumCompareCombo[nIdx].SetCurSel(0) != CB_ERR);
 
 	// --------------------------------------------------
 
 	m_DateCompareCombo[nIdx].ResetContent();
 
-	if (bFullFeatured)
-	{
-		VERIFY((ret = m_DateCompareCombo[nIdx].AddString(CRString(IDS_SEARCH_COMPARESTR_IS))) >= 0); // "is"
-		VERIFY(m_DateCompareCombo[nIdx].SetItemData(ret, CRITERIA_DATE_COMPARE_IS) != CB_ERR);
-		VERIFY((ret = m_DateCompareCombo[nIdx].AddString(CRString(IDS_SEARCH_COMPARESTR_ISNOT))) >= 0); // "is not"
-		VERIFY(m_DateCompareCombo[nIdx].SetItemData(ret, CRITERIA_DATE_COMPARE_ISNOT) != CB_ERR);
-		VERIFY((ret = m_DateCompareCombo[nIdx].AddString(CRString(IDS_SEARCH_COMPARESTR_ISAFTER))) >= 0); //"is after" 
-		VERIFY(m_DateCompareCombo[nIdx].SetItemData(ret, CRITERIA_DATE_COMPARE_ISAFTER) != CB_ERR);
-		VERIFY((ret = m_DateCompareCombo[nIdx].AddString(CRString(IDS_SEARCH_COMPARESTR_ISBEFORE))) >= 0); // "is before"
-		VERIFY(m_DateCompareCombo[nIdx].SetItemData(ret, CRITERIA_DATE_COMPARE_ISBEFORE) != CB_ERR);
+	VERIFY((ret = m_DateCompareCombo[nIdx].AddString(CRString(IDS_SEARCH_COMPARESTR_IS))) >= 0); // "is"
+	VERIFY(m_DateCompareCombo[nIdx].SetItemData(ret, CRITERIA_DATE_COMPARE_IS) != CB_ERR);
+	VERIFY((ret = m_DateCompareCombo[nIdx].AddString(CRString(IDS_SEARCH_COMPARESTR_ISNOT))) >= 0); // "is not"
+	VERIFY(m_DateCompareCombo[nIdx].SetItemData(ret, CRITERIA_DATE_COMPARE_ISNOT) != CB_ERR);
+	VERIFY((ret = m_DateCompareCombo[nIdx].AddString(CRString(IDS_SEARCH_COMPARESTR_ISAFTER))) >= 0); //"is after" 
+	VERIFY(m_DateCompareCombo[nIdx].SetItemData(ret, CRITERIA_DATE_COMPARE_ISAFTER) != CB_ERR);
+	VERIFY((ret = m_DateCompareCombo[nIdx].AddString(CRString(IDS_SEARCH_COMPARESTR_ISBEFORE))) >= 0); // "is before"
+	VERIFY(m_DateCompareCombo[nIdx].SetItemData(ret, CRITERIA_DATE_COMPARE_ISBEFORE) != CB_ERR);
 
 		VERIFY(m_DateCompareCombo[nIdx].SetCurSel(3) != CB_ERR);
-	}
+    
+	// --------------------------------------------------
+
+	m_LabelCombo[nIdx].InitLabels();
 
 	// --------------------------------------------------
 
-	if (bFullFeatured)
-		m_LabelCombo[nIdx].InitLabels();
-
-	// --------------------------------------------------
-
-	if (bFullFeatured)
-	{
-		m_NumEdit[nIdx].SetWindowText(CRString(IDS_SEARCH_NUMEDIT_INIT_VALUE)); // "0"
-		m_NumSpin[nIdx].SetBuddy(&m_NumEdit[nIdx]);
-		m_NumSpin[nIdx].SetRange(0, UD_MAXVAL);
-	}
+	m_NumEdit[nIdx].SetWindowText(CRString(IDS_SEARCH_NUMEDIT_INIT_VALUE)); // "0"
+	m_NumSpin[nIdx].SetBuddy(&m_NumEdit[nIdx]);
+	m_NumSpin[nIdx].SetRange(0, UD_MAXVAL);
 
 	// --------------------------------------------------
 
 	m_PersonaCombo[nIdx].ResetContent();
 
-	if (bFullFeatured)
+	LPSTR pszList = g_Personalities.List();
+	while (pszList && *pszList)
 	{
-		LPSTR pszList = g_Personalities.List();
-		while (pszList && *pszList)
-		{
-			m_PersonaCombo[nIdx].AddString(pszList);
-			pszList += strlen(pszList) + 1;
-		}
-
-		VERIFY(m_PersonaCombo[nIdx].SetCurSel(0) != CB_ERR);
+		m_PersonaCombo[nIdx].AddString(pszList);
+		pszList += strlen(pszList) + 1;
 	}
+
+	VERIFY(m_PersonaCombo[nIdx].SetCurSel(0) != CB_ERR);
 
 	// --------------------------------------------------
 
 	m_PriorityCombo[nIdx].ResetContent();
 
-	if (bFullFeatured)
-	{
-		VERIFY((ret = m_PriorityCombo[nIdx].AddString(CRString(IDS_PRIORITY_HIGHEST))) >= 0); // "Highest"
-		VERIFY(m_PriorityCombo[nIdx].SetItemData(ret, CRITERIA_VALUE_PRIORITY_HIGHEST) != CB_ERR);
-		VERIFY((ret = m_PriorityCombo[nIdx].AddString(CRString(IDS_PRIORITY_HIGH))) >= 0); // "High"
-		VERIFY(m_PriorityCombo[nIdx].SetItemData(ret, CRITERIA_VALUE_PRIORITY_HIGH) != CB_ERR);
-		VERIFY((ret = m_PriorityCombo[nIdx].AddString(CRString(IDS_PRIORITY_NORMAL))) >= 0); // "Normal"
-		VERIFY(m_PriorityCombo[nIdx].SetItemData(ret, CRITERIA_VALUE_PRIORITY_NORMAL) != CB_ERR);
-		VERIFY((ret = m_PriorityCombo[nIdx].AddString(CRString(IDS_PRIORITY_LOW))) >= 0); // "Low"
-		VERIFY(m_PriorityCombo[nIdx].SetItemData(ret, CRITERIA_VALUE_PRIORITY_LOW) != CB_ERR);
-		VERIFY((ret = m_PriorityCombo[nIdx].AddString(CRString(IDS_PRIORITY_LOWEST))) >= 0); // "Lowest"
-		VERIFY(m_PriorityCombo[nIdx].SetItemData(ret, CRITERIA_VALUE_PRIORITY_LOWEST) != CB_ERR);
+	VERIFY((ret = m_PriorityCombo[nIdx].AddString(CRString(IDS_PRIORITY_HIGHEST))) >= 0); // "Highest"
+	VERIFY(m_PriorityCombo[nIdx].SetItemData(ret, CRITERIA_VALUE_PRIORITY_HIGHEST) != CB_ERR);
+	VERIFY((ret = m_PriorityCombo[nIdx].AddString(CRString(IDS_PRIORITY_HIGH))) >= 0); // "High"
+	VERIFY(m_PriorityCombo[nIdx].SetItemData(ret, CRITERIA_VALUE_PRIORITY_HIGH) != CB_ERR);
+	VERIFY((ret = m_PriorityCombo[nIdx].AddString(CRString(IDS_PRIORITY_NORMAL))) >= 0); // "Normal"
+	VERIFY(m_PriorityCombo[nIdx].SetItemData(ret, CRITERIA_VALUE_PRIORITY_NORMAL) != CB_ERR);
+	VERIFY((ret = m_PriorityCombo[nIdx].AddString(CRString(IDS_PRIORITY_LOW))) >= 0); // "Low"
+	VERIFY(m_PriorityCombo[nIdx].SetItemData(ret, CRITERIA_VALUE_PRIORITY_LOW) != CB_ERR);
+	VERIFY((ret = m_PriorityCombo[nIdx].AddString(CRString(IDS_PRIORITY_LOWEST))) >= 0); // "Lowest"
+	VERIFY(m_PriorityCombo[nIdx].SetItemData(ret, CRITERIA_VALUE_PRIORITY_LOWEST) != CB_ERR);
 
-		VERIFY(m_PriorityCombo[nIdx].SetCurSel(0) != CB_ERR);
-	}
+	VERIFY(m_PriorityCombo[nIdx].SetCurSel(0) != CB_ERR);
 
 	// --------------------------------------------------
 
 	m_StatusCombo[nIdx].ResetContent();
 
-	if (bFullFeatured)
+	static int statusTable[] = {
+		IDS_STATUS_UNREAD, CRITERIA_VALUE_STATUS_UNREAD,
+		IDS_STATUS_READ, CRITERIA_VALUE_STATUS_READ,
+		IDS_STATUS_REPLIED, CRITERIA_VALUE_STATUS_REPLIED,
+		IDS_STATUS_FORWARDED, CRITERIA_VALUE_STATUS_FORWARDED,
+		IDS_STATUS_REDIRECTED, CRITERIA_VALUE_STATUS_REDIRECTED,
+		IDS_STATUS_SENT, CRITERIA_VALUE_STATUS_SENT,
+		IDS_STATUS_SENDABLE, CRITERIA_VALUE_STATUS_SENDABLE,
+		IDS_STATUS_UNSENT, CRITERIA_VALUE_STATUS_UNSENT,
+		IDS_STATUS_QUEUED, CRITERIA_VALUE_STATUS_QUEUED,
+		IDS_STATUS_TIME_QUEUED, CRITERIA_VALUE_STATUS_TIME_QUEUED,
+		IDS_STATUS_UNSENDABLE, CRITERIA_VALUE_STATUS_UNSENDABLE,
+		IDS_STATUS_RECOVERED, CRITERIA_VALUE_STATUS_RECOVERED,
+		0,0};
+	int i;
+
+	for (i=0;statusTable[i];i+=2)
 	{
-		static int statusTable[] = {
-			IDS_STATUS_UNREAD, CRITERIA_VALUE_STATUS_UNREAD,
-			IDS_STATUS_READ, CRITERIA_VALUE_STATUS_READ,
-			IDS_STATUS_REPLIED, CRITERIA_VALUE_STATUS_REPLIED,
-			IDS_STATUS_FORWARDED, CRITERIA_VALUE_STATUS_FORWARDED,
-			IDS_STATUS_REDIRECTED, CRITERIA_VALUE_STATUS_REDIRECTED,
-			IDS_STATUS_SENT, CRITERIA_VALUE_STATUS_SENT,
-			IDS_STATUS_SENDABLE, CRITERIA_VALUE_STATUS_SENDABLE,
-			IDS_STATUS_UNSENT, CRITERIA_VALUE_STATUS_UNSENT,
-			IDS_STATUS_QUEUED, CRITERIA_VALUE_STATUS_QUEUED,
-			IDS_STATUS_TIME_QUEUED, CRITERIA_VALUE_STATUS_TIME_QUEUED,
-			IDS_STATUS_UNSENDABLE, CRITERIA_VALUE_STATUS_UNSENDABLE,
-			IDS_STATUS_RECOVERED, CRITERIA_VALUE_STATUS_RECOVERED,
-			0,0};
-		int i;
-
-		for (i=0;statusTable[i];i+=2)
-		{
-			VERIFY((ret = m_StatusCombo[nIdx].AddString(CRString(statusTable[i]))) >= 0);
-			VERIFY(m_StatusCombo[nIdx].SetItemData(ret, statusTable[i+1]) != CB_ERR);
-		}
-
-		VERIFY(m_StatusCombo[nIdx].SetCurSel(0) != CB_ERR);
+		VERIFY((ret = m_StatusCombo[nIdx].AddString(CRString(statusTable[i]))) >= 0);
+		VERIFY(m_StatusCombo[nIdx].SetItemData(ret, statusTable[i+1]) != CB_ERR);
 	}
+
+	VERIFY(m_StatusCombo[nIdx].SetCurSel(0) != CB_ERR);
 
 	// --------------------------------------------------
 
 	m_bCritInitd[nIdx] = true;
 
 
-	// Code for initializing values in controls ...starts here
-	if (bFullFeatured)
-	{
-		CString str;
+	CString str;
 
-		const CString sDefaultStr
-		= CRString(IDS_SEARCH_CATEGORYSTR_ANYWHERE)
-			+ m_SaveStrSeperator
-			+ CRString(IDS_SEARCH_COMPARESTR_CONTAINS)
-			+ m_SaveStrSeperator; // "Anywhere;Contains;"
+	const CString sDefaultStr
+	= CRString(IDS_SEARCH_CATEGORYSTR_ANYWHERE)
+		+ m_SaveStrSeperator
+		+ CRString(IDS_SEARCH_COMPARESTR_CONTAINS)
+		+ m_SaveStrSeperator; // "Anywhere;Contains;"
 
-		DWORD dwSearchCriteriaIDs[5] = {IDS_INI_SEARCH_CRITERIA_1,
-										IDS_INI_SEARCH_CRITERIA_2,
-										IDS_INI_SEARCH_CRITERIA_3,
-										IDS_INI_SEARCH_CRITERIA_4,
-										IDS_INI_SEARCH_CRITERIA_5};
+	DWORD dwSearchCriteriaIDs[5] = {IDS_INI_SEARCH_CRITERIA_1,
+									IDS_INI_SEARCH_CRITERIA_2,
+									IDS_INI_SEARCH_CRITERIA_3,
+									IDS_INI_SEARCH_CRITERIA_4,
+									IDS_INI_SEARCH_CRITERIA_5};
 
-		GetIniString(dwSearchCriteriaIDs[nIdx], str);
-		if (!SetCriteriaIniString(nIdx, str))
-			SetCriteriaIniString(0, sDefaultStr);		
-	}
+	GetIniString(dwSearchCriteriaIDs[nIdx], str);
+	if (!SetCriteriaIniString(nIdx, str))
+		SetCriteriaIniString(0, sDefaultStr);		
 
 	// Code for initializing values in controls ...ends here
 
@@ -1830,7 +1798,6 @@ void CSearchView::InitializeTextCompareCombo(int nIndex)
 {
 	int				ret;
 	int				nPreviousSelection = m_TextCompareCombo[nIndex].GetCurSel();
-	const bool		bFullFeatured = UsingFullFeatureSet();
 
 	if (nPreviousSelection == CB_ERR)
 		nPreviousSelection = 0;
@@ -1841,45 +1808,37 @@ void CSearchView::InitializeTextCompareCombo(int nIndex)
 	VERIFY((ret = m_TextCompareCombo[nIndex].AddString(CRString(IDS_SEARCH_COMPARESTR_CONTAINS))) >= 0); // "contains"
 	VERIFY(m_TextCompareCombo[nIndex].SetItemData(ret, CRITERIA_TEXT_COMPARE_CONTAINS) != CB_ERR);
 
-	if (bFullFeatured)
-	{
-		VERIFY((ret = m_TextCompareCombo[nIndex].AddString(CRString(IDS_SEARCH_COMPARESTR_CONTAINSWORD))) >= 0); // "contains word"
-		VERIFY(m_TextCompareCombo[nIndex].SetItemData(ret, CRITERIA_TEXT_COMPARE_CONTAINSWORD) != CB_ERR);
-		VERIFY((ret = m_TextCompareCombo[nIndex].AddString(CRString(IDS_SEARCH_COMPARESTR_DOESNOTCONTAIN))) >= 0); // "does not contain"
-		VERIFY(m_TextCompareCombo[nIndex].SetItemData(ret, CRITERIA_TEXT_COMPARE_DOESNOTCONTAIN) != CB_ERR);
+	VERIFY((ret = m_TextCompareCombo[nIndex].AddString(CRString(IDS_SEARCH_COMPARESTR_CONTAINSWORD))) >= 0); // "contains word"
+	VERIFY(m_TextCompareCombo[nIndex].SetItemData(ret, CRITERIA_TEXT_COMPARE_CONTAINSWORD) != CB_ERR);
+	VERIFY((ret = m_TextCompareCombo[nIndex].AddString(CRString(IDS_SEARCH_COMPARESTR_DOESNOTCONTAIN))) >= 0); // "does not contain"
+	VERIFY(m_TextCompareCombo[nIndex].SetItemData(ret, CRITERIA_TEXT_COMPARE_DOESNOTCONTAIN) != CB_ERR);
 		
-		if ( ShouldUseIndexedSearch() )
-		{
-			VERIFY((ret = m_TextCompareCombo[nIndex].AddString(CRString(IDS_SEARCH_COMPARESTR_MATCHESX1QUERY))) >= 0); // "matches x1 query"
-			VERIFY(m_TextCompareCombo[nIndex].SetItemData(ret, CRITERIA_TEXT_COMPARE_MATCHESX1QUERY) != CB_ERR);
-		}
-		else
-		{
-			VERIFY((ret = m_TextCompareCombo[nIndex].AddString(CRString(IDS_SEARCH_COMPARESTR_IS))) >= 0); // "is"
-			VERIFY(m_TextCompareCombo[nIndex].SetItemData(ret, CRITERIA_TEXT_COMPARE_IS) != CB_ERR);
-			VERIFY((ret = m_TextCompareCombo[nIndex].AddString(CRString(IDS_SEARCH_COMPARESTR_ISNOT))) >= 0); // "is not"
-			VERIFY(m_TextCompareCombo[nIndex].SetItemData(ret, CRITERIA_TEXT_COMPARE_ISNOT) != CB_ERR);
-			VERIFY((ret = m_TextCompareCombo[nIndex].AddString(CRString(IDS_SEARCH_COMPARESTR_STARTSWITH))) >= 0); // "starts with"
-			VERIFY(m_TextCompareCombo[nIndex].SetItemData(ret, CRITERIA_TEXT_COMPARE_STARTSWITH) != CB_ERR);
-			VERIFY((ret = m_TextCompareCombo[nIndex].AddString(CRString(IDS_SEARCH_COMPARESTR_ENDSWITH))) >= 0); // "ends with"
-			VERIFY(m_TextCompareCombo[nIndex].SetItemData(ret, CRITERIA_TEXT_COMPARE_ENDSWITH) != CB_ERR);
-			VERIFY((ret = m_TextCompareCombo[nIndex].AddString(CRString(IDS_SEARCH_COMPARESTR_MATCHESREGEXP_ICASE))) >= 0); // "matches regexp (case insensitive)"
-			VERIFY(m_TextCompareCombo[nIndex].SetItemData(ret, CRITERIA_TEXT_COMPARE_MATCHESREGEXP_ICASE) != CB_ERR);
-			VERIFY((ret = m_TextCompareCombo[nIndex].AddString(CRString(IDS_SEARCH_COMPARESTR_MATCHESREGEXP))) >= 0); // "matches regexp"
-			VERIFY(m_TextCompareCombo[nIndex].SetItemData(ret, CRITERIA_TEXT_COMPARE_MATCHESREGEXP) != CB_ERR);
-		}
-
-		//	Assume that if we preserved a selection - it's because the user turned
-		//	indexed search on or off. Only the first 3 verbs match, so if the user
-		//	had picked a later verb bounce the selection back to "contains".
-		if (nPreviousSelection > 2)
-			nPreviousSelection = 0;
+	if ( ShouldUseIndexedSearch() )
+	{
+		VERIFY((ret = m_TextCompareCombo[nIndex].AddString(CRString(IDS_SEARCH_COMPARESTR_MATCHESX1QUERY))) >= 0); // "matches x1 query"
+		VERIFY(m_TextCompareCombo[nIndex].SetItemData(ret, CRITERIA_TEXT_COMPARE_MATCHESX1QUERY) != CB_ERR);
 	}
 	else
 	{
-		//	Light mode - only one option allowed
-		nPreviousSelection = 0;
+		VERIFY((ret = m_TextCompareCombo[nIndex].AddString(CRString(IDS_SEARCH_COMPARESTR_IS))) >= 0); // "is"
+		VERIFY(m_TextCompareCombo[nIndex].SetItemData(ret, CRITERIA_TEXT_COMPARE_IS) != CB_ERR);
+		VERIFY((ret = m_TextCompareCombo[nIndex].AddString(CRString(IDS_SEARCH_COMPARESTR_ISNOT))) >= 0); // "is not"
+		VERIFY(m_TextCompareCombo[nIndex].SetItemData(ret, CRITERIA_TEXT_COMPARE_ISNOT) != CB_ERR);
+		VERIFY((ret = m_TextCompareCombo[nIndex].AddString(CRString(IDS_SEARCH_COMPARESTR_STARTSWITH))) >= 0); // "starts with"
+		VERIFY(m_TextCompareCombo[nIndex].SetItemData(ret, CRITERIA_TEXT_COMPARE_STARTSWITH) != CB_ERR);
+		VERIFY((ret = m_TextCompareCombo[nIndex].AddString(CRString(IDS_SEARCH_COMPARESTR_ENDSWITH))) >= 0); // "ends with"
+		VERIFY(m_TextCompareCombo[nIndex].SetItemData(ret, CRITERIA_TEXT_COMPARE_ENDSWITH) != CB_ERR);
+		VERIFY((ret = m_TextCompareCombo[nIndex].AddString(CRString(IDS_SEARCH_COMPARESTR_MATCHESREGEXP_ICASE))) >= 0); // "matches regexp (case insensitive)"
+		VERIFY(m_TextCompareCombo[nIndex].SetItemData(ret, CRITERIA_TEXT_COMPARE_MATCHESREGEXP_ICASE) != CB_ERR);
+		VERIFY((ret = m_TextCompareCombo[nIndex].AddString(CRString(IDS_SEARCH_COMPARESTR_MATCHESREGEXP))) >= 0); // "matches regexp"
+		VERIFY(m_TextCompareCombo[nIndex].SetItemData(ret, CRITERIA_TEXT_COMPARE_MATCHESREGEXP) != CB_ERR);
 	}
+
+	//	Assume that if we preserved a selection - it's because the user turned
+	//	indexed search on or off. Only the first 3 verbs match, so if the user
+	//	had picked a later verb bounce the selection back to "contains".
+	if (nPreviousSelection > 2)
+		nPreviousSelection = 0;
 
 	VERIFY(m_TextCompareCombo[nIndex].SetCurSel(nPreviousSelection) != CB_ERR);
 
@@ -3282,11 +3241,6 @@ void CSearchView::OnUpdateNeedsSelection(CCmdUI* pCmdUI)
 
 void CSearchView::OnUpdateJunk(CCmdUI* pCmdUI)
 {
-	OnUpdateFullFeatureSet(pCmdUI);
-
-	if (!UsingFullFeatureSet())
-		return;
-	
 	std::list<int>			SelList;
 	
 	//	Ignore result of GetCurSel because it always returns true (provided
@@ -3325,11 +3279,6 @@ void CSearchView::OnUpdateJunk(CCmdUI* pCmdUI)
 
 void CSearchView::OnUpdateNotJunk(CCmdUI* pCmdUI)
 {
-	OnUpdateFullFeatureSet(pCmdUI);
-
-	if (!UsingFullFeatureSet())
-		return;
-	
 	std::list<int>			SelList;
 	
 	//	Ignore result of GetCurSel because it always returns true (provided
@@ -3470,9 +3419,6 @@ void CSearchView::OnUpdateDynamicCommand(CCmdUI* pCmdUI)
 					pCmdUI->Enable( !SelList.empty() );
 					return;
 
-				case CA_SAVED_SEARCH:
-					pCmdUI->Enable( UsingFullFeatureSet() ? TRUE : FALSE );
-					return;
 			}
 		}
 	}
@@ -4404,7 +4350,7 @@ void CSearchView::UpdateSearchBtn()
 
 	//	If this is the first time, then initialize the search button
 	//	if we're using the full feature set.
-	if ( !m_bSearchButtonMenuInitialized && UsingFullFeatureSet() )
+	if ( !m_bSearchButtonMenuInitialized )
 	{
 		UpdateSearchBtnMenu();
 		m_bSearchButtonMenuInitialized = true;
@@ -4446,13 +4392,6 @@ void CSearchView::UpdateSearchBtnMenu()
 			pSavedSearchMenu->RebuildMenu();
 	}
 	
-	if ( !UsingFullFeatureSet() )
-	{
-		//	Only allow saved search feature with full feature set
-		m_BeginBtn.SetIsSplit(false);
-		return;
-	}
-
 	//	Right align the menu for the begin search button because the button is at
 	//	the far right of the window. Unfortunately when left aligning TrackPopupMenu
 	//	will decide to right align the menu with the *left* of the button if the menu
@@ -4710,8 +4649,7 @@ void CSearchView::ReloadCriteria()
 bool CSearchView::LoadCriteria()
 {
 	// Force the count to be between 1 and 5
-	const bool bFullFeatured = UsingFullFeatureSet();
-	const int nCount = bFullFeatured? __min(__max(((int) GetIniShort(IDS_INI_SEARCH_CRITERIA_COUNT)), 1), 5) : 1;
+	const int nCount = __min(__max(((int) GetIniShort(IDS_INI_SEARCH_CRITERIA_COUNT)), 1), 5);
 	ASSERT(nCount >= 1);
 	ASSERT(nCount <= 5);
 
@@ -4736,45 +4674,10 @@ bool CSearchView::LoadCriteria()
 		SetCriteriaIniString(0, sDefaultStr);
 
 
-	// Moved this to InitializeCriteriaControls .. TBD : Delete the commented code once confirmed that this change has no ripple effects
-
-	/*if (bFullFeatured)
-	{
-		GetIniString(IDS_INI_SEARCH_CRITERIA_2, str);
-		InitializeCriteriaCtrls(1);
-		if (!SetCriteriaIniString(1, str))
-			SetCriteriaIniString(0, sDefaultStr);
-
-		GetIniString(IDS_INI_SEARCH_CRITERIA_3, str);
-		InitializeCriteriaCtrls(2);
-		if (!SetCriteriaIniString(2, str))
-			SetCriteriaIniString(0, sDefaultStr);
-
-		GetIniString(IDS_INI_SEARCH_CRITERIA_4, str);
-		InitializeCriteriaCtrls(3);
-		if (!SetCriteriaIniString(3, str))
-			SetCriteriaIniString(0, sDefaultStr);
-
-		GetIniString(IDS_INI_SEARCH_CRITERIA_5, str);
-		InitializeCriteriaCtrls(4);
-		if (!SetCriteriaIniString(4, str))
-			SetCriteriaIniString(0, sDefaultStr);
-	}*/
-
-	if (bFullFeatured)
-	{
-		m_AndRadioBtn.ShowWindow(SW_SHOW);
-		m_OrRadioBtn.ShowWindow(SW_SHOW);
-		m_MoreBtn.ShowWindow(SW_SHOW);
-		m_LessBtn.ShowWindow(SW_SHOW);
-	}
-	else
-	{
-		m_AndRadioBtn.ShowWindow(SW_HIDE);
-		m_OrRadioBtn.ShowWindow(SW_HIDE);
-		m_MoreBtn.ShowWindow(SW_HIDE);
-		m_LessBtn.ShowWindow(SW_HIDE);
-	}
+	m_AndRadioBtn.ShowWindow(SW_SHOW);
+	m_OrRadioBtn.ShowWindow(SW_SHOW);
+	m_MoreBtn.ShowWindow(SW_SHOW);
+	m_LessBtn.ShowWindow(SW_SHOW);
 
 	return (true);
 }

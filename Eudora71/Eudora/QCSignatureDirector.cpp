@@ -19,6 +19,43 @@ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
 DAMAGE. */
 
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
+    Removed references to Qualcomm's Shareware Manager.
+
+*/
+
 //
 
 #include "stdafx.h"
@@ -33,9 +70,6 @@ DAMAGE. */
 #include "rs.h"
 #include "utils.h"
 #include "fileutil.h"
-
-#include "QCSharewareManager.h"
-
 
 #include "DebugNewHelpers.h"
 
@@ -100,83 +134,72 @@ BOOL QCSignatureDirector::Build()
 	// Move signatur.alt file
 	MigrateSignatures();
    
-	// Collect name of all files and add to list
-	if (UsingFullFeatureSet())
+	szPath = szSignatureDir + "\\";
+	
+	for (int i = 0; i < 3; ++i)
 	{
-		szPath = szSignatureDir + "\\";
-		
-		for (int i = 0; i < 3; ++i)
+		switch( i )
 		{
-			switch( i )
-			{
-			case 0 :
-				szSignatureExtension = szTextExtension;
-				break;
-			case 1 :
-				szSignatureExtension = szHtmExtension;
-				break;
-			case 2 :
-				szSignatureExtension = szHtmlExtension;
-				break;
-			}
-
-			szFind = szPath + "*." + szSignatureExtension;
-			findHandle = FindFirstFile( szFind, &fd ); 
-
-			while( findHandle != HANDLE( INVALID_HANDLE_VALUE ) )
-			{
-				try 
-				{
-					// get just the file name
-
-					szItemName = fd.cFileName;
-					szExt = strrchr( fd.cFileName, '.' );
-			
-					if( szExt != NULL )
-					{
-						if( stricmp( szExt + 1, szSignatureExtension ) == 0 )
-						{
-							szItemName = szItemName.Left( szItemName.GetLength() - strlen( szExt ) );
-						}
-					}
-
-					// create the new Signature command object
-					pSignatureCommand = DEBUG_NEW QCSignatureCommand( this, szItemName, szPath + fd.cFileName );
-					
-					// add it to the list
-					Insert( pSignatureCommand );
-				}
-				catch( CMemoryException*	pExp )
-				{			
-					// to do -- add error message
-					pExp->Delete();
-					return FALSE;
-				}
-				catch( CException*	pExp )
-				{
-					pExp->Delete();
-					return FALSE;
-				}
-
-				if ( !FindNextFile( findHandle, &fd ) )  
-				{
-					break; 
-				}
-			}
-			
-			if( findHandle != HANDLE( INVALID_HANDLE_VALUE ) )
-			{
-				FindClose( findHandle );
-			}			
+		case 0 :
+			szSignatureExtension = szTextExtension;
+			break;
+		case 1 :
+			szSignatureExtension = szHtmExtension;
+			break;
+		case 2 :
+			szSignatureExtension = szHtmlExtension;
+			break;
 		}
-	}
-	else
-	{
-		// In Light mode only two signatures are allowed (Standard and Alternate)
-		AddCommand( CRString(IDS_STANDARD_SIGNATURE));
-		AddCommand( CRString(IDS_ALTERNATE_SIGNATURE32));
-	}
 
+		szFind = szPath + "*." + szSignatureExtension;
+		findHandle = FindFirstFile( szFind, &fd ); 
+
+		while( findHandle != HANDLE( INVALID_HANDLE_VALUE ) )
+		{
+			try 
+			{
+				// get just the file name
+
+				szItemName = fd.cFileName;
+				szExt = strrchr( fd.cFileName, '.' );
+		
+				if( szExt != NULL )
+				{
+					if( stricmp( szExt + 1, szSignatureExtension ) == 0 )
+					{
+						szItemName = szItemName.Left( szItemName.GetLength() - strlen( szExt ) );
+					}
+				}
+
+				// create the new Signature command object
+				pSignatureCommand = DEBUG_NEW QCSignatureCommand( this, szItemName, szPath + fd.cFileName );
+				
+				// add it to the list
+				Insert( pSignatureCommand );
+			}
+			catch( CMemoryException*	pExp )
+			{			
+				// to do -- add error message
+				pExp->Delete();
+				return FALSE;
+			}
+			catch( CException*	pExp )
+			{
+				pExp->Delete();
+				return FALSE;
+			}
+
+			if ( !FindNextFile( findHandle, &fd ) )  
+			{
+				break; 
+			}
+		}
+		
+		if( findHandle != HANDLE( INVALID_HANDLE_VALUE ) )
+		{
+			FindClose( findHandle );
+		}			
+	}
 	return TRUE;
 }
 
@@ -320,46 +343,30 @@ void QCSignatureDirector::NewMessageCommands(COMMAND_ACTION_TYPE theAction, CMen
 
 void QCSignatureDirector::FillComboBox(CComboBox* pCB)
 {
-	if (!UsingFullFeatureSet())
-	{
-		pCB->AddString(CRString(IDS_STANDARD_SIGNATURE));
-		pCB->AddString(CRString(IDS_ALTERNATE_SIGNATURE32));
-	}
-	else
-	{
-		POSITION				pos;
-		QCSignatureCommand*	pCommand;
+	POSITION				pos;
+	QCSignatureCommand*	pCommand;
 
-		pos = m_theSignatureList.GetHeadPosition();
+	pos = m_theSignatureList.GetHeadPosition();
 
-		while( pos )
-		{
-			pCommand = ( QCSignatureCommand* ) m_theSignatureList.GetNext( pos );
-			pCB->AddString( pCommand->GetName() );
-		}
+	while( pos )
+	{
+		pCommand = ( QCSignatureCommand* ) m_theSignatureList.GetNext( pos );
+		pCB->AddString( pCommand->GetName() );
 	}
 }
 
 
 void QCSignatureDirector::FillListBox(CListBox* pLB)
 {
-	if (!UsingFullFeatureSet())
-	{
-		pLB->AddString(CRString(IDS_STANDARD_SIGNATURE));
-		pLB->AddString(CRString(IDS_ALTERNATE_SIGNATURE32));
-	}
-	else
-	{
-		POSITION				pos;
-		QCSignatureCommand*	pCommand;
+	POSITION				pos;
+	QCSignatureCommand*	pCommand;
 
-		pos = m_theSignatureList.GetHeadPosition();
+	pos = m_theSignatureList.GetHeadPosition();
 
-		while( pos )
-		{
-			pCommand = ( QCSignatureCommand* ) m_theSignatureList.GetNext( pos );
-			pLB->AddString( pCommand->GetName() );
-		}
+	while( pos )
+	{
+		pCommand = ( QCSignatureCommand* ) m_theSignatureList.GetNext( pos );
+		pLB->AddString( pCommand->GetName() );
 	}
 }
 

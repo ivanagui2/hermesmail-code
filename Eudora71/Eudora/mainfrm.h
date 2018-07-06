@@ -56,6 +56,8 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2017
     Removed a protected member function that reconciled differences that
     occur between shareware ini files and commercial ini files. Hermes will have
     only one section in the ini file as it will be all inclusive.
+File revised by Jeff Prickett                    on July 6, 2018
+    Removing code that is specific to payment and registration.
 
 */
 
@@ -563,8 +565,6 @@ protected:
 	afx_msg BOOL OnNcActivate(BOOL bActive);
 	afx_msg void OnEnterIdle(UINT nWhy, CWnd* pWho);
 	afx_msg void OnUpdateEditRedo(CCmdUI* pCmdUI);
-	afx_msg void OnPaymentAndRegistration();
-	afx_msg void OnUpdatePaymentAndRegistration(CCmdUI* pCmdUI);
 	afx_msg void OnUpdateStatistics(CCmdUI* pCmdUI);
 	afx_msg void OnOpenEudora();
 	afx_msg void OnMinimizeToSystemTray();

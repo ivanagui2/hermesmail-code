@@ -54,8 +54,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     Removed reference to Qualcomm's Shareware Manager.
     Removed commented out FORNOW code.
-    TODO: There are likely other dependencies on Qualcomm's Shareware Manager, but
-    I was not able to find them.
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
+    Removed references to the UsingFullFeatureSet method of Qualcomm's
+    Shareware Manager.
 
 */
 
@@ -582,9 +583,6 @@ void CPersonalityView::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 ////////////////////////////////////////////////////////////////////////
 BOOL CPersonalityView::OnCmdTransferMail(UINT nID)
 {
-	if (!UsingFullFeatureSet())
-		return TRUE;
-
 	//
 	// Grab a list of the selected personality names.
 	//
@@ -657,9 +655,6 @@ BOOL CPersonalityView::OnCmdTransferMail(UINT nID)
 ////////////////////////////////////////////////////////////////////////
 void CPersonalityView::OnCmdNewMessageAs()
 {
-	if (!UsingFullFeatureSet())
-		return;
-
 	//
 	// Grab a list of selected personality names.
 	//
@@ -690,9 +685,6 @@ void CPersonalityView::OnCmdNewMessageAs()
 ////////////////////////////////////////////////////////////////////////
 BOOL CPersonalityView::OnCmdMultiReplyAs(UINT nID)
 {
-	if (!UsingFullFeatureSet())
-		return TRUE;
-	
 	CSummary *		pSummary = NULL;		// non-NULL for read message case
 	CTocFrame *		pTocFrame = NULL;		// non-NULL for TOC window case
 
@@ -766,10 +758,7 @@ BOOL CPersonalityView::OnCmdMultiReplyAs(UINT nID)
 ////////////////////////////////////////////////////////////////////////
 void CPersonalityView::OnUpdateCheckMail(CCmdUI* pCmdUI)
 {
-	OnUpdateFullFeatureSet(pCmdUI);
-
-	if (UsingFullFeatureSet())
-		OnUpdateNeedSelection(pCmdUI);
+	OnUpdateNeedSelection(pCmdUI);
 }
 
 
@@ -779,18 +768,13 @@ void CPersonalityView::OnUpdateCheckMail(CCmdUI* pCmdUI)
 ////////////////////////////////////////////////////////////////////////
 void CPersonalityView::OnUpdateSendMail(CCmdUI* pCmdUI)
 {
-	OnUpdateFullFeatureSet(pCmdUI);
-
-	if (UsingFullFeatureSet())
+	if (GetListCtrl().GetSelectedCount() == 0)
 	{
-		if (GetListCtrl().GetSelectedCount() == 0)
-		{
-			pCmdUI->Enable(FALSE);
-			return;
-		}
-
-		pCmdUI->Enable((QueueStatus & QS_READY_TO_BE_SENT) == QS_READY_TO_BE_SENT);
+		pCmdUI->Enable(FALSE);
+		return;
 	}
+
+	pCmdUI->Enable((QueueStatus & QS_READY_TO_BE_SENT) == QS_READY_TO_BE_SENT);
 }
 
 
@@ -800,11 +784,6 @@ void CPersonalityView::OnUpdateSendMail(CCmdUI* pCmdUI)
 ////////////////////////////////////////////////////////////////////////
 void CPersonalityView::OnUpdateMultiReply(CCmdUI* pCmdUI)
 {
-	OnUpdateFullFeatureSet(pCmdUI);
-
-	if (!UsingFullFeatureSet())
-		return;
-
 	if (GetListCtrl().GetSelectedCount() != 1)
 	{
 		pCmdUI->Enable(FALSE);
@@ -850,9 +829,6 @@ LONG CPersonalityView::OnMsgAdvEditDom(WPARAM, LPARAM)
 ////////////////////////////////////////////////////////////////////////
 void CPersonalityView::OnCmdNewPersonality()
 {
-	if (!UsingFullFeatureSet())
-		return;
-
 	if (ShiftDown())
 	{
 		CModifyAcctSheet dlg(CRString(IDS_PERS_CREATE_NEW_ACCT), this, 0, "", true); // Create new account (not modify)'
@@ -872,9 +848,6 @@ void CPersonalityView::OnCmdNewPersonality()
 ////////////////////////////////////////////////////////////////////////
 void CPersonalityView::OnCmdModifyPersonality()
 {
-	if (!UsingFullFeatureSet())
-		return;
-
 	//
 	// Grab a list of selected personality names.  There should always 
 	// be exactly one item selected, unless the CmdUI stuff is screwed
@@ -903,9 +876,6 @@ void CPersonalityView::OnCmdModifyPersonality()
 ////////////////////////////////////////////////////////////////////////
 void CPersonalityView::OnCmdDeletePersonality()
 {
-	if (!UsingFullFeatureSet())
-		return;
-
 	//
 	// Grab a list of selected personality names.
 	//
@@ -963,27 +933,12 @@ void CPersonalityView::OnCmdDeletePersonality()
 
 
 ////////////////////////////////////////////////////////////////////////
-// OnUpdateNewPersonality [protected]
-//
-////////////////////////////////////////////////////////////////////////
-void CPersonalityView::OnUpdateNewPersonality(CCmdUI* pCmdUI)
-{
-	OnUpdateFullFeatureSet(pCmdUI);
-}
-
-
-////////////////////////////////////////////////////////////////////////
 // OnUpdateDeletePersonality [protected]
 //
 // Don't allow user to delete dominant personality.
 ////////////////////////////////////////////////////////////////////////
 void CPersonalityView::OnUpdateDeletePersonality(CCmdUI* pCmdUI)
 {
-	OnUpdateFullFeatureSet(pCmdUI);
-
-	if (!UsingFullFeatureSet())
-		return;
-
 	//
 	// Grab a list of selected personality names.
 	//
@@ -1027,15 +982,10 @@ void CPersonalityView::OnUpdateNeedSelection(CCmdUI* pCmdUI)
 ////////////////////////////////////////////////////////////////////////
 void CPersonalityView::OnUpdateNeedSingleSelection(CCmdUI* pCmdUI)
 {
-	OnUpdateFullFeatureSet(pCmdUI);
-
-	if (UsingFullFeatureSet())
-	{
-		if (GetListCtrl().GetSelectedCount() == 1)
-			pCmdUI->Enable(TRUE);
-		else
-			pCmdUI->Enable(FALSE);
-	}
+	if (GetListCtrl().GetSelectedCount() == 1)
+		pCmdUI->Enable(TRUE);
+	else
+		pCmdUI->Enable(FALSE);
 }
 
 

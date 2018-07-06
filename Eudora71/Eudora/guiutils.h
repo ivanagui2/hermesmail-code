@@ -21,6 +21,43 @@ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
 DAMAGE. */
 
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
+    Removed code that was specific to the software registration process.
+
+*/        
+
 //
 
 #include <stdarg.h>
@@ -136,27 +173,14 @@ enum QUERY_PARTS	{ QUERY_PART_PLATFORM		 = 0x00000001,
 					  QUERY_PART_PRODUCT		 = 0x00000002,
 					  QUERY_PART_VERSION		 = 0x00000004,
 					  QUERY_PART_DISTRIBUTOR_ID	 = 0x00000008,
-					  QUERY_PART_EUDORA_MODE	 = 0x00000010,
 					  QUERY_PART_REAL_NAME		 = 0x00000020,
 					  QUERY_PART_EMAIL_ADDRESS	 = 0x00000040,
-					  QUERY_PART_REG_FIRST_NAME	 = 0x00000080,
-					  QUERY_PART_REG_LAST_NAME	 = 0x00000100,
-					  QUERY_PART_REG_CODE		 = 0x00000200,
-					  QUERY_PART_OLD_REG_CODE	 = 0x00000400,
 					  QUERY_PART_PROFILE		 = 0x00000800,
-					  QUERY_PART_AD_ID			 = 0x00001000,
 					  QUERY_PART_DESTINATION_URL = 0x00002000,
 					  QUERY_PART_TOPIC			 = 0x00004000,
-					  QUERY_PART_REG_LEVEL		 = 0x00008000,
 					  QUERY_PART_LANGUAGE		 = 0x00010000
 					};
 
-#define ACTION_PAY_STRING				_T("pay")
-#define ACTION_REGISTER_FREE_STRING		_T("register-free")
-#define ACTION_REGISTER_AD_STRING		_T("register-ad")
-#define ACTION_REGISTER_PAID_STRING		_T("register-box")
-#define ACTION_REGISTER_50BOX_STRING	_T("register-50box")
-#define ACTION_LOST_CODE_STRING			_T("lostcode")
 #define ACTION_UPDATE_STRING			_T("update")
 #define ACTION_ARCHIVED_STRING			_T("archived")
 #define ACTION_PROFILE_STRING			_T("profile")
@@ -170,184 +194,82 @@ enum QUERY_PARTS	{ QUERY_PART_PLATFORM		 = 0x00000001,
 #define ACTION_SETTINGSHELP_PARAM_LABEL	_T("&panel=")
 #define ACTION_SITE_STRING				_T("site")
 
-const ActionInfo  ACTION_PAY				= ActionInfo (  ACTION_PAY_STRING,
-															(   QUERY_PART_PLATFORM
-															  | QUERY_PART_PRODUCT
-															  | QUERY_PART_VERSION
-															  | QUERY_PART_DISTRIBUTOR_ID
-					  										  | QUERY_PART_EUDORA_MODE
-					  										  | QUERY_PART_REAL_NAME
-					  										  | QUERY_PART_EMAIL_ADDRESS
-					  										  | QUERY_PART_REG_FIRST_NAME
-					  										  | QUERY_PART_REG_LAST_NAME
-					  										  | QUERY_PART_REG_CODE
-					  										  | QUERY_PART_OLD_REG_CODE
-															  | QUERY_PART_LANGUAGE
-															)
-														  );
-const ActionInfo  ACTION_REGISTER_FREE		= ActionInfo (  ACTION_REGISTER_FREE_STRING,
-															(	QUERY_PART_PLATFORM
-															  | QUERY_PART_PRODUCT
-															  | QUERY_PART_VERSION
-															  | QUERY_PART_DISTRIBUTOR_ID
-					  										  | QUERY_PART_EUDORA_MODE
-					  										  | QUERY_PART_REAL_NAME
-					  										  | QUERY_PART_EMAIL_ADDRESS
-					  										  | QUERY_PART_REG_FIRST_NAME
-					  										  | QUERY_PART_REG_LAST_NAME
-					  										  | QUERY_PART_REG_CODE
-															  | QUERY_PART_LANGUAGE
-															)
-														 );
-const ActionInfo  ACTION_REGISTER_AD		= ActionInfo (  ACTION_REGISTER_AD_STRING,
-															(	QUERY_PART_PLATFORM
-															  | QUERY_PART_PRODUCT
-															  | QUERY_PART_VERSION
-															  | QUERY_PART_DISTRIBUTOR_ID
-					  										  | QUERY_PART_EUDORA_MODE
-					  										  | QUERY_PART_REAL_NAME
-					  										  | QUERY_PART_EMAIL_ADDRESS
-					  										  | QUERY_PART_REG_FIRST_NAME
-					  										  | QUERY_PART_REG_LAST_NAME
-					  										  | QUERY_PART_REG_CODE
-															  | QUERY_PART_LANGUAGE
-															)
-														 );
-const ActionInfo  ACTION_REGISTER_PAID		= ActionInfo (  ACTION_REGISTER_PAID_STRING,
-															(	QUERY_PART_PLATFORM
-															  | QUERY_PART_PRODUCT
-															  | QUERY_PART_VERSION
-															  | QUERY_PART_DISTRIBUTOR_ID
-					  										  | QUERY_PART_EUDORA_MODE
-					  										  | QUERY_PART_REAL_NAME
-					  										  | QUERY_PART_EMAIL_ADDRESS
-					  										  | QUERY_PART_REG_FIRST_NAME
-					  										  | QUERY_PART_REG_LAST_NAME
-					  										  | QUERY_PART_REG_CODE
-															  | QUERY_PART_LANGUAGE
-															)
-														 );
-const ActionInfo  ACTION_REGISTER_50BOX		= ActionInfo (  ACTION_REGISTER_50BOX_STRING,
-															(	QUERY_PART_PLATFORM
-															  | QUERY_PART_PRODUCT
-															  | QUERY_PART_VERSION
-															  | QUERY_PART_DISTRIBUTOR_ID
-					  										  | QUERY_PART_EUDORA_MODE
-					  										  | QUERY_PART_REAL_NAME
-					  										  | QUERY_PART_EMAIL_ADDRESS
-					  										  | QUERY_PART_REG_CODE
-															  | QUERY_PART_LANGUAGE
-															)
-														 );
-const ActionInfo  ACTION_LOST_CODE			= ActionInfo (  ACTION_LOST_CODE_STRING,
-															(	QUERY_PART_PLATFORM
-															  | QUERY_PART_PRODUCT
-															  | QUERY_PART_VERSION
-															  | QUERY_PART_DISTRIBUTOR_ID
-					  										  | QUERY_PART_EUDORA_MODE
-					  										  | QUERY_PART_REAL_NAME
-					  										  | QUERY_PART_EMAIL_ADDRESS
-					  										  | QUERY_PART_REG_FIRST_NAME
-					  										  | QUERY_PART_REG_LAST_NAME
-					  										  | QUERY_PART_REG_CODE
-					  										  | QUERY_PART_OLD_REG_CODE
-															  | QUERY_PART_LANGUAGE
-															)
-														 );
 const ActionInfo  ACTION_UPDATE				= ActionInfo (  ACTION_UPDATE_STRING,
-															(	QUERY_PART_PLATFORM
-															  | QUERY_PART_PRODUCT
-															  | QUERY_PART_VERSION
-															  | QUERY_PART_DISTRIBUTOR_ID
-					  										  | QUERY_PART_EUDORA_MODE
-					  										  | QUERY_PART_REG_LEVEL
-															  | QUERY_PART_LANGUAGE
-															)
+				(	QUERY_PART_PLATFORM
+			  | QUERY_PART_PRODUCT
+			  | QUERY_PART_VERSION
+			  | QUERY_PART_DISTRIBUTOR_ID
+			  | QUERY_PART_LANGUAGE
+			) );
+            
 														 );
 const ActionInfo  ACTION_ARCHIVED			= ActionInfo (  ACTION_ARCHIVED_STRING,
-															(	QUERY_PART_PLATFORM
-															  | QUERY_PART_PRODUCT
-															  | QUERY_PART_VERSION
-															  | QUERY_PART_DISTRIBUTOR_ID
-					  										  | QUERY_PART_EUDORA_MODE
-					  										  | QUERY_PART_REG_LEVEL
-															  | QUERY_PART_LANGUAGE
-															)
+    			(	QUERY_PART_PLATFORM
+				  | QUERY_PART_PRODUCT
+				  | QUERY_PART_VERSION
+				  | QUERY_PART_DISTRIBUTOR_ID
+				  | QUERY_PART_LANGUAGE
+				) );
 														 );
 const ActionInfo  ACTION_PROFILE			= ActionInfo (  ACTION_PROFILE_STRING,
-															(	QUERY_PART_PLATFORM
-															  | QUERY_PART_PRODUCT
-															  | QUERY_PART_DISTRIBUTOR_ID
-					  										  | QUERY_PART_EMAIL_ADDRESS
-															  | QUERY_PART_PROFILE
-															  | QUERY_PART_LANGUAGE
-															)
-														 );
+				(	QUERY_PART_PLATFORM
+				  | QUERY_PART_PRODUCT
+	    		  | QUERY_PART_DISTRIBUTOR_ID
+				  | QUERY_PART_EMAIL_ADDRESS
+				  | QUERY_PART_PROFILE
+				  | QUERY_PART_LANGUAGE
+				) );
 
 const ActionInfo  ACTION_PROFILE_FAQ		= ActionInfo (  ACTION_PROFILE_FAQ_STRING,
-															(	QUERY_PART_PLATFORM
-															  | QUERY_PART_PRODUCT
-															  | QUERY_PART_VERSION
-															  | QUERY_PART_DISTRIBUTOR_ID
-					  										  | QUERY_PART_EUDORA_MODE
-					  										  | QUERY_PART_REAL_NAME
-					  										  | QUERY_PART_EMAIL_ADDRESS
-															  | QUERY_PART_PROFILE
-															  | QUERY_PART_LANGUAGE
-															)
-														 );
+				(	QUERY_PART_PLATFORM
+				  | QUERY_PART_PRODUCT
+				  | QUERY_PART_VERSION
+				  | QUERY_PART_DISTRIBUTOR_ID
+				  | QUERY_PART_REAL_NAME
+				  | QUERY_PART_EMAIL_ADDRESS
+				  | QUERY_PART_PROFILE
+				  | QUERY_PART_LANGUAGE ) );
+
 const ActionInfo  ACTION_SUPPORT			= ActionInfo (  ACTION_SUPPORT_STRING,
-															(	QUERY_PART_PLATFORM
-															  | QUERY_PART_PRODUCT
-															  | QUERY_PART_VERSION
-															  | QUERY_PART_DISTRIBUTOR_ID
-															  | QUERY_PART_LANGUAGE
-															)
-														 );
+				(	QUERY_PART_PLATFORM
+				  | QUERY_PART_PRODUCT
+				  | QUERY_PART_VERSION
+				  | QUERY_PART_DISTRIBUTOR_ID
+				  | QUERY_PART_LANGUAGE ) );
+
 const ActionInfo  ACTION_SUPPORT_NO_TOPIC	= ActionInfo (  ACTION_SUPPORT_NO_TOPIC_STRING,
-															(	QUERY_PART_PLATFORM
-															  | QUERY_PART_PRODUCT
-															  | QUERY_PART_VERSION
-															  | QUERY_PART_DISTRIBUTOR_ID
-					  										  | QUERY_PART_EUDORA_MODE
-					  										  | QUERY_PART_REAL_NAME
-					  										  | QUERY_PART_EMAIL_ADDRESS
-					  										  | QUERY_PART_REG_FIRST_NAME
-					  										  | QUERY_PART_REG_LAST_NAME
-					  										  | QUERY_PART_REG_CODE
-					  										  | QUERY_PART_OLD_REG_CODE
-															  | QUERY_PART_LANGUAGE
-															)
-														 );
+				(	QUERY_PART_PLATFORM
+				  | QUERY_PART_PRODUCT
+				  | QUERY_PART_VERSION
+				  | QUERY_PART_DISTRIBUTOR_ID
+				  | QUERY_PART_EUDORA_MODE
+				  | QUERY_PART_REAL_NAME
+				  | QUERY_PART_EMAIL_ADDRESS
+				  | QUERY_PART_LANGUAGE ) );
+
 const ActionInfo  ACTION_INTRO				= ActionInfo (  ACTION_INTRO_STRING,
-															(	QUERY_PART_LANGUAGE
-															)
-														 );
+				(	QUERY_PART_LANGUAGE ) );
+
 const ActionInfo  ACTION_SEARCH_WEB			= ActionInfo (  ACTION_SEARCH_STRING,
-															(	QUERY_PART_PLATFORM
-															  | QUERY_PART_PRODUCT
-															  | QUERY_PART_VERSION
-															  | QUERY_PART_DISTRIBUTOR_ID
-															  | QUERY_PART_EUDORA_MODE
-															  | QUERY_PART_LANGUAGE
-															)
-														 );
+				(	QUERY_PART_PLATFORM
+				  | QUERY_PART_PRODUCT
+				  | QUERY_PART_VERSION
+				  | QUERY_PART_DISTRIBUTOR_ID
+				  | QUERY_PART_LANGUAGE ) );
+
 const ActionInfo  ACTION_SETTINGSHELP		= ActionInfo (  ACTION_SETTINGSHELP_STRING,
-															(	QUERY_PART_PLATFORM
-															  | QUERY_PART_PRODUCT
-															  | QUERY_PART_VERSION
-															  | QUERY_PART_DISTRIBUTOR_ID
-															  | QUERY_PART_LANGUAGE
-															)
-														 );
+				(	QUERY_PART_PLATFORM
+			  | QUERY_PART_PRODUCT
+			  | QUERY_PART_VERSION
+			  | QUERY_PART_DISTRIBUTOR_ID
+			  | QUERY_PART_LANGUAGE ) );
+
 const ActionInfo  ACTION_SITE				= ActionInfo (  ACTION_SITE_STRING,
-															(	QUERY_PART_PLATFORM
-															  | QUERY_PART_PRODUCT
-															  | QUERY_PART_VERSION
-															  | QUERY_PART_DISTRIBUTOR_ID
-															  | QUERY_PART_LANGUAGE
-															)
-														 );
+			(	QUERY_PART_PLATFORM
+			  | QUERY_PART_PRODUCT
+			  | QUERY_PART_VERSION
+			  | QUERY_PART_DISTRIBUTOR_ID
+    		  | QUERY_PART_LANGUAGE
 
 int GetGMTOffset();
 BOOL IsOffline();

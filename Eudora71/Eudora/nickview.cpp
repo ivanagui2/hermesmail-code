@@ -338,10 +338,7 @@ int CNicknamesViewRight::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	//create the Boss Protector check box
 	//make the check box visible only in paid mode
-	if (UsingPaidFeatureSet()) 
-		m_BPListCBox.Create(CRString(IDS_BPLIST_LABEL), BS_AUTOCHECKBOX|WS_VISIBLE|WS_CHILD|WS_TABSTOP, CRect(275,24,400,38), this, 4);
-	else
-		m_BPListCBox.Create(CRString(IDS_BPLIST_LABEL), BS_AUTOCHECKBOX|WS_CHILD, CRect(275,24,400,38), this, 4);
+	m_BPListCBox.Create(CRString(IDS_BPLIST_LABEL), BS_AUTOCHECKBOX|WS_VISIBLE|WS_CHILD|WS_TABSTOP, CRect(275,24,400,38), this, 4);
 	
 /*  commented out for now - since GetOutputTextExtent does not give very accurate results
 	CDC *pDC = NULL;

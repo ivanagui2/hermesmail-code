@@ -56,6 +56,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018.
     Removed references to the Paige Html Editor and the QC Shareware Manager.
     Removed definitions and conditional compiles due to the COMMERCIAL flag.
+File revised by Jeff Prickett                    on July 6, 2018
+    Removed additional references to Qualcomm's Shareware Manager.
 
 */
 
@@ -861,12 +863,8 @@ BOOL CCompMessageDoc::Queue(BOOL autoSend /*= FALSE*/)
     }
 
 
-	//check for Mood Mail
-    // MOOD MAIL FEATURE REMOVED FOR HERMES 0.0.1 release.
-    //
-    /*
 	PgCompMsgView* pCompMsgView = DYNAMIC_DOWNCAST(PgCompMsgView, View);
-    if ( pCompMsgView && GetIniShort( IDS_INI_MOOD_MAIL_CHECK )&& UsingFullFeatureSet()) 
+    if ( pCompMsgView && GetIniShort( IDS_INI_MOOD_MAIL_CHECK )) 
 	{
 		if (pCompMsgView->IsBodyMoodDirty()||
 			pCompMsgView->IsHeaderMoodDirty())
@@ -916,7 +914,8 @@ BOOL CCompMessageDoc::Queue(BOOL autoSend /*= FALSE*/)
     */
 
 	//check for additional BP warning with dialog
-    if ( pCompMsgView && GetIniShort( IDS_INI_BP_ADDITIONAL_WARN_DIALOG ) && UsingPaidFeatureSet() && pCompMsgView->IsHeaderBPWarnDlgDirty()) 
+    if ( pCompMsgView && GetIniShort( IDS_INI_BP_ADDITIONAL_WARN_DIALOG ) && 
+           pCompMsgView->IsHeaderBPWarnDlgDirty()) 
 	{
 			bool bBPWarning = pCompMsgView->DoBPCheck();
 			if(bBPWarning) {
@@ -947,7 +946,8 @@ BOOL CCompMessageDoc::Queue(BOOL autoSend /*= FALSE*/)
 	}
 
 	//check for additional BP warning of speak harmful addresses
-    if ( pCompMsgView && GetIniShort( IDS_INI_BP_SPEAK_HARMFUL_ADDRESSES ) && UsingPaidFeatureSet() && pCompMsgView->IsHeaderBPSpeakDirty() ) 
+    if ( pCompMsgView && GetIniShort( IDS_INI_BP_SPEAK_HARMFUL_ADDRESSES ) && 
+           pCompMsgView->IsHeaderBPSpeakDirty() ) 
 	{
 		CStringList *	pAddressList = DEBUG_NEW_MFCOBJ_NOTHROW CStringList();
 		bool bBPWarning = pCompMsgView->DoBPCheck(pAddressList);
@@ -1217,7 +1217,7 @@ BOOL CCompMessageDoc::Queue(BOOL autoSend /*= FALSE*/)
 		OnCloseDocument();
 		m_bAutoDelete = TRUE;
 	}
-    if ( View && GetIniShort( IDS_INI_MOOD_MAIL_CHECK )&& UsingFullFeatureSet()) 
+    if ( View && GetIniShort( IDS_INI_MOOD_MAIL_CHECK )) 
 	{
 		//DELAY THE MESSAGE IF IT IS ON
 		int DelayTime = GetIniShort(IDS_INI_MOOD_WATCH_DELAY_MINS);
@@ -3528,15 +3528,12 @@ LPARAM	lParam)			// WM_CONTEXTMENU screen coordinates
 		// Remove the Message Plug-Ins sub-menu.
 		tempPopupMenu.RemoveMenu(nMessagePluginsPosition, MF_BYPOSITION);
 
-		if (UsingFullFeatureSet())
-		{
-			// Remove the Change Persona sub-menu.
-			tempPopupMenu.RemoveMenu( nChangePersonaPosition, MF_BYPOSITION);
+		// Remove the Change Persona sub-menu.
+		tempPopupMenu.RemoveMenu( nChangePersonaPosition, MF_BYPOSITION);
 
-			// Remove the FCC sub-menu.
-			tempPopupMenu.RemoveMenu(MP_INSERT_RECIP, MF_BYPOSITION);
-			m_bDoingFccContextMenu = FALSE;
-		}
+		// Remove the FCC sub-menu.
+		tempPopupMenu.RemoveMenu(MP_INSERT_RECIP, MF_BYPOSITION);
+		m_bDoingFccContextMenu = FALSE;
 
 		// Remove the Insert Recipient sub-menu.
 		tempPopupMenu.RemoveMenu(MP_INSERT_RECIP, MF_BYPOSITION);

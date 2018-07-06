@@ -19,6 +19,42 @@ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
 DAMAGE. */
 
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
+
+*/
+
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -33,7 +69,6 @@ DAMAGE. */
 #include "QCPluginCommand.h"
 #include "QCPluginDirector.h"
 #include "QCProtocol.h"
-#include "QCSharewareManager.h"
 #include "trnslate.h"
 
 
@@ -300,53 +335,6 @@ void*				pData )
 }
 
 
-//	Draw the "full featured only" bitmap from QCSharewareManager. Draw it the same way
-//	a system drawn menu would - disabled embossed.
-bool QCPluginCommand::DrawNeedsFullFeatureSetBitmap(bool bSelected, CPoint & ptDrawHere, CDC & memDC, CDC * pdcDraw)
-{
-	bool		drawSucceeded = false;
-	CBitmap *	pBitmap = GetFullFeatureBitmap();
-
-	if (pBitmap)
-	{
-		HBITMAP		hbmSrc = static_cast<HBITMAP>(*pBitmap);
-		BITMAP		bm;
-		::GetObject( hbmSrc, sizeof(BITMAP), &bm );
-		
-		CBrush *	pOldBrush = NULL;
-		CBitmap *	pOldBitmap = memDC.SelectObject( pBitmap );
-		
-		// Draw using hilite offset by (1,1), then shadow
-		CBrush		brShadow(GetSysColor(COLOR_3DSHADOW));
-		if (bSelected)
-		{
-			//	Just select the object to draw the gray icon
-			pOldBrush = pdcDraw->SelectObject(&brShadow);
-		}
-		else
-		{
-			//	Draw the highlight
-			CBrush	brHilite(GetSysColor(COLOR_3DHIGHLIGHT));
-			pOldBrush = pdcDraw->SelectObject(&brHilite);
-			pdcDraw->BitBlt(ptDrawHere.x+1, ptDrawHere.y+1, bm.bmWidth, bm.bmHeight, &memDC, 0, 0, MAGICROP);
-			pdcDraw->SelectObject(&brShadow);
-		}
-
-		//	Draw the gray shadow
-		pdcDraw->BitBlt(ptDrawHere.x, ptDrawHere.y, bm.bmWidth, bm.bmHeight, &memDC, 0, 0, MAGICROP);
-		if (pOldBrush)
-			pdcDraw->SelectObject(pOldBrush);
-
-		if (pOldBitmap)
-			memDC.SelectObject(pOldBitmap);
-
-		drawSucceeded = true;
-	}
-
-	return drawSucceeded;
-}
-
-
 void QCPluginCommand::DrawItem( LPDRAWITEMSTRUCT lpDrawItemStruct)
 {
 	BOOL		bChecked;
@@ -456,31 +444,9 @@ void QCPluginCommand::DrawItem( LPDRAWITEMSTRUCT lpDrawItemStruct)
  	
 	theRect.top += 2;
 	
-	//	Draw the "full featured only" bitmap from QCSharewareManager if this is a menu
-	//	item for a CSpecial that only runs with full feature set and Eudora is not
-	//	currently running with the full feature set.
-	//	This is the only case that we need to handle for ESP. For MLM in the future
-	//	we may need to slightly generalize this trick.
-	CSpecial *	pSpecial = GetSpecialObject();
-	bool		drewFullFeatureOnlyBitmap = false;
-	if (pSpecial)
-	{
-		CTransAPI *		pTransAPI = pSpecial->GetTransAPI();
-		if ( pTransAPI && pTransAPI->IsFullFeatureSetOnly() && !UsingFullFeatureSet() )
-		{
-			CPoint	pt(theRect.left, theRect.top);
-			drewFullFeatureOnlyBitmap = DrawNeedsFullFeatureSetBitmap(bSelected, pt, theMemDC, pDC);
-		}
-	}
-
-	// Draw the normal icon if we didn't draw the "full featured only" bitmap
-	// Use the imagelist icon because it pulls out the correct 16x16 icon
-	if ( !drewFullFeatureOnlyBitmap && (m_ImageOffset >= 0) )
-	{
-		extern QCPluginDirector	g_thePluginDirector;
-		CPoint pt(theRect.left,theRect.top);
-		g_thePluginDirector.m_ImageList.Draw(pDC, m_ImageOffset, pt, ILD_TRANSPARENT);
-	}
+	extern QCPluginDirector	g_thePluginDirector;
+	CPoint pt(theRect.left,theRect.top);
+	g_thePluginDirector.m_ImageList.Draw(pDC, m_ImageOffset, pt, ILD_TRANSPARENT);
 	
 	// Set text colors
 	pDC->SetBkMode( TRANSPARENT );

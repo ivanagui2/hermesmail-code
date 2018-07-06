@@ -19,6 +19,43 @@ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
 DAMAGE. */
 
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2017
+    Removed references to Qualcomm's Shareware Manager.
+
+*/
+
 //
 
 #include "stdafx.h"
@@ -39,7 +76,6 @@ DAMAGE. */
 #include "ColorToolbarButton.h"
 
 #include "QCFindMgr.h"
-#include "QCSharewareManager.h"
 #include "PaigeEdtView.h"
 
 #include "EmoticonToolbarButton.h"
@@ -218,17 +254,8 @@ int PgDocumentFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_pToolBarManager->SetToolBarInfo( m_pFormattingToolBar );
 	m_pFormattingToolBar->EnableDocking(CBRS_ALIGN_TOP);
 
-	// Shareware: In reduced feature mode, you get a less-capable format toolbar
-	if (UsingFullFeatureSet())
-	{
-		// FULL FEATURE mode
-		m_pFormattingToolBar->SetButtons( theFullFeatureFormatButtons, DIM( theFullFeatureFormatButtons ) );
-	}
-	else
-	{
-		// REDUCED FEATURE mode
-		m_pFormattingToolBar->SetButtons( theReducedFeatureFormatButtons, DIM( theReducedFeatureFormatButtons ) );
-	}
+	// FULL FEATURE mode
+	m_pFormattingToolBar->SetButtons( theFullFeatureFormatButtons, DIM( theFullFeatureFormatButtons ) );
 
 	DockControlBar( m_pFormattingToolBar );
 
@@ -256,17 +283,11 @@ int PgDocumentFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	// get the edit menu
 	VERIFY( pEditTextMenu = pEditTextMenu->GetSubMenu( 1 + i ) );
 
-	// Shareware: In reduced feature mode, you cannot right-click
-	if (UsingFullFeatureSet())
-	{
-		// FULL FEATURE mode
-
-		// get the insert menu
-		VERIFY( pMenu = pEditTextMenu->GetSubMenu( 11 ) );	
-		i = m_pFormattingToolBar->CommandToIndex( ID_EDIT_INSERT );
-		VERIFY( pMenuButton = ( CTBarMenuButton* ) ( m_pFormattingToolBar->GetButton( i ) ) );	
-		pMenuButton->SetHMenu( pMenu->GetSafeHmenu() );
-	}
+	// get the insert menu
+	VERIFY( pMenu = pEditTextMenu->GetSubMenu( 11 ) );	
+	i = m_pFormattingToolBar->CommandToIndex( ID_EDIT_INSERT );
+	VERIFY( pMenuButton = ( CTBarMenuButton* ) ( m_pFormattingToolBar->GetButton( i ) ) );	
+	pMenuButton->SetHMenu( pMenu->GetSafeHmenu() );
 
 	// get the text menu
 	VERIFY( pEditTextMenu = pEditTextMenu->GetSubMenu( 10 ) );
@@ -408,30 +429,25 @@ void PgDocumentFrame::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void PgDocumentFrame::OnCheckSpelling()
 {
-	// Shareware: In reduced feature mode, you cannot spell check
-	if (UsingFullFeatureSet())
-	{
-		// FULL FEATURE mode
-		CView* View = GetActiveView();
+	CView* View = GetActiveView();
 
-		if(!View)
-			return;			
+	if(!View)
+		return;			
 		
-		QCProtocol*	pProtocol = QCProtocol::QueryProtocol( QCP_SPELL, View );
+	QCProtocol*	pProtocol = QCProtocol::QueryProtocol( QCP_SPELL, View );
 		
-		if (pProtocol && ((CPaigeEdtView*)pProtocol)->HasSelection())
-		{
-			if(pProtocol->CheckSpelling(FALSE)==NO_MISSPELLINGS)
-					::MessageBox( NULL, (LPCTSTR)CRString(IDS_SPELL_NO_MISSPELLINGS), 
-					(LPCTSTR)CRString(IDS_EUDORA), MB_OK);
-		}
-		else 
-		{
-				int nBodyResult = NO_MISSPELLINGS;
-				if (pProtocol)
-					nBodyResult = pProtocol->CheckSpelling(FALSE);
-				if (nBodyResult == NO_MISSPELLINGS)
-					AfxMessageBox(IDS_SPELL_NO_MISSPELLINGS);
-		}
+	if (pProtocol && ((CPaigeEdtView*)pProtocol)->HasSelection())
+	{
+		if(pProtocol->CheckSpelling(FALSE)==NO_MISSPELLINGS)
+				::MessageBox( NULL, (LPCTSTR)CRString(IDS_SPELL_NO_MISSPELLINGS), 
+				(LPCTSTR)CRString(IDS_EUDORA), MB_OK);
+	}
+	else 
+	{
+			int nBodyResult = NO_MISSPELLINGS;
+			if (pProtocol)
+				nBodyResult = pProtocol->CheckSpelling(FALSE);
+			if (nBodyResult == NO_MISSPELLINGS)
+				AfxMessageBox(IDS_SPELL_NO_MISSPELLINGS);
 	}
 }

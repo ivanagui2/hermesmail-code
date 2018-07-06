@@ -55,9 +55,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     Removed a reference to Qualcomm's Shareware Manager header file.
-    TODO: Could not find where the Shareware Manager was used in the code so
-    there is likely more work to be done to sanitize the Shareware Manager
-    from this source file.
+File revised by Jeff Prickett                    on July 6, 2018.
+    Removed additional references to Qualcomm's Shareware Manager.
+
+*/    
 
 #include "stdafx.h"
 
@@ -91,7 +92,7 @@ const long				LinkHistoryManager::kEndOfEntryStrLen = 6;
 //	LinkHistoryManager::UrlItemData default constructor
 
 LinkHistoryManager::UrlItemData::UrlItemData()
-	:	m_szLinkName(), m_szURL(), m_szThumbnailFileName(), m_szAdID(),
+	:	m_szLinkName(), m_szURL(), m_szThumbnailFileName(),
 		m_lLastVisitTime(0), m_lLastTouchTime(0), m_type(lt_Unknown),
 		m_status(ls_Unknown), m_nIconIndex(0)
 {
@@ -106,14 +107,11 @@ LinkHistoryManager::UrlItemData::UrlItemData()
 LinkHistoryManager::UrlItemData::UrlItemData(
 	LinkTypeEnum		type,
 	LPCSTR				szFindString)
-	:	m_szLinkName(), m_szURL(), m_szThumbnailFileName(), m_szAdID(),
+	:	m_szLinkName(), m_szURL(), m_szThumbnailFileName(),
 		m_lLastVisitTime(0), m_lLastTouchTime(0), m_type(type),
 		m_status(ls_Unknown), m_nIconIndex(0)
 {
-	if (type == lt_Ad)
-		m_szAdID = szFindString;
-	else
-		m_szURL = szFindString;
+	m_szURL = szFindString;
 }
 
 
@@ -125,14 +123,13 @@ LinkHistoryManager::UrlItemData::UrlItemData(
 LinkHistoryManager::UrlItemData::UrlItemData(
 	LPCSTR				szLinkName,
 	LPCSTR				szURL,
-	LPCSTR				szAdID,
 	LPCSTR				szThumbnailFileName,
 	long				lLastVisitTime,
 	long				lLastTouchTime,
 	LinkTypeEnum		type,
 	LinkStatusEnum		status)
 	:	m_szLinkName(szLinkName), m_szURL(szURL), m_szThumbnailFileName(szThumbnailFileName),
-		m_szAdID(szAdID), m_lLastVisitTime(lLastVisitTime), m_lLastTouchTime(lLastTouchTime),
+		m_lLastVisitTime(lLastVisitTime), m_lLastTouchTime(lLastTouchTime),
 		m_type(type), m_status(status), m_nIconIndex(0)
 {
 }
@@ -151,31 +148,10 @@ LinkHistoryManager::LessUrlItemDataByKey::operator()(
 {
 	bool	isLessThan = false;
 
-	if (lhs->m_type == lt_Ad)
+	if (rhs->m_type != lt_Ad)
 	{
-		if (rhs->m_type == lt_Ad)
-		{
-			//	Both are ads, compare by Ad ID
-			isLessThan = (lhs->m_szAdID.CompareNoCase(rhs->m_szAdID) < 0);
-		}
-		else
-		{
-			//	Sort ads before non-ads (arbitrary choice that's internal only - no UI impact)
-			isLessThan = true;
-		}
-	}
-	else
-	{
-		if (rhs->m_type != lt_Ad)
-		{
-			//	Both are not ads, compare by URL
-			isLessThan = (lhs->m_szURL.CompareNoCase(rhs->m_szURL) < 0);
-		}
-		else
-		{
-			//	Sort non-ads after ads (arbitrary choice that's internal only - no UI impact)
-			isLessThan = false;
-		}
+		//	Both are not ads, compare by URL
+		isLessThan = (lhs->m_szURL.CompareNoCase(rhs->m_szURL) < 0);
 	}
 
 	return isLessThan;
@@ -308,9 +284,6 @@ bool LinkHistoryManager::Save()
 		bSaveFailed = FAILED( out.PutLine(pLHItem->m_szThumbnailFileName) );
 		if (bSaveFailed) break;
 
-		bSaveFailed = FAILED( out.PutLine(pLHItem->m_szAdID) );
-		if (bSaveFailed) break;
-		
 		wsprintf( szTemp, "%u %u %d %d",
 				  pLHItem->m_lLastVisitTime, pLHItem->m_lLastTouchTime,
 				  pLHItem->m_type, pLHItem->m_status );
@@ -450,12 +423,6 @@ bool LinkHistoryManager::Load()
 					if (!bReadGood) break;
 				}
 
-				if (nFileVersion > kLHFileVersionLastPreAdID)
-				{
-					//	File contains separate ad id
-					bReadGood = ReadEntireLine(readFile, pNextEntry->m_szAdID, szBuffer, lBufferSize);
-					if (!bReadGood) break;
-				}
 
 				bReadGood = SUCCEEDED(readFile.GetLine(szBuffer, lBufferSize, &lNumBytesRead)) && (lNumBytesRead > 0);
 				if (!bReadGood) break;
@@ -505,21 +472,6 @@ bool LinkHistoryManager::Load()
 				if (pNextEntry->m_type > lt_Unknown)
 					pNextEntry->m_type = ClassifyURL(pNextEntry->m_szURL);
 
-				if ( (pNextEntry->m_type == lt_Ad) &&
-					 ((nFileVersion <= kLHFileVersionLastPreCorrectedAdID) || pNextEntry->m_szAdID.IsEmpty())  )
-				{
-					//	For compatibility parse out the ad id from the URL
-					pNextEntry->m_szAdID = pNextEntry->m_szURL;
-
-					int		pos = pNextEntry->m_szAdID.Find("adid=");
-					if (pos >= 0)
-						pNextEntry->m_szAdID = pNextEntry->m_szAdID.Right(pNextEntry->m_szAdID.GetLength() - pos - 5);
-
-					pos = pNextEntry->m_szAdID.Find("&");
-					if (pos >= 0)
-						pNextEntry->m_szAdID = pNextEntry->m_szAdID.Left(pos);
-				}
-				
 				//	Note that we can reuse the already allocated pNextEntry if we're not adding it.
 				if ( IsTrackedLinkType(pNextEntry->m_type) )
 				{
@@ -729,7 +681,7 @@ BOOL LinkHistoryManager::Idle(unsigned long currentTime, unsigned long deltaTime
 			return TRUE;
 		}
 
-		if ( UsingFullFeatureSet() && m_bShouldRemind && (currentTime > m_lRemindSnoozeTime) && !IsOffline() )
+		if ( m_bShouldRemind && (currentTime > m_lRemindSnoozeTime) && !IsOffline() )
 		{
 			//	Determine whether or not m_bShouldRemind should really be true
 			//	(because of status changing it's hard to keep exact track of this -
@@ -950,7 +902,7 @@ BOOL LinkHistoryManager::Idle(unsigned long currentTime, unsigned long deltaTime
 bool LinkHistoryManager::IsTrackedLinkType(LinkHistoryManager::LinkTypeEnum type)
 {
 	//	Only allow ad or http links into the Link History for now.
-	return (type == lt_Http) || (type == lt_Ad);
+	return (type == lt_Http);
 }
 
 
@@ -961,21 +913,18 @@ bool LinkHistoryManager::IsTrackedLinkType(LinkHistoryManager::LinkTypeEnum type
 //	Checks link type, and if it's a type we track then checks offline status
 //	and user preference.
 
-bool LinkHistoryManager::ShouldLaunchURL(LPCSTR szURL, bool bIsAdURL, LPCSTR szLinkText, const char * szAdID)
+bool LinkHistoryManager::ShouldLaunchURL(LPCSTR szURL, LPCSTR szLinkText)
 {
-	//	If it's an ad URL, the caller must give us the ad ID
-	ASSERT( !bIsAdURL || (szAdID != NULL) );
-	
-	LinkTypeEnum	linkType = bIsAdURL ? lt_Ad : ClassifyURL(szURL);
+	LinkTypeEnum	linkType = ClassifyURL(szURL);
 	
 	bool	bShouldLaunchURL = true;
 
 	//	Only check launch feasibility for URLs we track if the user is in paid or sponsored mode
-	if ( UsingFullFeatureSet() && IsTrackedLinkType(linkType) )
+	if ( IsTrackedLinkType(linkType) )
 	{
 		//	Check to see if it's an Ad. Ads are by definition good :-).
 		//	Also check to see if the user has ScamWatch dialog warnings turned on.
-		if ( !bIsAdURL && GetIniShort(IDS_INI_SHOW_SCAMWATCH_DIALOG) )
+		if ( GetIniShort(IDS_INI_SHOW_SCAMWATCH_DIALOG) )
 		{
 			//	Check to see if the link text combined with the link target is naughty
 			UINT		nURLIsNaughty = CURLInfo::IsURLNaughty(szURL, szLinkText);
@@ -1023,11 +972,11 @@ bool LinkHistoryManager::ShouldLaunchURL(LPCSTR szURL, bool bIsAdURL, LPCSTR szL
 						break;
 
 					case ola_Bookmark:
-						AddBookmarkedURL(szURL, ls_Bookmarked, bIsAdURL, szAdID);
+						AddBookmarkedURL(szURL, ls_Bookmarked);
 						break;
 
 					case ola_Remind:
-						AddBookmarkedURL(szURL, ls_Remind, bIsAdURL, szAdID);
+						AddBookmarkedURL(szURL, ls_Remind);
 						break;
 				}
 			}
@@ -1097,59 +1046,31 @@ void LinkHistoryManager::UpdateVisitedURLInfo(LPUrlItemData pURL, BOOL bLaunchGo
 
 void LinkHistoryManager::AddVisitedURL(
 	const char *		szURL,
-	BOOL				bLaunchGood,
-	bool				bIsAdURL,
-	const char *		szAdID)
+	BOOL				bLaunchGood);
 {
-	//	Only keep track of URLs if the user is in ad or paid mode
-	if ( UsingFullFeatureSet() )
+	//	Prepare the correct values to search for
+	LinkTypeEnum		ltToFind;
+	const char *		szStringToFind;
+    
+	//	lt_Http in this context just indicates it's not an ad
+	ltToFind = lt_Http;
+	szStringToFind = szURL;
+
+	//	Search for the item
+	UrlItemData			tempItemForFind(ltToFind, szStringToFind);
+	UrlListIteratorT	urlIterator = m_UrlList.find(&tempItemForFind);
+
+	//	Found if iterator is not end
+	if ( urlIterator != m_UrlList.end() )
 	{
-		//	If it's an ad URL, the caller must give us the ad ID
-		ASSERT( !bIsAdURL || (szAdID != NULL) );
+		LPUrlItemData	pFoundURL = *urlIterator;
 		
-		//	Prepare the correct values to search for
-		LinkTypeEnum		ltToFind;
-		const char *		szStringToFind;
-		if (bIsAdURL)
-		{
-			ltToFind = lt_Ad;
-			szStringToFind = szAdID;
-		}
-		else
-		{
-			//	lt_Http in this context just indicates it's not an ad
-			ltToFind = lt_Http;
-			szStringToFind = szURL;
-		}
-
-		//	Search for the item
-		UrlItemData			tempItemForFind(ltToFind, szStringToFind);
-		UrlListIteratorT	urlIterator = m_UrlList.find(&tempItemForFind);
-
-		//	Found if iterator is not end
-		if ( urlIterator != m_UrlList.end() )
-		{
-			LPUrlItemData	pFoundURL = *urlIterator;
-			
-			//	Update visited and touched date/time to right now
-			UpdateVisitedURLInfo(pFoundURL, bLaunchGood);
-			ASSERT( !bIsAdURL || (pFoundURL->m_type == lt_Ad) );
-		}
-		else
-		{
-			//	If it's an ad, there should already be an entry no matter what!
-			ASSERT(!bIsAdURL);
-			
-			//	Add new entry
-			LinkHistoryManager::LinkTypeEnum	linkType = bIsAdURL ? lt_Ad : ClassifyURL(szURL);
-			long								lCurrentTime = time(NULL);
-			InternalAddURL( "", szURL, szAdID, lCurrentTime, lCurrentTime, linkType,
-							bLaunchGood ? ls_None : ls_Attempted );
-		}
-
-		//	We added or updated information, set ourselves to dirty so that we save at idle
-		SetDirtyState(true);
+		//	Update visited and touched date/time to right now
+		UpdateVisitedURLInfo(pFoundURL, bLaunchGood);
 	}
+
+	//	We added or updated information, set ourselves to dirty so that we save at idle
+	SetDirtyState(true);
 }
 
 
@@ -1160,64 +1081,18 @@ void LinkHistoryManager::AddVisitedURL(
 
 void LinkHistoryManager::AddBookmarkedURL(
 	const char *		szURL,
-	LinkStatusEnum		ls_BookmarkOrRemind,
-	bool				bIsAdURL,
-	const char *		szAdID)
+	LinkStatusEnum		ls_BookmarkOrRemind)
 {
-	//	Only keep track of URLs if the user is in ad or paid mode
-	if ( UsingFullFeatureSet() )
-	{
-		//	If it's an ad URL, the caller must give us the ad ID
-		ASSERT( !bIsAdURL || (szAdID != NULL) );
-		
-		//	Prepare the correct values to search for
-		LinkTypeEnum		ltToFind;
-		const char *		szStringToFind;
-		if (bIsAdURL)
-		{
-			ltToFind = lt_Ad;
-			szStringToFind = szAdID;
-		}
-		else
-		{
-			//	lt_Http in this context just indicates it's not an ad
-			ltToFind = lt_Http;
-			szStringToFind = szURL;
-		}
+	//	Prepare the correct values to search for
+	LinkTypeEnum		ltToFind;
+	const char *		szStringToFind;
 
-		//	Search for the item
-		UrlItemData			tempItemForFind(ltToFind, szStringToFind);
-		UrlListIteratorT	urlIterator = m_UrlList.find(&tempItemForFind);
-
-		//	Found if iterator is not end
-		if ( urlIterator != m_UrlList.end() )
-		{
-			//	Update touched date/time to right now
-			LPUrlItemData	pFoundURL = *urlIterator;
-			pFoundURL->m_lLastTouchTime = pFoundURL->m_lLastVisitTime;
-
-			bool	bWasPreviouslyRemoved = (pFoundURL->m_status == ls_Removed);
-			pFoundURL->m_status = ls_BookmarkOrRemind;
-			ASSERT( !bIsAdURL || (pFoundURL->m_type == lt_Ad) );
-
-			UpdateLHListDisplay(pFoundURL, bWasPreviouslyRemoved);
-		}
-		else
-		{
-			//	If it's an ad, there should already be an entry no matter what!
-			ASSERT(!bIsAdURL);
-			
-			//	Add new entry
-			LinkHistoryManager::LinkTypeEnum	linkType = bIsAdURL ? lt_Ad : ClassifyURL(szURL);
-			InternalAddURL( "", szURL, szAdID, 0, time(NULL), linkType, ls_BookmarkOrRemind );
-		}
-
-		//	Remember to remind the user if we are online later
-		SetShouldRemind();
-
-		//	We added or updated information, set ourselves to dirty so that we save at idle
-		SetDirtyState(true);
-	}
+    /*
+    Hermes TODO: Implement this method correctly.
+    Code was here to add a bookmark with a reminder, but it effectively only
+    added bookmarks that were sponsored ads.
+    */
+    
 }
 
 
@@ -1352,108 +1227,6 @@ bool LinkHistoryManager::FindUniqueThumbnailName(const char * szImageFullPath, C
 
 
 // ---------------------------------------------------------------------------
-//		* AddAdToLinkHistory										[Public]
-// ---------------------------------------------------------------------------
-//	Adds an ad URL to the Link History Manager. Called from
-//	AdCallback, which is in turn called by the Playlist subsystem when
-//	ads are downloaded.
-//
-//	If necessary creates thumbnail corresponding to the ad image pointed
-//	to by szImageFullPath. 
-
-void LinkHistoryManager::AddAdToLinkHistory(
-	const char *		szName,
-	const char *		szImageFileURL,
-	const char *		szURL,
-	const char *		szAdID)
-{
-	//	Search for the ad
-	UrlItemData			tempItemForFind(lt_Ad, szAdID);
-	UrlListIteratorT	urlIterator = m_UrlList.find(&tempItemForFind);
-	LPUrlItemData		pAdURL = NULL;
-	bool				bThumbnailNeedsCreated = true;
-
-	//	Found if iterator is not end
-	if ( urlIterator != m_UrlList.end() )
-	{
-		//	Update touched date/time to right now
-		pAdURL = *urlIterator;
-		pAdURL->m_lLastTouchTime = time(NULL);
-
-		//	The ad URL can change, but the ad ID is constant. Update the URL if necessary.
-		if (pAdURL->m_szURL != szURL)
-		{
-			pAdURL->m_szURL = szURL;
-			pAdURL->m_szURL.FreeExtra();
-		}
-
-		ASSERT(pAdURL->m_type == lt_Ad);
-
-		if (pAdURL->m_status == ls_Removed)
-		{
-			//	The ad was previously removed. Reset its status and make sure it's displayed.
-			if (pAdURL->m_lLastVisitTime == 0)
-				pAdURL->m_status = ls_NotVisited;
-			else
-				pAdURL->m_status = ls_None;
-			UpdateLHListDisplay(pAdURL, true);
-		}
-
-		if ( !pAdURL->m_szThumbnailFileName.IsEmpty() )
-		{
-			CString		szThumbnailFullPath = m_szLHDirPath + pAdURL->m_szThumbnailFileName;
-			
-			bThumbnailNeedsCreated = !::FileExistsMT(szThumbnailFullPath);
-		}
-	}
-	else
-	{
-		//	Add new entry
-		pAdURL = InternalAddURL(szName, szURL, szAdID, 0, time(NULL), lt_Ad, ls_NotVisited);
-	}
-
-	if ( bThumbnailNeedsCreated && ::FileExistsMT(m_szLHDirPath) )
-	{
-		//	Transform the file URL to a file path, by removing the file://
-		CString				szImageFullPath = szImageFileURL;
-		szImageFullPath.TrimLeft();
-		szImageFullPath.TrimRight();
-		if ( strnicmp(szImageFullPath, "file://", 7) == 0 )
-			szImageFullPath = szImageFullPath.Right(szImageFullPath.GetLength() - 7);
-
-		//	Determine if we can handle the ad image type (we should be able to, but just in case)
-		ImageFormatType		imageType = CanHandleImageInternally(szImageFullPath);
-		ASSERT(imageType != IF_CANT_HANDLE);
-
-		if (imageType != IF_CANT_HANDLE)
-		{
-			//	First determine a name to use
-			CString		szThumbnailName;
-			bool		bUniqueNameFound = FindUniqueThumbnailName(szImageFullPath, szThumbnailName);
-
-			if (bUniqueNameFound)
-			{
-				CBitmap *	pThumbnailBitmap = MakeThumbnail(imageType, szImageFullPath, szThumbnailName);
-				
-				if (pThumbnailBitmap != NULL)
-				{
-					//	Add the thumbnail to the icon image list if it has been created
-					if (m_bIconImageListCreated)
-						pAdURL->m_nIconIndex = m_IconImageList.Add( pThumbnailBitmap, RGB(255,255,255) );
-					pAdURL->m_szThumbnailFileName = szThumbnailName;
-
-					delete pThumbnailBitmap;
-				}
-			}
-		}
-	}
-
-	//	We added or updated information, set ourselves to dirty so that we save at idle
-	SetDirtyState(true);
-}
-
-
-// ---------------------------------------------------------------------------
 //		* InternalAddURL										[Protected]
 // ---------------------------------------------------------------------------
 //	Adds a URL to the Link History Manager. Mostly used as a helper routine
@@ -1463,7 +1236,6 @@ LinkHistoryManager::LPUrlItemData
 LinkHistoryManager::InternalAddURL(
 	LPCSTR				szLinkName,
 	LPCSTR				szURL,
-	LPCSTR				szAdID,
 	long				lLastVisitTime,
 	long				lLastTouchTime,
 	LinkTypeEnum		type,
@@ -1475,10 +1247,6 @@ LinkHistoryManager::InternalAddURL(
 	{
 		try
 		{
-			//	szAdID can be NULL when the URL is not an ad. Guard against this case to be
-			//	safe (although it looks like the CString constructor could handle the NULL).
-			pNewURL = DEBUG_NEW UrlItemData( szLinkName, szURL, (szAdID == NULL) ? "" : szAdID,
-											 "", lLastVisitTime, lLastTouchTime, type, status );
 			InternalAddURL(pNewURL);
 		}
 		catch (CMemoryException* pException)
@@ -1505,7 +1273,6 @@ void LinkHistoryManager::InternalAddURL(LPUrlItemData pURLToAdd)
 	pURLToAdd->m_szLinkName.FreeExtra();
 	pURLToAdd->m_szURL.FreeExtra();
 	pURLToAdd->m_szThumbnailFileName.FreeExtra();
-	pURLToAdd->m_szAdID.FreeExtra();
 
 	m_UrlList.insert(pURLToAdd);
 
@@ -1521,31 +1288,20 @@ void LinkHistoryManager::InternalAddURL(LPUrlItemData pURLToAdd)
 void LinkHistoryManager::RemoveURL(
 	LPUrlItemData pURLToDelete)
 {
-	if (pURLToDelete->m_type == lt_Ad)
+	UrlListIteratorT	urlIterator = m_UrlList.find(pURLToDelete);
+
+	//	Found if iterator is not end
+	if ( urlIterator != m_UrlList.end() )
 	{
-		//	Mark it deleted rather than actually deleting it. It will actually
-		//	be removed when we weed out old links. Not deleting it allows us
-		//	to correctly remember the title and thumbnail info if the user
-		//	later clicks on the ad.
-		pURLToDelete->m_status = ls_Removed;
+		m_UrlList.erase(urlIterator);
 	}
 	else
 	{
-		UrlListIteratorT	urlIterator = m_UrlList.find(pURLToDelete);
-
-		//	Found if iterator is not end
-		if ( urlIterator != m_UrlList.end() )
-		{
-			m_UrlList.erase(urlIterator);
-		}
-		else
-		{
-			//	We should have found it, alert the developer that something's awry
-			ASSERT(0);
-		}
-
-		delete pURLToDelete;
+		//	We should have found it, alert the developer that something's awry
+		ASSERT(0);
 	}
+
+	delete pURLToDelete;
 
 	//	We either removed the URL or marked it to be removed,
 	//	set ourselves to dirty so that we save at idle

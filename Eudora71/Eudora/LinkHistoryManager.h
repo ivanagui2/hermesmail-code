@@ -21,6 +21,44 @@ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
 DAMAGE. */
 
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
+    Removed references to Qualcomm's Shareware Manager.
+    Also, removed logic that contained references to ads.
+
+*/        
+
 
 
 #ifndef __LinkHistoryManager_H__
@@ -109,7 +147,6 @@ public:
 						UrlItemData(
 							LPCSTR				szLinkName,
 							LPCSTR				szURL,
-							LPCSTR				szAdID,
 							LPCSTR				szThumbnailFileName,
 							long				lLastVisitTime,
 							long				lLastTouchTime,
@@ -123,7 +160,6 @@ public:
 
 		//	Ad specific strings
 		CString			m_szThumbnailFileName;
-		CString			m_szAdID;
 
 		//	Time values for sorting and purging
 		unsigned long	m_lLastVisitTime;
@@ -177,27 +213,16 @@ public:
 										LinkTypeEnum		type);
 	bool							ShouldLaunchURL(
 										LPCSTR				szURL,
-										bool				bIsAdURL,
-										LPCSTR				szLinkText = NULL,
-										const char *		szAdID = NULL);
+										LPCSTR				szLinkText = NULL);
 	void							UpdateVisitedURLInfo(
 										LPUrlItemData		pURL,
 										BOOL				bLaunchGood);
 	void							AddVisitedURL(
 										const char *		szURL,
-										BOOL				bLaunchGood,
-										bool				bIsAdURL = false,
-										const char *		szAdID = NULL);
+										BOOL				bLaunchGood);
 	void							AddBookmarkedURL(
 										const char *		szURL,
-										LinkStatusEnum		ls_BookmarkOrRemind,
-										bool				bIsAdURL,
-										const char *		szAdID = NULL);
-	void							AddAdToLinkHistory(
-										const char *		szName,
-										const char *		szImageFileURL,
-										const char *		szURL,
-										const char *		szAdID);
+										LinkStatusEnum		ls_BookmarkOrRemind);
 	void							RemoveURL(
 										LPUrlItemData		pURLToDelete);
 	void							NotifyLHViewReady();
@@ -212,8 +237,6 @@ protected:
 	{
 		kLHOriginalFileVersionNoTouchDate = 1,
 		kLHFileVersionLastPreThumbnail = 2,
-		kLHFileVersionLastPreAdID = 3,
-		kLHFileVersionLastPreCorrectedAdID = 4,
 			//	kLHFileVersionLastPreCorrectedAdID stored the ad ID, but sometimes it was incorrectly
 			//	an empty string. Read in the ad ID, but don't trust it - reparse it from the URL.
 		kLHFileVersionLastPreBackwardFriendly = 5,
@@ -247,7 +270,6 @@ protected:
 	LPUrlItemData					InternalAddURL(
 										LPCSTR				szLinkName,
 										LPCSTR				szURL,
-										LPCSTR				szAdID,
 										long				lLastVisitTime,
 										long				lLastTouchTime,
 										LinkTypeEnum		type,

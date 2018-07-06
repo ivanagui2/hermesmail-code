@@ -55,6 +55,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     Removed dependencies on Qualcomm's Shareware Manager 
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
+    Removed additional dependencies on Qualcomm's Shareware Manager.
+        
 */    
 
 //
@@ -872,12 +875,6 @@ void CMessageDoc::OnRecalculateJunkScore()
 //
 void CMessageDoc::OnUpdateJunk(CCmdUI* pCmdUI)
 {
-	// Junk menus not available in light.
-	OnUpdateFullFeatureSet(pCmdUI);
-
-	if (!UsingFullFeatureSet())
-		return;
-	
 	if (m_Sum && !m_Sum->IsComp() && m_Sum->m_TheToc)
 	{
 		pCmdUI->Enable( !m_Sum->m_TheToc->IsJunk() || GetIniShort(IDS_INI_ALWAYS_ENABLE_JUNK) );
@@ -897,11 +894,6 @@ void CMessageDoc::OnUpdateJunk(CCmdUI* pCmdUI)
 //
 void CMessageDoc::OnUpdateNotJunk(CCmdUI* pCmdUI)
 {
-	OnUpdateFullFeatureSet(pCmdUI);
-
-	if (!UsingFullFeatureSet())
-		return;
-	
 	if (m_Sum && !m_Sum->IsComp() && m_Sum->m_TheToc)
 	{
 		pCmdUI->Enable( (m_Sum->m_TheToc->IsJunk()) || GetIniShort(IDS_INI_ALWAYS_ENABLE_JUNK) );

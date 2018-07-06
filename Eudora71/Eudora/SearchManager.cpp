@@ -243,8 +243,7 @@ SearchManager::IsInitialIndexingComplete() const
 bool
 SearchManager::IsIndexedSearchOn() const
 {
-	m_pInfo->m_bIndexedSearchOnCached = UsingPaidForX1FeatureSet() &&
-										(GetIniShort(IDS_INI_USE_INDEXED_SEARCH) == 1);
+	m_pInfo->m_bIndexedSearchOnCached = (GetIniShort(IDS_INI_USE_INDEXED_SEARCH) == 1);
 	
 	return m_pInfo->m_bIndexedSearchOnCached;
 }

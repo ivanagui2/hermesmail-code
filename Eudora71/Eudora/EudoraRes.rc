@@ -6968,28 +6968,6 @@ END
 
 STRINGTABLE 
 BEGIN
-    IDS_RIE_FILE_CREATE_FAILED 
-                            "Error - couldn't create a temporary file for copying Eudora.ini."
-    IDS_RIE_TOO_MANY_SAVED  "Error - the existing Eudini.sav file needs to be renamed, but Eudini01.sav through Eudini99.sav all exist already.\r\n\r\nYou need to delete one or more of those files from your Eudora directory."
-    IDS_RIE_SAVE_RENAME_FAILED 
-                            "Error - couldn't rename the existing Eudini.sav file to EudInixx.sav (xx is a number from 01 to 99)."
-    IDS_RIE_INI_RENAME_FAILED 
-                            "Error - couldn't rename Eudora.ini to Eudini.sav."
-    IDS_RIE_TEMP_RENAME_FAILED 
-                            "Error - couldn't rename temporary file to Eudora.ini."
-    IDS_RI_LOG_SUCCESS      "Successfully reset Eudora.ini."
-    IDS_RI_LOG_FAILURE      "Unsuccessful attempt to reset Eudora.ini."
-    IDS_MODE_SPONSORED      "Sponsored Mode"
-    IDS_MODE_LIGHT          "Light Mode"
-    IDS_HAB_REGNUM          "Reg #%s"
-    IDS_HAB_REGTO           "Registered to "
-    IDS_HAB_NOTREG          "Not Registered in This Mode"
-    IDS_PRE43INISN_REG      "Registration"
-    IDS_ERR_HUGE_MSG_FILE   "Not enough memory to hold the message file %s."
-END
-
-STRINGTABLE 
-BEGIN
     IDS_HAB_PRE43_REGNUM    "Old Style Reg #%s"
     IDS_RI_PERSONA0         "Persona0"
     IDS_RI_PERSONA1         "Persona1"
@@ -8283,8 +8261,6 @@ BEGIN
     IDS_DID_YOU_KNOW        "Did you know..."
     IDS_PAR_PROFILE         "&Profile"
     IDS_PAR_UPDATE_PROFILE  "Update Your &Profile"
-    IDS_PAR_REGISTER        "&Register with Us"
-    IDS_PAR_UPDATE_REG      "Update Your &Registration"
     IDS_IMPORT_ADV_LOCATE_FILE "Please Locate your %s File"
     ID_RECHECK_JUNK         "Recalculates the junk score for the current message(s)\nRecalculate Junk Score"
 END

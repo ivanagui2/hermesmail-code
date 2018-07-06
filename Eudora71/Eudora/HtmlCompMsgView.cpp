@@ -54,6 +54,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
 
+File revised by Jeff Prickett                    on July 6, 2018
+    Removing references to UsingFullFeatureSet method of Qualcomm's Shareware
+    Manager.
+
 */
 
 #include "stdafx.h"
@@ -201,7 +205,7 @@ inline HtmlDataTranslator::FormatType sig_format( const char* sig ) {
 #include "sendmail.h"
 bool HtmlCompMsgView::load_signature( CCompMessageDoc* pDoc /*= 0*/, bool bReplace /*=false*/ )
 {
-	if ( !UsingFullFeatureSet() || !GetIniShort( IDS_INI_INLINE_SIGNATURE ) )
+	if ( !GetIniShort( IDS_INI_INLINE_SIGNATURE ) )
 		return false;
 
 	if ( !pDoc ) {
@@ -463,7 +467,7 @@ void HtmlCompMsgView::OnSetFocus(CWnd* pOldWnd)
 {
     HtmlMsgView::OnSetFocus(pOldWnd);
 
-	if( UsingFullFeatureSet() && !IsReadOnly() )
+	if( !IsReadOnly() )
 		SetMoodTimer();
 }
 
@@ -564,7 +568,7 @@ int HtmlCompMsgView::DoMoodMailCheck(CMoodWatch *pmoodwatch)
 
 void HtmlCompMsgView::OnTimer(UINT nIDEvent) 
 {
-	if (nIDEvent != AUTO_MOOD_MAIL_TIMER || !UsingFullFeatureSet())
+	if (nIDEvent != AUTO_MOOD_MAIL_TIMER )
 		CHtmlEditView::OnTimer(nIDEvent);
 	else
 	{
@@ -725,7 +729,7 @@ void HtmlCompMsgView::SetMoodTimer()
 	// * We're using the full feature set
 	// * We're not read only
 	// * We're focused or the subject header is focused
-	if ( UsingFullFeatureSet() && !IsReadOnly() )
+	if ( !IsReadOnly() )
 	{
 		CWnd *		pFocusWnd = CWnd::GetFocus();
 		CWnd *		pParentOfFocusWnd = pFocusWnd ? pFocusWnd->GetParent() : NULL;

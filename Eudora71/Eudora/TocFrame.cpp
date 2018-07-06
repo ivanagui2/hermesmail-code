@@ -19,6 +19,43 @@ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
 DAMAGE. */
 
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
+    Removed references to Qualcomm's Shareware Manager.
+
+*/    
+
 //
 
 #include "stdafx.h"
@@ -45,7 +82,7 @@ DAMAGE. */
 #include "msgframe.h"
 #include "trnslate.h"
 #include "eudora.h"
-#include "cursor.h"
+ha/
 #include "FileBrowseView.h"
 #include "changeq.h"
 #include "filtersd.h"
@@ -761,12 +798,6 @@ void CTocFrame::OnUpdateSentUnsent(CCmdUI* pCmdUI)
 
 void CTocFrame::OnUpdateJunkCommands(CCmdUI* pCmdUI)
 {
-	// Junk menus not available in light.
-	OnUpdateFullFeatureSet(pCmdUI);
-
-	if (!UsingFullFeatureSet())
-		return;
-	
 	BOOL	bEnable = FALSE;
 
 	if (m_pSumListBox)
@@ -1082,9 +1113,6 @@ void CTocFrame::OnDeclareMessagesNotJunk()
 //
 void CTocFrame::SetJunkStatus(bool bJunk)
 {
-	if ( !UsingFullFeatureSet() )
-		return;
-	
 	if (!m_pSumListBox)
 	{
 		ASSERT(0);
@@ -1323,7 +1351,7 @@ void CTocFrame::ComposeMessage
 	bool	bIsReply = (nID == ID_MESSAGE_REPLY) || (nID == ID_MESSAGE_REPLY_ALL);
 
 	if ( (nSelected > 1) && bIsReply &&
-		 UsingFullFeatureSet() && !GetIniShort(IDS_INI_MULT_REPLIES_FOR_MULT_SEL) )
+		 !GetIniShort(IDS_INI_MULT_REPLIES_FOR_MULT_SEL) )
 	{
 		//	Get the selected summaries
 		SummaryArrayT		currentPreviewSummaryArray;
@@ -3698,45 +3726,37 @@ bool CTocFrame::DoPreviewDisplay()
 
 	if (nNumSummaries > 1)
 	{
-		if ( UsingFullFeatureSet() )		
+		//	We need to check Content Concentrator conditions for whether or not
+		//	multiple messages will be allowed.
+		short	nMaxSummariesAllowed = GetIniShort(IDS_INI_CC_MULTIPLE_MAX_NUM);
+		
+		if ( (nNumSummaries > nMaxSummariesAllowed) ||
+			!ContentConcentrator::Instance()->ShouldConcentrate(ContentConcentrator::kCCMultipleContext, pTocDoc) )
 		{
-			//	We need to check Content Concentrator conditions for whether or not
-			//	multiple messages will be allowed.
-			short	nMaxSummariesAllowed = GetIniShort(IDS_INI_CC_MULTIPLE_MAX_NUM);
-			
-			if ( (nNumSummaries > nMaxSummariesAllowed) ||
-				!ContentConcentrator::Instance()->ShouldConcentrate(ContentConcentrator::kCCMultipleContext, pTocDoc) )
-			{
-				//	Too many summaries or not Content Concentrating multiple messages
-				//	(i.e. "None" profile or unknown profile).
-				m_bPreviewAllowed = false;
-			}
-			else
-			{
-				//	Should we check for matching subjects or senders?
-				bool	bRequireRelated = (GetIniShort(IDS_INI_CC_MULTIPLE_REQUIRE_RELATED) != 0);
-				if (bRequireRelated)
-				{
-					//	Make sure every message matches either the from or subject of the first message
-					CString		szFirstMessageSubject = RemoveSubjectPrefixMT(m_previewSummaryArray[0]->m_Subject);
-					CString		szFirstMessageFrom = m_previewSummaryArray[0]->m_From;
-					
-					for (int i = 1; i < nNumSummaries; i++)
-					{
-						if ( (stricmp(szFirstMessageSubject, RemoveSubjectPrefixMT(m_previewSummaryArray[i]->m_Subject)) != 0) &&
-							(stricmp(szFirstMessageFrom, m_previewSummaryArray[i]->m_From) != 0) )
-						{
-							m_bPreviewAllowed = false;
-							break;
-						}
-					}
-				}
-			}
+			//	Too many summaries or not Content Concentrating multiple messages
+			//	(i.e. "None" profile or unknown profile).
+			m_bPreviewAllowed = false;
 		}
 		else
 		{
-			//	Display of multiple messages not allowed in Light
-			m_bPreviewAllowed = false;
+			//	Should we check for matching subjects or senders?
+			bool	bRequireRelated = (GetIniShort(IDS_INI_CC_MULTIPLE_REQUIRE_RELATED) != 0);
+			if (bRequireRelated)
+			{
+				//	Make sure every message matches either the from or subject of the first message
+				CString		szFirstMessageSubject = RemoveSubjectPrefixMT(m_previewSummaryArray[0]->m_Subject);
+				CString		szFirstMessageFrom = m_previewSummaryArray[0]->m_From;
+				
+				for (int i = 1; i < nNumSummaries; i++)
+				{
+					if ( (stricmp(szFirstMessageSubject, RemoveSubjectPrefixMT(m_previewSummaryArray[i]->m_Subject)) != 0) &&
+						(stricmp(szFirstMessageFrom, m_previewSummaryArray[i]->m_From) != 0) )
+					{
+						m_bPreviewAllowed = false;
+						break;
+					}
+				}
+			}
 		}
 	}
 
@@ -4296,7 +4316,7 @@ void CTocFrame::OnContextMenu(CWnd* pWnd, CPoint ptScreen)
 
 		// If we have a selection generate the menus.
 		CObArray	 oaTransferMatches;
-		if (!strText.IsEmpty() && (GetSharewareMode() != SWM_MODE_LIGHT))
+		if (!strText.IsEmpty())
 		{
 			GenerateTransferToMenus(&tempPopupMenu, strText, &oaTransferMatches);
 		}

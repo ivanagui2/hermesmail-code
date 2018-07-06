@@ -51,6 +51,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     Removed a conditional debug code section.
     Removed references to Qualcomm's Shareware Manager.
+File revised by Jeff Prickett                    on July 6, 2018
 
 */    
 
@@ -888,20 +889,6 @@ void CUsageStatisticsView::RefreshGraphicalStatistics(long wParam, long lParam)
 			m_Graph[4].PieGraph(lFTValues, 3, m_GraphColors, csUAStr);
 					
 		}
-	}	
-}
-
-void CUsageStatisticsView::Notify( QCCommandObject*	pObject,COMMAND_ACTION_TYPE	theAction,void* pData)
-{
-	if (theAction == CA_SWM_CHANGE_FEATURE) 
-	{
-		if (!UsingFullFeatureSet())
-		{
-			// Moving from FULL FEATURED to REDUCED
-			
-			// Close Usage Statistics View
-			::SendMessage((this->GetParent())->m_hWnd,WM_CLOSE,0,0);			
-		}    
 	}	
 }
 

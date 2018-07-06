@@ -50,6 +50,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     Removed a conditional debug code section
+File revised by Jeff Prickett                    on July 6, 2018. 
+    Removed references to Qualcomm's Shareware Manager.
 
 */
 
@@ -98,13 +100,6 @@ public:
 	virtual void			Clear();
 	virtual void			ResetCaret();
 	virtual void			HideCaret();
-
-	// QICommandClient function.
-	virtual void Notify( 
-	QCCommandObject*	pObject,
-	COMMAND_ACTION_TYPE	theAction,
-	void*				pData = NULL );
-
 
 // Overrides
 	// ClassWizard generated virtual function overrides

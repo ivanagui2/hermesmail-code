@@ -21,6 +21,43 @@ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
 DAMAGE. */
 
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
+    Removed references to Qualcomm's Shareware Manager.
+
+*/        
+
 //
 
 
@@ -53,8 +90,6 @@ DAMAGE. */
 
 #include "AutoCompleteSearcher.h"
 #include "lex822.h"
-
-#include "QCSharewareManager.h"
 
 #include "QCCommandActions.h"
 #include "QCRecipientCommand.h"
@@ -2967,59 +3002,49 @@ BOOL CNicknamesDoc::ReadTocs()
 	if (::FileExistsMT(Filename))
 		NickFile->ReadToc();
 	
-	// Shareware: Reduced feature mode only allows one nickname file
-	if (UsingFullFeatureSet())
+	// Add files from Nickname directory off of mail directory
+	char ExtraDirs[_MAX_PATH + 1];
+	char NicknameDir[_MAX_PATH + 1];
+	strcpy(Filename + PathLen, CRString(IDS_NICK_DIR_NAME));
+	strcpy(NicknameDir, Filename);
+	ReadTocDir(NicknameDir, nickfileBPList);
+	
+	// Add files for extra directories specified
+	GetIniString(IDS_INI_EXTRA_NICKNAME_DIRS, ExtraDirs, sizeof(ExtraDirs));
+	char* Start = ExtraDirs;
+	while (*Start)
 	{
-		// FULL-FEATURE
-
-		// Add files from Nickname directory off of mail directory
-		char ExtraDirs[_MAX_PATH + 1];
-		char NicknameDir[_MAX_PATH + 1];
-		strcpy(Filename + PathLen, CRString(IDS_NICK_DIR_NAME));
-		strcpy(NicknameDir, Filename);
-		ReadTocDir(NicknameDir, nickfileBPList);
-		
-		// Add files for extra directories specified
-		GetIniString(IDS_INI_EXTRA_NICKNAME_DIRS, ExtraDirs, sizeof(ExtraDirs));
-		char* Start = ExtraDirs;
-		while (*Start)
-		{
-			char* Next = strchr(Start, ';');
-			if (Next)
-				*Next++ = 0;
-			else
-				Next = Start + strlen(Start);
-				
-			::TrimWhitespaceMT(Start);
-			if (stricmp(NicknameDir, Start))
-				ReadTocDir(Start, nickfileBPList);
-				
-			Start = Next;
-		}
-
-		m_bSavedFeatureMode = true;
-	}
-	else
-	{
-		m_bSavedFeatureMode = false;
+		char* Next = strchr(Start, ';');
+		if (Next)
+			*Next++ = 0;
+		else
+			Next = Start + strlen(Start);
+			
+		::TrimWhitespaceMT(Start);
+		if (stricmp(NicknameDir, Start))
+			ReadTocDir(Start, nickfileBPList);
+			
+		Start = Next;
 	}
 
-		//loop through all nickname files
-		//if nickfile is on BP list, then add all nicknames to the BP list
-		//if nickfile is not on BP list, check which nicknames are on BP list and add accordingly
-		POSITION pos = m_NicknameFiles.GetHeadPosition();
-		while (pos)
-		{
-			CNicknameFile* pNickfile = (CNicknameFile *) m_NicknameFiles.GetNext(pos);
-			ASSERT(pNickfile != NULL);
-			ASSERT_KINDOF(CNicknameFile, pNickfile);
-			if(pNickfile->IsBPList())
-				AddRemoveNickNamesToBPList(pNickfile->m_Name);
-			else
-				AddNickFileToBPList(pNickfile->m_Name);
-		
-		}
-		//go through the list
+	m_bSavedFeatureMode = true;
+
+	//loop through all nickname files
+	//if nickfile is on BP list, then add all nicknames to the BP list
+	//if nickfile is not on BP list, check which nicknames are on BP list and add accordingly
+	POSITION pos = m_NicknameFiles.GetHeadPosition();
+	while (pos)
+	{
+		CNicknameFile* pNickfile = (CNicknameFile *) m_NicknameFiles.GetNext(pos);
+		ASSERT(pNickfile != NULL);
+		ASSERT_KINDOF(CNicknameFile, pNickfile);
+		if(pNickfile->IsBPList())
+			AddRemoveNickNamesToBPList(pNickfile->m_Name);
+		else
+			AddNickFileToBPList(pNickfile->m_Name);
+	
+	}
+	//go through the list
 
 	SetModifiedFlag(FALSE);
 	
@@ -4300,26 +4325,6 @@ void*)
 			pNickName->SetRecipient( FALSE );			
 			UpdateAllViews( NULL, NICKNAME_HINT_RECIPLIST_CHANGED, NULL );
 		}
-	}
-}
-
-
-// Called when a change in feature mode has occurred. May
-// be called multiple times by various views/owners.
-void CNicknamesDoc::UpdateSharewareFeatureMode()
-{
-	// Shareware: Reduced feature mode only allows one nickname file
-	const bool bNewMode = UsingFullFeatureSet();
-
-	if (m_bSavedFeatureMode != bNewMode)
-	{
-		CanCloseFrame(NULL); // Ask them to save stuff
-
-		NukeAllData();
-		ReadTocs();
-		UpdateAllViews(NULL, NICKNAME_HINT_REFRESH_LHS, NULL);
-
-		m_bSavedFeatureMode = bNewMode;
 	}
 }
 

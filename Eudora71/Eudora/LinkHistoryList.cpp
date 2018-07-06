@@ -60,6 +60,7 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     Sanitized references to Qualcomm's Shreware Manager from the source file.
 File revised by Jeff Prickett                    on July 6, 2018    
     Removed additonal references to the FeatureNotInFreeMessage method.
+    Removed references to UsingFullFeatureSet from the Shareware Manager.
 
 */
 
@@ -399,10 +400,7 @@ BOOL CLinkHistoryList::ResortItems()
 {
 	BOOL	bResult = FALSE;
 
-	if ( UsingFullFeatureSet() )
-	{
-		bResult = GetListCtrl().SortItems( SortCompareFunc, reinterpret_cast<DWORD>(this) );
-	}
+	bResult = GetListCtrl().SortItems( SortCompareFunc, reinterpret_cast<DWORD>(this) );
 
 	return bResult;
 }
@@ -536,32 +534,29 @@ void CLinkHistoryList::OnLButtonDblClk(UINT nFlags, CPoint point)
 
 void CLinkHistoryList::ShowStatusText(int nIndexToShow)
 {
-	if ( UsingFullFeatureSet() )
-	{
-		CFrameWnd *		pFrameWnd = GetTopLevelFrame();
+	CFrameWnd *		pFrameWnd = GetTopLevelFrame();
 		
-		if (pFrameWnd != NULL)
+	if (pFrameWnd != NULL)
+	{
+		LV_ITEM		lvi;
+		lvi.mask = LVIF_PARAM;
+		lvi.iItem = nIndexToShow;
+		lvi.iSubItem = 0;
+
+		if ( GetListCtrl().GetItem(&lvi) )
 		{
-			LV_ITEM		lvi;
-			lvi.mask = LVIF_PARAM;
-			lvi.iItem = nIndexToShow;
-			lvi.iSubItem = 0;
+			//	Set the status text
+			LPUrlItemData	pListItemData = (LPUrlItemData) lvi.lParam;
 
-			if ( GetListCtrl().GetItem(&lvi) )
+			if (pListItemData == NULL)
 			{
-				//	Set the status text
-				LPUrlItemData	pListItemData = (LPUrlItemData) lvi.lParam;
-
-				if (pListItemData == NULL)
-				{
-					ASSERT(0);
-					return;
-				}
-
-				pFrameWnd->SetMessageText( GetDisplayURL(pListItemData) );
-				pFrameWnd->GetMessageBar()->UpdateWindow();
-				SetStatusURLShown(true);
+				ASSERT(0);
+				return;
 			}
+
+			pFrameWnd->SetMessageText( GetDisplayURL(pListItemData) );
+			pFrameWnd->GetMessageBar()->UpdateWindow();
+			SetStatusURLShown(true);
 		}
 	}
 }
@@ -803,10 +798,7 @@ void CLinkHistoryList::OnGetDispInfo(NMHDR * pnmh, LRESULT * pResult)
 
 void CLinkHistoryList::OnUpdateNeedSelection(CCmdUI* pCmdUI)
 {
-	OnUpdateFullFeatureSet(pCmdUI);
-
-	if ( UsingFullFeatureSet() )
-		pCmdUI->Enable( GetListCtrl().GetSelectedCount() > 0 );
+	pCmdUI->Enable( GetListCtrl().GetSelectedCount() > 0 );
 }
 
 
@@ -818,10 +810,7 @@ void CLinkHistoryList::OnUpdateNeedSelection(CCmdUI* pCmdUI)
 
 void CLinkHistoryList::OnUpdateNeedSingleSelection(CCmdUI* pCmdUI)
 {
-	OnUpdateFullFeatureSet(pCmdUI);
-
-	if ( UsingFullFeatureSet() )
-		pCmdUI->Enable( GetListCtrl().GetSelectedCount() == 1 );
+	pCmdUI->Enable( GetListCtrl().GetSelectedCount() == 1 );
 }
 
 
@@ -833,10 +822,7 @@ void CLinkHistoryList::OnUpdateNeedSingleSelection(CCmdUI* pCmdUI)
 
 void CLinkHistoryList::OnUpdateCopy(CCmdUI* pCmdUI)
 {
-	if ( UsingFullFeatureSet() )
-		pCmdUI->Enable( GetListCtrl().GetSelectedCount() > 0 );
-	else
-		pCmdUI->Enable(FALSE);
+	pCmdUI->Enable( GetListCtrl().GetSelectedCount() > 0 );
 }
 
 
@@ -848,7 +834,7 @@ void CLinkHistoryList::OnUpdateCopy(CCmdUI* pCmdUI)
 
 void CLinkHistoryList::OnUpdateEditSelectAll(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable( UsingFullFeatureSet() && (GetListCtrl().GetItemCount() > 0) );
+	pCmdUI->Enable( (GetListCtrl().GetItemCount() > 0) );
 }
 
 
@@ -947,28 +933,6 @@ void CLinkHistoryList::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	GetClientRect(&rcClient);
 	rcClient.top = rcBounds.top;
 	rcClient.bottom = rcBounds.bottom;
-	
-	if ( !UsingFullFeatureSet() )
-	{
-		//	Just draw the light message and then return immediately
-		int nRetLen = GetListCtrl().GetItemText(nItem, 0, szBuff, sizeof(szBuff));
-		if (nRetLen > 0)
-		{
-			rcClient.left += nColumnOffset;
-			
-			//	Make sure colors are set up correctly for drawing
-			pOriginalDC->FillSolidRect(rcClient, ::GetSysColor(COLOR_WINDOW));
-			pOriginalDC->SelectStockObject(BLACK_PEN);		// Set default pen
-			pOriginalDC->SelectStockObject(ANSI_VAR_FONT);	// Choose the default 'skinny' font
-			pOriginalDC->SetTextColor(::GetSysColor(COLOR_WINDOWTEXT));
-
-			pOriginalDC->DrawText(szBuff, -1, rcClient, nFormat);
-		}
-
-		// Restore dc	
-		pOriginalDC->RestoreDC(nSavedDC);
-		return;
-	}
 	
 	CRect			rcItem(lpDrawItemStruct->rcItem);
 	UINT			uiFlags = ILD_TRANSPARENT;
@@ -1472,7 +1436,7 @@ CLinkHistoryList::SortCompareFunc(
 {
 	INT		nSortResult = 0;
 	
-	if ( UsingFullFeatureSet() && lParam1 && lParam2 && lParamSort)
+	if ( lParam1 && lParam2 && lParamSort)
 	{
 		LPUrlItemData		pListItemData1 = (LPUrlItemData) lParam1;
 		LPUrlItemData		pListItemData2 = (LPUrlItemData) lParam2;

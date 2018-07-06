@@ -19,6 +19,45 @@ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
 DAMAGE. */
 
+/*
+
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018.
+    Removed references to Qualcomm's Shareware Manager
+
+*/        
+
 //
 
 #include "stdafx.h"
@@ -710,8 +749,7 @@ void CTocListBox::DrawItem(LPDRAWITEMSTRUCT lpDIS)
 	ASSERT_KINDOF(CTocView, pTocView);
 	CTocDoc* pTocDoc = (CTocDoc *) pTocView->GetDocument();
 	ASSERT_KINDOF(CTocDoc, pTocDoc);
-	if (UsingFullFeatureSet() &&
-		((GetIniShort(IDS_INI_MBOX_SHOW_JUNK) || pTocDoc->IsJunk())))
+	if (((GetIniShort(IDS_INI_MBOX_SHOW_JUNK) || pTocDoc->IsJunk())))
 	{
 		// Draw the junk score if the junk column is being shown or if
 		// this is the junk mailbox (where the junk column is always shown).
@@ -872,7 +910,7 @@ void CTocListBox::DrawItem(LPDRAWITEMSTRUCT lpDIS)
 	}
 
 	// MOOD MAIL
-	if (GetIniShort(IDS_INI_MBOX_SHOW_MOOD) && UsingFullFeatureSet() && 
+	if (GetIniShort(IDS_INI_MBOX_SHOW_MOOD) &&
 		GetIniShort(IDS_INI_MOOD_MAIL_CHECK) )
 	{
 		if ( (Sum->m_nMood>1)&&(Sum->m_nMood<5) &&
@@ -2745,20 +2783,11 @@ CTocView::CTocView()
 	}
 	
 	g_theMailboxDirector.Register( this );
-	m_pSWM = GetSharewareManager();
-	if (m_pSWM)
-	{
-		m_pSWM->QCCommandDirector::Register((QICommandClient*)this);
-	}
 }
 
 CTocView::~CTocView()
 {
 	g_theMailboxDirector.UnRegister( this );
-	if (m_pSWM)
-	{
-		m_pSWM->QCCommandDirector::UnRegister((QICommandClient*)this);
-	}
 }
 
 void CTocView::SelectAll(BOOL bSelect /*= TRUE*/, BOOL bRedisplay /*= TRUE*/, bool in_bResultDirectUserAction /*=false*/)
@@ -3367,7 +3396,7 @@ void CTocView::SizeHeaders()
 		if (i == FW_MOOD)
 		{
 			// Skip the mood column if in light mode or if mood feature not used.
-			if (!UsingFullFeatureSet() || !GetIniShort(IDS_INI_MOOD_MAIL_CHECK))
+			if (!GetIniShort(IDS_INI_MOOD_MAIL_CHECK))
 			{
 				bSkipCol = true;
 			}
@@ -3379,8 +3408,7 @@ void CTocView::SizeHeaders()
 			CTocDoc* pTocDoc = (CTocDoc*)GetDocument();
 			ASSERT_KINDOF(CTocDoc, pTocDoc);
 			if (!pTocDoc->IsJunk() &&
-				(!UsingFullFeatureSet() ||
-				 !GetIniShort(IDS_INI_MBOX_SHOW_JUNK)))
+				(!GetIniShort(IDS_INI_MBOX_SHOW_JUNK)))
 			{
 				bSkipCol = true;
 			}
@@ -3428,7 +3456,7 @@ void CTocView::SizeBottomOfWindowControls(CRect * out_pRectControl)
 	CTocFrame *		pTocFrame = reinterpret_cast<CTocFrame *>( GetParentFrame() );
 	ASSERT_KINDOF(CTocFrame, pTocFrame);
 
-	if ( UsingFullFeatureSet() && pTocFrame && pTocFrame->ShouldPreview() )
+	if ( pTocFrame && pTocFrame->ShouldPreview() )
 	{
 		m_ProfileCombo.ShowWindow(SW_SHOW);
 		
@@ -4719,8 +4747,7 @@ void CTocView::SetFieldSeparators()
 		if (i == FW_MOOD)
 		{
 			// Skip the mood column if in light mode or if mood feature not used.
-			if (!UsingFullFeatureSet() ||
-				!GetIniShort(IDS_INI_MOOD_MAIL_CHECK) ||
+			if (!GetIniShort(IDS_INI_MOOD_MAIL_CHECK) ||
 				!GetIniShort(IDS_INI_MBOX_SHOW_MOOD))
 			{
 				bSkipCol = true;
@@ -4733,8 +4760,7 @@ void CTocView::SetFieldSeparators()
 			CTocDoc* pTocDoc = (CTocDoc*)GetDocument();
 			ASSERT_KINDOF(CTocDoc, pTocDoc);
 			if (!pTocDoc->IsJunk() &&
-				(!UsingFullFeatureSet() ||
-				 !GetIniShort(IDS_INI_MBOX_SHOW_JUNK)))
+				(!GetIniShort(IDS_INI_MBOX_SHOW_JUNK)))
 			{
 				bSkipCol = true;
 			}
@@ -4924,21 +4950,12 @@ QCCommandObject*	pObject,
 COMMAND_ACTION_TYPE	theAction,
 void*				pData )
 {
-	switch(theAction )
+	if(theAction == CA_COMPACT )
 	{
-		case CA_COMPACT:
-			if( pObject->IsKindOf( RUNTIME_CLASS( QCMailboxCommand ) ) )
-			{
-				SetCompact();
-			}
-			break;
-		case CA_SWM_CHANGE_FEATURE:
-			SizeHeaders();
-			SizeBottomOfWindowControls();
-			Invalidate();
-			break;
-
-	}
+		if( pObject->IsKindOf( RUNTIME_CLASS( QCMailboxCommand ) ) )
+		{
+			SetCompact();
+		}
 }
 
 

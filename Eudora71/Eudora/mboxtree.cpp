@@ -54,8 +54,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     Removed reference to the Qualcomm Shareware Manager header file.
     Removed code that was temporaily commented with FOR NOW comments
-    TODO: There are likely more dependencies to Qualcomm Shareware Manager but
-    I could not find them.
+File revised by Jeff Prickett                    on July 6, 2018.
+    Removed additional references to the Qualcomm Shareware Manager.
 
 */
 
@@ -2397,18 +2397,6 @@ void CMboxTreeCtrl::OnCmdEmptyTrash(void)
 }
 
 
-// OnUpdateCmdTrimJunk [protected]
-//
-// UI handler for enabling/disabling Delete Old Junk menu item based
-// on whether or not the user is allowed to access the full feature
-// set of Eudora.
-////////////////////////////////////////////////////////////////////////
-void CMboxTreeCtrl::OnUpdateCmdTrimJunk(CCmdUI* pCmdUI)
-{
-	OnUpdateFullFeatureSet(pCmdUI);
-}
-
-
 ////////////////////////////////////////////////////////////////////////
 // OnCmdTrimJunk [protected]
 //
@@ -2666,7 +2654,7 @@ void CMboxTreeCtrl::OnUpdateDynamicCommand(CCmdUI* pCmdUI)
 		{
 			if( theAction == CA_SAVED_SEARCH)
 			{
-				pCmdUI->Enable( UsingFullFeatureSet() ? TRUE : FALSE );
+				pCmdUI->Enable( TRUE );
 				return;
 			}
 		}

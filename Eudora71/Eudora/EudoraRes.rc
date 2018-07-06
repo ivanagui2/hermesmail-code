@@ -6986,7 +6986,6 @@ BEGIN
     IDS_HAB_NOTREG          "Not Registered in This Mode"
     IDS_PRE43INISN_REG      "Registration"
     IDS_ERR_HUGE_MSG_FILE   "Not enough memory to hold the message file %s."
-    IDS_PRE43INI_REG_CODE   "Registration"
 END
 
 STRINGTABLE 
@@ -7062,12 +7061,6 @@ BEGIN
     IDS_INI_ADD_NONJUNK_TO_ADDBOOK "NonJunkToAddressBook\n1"
     IDS_INI_NONJUNK_ADDBOOK "NonJunkAddressBook\n"
     IDS_INI_IMAP_JUNK_MBOXNAME "JunkMailboxName\nJunk"
-    IDS_INI_REG_FIRST_NAME_PRO "RegFirstNamePro\n"
-    IDS_INI_REG_LAST_NAME_PRO "RegLastNamePro\n"
-    IDS_INI_REG_CODE_LIGHT  "RegCodeLight\n"
-    IDS_INI_REG_CODE_AD     "RegCodeAd\n"
-    IDS_INI_REG_CODE_PRO    "RegCodePro\n"
-    IDS_INI_REG_FIRST_NAME_AD "RegFirstNameAd\n"
 END
 
 STRINGTABLE 
@@ -7295,7 +7288,6 @@ END
 STRINGTABLE 
 BEGIN
     IDS_INI_EXCEPTION_HANDLING "ExceptionHandling\n1"
-    IDS_INI_NO_REG_CODE_DIALOG_ON_ARRIVAL "NoRegCodeDialogOnArrival\n0"
     IDS_INI_DISPLAY_IMAGE_ATTACHMENTS_INLINE 
                             "DisplayImageAttachmentsInMessages\n1"
     IDS_INI_FWD_FILES_NOT_IN_ATTACH_DIR_ACTION 
@@ -8977,9 +8969,7 @@ BEGIN
     IDS_HTML_TH             "th"
     IDS_HTML_PRE            "pre"
     IDS_MIME_EUDORA_DATA    "vnd.eudora.data"
-    IDS_MIME_REG_VALID      "regcode"
     IDS_REG_VALID_VALUE     "yes"
-    IDS_INFO_ATTACH_TYPE_REG "RegCode"
     IDS_INFO_ATTACH_TYPE_PROFILE "Profile"
 END
 
@@ -10458,24 +10448,6 @@ BEGIN
     IDS_PROFILE_CLICK_NOT_NEW 
                             "This Eudora Profile ID, which was sent for %1, has already been stored in Eudora's settings."
     IDC_PRIORITY_COMBO      "Priority of message\nPriority"
-END
-
-STRINGTABLE 
-BEGIN
-    IDS_CLOSE               "Close"
-    IDS_REG_INFO_NAME       "Eudora Registration Info"
-    IDS_REG_INFO_PROGRESS   "Receiving Eudora registration information..."
-    IDS_ATTACH_REG_INFO     "Registration Information:"
-    IDS_EUDORA_INFO         "EUDORAINFO"
-    IDS_REG_INFO_STARTUPREG_NAME "RegCode.dat"
-    IDS_REG_DIALOG_MSG_TITLE_THANKS "Thank you for your registration!"
-    IDS_REG_DIALOG_MSG_TITLE_INVALID 
-                            "Your registration information is invalid"
-    IDS_REG_DIALOG_MSG_NORMAL 
-                            "To complete your registration, please enter the name you registered under and your registration code below."
-    IDS_REG_DIALOG_MSG_AUTO "Your registration information is entered for you below.  In order to complete your registration, just click OK.  If you think this registration was in error, you may correct it and then click OK, or just click Cancel and live to register another day."
-    IDS_REG_DIALOG_MSG_INVALID 
-                            "Double check the information below, or click on ""I lost the Code"" to go to Eudora's web site for more information."
 END
 
 STRINGTABLE 

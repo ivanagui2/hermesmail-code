@@ -3643,21 +3643,9 @@ FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "&OK",IDOK,26,200,64,14
     PUSHBUTTON      "&Tell Me More",IDC_ABOUT,172,200,64,14
-    GROUPBOX        "Welcome to Eudora!",IDC_STATIC,7,7,250,187
-    LTEXT           "Eudora is licensed in three ways. If you have purchased a registration code and registered it within the last 12 months, click the ""Enter Code"" button below and Eudora will install in Paid mode.",
+    GROUPBOX        "Welcome to HermesMail!",IDC_STATIC,7,7,250,187
+    LTEXT           "Hermes is an open source desktop email client.",
                     IDC_STATIC,17,18,229,29,SS_NOPREFIX
-    LTEXT           "In Paid mode you get the full power of Eudora. This includes SpamWatch, a suite of automatic spam-fighting tools, and ultra-fast indexed search which allows you to search thousands of messages instantaneously.  It also includes BossWatch, which helps you",
-                    IDC_STATIC,17,47,229,34,SS_NOPREFIX
-    LTEXT           "better monitor message recipients.  In addition you get 12 months of updates and live technical support in an advertising-free environment.",
-                    IDC_STATIC,17,79,229,18
-    LTEXT           "Without a registration code, this copy will start off in Sponsored mode.  Sponsored mode contains many of the features found in Paid Mode, but it does not include SpamWatch, ultra-fast search or BossWatch.",
-                    IDC_ALERT_TEXT,17,100,229,27,SS_NOPREFIX
-    LTEXT           "It will display ads and does not include live technical support.",
-                    IDC_STATIC,17,124,229,9,SS_NOPREFIX
-    LTEXT           "A third option is to switch over to a less powerful version of Eudora, that has no ads, and is free.",
-                    IDC_STATIC,17,139,229,18,SS_NOPREFIX
-    LTEXT           "To switch modes of Eudora, please use the ""Payment & Registration"" item in the Help menu. To learn more about the three modes, click on the ""Tell Me More"" button below.",
-                    IDC_STATIC,17,162,229,27,SS_NOPREFIX
 END
 
 IDD_USE_JUNK_MAILBOX DIALOGEX 0, 0, 220, 152

@@ -58,6 +58,7 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     Manager.
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
     Removed code that was specific to demo builds that expired.
+    Removed code that was specific to registration.
 
 */
 
@@ -97,7 +98,6 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
 #include "MoodWatch.h"
 
 #include "RegInfoReader.h"
-#include "RegistrationCodeDlg.h"
 
 #include "TridentPreviewView.h"	// Just so I can use IsKindOf() on a window when sending mousewheels.
 #include "CompMessageFrame.h"
@@ -188,8 +188,6 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
 #include "UsgStatsDoc.h"
 
 #include "ExtLaunchMgr.h"
-
-#include "PaymentAndRegistrationDlg.h"
 
 #include "EmoticonManager.h"
 #include "GoogleDesktopComponentRegistration.h"
@@ -370,7 +368,6 @@ BEGIN_MESSAGE_MAP(CEudoraApp, CWinApp)
 	ON_COMMAND(ID_APP_EXIT, OnAppExit)
 	ON_COMMAND(ID_APP_ABOUT, OnAppAbout)
 	ON_COMMAND(ID_TIP_OF_THE_DAY, OnTipOfTheDay)
-	ON_COMMAND(ID_CHECK_REG_CODE_FILE, OnCheckRegCodeFile)
 	ON_COMMAND(ID_HELP_TECHNICAL_SUPPORT, OnGetHelp)
 	ON_COMMAND(ID_REPORT_A_BUG, OnReportABug)
 	ON_UPDATE_COMMAND_UI(ID_TIP_OF_THE_DAY, OnUpdateTipOfTheDay)
@@ -1315,9 +1312,6 @@ BOOL CEudoraApp::InitInstance()
 		SetIniShort(IDS_INI_SEEN_INTRO, TRUE);
 		FlushINIFile();
 	}
-
-	// Check RegCode.dat after we're all started up
-	::PostMessage(pMainFrame->GetSafeHwnd(), WM_COMMAND, ID_CHECK_REG_CODE_FILE, 0);
 
 	// Put up New Account Wizard if no return address specified
 	const char* ra = GetReturnAddress();
@@ -4236,19 +4230,8 @@ static void ResetEudoraIni(void)
 		IDS_INI_AUTO_CONNECTION_NAME,
 
 		// mode/registration stuff
-		IDS_INI_REG_STATUS,
 		IDS_INI_PROFILE,
 		IDS_INI_DISTRIBUTOR,
-		IDS_INI_REG_CODE_PRO,
-		IDS_INI_REG_FIRST_NAME_PRO,
-		IDS_INI_REG_LAST_NAME_PRO,
-		IDS_INI_REG_CODE_AD,
-		IDS_INI_REG_FIRST_NAME_AD,
-		IDS_INI_REG_LAST_NAME_AD,
-		IDS_INI_REG_FIRST_NAME_LIGHT,
-		IDS_INI_REG_LAST_NAME_LIGHT,
-		IDS_INI_REG_CODE_LIGHT,
-		IDS_PRE43INI_REG_CODE,
 
 		// features
 		IDS_INI_USE_JUNK_MAILBOX,

@@ -23,6 +23,43 @@ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
 DAMAGE. */
 
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
+    Removed references to Qualcomm's Shareware Manager.
+
+*/
+
 //
 
 #include "stdafx.h"
@@ -52,7 +89,6 @@ extern CString EudoraDir;		// avoids inclusion of fileutil.h
 #include "QCRecipientCommand.h"
 #include "QCRecipientDirector.h"
 
-#include "QCSharewareManager.h"
 #include "QCFindMgr.h"
 #include "address.h"
 #include "splithlp.h"
@@ -1761,30 +1797,24 @@ void CNicknamesTreeCtrl::OnEscKeyPressed(void)
 
 	ASSERT(NULL == GetEditControl());
 
-	// Shareware: Reduced feature mode only allows one nickname file
-	if (UsingFullFeatureSet())
+	if (m_pDragImage)
 	{
-		// FULL-FEATURE
+		m_pDragImage->DragLeave(this);
+		m_pDragImage->EndDrag();
 
-		if (m_pDragImage)
-		{
-			m_pDragImage->DragLeave(this);
-			m_pDragImage->EndDrag();
+		if (GetCapture() == this)
+			ReleaseCapture();
 
-			if (GetCapture() == this)
-				ReleaseCapture();
+		KillAutoScrollTimer();
 
-			KillAutoScrollTimer();
-
-			SelectDropTarget(NULL);
-			m_pDragImage = NULL;
-			ASSERT(m_hDragItem != NULL);
-			m_hDragItem = NULL;
-			::SetCursor(::LoadCursor(0, IDC_ARROW));
-		}
-
-		m_SelectedItemArray.RemoveAll();
+		SelectDropTarget(NULL);
+		m_pDragImage = NULL;
+		ASSERT(m_hDragItem != NULL);
+		m_hDragItem = NULL;
+		::SetCursor(::LoadCursor(0, IDC_ARROW));
 	}
+
+	m_SelectedItemArray.RemoveAll();
 }
 
 
@@ -2540,65 +2570,62 @@ void CNicknamesTreeCtrl::OnLButtonDblClk(NMHDR* pNMHDR, LRESULT* pResult)
 ////////////////////////////////////////////////////////////////////////
 void CNicknamesTreeCtrl::OnMouseMove(UINT nFlags, CPoint point)
 {
-	// Shareware: Reduced feature mode only allows one nickname file, do drag-n-drop
-	if (UsingFullFeatureSet())
+	if (m_pDragImage && (MK_LBUTTON & nFlags))
 	{
-		if (m_pDragImage && (MK_LBUTTON & nFlags))
+		ASSERT(this == GetCapture());
+		ASSERT(m_hDragItem != NULL);
+		VERIFY(m_pDragImage->DragMove(point));
+
+		UINT flags = 0;
+		HTREEITEM h_target = HitTest(point, &flags);
+		m_pDragImage->DragLeave(this);			// allow window updates
+		if (h_target != NULL)
 		{
-			ASSERT(this == GetCapture());
-			ASSERT(m_hDragItem != NULL);
-			VERIFY(m_pDragImage->DragMove(point));
-
-			UINT flags = 0;
-			HTREEITEM h_target = HitTest(point, &flags);
-			m_pDragImage->DragLeave(this);			// allow window updates
-			if (h_target != NULL)
+			CNicknamesTreeItemData* p_itemdata = (CNicknamesTreeItemData *) GetItemData(h_target);
+			ASSERT(p_itemdata != NULL);
+			switch (p_itemdata->m_itemType)
 			{
-				CNicknamesTreeItemData* p_itemdata = (CNicknamesTreeItemData *) GetItemData(h_target);
-				ASSERT(p_itemdata != NULL);
-				switch (p_itemdata->m_itemType)
+			case ITEM_FILE:
 				{
-				case ITEM_FILE:
-					{
-						//
-						// Highlight the drop target directly.  If the target
-						// folder is writable, then display a normal cursor,
-						// otherwise display a no-drop cursor.
-						//
-						ASSERT(p_itemdata->m_u.pNicknameFile != NULL);
-						ASSERT(p_itemdata->m_u.pNicknameFile->IsKindOf(RUNTIME_CLASS(CNicknameFile)));
+					//
+					// Highlight the drop target directly.  If the target
+					// folder is writable, then display a normal cursor,
+					// otherwise display a no-drop cursor.
+					//
+					ASSERT(p_itemdata->m_u.pNicknameFile != NULL);
+					ASSERT(p_itemdata->m_u.pNicknameFile->IsKindOf(RUNTIME_CLASS(CNicknameFile)));
 
-						if (p_itemdata->m_u.pNicknameFile->m_ReadOnly)
-							::SetCursor(::LoadCursor(0, IDC_NO));
-						else
-							::SetCursor(::LoadCursor(0, IDC_ARROW));
-						SelectDropTarget(h_target);
-					}
-					break;
-				case ITEM_NICKNAME:
-				case ITEM_ADDRESS:
-				case ITEM_CUSTOM:
-					{
-						//
-						// If the drop target is a nickname, highlight the
-						// parent folder.  If the target folder is writable
-						// then display a normal cursor, otherwise display
-						// a no-drop cursor.
-						//
-						HTREEITEM h_targetparent = GetParentItem(h_target);
-						ASSERT(h_targetparent != NULL);
+					if (p_itemdata->m_u.pNicknameFile->m_ReadOnly)
+						::SetCursor(::LoadCursor(0, IDC_NO));
+					else
+						::SetCursor(::LoadCursor(0, IDC_ARROW));
+					SelectDropTarget(h_target);
+				}
+				break;
+			case ITEM_NICKNAME:
+			case ITEM_ADDRESS:
+			case ITEM_CUSTOM:
+				{
+					//
+					// If the drop target is a nickname, highlight the
+					// parent folder.  If the target folder is writable
+					// then display a normal cursor, otherwise display
+					// a no-drop cursor.
+					//
+					HTREEITEM h_targetparent = GetParentItem(h_target);
+					ASSERT(h_targetparent != NULL);
 
-						CNicknamesTreeItemData* p_targetparent = (CNicknamesTreeItemData * ) GetItemData(h_targetparent);
-						ASSERT(p_targetparent != NULL);
-						ASSERT(ITEM_FILE == p_targetparent->m_itemType);
-						ASSERT(p_targetparent->m_u.pNicknameFile != NULL);
-						ASSERT(p_targetparent->m_u.pNicknameFile->IsKindOf(RUNTIME_CLASS(CNicknameFile)));
+					CNicknamesTreeItemData* p_targetparent = (CNicknamesTreeItemData * ) GetItemData(h_targetparent);
+					ASSERT(p_targetparent != NULL);
+					ASSERT(ITEM_FILE == p_targetparent->m_itemType);
+					ASSERT(p_targetparent->m_u.pNicknameFile != NULL);
+					ASSERT(p_targetparent->m_u.pNicknameFile->IsKindOf(RUNTIME_CLASS(CNicknameFile)));
 
-						if (p_targetparent->m_u.pNicknameFile->m_ReadOnly)
-							::SetCursor(::LoadCursor(0, IDC_NO));
-						else
-							::SetCursor(::LoadCursor(0, IDC_ARROW));
-						SelectDropTarget(h_targetparent);
+					if (p_targetparent->m_u.pNicknameFile->m_ReadOnly)
+						::SetCursor(::LoadCursor(0, IDC_NO));
+					else
+						::SetCursor(::LoadCursor(0, IDC_ARROW));
+    				SelectDropTarget(h_targetparent);
 					}
 					break;
 				default:
@@ -2606,15 +2633,14 @@ void CNicknamesTreeCtrl::OnMouseMove(UINT nFlags, CPoint point)
 					::SetCursor(::LoadCursor(0, IDC_NO));
 					SelectDropTarget(NULL);
 					break;
-				}
 			}
-			else
-			{
-				::SetCursor(::LoadCursor(0, IDC_NO));
-				SelectDropTarget(NULL);
-			}
-			m_pDragImage->DragEnter(this, point);	// lock window updates
 		}
+		else
+		{
+			::SetCursor(::LoadCursor(0, IDC_NO));
+			SelectDropTarget(NULL);
+		}
+		m_pDragImage->DragEnter(this, point);	// lock window updates
 	}
 
 	QCTreeCtrl::OnMouseMove(nFlags, point);
@@ -2626,135 +2652,129 @@ void CNicknamesTreeCtrl::OnMouseMove(UINT nFlags, CPoint point)
 ////////////////////////////////////////////////////////////////////////
 void CNicknamesTreeCtrl::OnLButtonUp(UINT nFlags, CPoint point)
 {
-	// Shareware: Reduced feature mode only allows one nickname file
-	if (UsingFullFeatureSet())
+	if (m_pDragImage)
 	{
-		// FULL-FEATURE
+		HTREEITEM h_target = GetDropHilightItem();
 
-		if (m_pDragImage)
+		m_pDragImage->DragLeave(this);
+		m_pDragImage->EndDrag();
+
+		if (GetCapture() == this)
+			ReleaseCapture();
+
+		KillAutoScrollTimer();
+
+		SelectDropTarget(NULL);
+		m_pDragImage = NULL;
+
+		ASSERT(m_hDragItem != NULL);
+		if (h_target != NULL)
 		{
-			HTREEITEM h_target = GetDropHilightItem();
+			//
+			// Validate that the drop target is a writable nickname file item.
+			//
+			CNicknamesTreeItemData* p_targetitem = (CNicknamesTreeItemData * ) GetItemData(h_target);
+			ASSERT(p_targetitem != NULL);
+			ASSERT(p_targetitem->m_u.pNicknameFile != NULL);
+			ASSERT(p_targetitem->m_u.pNicknameFile->IsKindOf(RUNTIME_CLASS(CNicknameFile)));
 
-			m_pDragImage->DragLeave(this);
-			m_pDragImage->EndDrag();
-
-			if (GetCapture() == this)
-				ReleaseCapture();
-
-			KillAutoScrollTimer();
-
-			SelectDropTarget(NULL);
-			m_pDragImage = NULL;
-
-			ASSERT(m_hDragItem != NULL);
-			if (h_target != NULL)
+			if (! p_targetitem->m_u.pNicknameFile->m_ReadOnly)
 			{
-				//
-				// Validate that the drop target is a writable nickname file item.
-				//
-				CNicknamesTreeItemData* p_targetitem = (CNicknamesTreeItemData * ) GetItemData(h_target);
-				ASSERT(p_targetitem != NULL);
-				ASSERT(p_targetitem->m_u.pNicknameFile != NULL);
-				ASSERT(p_targetitem->m_u.pNicknameFile->IsKindOf(RUNTIME_CLASS(CNicknameFile)));
-
-				if (! p_targetitem->m_u.pNicknameFile->m_ReadOnly)
+				switch (p_targetitem->m_itemType)
 				{
-					switch (p_targetitem->m_itemType)
+				case ITEM_FILE:
 					{
-					case ITEM_FILE:
+						//
+						// If there was no saved selection, then use the
+						// drag item.
+						//
+						if (-1 == m_SelectedItemArray.GetUpperBound())
+							m_SelectedItemArray.Add(DWORD(m_hDragItem));
+
+						//
+						// Populate a list containing nickname/nickname file
+						// pairs, based on the selected tree items in
+						// m_SelectedItemArray.
+						//
+						CObList nickname_list;
+						for (int i = 0; i <= m_SelectedItemArray.GetUpperBound(); i++)
 						{
-							//
-							// If there was no saved selection, then use the
-							// drag item.
-							//
-							if (-1 == m_SelectedItemArray.GetUpperBound())
-								m_SelectedItemArray.Add(DWORD(m_hDragItem));
+							HTREEITEM h_dragitem = HTREEITEM(m_SelectedItemArray.GetAt(i));
 
 							//
-							// Populate a list containing nickname/nickname file
-							// pairs, based on the selected tree items in
-							// m_SelectedItemArray.
+							// Convert the dragged item handle into a corresponding
+							// CNickname pointer.  We are guaranteed that the type
+							// of the dragged item is not a nickname file item (see
+							// OnBeginDrag()).
 							//
-							CObList nickname_list;
-							for (int i = 0; i <= m_SelectedItemArray.GetUpperBound(); i++)
-							{
-								HTREEITEM h_dragitem = HTREEITEM(m_SelectedItemArray.GetAt(i));
-
-								//
-								// Convert the dragged item handle into a corresponding
-								// CNickname pointer.  We are guaranteed that the type
-								// of the dragged item is not a nickname file item (see
-								// OnBeginDrag()).
-								//
-								CNicknamesTreeItemData* p_dragitem = (CNicknamesTreeItemData *) GetItemData(h_dragitem);
-								ASSERT(p_dragitem != NULL);
-								ASSERT(p_dragitem->m_itemType != ITEM_FILE);
-								ASSERT(p_dragitem->m_u.pNickname != NULL);
-								ASSERT(p_dragitem->m_u.pNickname->IsKindOf(RUNTIME_CLASS(CNickname)));
-
-								//
-								// We are guaranteed that the m_SelectedItemArray does not
-								// contain any nickname file handles ... see OnLButtonDown().
-								// So, grab the parent CNicknameFile item for the dragged CNickname.
-								//
-								HTREEITEM h_dragparentitem = GetParentItem(h_dragitem);
-								ASSERT(h_dragparentitem);
-								CNicknamesTreeItemData* p_dragparentitem = (CNicknamesTreeItemData *) GetItemData(h_dragparentitem);
-								ASSERT(p_dragparentitem != NULL);
-								ASSERT(p_dragparentitem->m_itemType == ITEM_FILE);
-								ASSERT(p_dragparentitem->m_u.pNicknameFile != NULL);
-								ASSERT(p_dragparentitem->m_u.pNicknameFile->IsKindOf(RUNTIME_CLASS(CNicknameFile)));
-
-								//
-								// Create a CNickname/CNicknameFile pair inside an CObList
-								// wrapper, as expected by the move/copy nickname function.
-								//
-								// WARNING! WARNING!  The CObList::AddTail() method is
-								// overloaded to accept CObList ptrs as well as CObject
-								// ptrs, with decidely different behaviors.  Therefore,
-								// we need to cast the CNicknameFile to a CObject to force
-								// the behavior we want.
-								//
-								nickname_list.AddTail(p_dragitem->m_u.pNickname);
-								nickname_list.AddTail((CObject *) p_dragparentitem->m_u.pNicknameFile);
-							}
+							CNicknamesTreeItemData* p_dragitem = (CNicknamesTreeItemData *) GetItemData(h_dragitem);
+							ASSERT(p_dragitem != NULL);
+     						ASSERT(p_dragitem->m_itemType != ITEM_FILE);
+							ASSERT(p_dragitem->m_u.pNickname != NULL);
+							ASSERT(p_dragitem->m_u.pNickname->IsKindOf(RUNTIME_CLASS(CNickname)));
 
 							//
-							// Let the parent view do the actual nicknames move/copy.
+							// We are guaranteed that the m_SelectedItemArray does not
+							// contain any nickname file handles ... see OnLButtonDown().
+							// So, grab the parent CNicknameFile item for the dragged CNickname.
 							//
-							CNicknamesViewLeft* p_view = (CNicknamesViewLeft *) GetParent();
-							if (p_view)
-							{
-								ASSERT(p_view->IsKindOf(RUNTIME_CLASS(CNicknamesViewLeft)));
-								p_view->MoveOrCopyNicknames((nFlags & MK_CONTROL) == 0 && (nFlags & MK_SHIFT) == 0, 
-															nickname_list,
-															p_targetitem->m_u.pNicknameFile);
-								
-								// Make sure to update the RHS view to be in sync with LHS view - 02/07/2000
-								EvaluateSelection();
-							}
+							HTREEITEM h_dragparentitem = GetParentItem(h_dragitem);
+							ASSERT(h_dragparentitem);
+							CNicknamesTreeItemData* p_dragparentitem = (CNicknamesTreeItemData *) GetItemData(h_dragparentitem);
+							ASSERT(p_dragparentitem != NULL);
+							ASSERT(p_dragparentitem->m_itemType == ITEM_FILE);
+							ASSERT(p_dragparentitem->m_u.pNicknameFile != NULL);
+							ASSERT(p_dragparentitem->m_u.pNicknameFile->IsKindOf(RUNTIME_CLASS(CNicknameFile)));
+
+							//
+							// Create a CNickname/CNicknameFile pair inside an CObList
+							// wrapper, as expected by the move/copy nickname function.
+							//
+							// WARNING! WARNING!  The CObList::AddTail() method is
+							// overloaded to accept CObList ptrs as well as CObject
+							// ptrs, with decidely different behaviors.  Therefore,
+							// we need to cast the CNicknameFile to a CObject to force
+							// the behavior we want.
+							//
+							nickname_list.AddTail(p_dragitem->m_u.pNickname);
+							nickname_list.AddTail((CObject *) p_dragparentitem->m_u.pNicknameFile);
 						}
-						break;
-					case ITEM_NICKNAME:
-					case ITEM_ADDRESS:
-					case ITEM_CUSTOM:
-						ASSERT(0);
-						::MessageBeep(MB_ICONASTERISK);
-						break;
-					default:
-						ASSERT(0);
-						break;
+
+						//
+						// Let the parent view do the actual nicknames move/copy.
+						//
+						CNicknamesViewLeft* p_view = (CNicknamesViewLeft *) GetParent();
+						if (p_view)
+						{
+							ASSERT(p_view->IsKindOf(RUNTIME_CLASS(CNicknamesViewLeft)));
+							p_view->MoveOrCopyNicknames((nFlags & MK_CONTROL) == 0 && (nFlags & MK_SHIFT) == 0, 
+														nickname_list,
+														p_targetitem->m_u.pNicknameFile);
+							
+							// Make sure to update the RHS view to be in sync with LHS view - 02/07/2000
+							EvaluateSelection();
+						}
 					}
-				}
-				else
-				{
-					// beep on attempts to move/copy to read-only files
-					::MessageBeep(MB_OK);
+					break;
+				case ITEM_NICKNAME:
+				case ITEM_ADDRESS:
+				case ITEM_CUSTOM:
+					ASSERT(0);
+					::MessageBeep(MB_ICONASTERISK);
+					break;
+				default:
+					ASSERT(0);
+					break;
 				}
 			}
-
-			m_hDragItem = NULL;
+			else
+			{
+				// beep on attempts to move/copy to read-only files
+				::MessageBeep(MB_OK);
+			}
 		}
+
+		m_hDragItem = NULL;
 	}
 
 	TRACE0("CNicknamesTreeCtrl::OnLButtonUp: clearing m_SelectedItemArray\n");
@@ -2837,31 +2857,16 @@ void CNicknamesTreeCtrl::OnInitMenuPopup(CMenu* pPopupMenu, UINT nIndex, BOOL bS
 	if(! EvaluateSelectionForNewAndDel(false) )
 		pPopupMenu->EnableMenuItem(ID_POPUP_DELETE, MF_GRAYED | MF_BYCOMMAND);
 
-	// Shareware: Reduced feature mode only allows one nickname file
-	if (UsingFullFeatureSet())
+	if (g_Nicknames)
 	{
-		// FULL-FEATURE
-		if (g_Nicknames)
-		{
-			const int nNUM_WRITABLE = g_Nicknames->GetNumWritableFiles();
-			
-			if (nNUM_WRITABLE < 2)
-				pPopupMenu->EnableMenuItem(ID_POPUP_MOVE_TO, MF_GRAYED | MF_BYCOMMAND);
-			if (nNUM_WRITABLE < 1)
-				pPopupMenu->EnableMenuItem(ID_POPUP_COPY_TO, MF_GRAYED | MF_BYCOMMAND);
-		}
-	}
-	else
-	{
-		// RECDUCED FEATURE -- no COPY/MOVE TO
-		pPopupMenu->EnableMenuItem(ID_POPUP_MOVE_TO, MF_GRAYED | MF_BYCOMMAND);
-		pPopupMenu->EnableMenuItem(ID_POPUP_COPY_TO, MF_GRAYED | MF_BYCOMMAND);
+		const int nNUM_WRITABLE = g_Nicknames->GetNumWritableFiles();
+		
+		if (nNUM_WRITABLE < 2)
+			pPopupMenu->EnableMenuItem(ID_POPUP_MOVE_TO, MF_GRAYED | MF_BYCOMMAND);
+		if (nNUM_WRITABLE < 1)
+			pPopupMenu->EnableMenuItem(ID_POPUP_COPY_TO, MF_GRAYED | MF_BYCOMMAND);
 	}
 
-	if (!UsingPaidFeatureSet()) {
-		pPopupMenu->EnableMenuItem(ID_POPUP_ADD_BP, MF_GRAYED | MF_BYCOMMAND);
-		pPopupMenu->EnableMenuItem(ID_POPUP_REMOVE_BP, MF_GRAYED | MF_BYCOMMAND);
-	}
 }
 
 
@@ -2944,56 +2949,51 @@ long CNicknamesTreeCtrl::OnRightButtonDown(WPARAM wParam, LPARAM lParam)
 ////////////////////////////////////////////////////////////////////////
 void CNicknamesTreeCtrl::OnBeginDrag(NMHDR* pNMHDR, LRESULT* pResult)
 {
-	// Shareware: Reduced feature mode only allows one nickname file
-	if (UsingFullFeatureSet())
+	NM_TREEVIEW* p_nmtv = (NM_TREEVIEW * )pNMHDR;	// type cast
+	ASSERT(p_nmtv);
+
+	HTREEITEM h_item = p_nmtv->itemNew.hItem;
+	ASSERT(h_item != NULL);
+	CNicknamesTreeItemData* p_dataitem = (CNicknamesTreeItemData *) (p_nmtv->itemNew.lParam);
+	ASSERT(p_dataitem != NULL);
+	Select(h_item, TVGN_CARET);
+	m_EvaluateSelectionHint = EVALHINT_SKIP;
+	SelectItem(NULL);	// clear the selection, if any
+	m_EvaluateSelectionHint = EVALHINT_FULL;
+	UpdateWindow();
+	switch (p_dataitem->m_itemType)
 	{
-		// FULL-FEATURE
-		NM_TREEVIEW* p_nmtv = (NM_TREEVIEW * )pNMHDR;	// type cast
-		ASSERT(p_nmtv);
-
-		HTREEITEM h_item = p_nmtv->itemNew.hItem;
-		ASSERT(h_item != NULL);
-		CNicknamesTreeItemData* p_dataitem = (CNicknamesTreeItemData *) (p_nmtv->itemNew.lParam);
-		ASSERT(p_dataitem != NULL);
-		Select(h_item, TVGN_CARET);
-		m_EvaluateSelectionHint = EVALHINT_SKIP;
-		SelectItem(NULL);	// clear the selection, if any
-		m_EvaluateSelectionHint = EVALHINT_FULL;
-		UpdateWindow();
-		switch (p_dataitem->m_itemType)
+	case ITEM_FILE:
+		::MessageBeep(MB_OK);			// FORNOW, should disallow only if single-selection
+		break;
+	case ITEM_NICKNAME:
+	case ITEM_ADDRESS:
+	case ITEM_CUSTOM:
 		{
-		case ITEM_FILE:
-			::MessageBeep(MB_OK);			// FORNOW, should disallow only if single-selection
-			break;
-		case ITEM_NICKNAME:
-		case ITEM_ADDRESS:
-		case ITEM_CUSTOM:
+			//
+			// Setup drag image.
+			//
+			ASSERT(NULL == m_pDragImage);
+			ASSERT(NULL == m_hDragItem);
+			if ((m_pDragImage = CreateDragImage(h_item)) != NULL)
 			{
-				//
-				// Setup drag image.
-				//
-				ASSERT(NULL == m_pDragImage);
-				ASSERT(NULL == m_hDragItem);
-				if ((m_pDragImage = CreateDragImage(h_item)) != NULL)
-				{
-					SetFocus();			// grab keyboard input focus for Esc key
-					::SetCursor(::LoadCursor(0, IDC_ARROW));
-					m_pDragImage->BeginDrag(0, CPoint(0, 0));
-					m_pDragImage->DragMove(p_nmtv->ptDrag);
-					m_pDragImage->DragEnter(this, p_nmtv->ptDrag);
+				SetFocus();			// grab keyboard input focus for Esc key
+				::SetCursor(::LoadCursor(0, IDC_ARROW));
+				m_pDragImage->BeginDrag(0, CPoint(0, 0));
+				m_pDragImage->DragMove(p_nmtv->ptDrag);
+				m_pDragImage->DragEnter(this, p_nmtv->ptDrag);
 
-					if (GetCapture() != this)
-						SetCapture();
-					m_hDragItem = h_item;
+				if (GetCapture() != this)
+					SetCapture();
+				m_hDragItem = h_item;
 
-					StartAutoScrollTimer();
-				}
+				StartAutoScrollTimer();
 			}
-			break;
-		default:
-			ASSERT(0);
-			break;
 		}
+		break;
+	default:
+		ASSERT(0);
+		break;
 	}
 
 	*pResult = 0;
@@ -3551,22 +3551,12 @@ HTREEITEM CNicknamesTreeCtrl::AddItem
 		break;
 	case ITEM_CUSTOM: // Custom should only be FULL FEATURE mode
 		{
-			// Shareware: Reduced feature mode only allows one nickname file
-			if (UsingFullFeatureSet())
-			{
-				// FULL FEATURE mode
-				ASSERT(hParentItem != NULL);
-//				ASSERT(m_customImageIndex >= IMAGE_HOME);
-				tvstruct.hParent = hParentItem;
-				m_customImageIndex = GetCustomImageIndex(itemName);
-				tvstruct.item.iImage = m_customImageIndex;
-				tvstruct.item.iSelectedImage = m_customImageIndex;
-			}
-			else
-			{
-				// REDUCED FEATURE mode
-				ASSERT(0);
-			}
+			ASSERT(hParentItem != NULL);
+//			ASSERT(m_customImageIndex >= IMAGE_HOME);
+			tvstruct.hParent = hParentItem;
+			m_customImageIndex = GetCustomImageIndex(itemName);
+			tvstruct.item.iImage = m_customImageIndex;
+			tvstruct.item.iSelectedImage = m_customImageIndex;
 		}
 		break;
 	default:
@@ -4220,14 +4210,6 @@ void CNicknamesTreeCtrl::OnRename()
 ////////////////////////////////////////////////////////////////////////
 void CNicknamesTreeCtrl::OnMoveTo()
 {
-	// Shareware: Reduced feature mode only allows one nickname file, no MOVE TO
-	if (!UsingFullFeatureSet())
-	{
-		// REDUCED FEATURE mode
-		ASSERT(0);
-		return;
-	}
-
 	CNicknamesViewLeft* p_view = (CNicknamesViewLeft *) GetParent();
 	if (p_view)
 	{
@@ -4253,13 +4235,6 @@ void CNicknamesTreeCtrl::OnMoveTo()
 ////////////////////////////////////////////////////////////////////////
 void CNicknamesTreeCtrl::OnCopyTo()
 {
-	// Shareware: Reduced feature mode only allows one nickname file, no COPY TO
-	if (!UsingFullFeatureSet())
-	{
-		// REDUCED FEATURE mode
-		ASSERT(0);
-		return;
-	}
 
 	CNicknamesViewLeft* p_view = (CNicknamesViewLeft *) GetParent();
 	if (p_view)

@@ -97,9 +97,6 @@ class RegInfoReader : public MIMEReader
 								bool &					outEudoraNeedsRegistration,
 								int *					outRegCodeMonth = NULL);
 
-	static void				ProcessEudoraInfoAttachment(
-								const char *			szAttachmentPath);
-
 	BoundaryType			ReadIt(
 								CObArray &				MimeStates,
 								char*					buf,

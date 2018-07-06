@@ -53,6 +53,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
     Removed a reference to Qualcomm's Shareware Manager (Using Full Feature Set)
+
 */    
 
 //
@@ -97,7 +98,6 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
 #include "URLUtils.h"
 
 #include "trnslate.h"
-#include "RegInfoReader.h"
 
 #include "QCOleDropSource.h"
 
@@ -2743,7 +2743,6 @@ IHTMLElement* pElement )
 	CEudoraApp*				pApp;
 	CString					szHRef( "" );
 	bool					isOnDisplayPlugin = false;
-	bool					isEudoraInfoAttachment = false;
 
 	USES_CONVERSION;
 
@@ -2791,9 +2790,7 @@ IHTMLElement* pElement )
 			szValue = v.bstrVal;
 			
 			isOnDisplayPlugin = ( szValue.CompareNoCase( CRString( IDS_PLUGIN ) ) == 0 );
-			if (!isOnDisplayPlugin)		//	It's not a plugin, is it special Eudora information?
-				isEudoraInfoAttachment = ( szValue.CompareNoCase( CRString( IDS_EUDORA_INFO ) ) == 0 );
-			if(isOnDisplayPlugin || isEudoraInfoAttachment)
+			if(isOnDisplayPlugins)
 			{
 				// get the anchor
 				
@@ -2875,10 +2872,6 @@ IHTMLElement* pElement )
 			pApp = (CEudoraApp*) AfxGetApp();
 			pApp->GetTranslators()->XLateDisplay(this, pSummary, pMessageDoc, szHRef);
 		}
-	}
-	else if (isEudoraInfoAttachment)
-	{
-		RegInfoReader::ProcessEudoraInfoAttachment(szHRef);
 	}
 
 	return TRUE;

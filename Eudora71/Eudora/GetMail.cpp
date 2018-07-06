@@ -54,10 +54,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018.
     Removed a reference to Qualcomm's Shareware Manager header file.
-    TODO: Could not find where the code utilized the Shareware Manager. It
-    is highly likely that more needs to be done to remove all references
-    to the Shareware Manager.
+File revised by Jeff Prickett                    on July 6, 2018
+    Continued removing references to Qualcomm's Shareware Manager.
 
+*/        
 
 //
 ////////////////////////////////////////////////////////////////////////
@@ -191,7 +191,7 @@ GetMail(unsigned long bitflags, LPSTR lpCheckMailList /*=NULL*/, BOOL bFullMailC
 		if ( Persona == Dominant )	// "<Dominant>" is just a placeholder
 			Persona = "";
 
-		if (Persona.IsEmpty() || UsingFullFeatureSet())
+		if (Persona.IsEmpty())
 		{
 			g_Personalities.SetCurrent( Persona );
 			

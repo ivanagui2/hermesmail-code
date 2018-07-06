@@ -56,6 +56,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018.
     Removed reference to Paige header file.
     Removed references to Qualcomm's Shareware Manager as Hermes is not shareware.
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
+    Removed additional references to Qualcomm's Shareware Maanager.
 
 */
 
@@ -6778,18 +6780,7 @@ void CMainFrame::OnUpdateDynamicCommand(CCmdUI* pCmdUI)
 			}
 			else if( theAction == CA_SPECIAL_PLUGIN)
 			{
-				BOOL					bShouldEnable = FALSE;
-				QCPluginCommand *		pPluginCommand = reinterpret_cast<QCPluginCommand *>(pCommand);
-				CSpecial *				pSpecial = pPluginCommand->GetSpecialObject();
-				
-				if ( pSpecial )
-				{
-					CTransAPI *		pTransAPI = pSpecial->GetTransAPI();
-					if ( pTransAPI )
-						bShouldEnable = !pTransAPI->IsFullFeatureSetOnly() || UsingFullFeatureSet();
-				}
-
-				pCmdUI->Enable(bShouldEnable);
+				pCmdUI->Enable( TRUE );
 				return;
 			}
 			else if( theAction == CA_SELECTED_TEXT_URL )
@@ -6802,7 +6793,7 @@ void CMainFrame::OnUpdateDynamicCommand(CCmdUI* pCmdUI)
 			}
 			else if( theAction == CA_SAVED_SEARCH)
 			{
-				pCmdUI->Enable( UsingFullFeatureSet() ? TRUE : FALSE );
+				pCmdUI->Enable( TRUE );
 				return;
 			}
 			else if(( theAction == CA_NEW_MESSAGE_WITH ) ||

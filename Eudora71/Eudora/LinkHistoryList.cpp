@@ -58,6 +58,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     Deleted FeatureNotInFreeMessage procedure because Hermes is not shareware.
     Sanitized references to Qualcomm's Shreware Manager from the source file.
+File revised by Jeff Prickett                    on July 6, 2018    
+    Removed additonal references to the FeatureNotInFreeMessage method.
 
 */
 
@@ -858,47 +860,40 @@ void CLinkHistoryList::OnUpdateEditSelectAll(CCmdUI* pCmdUI)
 
 void CLinkHistoryList::OnEditCopy()
 {
-	if ( !UsingFullFeatureSet() )
-	{
-		FeatureNotInFree();
-	}
-	else
-	{
-		CString			szSelectedText;
-		LV_ITEM			lvi;
-		LPUrlItemData	pListItemData;
-		int				itemIndex = GetListCtrl().GetNextItem(-1, LVNI_ALL | LVNI_SELECTED);
+	CString			szSelectedText;
+	LV_ITEM			lvi;
+	LPUrlItemData	pListItemData;
+	int				itemIndex = GetListCtrl().GetNextItem(-1, LVNI_ALL | LVNI_SELECTED);
 
-		while (itemIndex != -1)
+	while (itemIndex != -1)
+	{
+		lvi.mask = LVIF_PARAM;
+		lvi.iItem = itemIndex;
+		lvi.iSubItem = 0;
+
+		itemIndex = GetListCtrl().GetNextItem(itemIndex, LVNI_ALL | LVNI_SELECTED);
+
+		if ( GetListCtrl().GetItem(&lvi) )
 		{
-			lvi.mask = LVIF_PARAM;
-			lvi.iItem = itemIndex;
-			lvi.iSubItem = 0;
-
-			itemIndex = GetListCtrl().GetNextItem(itemIndex, LVNI_ALL | LVNI_SELECTED);
-
-			if ( GetListCtrl().GetItem(&lvi) )
+			pListItemData = (LPUrlItemData) lvi.lParam;
+			
+			if (pListItemData->m_szLinkName != "")
 			{
-				pListItemData = (LPUrlItemData) lvi.lParam;
-				
-				if (pListItemData->m_szLinkName != "")
-				{
-					szSelectedText += pListItemData->m_szLinkName;
-					szSelectedText += " ";
-				}
-				szSelectedText += "<";
-				szSelectedText += pListItemData->m_szURL;
-				szSelectedText += ">";
+				szSelectedText += pListItemData->m_szLinkName;
+				szSelectedText += " ";
+			}
+			szSelectedText += "<";
+			szSelectedText += pListItemData->m_szURL;
+			szSelectedText += ">";
 
-				if (itemIndex != -1)
-				{
-					szSelectedText += "\r\n";
-				}
+			if (itemIndex != -1)
+			{
+				szSelectedText += "\r\n";
 			}
 		}
-
-		CopyTextToClipboard( szSelectedText, GetSafeHwnd() );
 	}
+
+	CopyTextToClipboard( szSelectedText, GetSafeHwnd() );
 }
 
 
@@ -1255,39 +1250,32 @@ LRESULT CLinkHistoryList::OnSetBkColor(WPARAM wParam, LPARAM lParam)
 
 void CLinkHistoryList::OnLaunchSelectedItem()
 {
-	if ( !UsingFullFeatureSet() )
+	INT		iSelected = GetListCtrl().GetNextItem( -1, LVNI_SELECTED );
+	if (iSelected >= 0)
 	{
-		FeatureNotInFree();
-	}
-	else
-	{
-		INT		iSelected = GetListCtrl().GetNextItem( -1, LVNI_SELECTED );
-		if (iSelected >= 0)
+		LV_ITEM lvi;
+		lvi.mask = LVIF_PARAM;
+		lvi.iItem = GetListCtrl().GetNextItem(-1, LVNI_SELECTED);
+		lvi.iSubItem = 0;
+
+		if ( GetListCtrl().GetItem(&lvi) )
 		{
-			LV_ITEM lvi;
-			lvi.mask = LVIF_PARAM;
-			lvi.iItem = GetListCtrl().GetNextItem(-1, LVNI_SELECTED);
-			lvi.iSubItem = 0;
-
-			if ( GetListCtrl().GetItem(&lvi) )
+			LPUrlItemData	pListItemData = (LPUrlItemData) lvi.lParam;
+			
+			if (pListItemData != NULL)
 			{
-				LPUrlItemData	pListItemData = (LPUrlItemData) lvi.lParam;
+				bool			bIsAd = (pListItemData->m_type == LinkHistoryManager::lt_Ad);
+				const char *	szAdID = bIsAd ? static_cast<const char *>(pListItemData->m_szAdID) : NULL;
 				
-				if (pListItemData != NULL)
+				if ( LinkHistoryManager::Instance()->ShouldLaunchURL(pListItemData->m_szURL, bIsAd, NULL, szAdID) )
 				{
-					bool			bIsAd = (pListItemData->m_type == LinkHistoryManager::lt_Ad);
-					const char *	szAdID = bIsAd ? static_cast<const char *>(pListItemData->m_szAdID) : NULL;
-					
-					if ( LinkHistoryManager::Instance()->ShouldLaunchURL(pListItemData->m_szURL, bIsAd, NULL, szAdID) )
-					{
-						BOOL	bLaunchGood = LaunchURLNoHistory(pListItemData->m_szURL);
+					BOOL	bLaunchGood = LaunchURLNoHistory(pListItemData->m_szURL);
 
-						//	Update the LinkHistoryManager's info directly to avoid an unnecessary search
-						LinkHistoryManager::Instance()->UpdateVisitedURLInfo(pListItemData, bLaunchGood);
+					//	Update the LinkHistoryManager's info directly to avoid an unnecessary search
+					LinkHistoryManager::Instance()->UpdateVisitedURLInfo(pListItemData, bLaunchGood);
 
-						//	Dirty the LinkHistoryManager so that it saves at idle
-						LinkHistoryManager::Instance()->SetDirtyState(true);
-					}
+					//	Dirty the LinkHistoryManager so that it saves at idle
+					LinkHistoryManager::Instance()->SetDirtyState(true);
 				}
 			}
 		}
@@ -1303,42 +1291,35 @@ void CLinkHistoryList::OnLaunchSelectedItem()
 
 void CLinkHistoryList::OnRemoveSelectedItems()
 {
-	if ( !UsingFullFeatureSet() )
-	{
-		FeatureNotInFree();
-	}
-	else
-	{
-		int				itemIndex;
-		LV_ITEM			lvi;
-		LPUrlItemData	pListItemData;
+	int				itemIndex;
+	LV_ITEM			lvi;
+	LPUrlItemData	pListItemData;
 
-		itemIndex = GetListCtrl().GetNextItem(-1, LVNI_ALL | LVNI_SELECTED);
+	itemIndex = GetListCtrl().GetNextItem(-1, LVNI_ALL | LVNI_SELECTED);
 
-		if (itemIndex != -1)
+	if (itemIndex != -1)
+	{
+		RedrawRemovedItems(itemIndex);
+
+		do
 		{
-			RedrawRemovedItems(itemIndex);
+			//	Delete the item from the link history manager
+			lvi.mask = LVIF_PARAM;
+			lvi.iItem = itemIndex;
+			lvi.iSubItem = 0;
 
-			do
+			if ( GetListCtrl().GetItem(&lvi) )
 			{
-				//	Delete the item from the link history manager
-				lvi.mask = LVIF_PARAM;
-				lvi.iItem = itemIndex;
-				lvi.iSubItem = 0;
+				pListItemData = (LPUrlItemData) lvi.lParam;
+				
+				LinkHistoryManager::Instance()->RemoveURL(pListItemData);
+			}
 
-				if ( GetListCtrl().GetItem(&lvi) )
-				{
-					pListItemData = (LPUrlItemData) lvi.lParam;
-					
-					LinkHistoryManager::Instance()->RemoveURL(pListItemData);
-				}
+			//	Delete the list control item
+			GetListCtrl().DeleteItem(itemIndex);
 
-				//	Delete the list control item
-				GetListCtrl().DeleteItem(itemIndex);
-
-				itemIndex = GetListCtrl().GetNextItem(-1, LVNI_ALL | LVNI_SELECTED);
-			} while (itemIndex != -1);
-		}
+			itemIndex = GetListCtrl().GetNextItem(-1, LVNI_ALL | LVNI_SELECTED);
+		} while (itemIndex != -1);
 	}
 }
 
@@ -1391,79 +1372,72 @@ void CLinkHistoryList::OnChangeSelItemsStatusToNone()
 void CLinkHistoryList::OnChangeSelItemsStatus(
 	LinkHistoryManager::LinkStatusEnum	status)
 {
-	if ( !UsingFullFeatureSet() )
-	{
-		FeatureNotInFree();
-	}
-	else
-	{
-		LV_ITEM									lvi;
-		LPUrlItemData							pListItemData;
-		LinkHistoryManager::LinkStatusEnum		statusToSet;
-		long									lNumberItemsChanged = 0;
+	LV_ITEM									lvi;
+	LPUrlItemData							pListItemData;
+	LinkHistoryManager::LinkStatusEnum		statusToSet;
+	long									lNumberItemsChanged = 0;
 		
-		for ( int itemIndex = GetListCtrl().GetNextItem(-1, LVNI_ALL | LVNI_SELECTED);
-			  itemIndex != -1;
-			  itemIndex = GetListCtrl().GetNextItem(itemIndex, LVNI_ALL | LVNI_SELECTED) )
+	for ( int itemIndex = GetListCtrl().GetNextItem(-1, LVNI_ALL | LVNI_SELECTED);
+		  itemIndex != -1;
+		  itemIndex = GetListCtrl().GetNextItem(itemIndex, LVNI_ALL | LVNI_SELECTED) )
+	{
+		lvi.mask = LVIF_PARAM;
+		lvi.iItem = itemIndex;
+		lvi.iSubItem = 0;
+
+		if ( GetListCtrl().GetItem(&lvi) )
 		{
-			lvi.mask = LVIF_PARAM;
-			lvi.iItem = itemIndex;
-			lvi.iSubItem = 0;
-
-			if ( GetListCtrl().GetItem(&lvi) )
-			{
-				pListItemData = (LPUrlItemData) lvi.lParam;
-				
-				ASSERT(pListItemData);
-
-				if (pListItemData != NULL)
-				{
-					//	Determine the appropriate status to set
-					statusToSet = status;
-					if (statusToSet == LinkHistoryManager::ls_None)
-					{
-						//	Handle special case of no visit date stamp
-						if (pListItemData->m_lLastVisitTime == 0)
-							statusToSet = LinkHistoryManager::ls_NotVisited;
-						else
-							statusToSet = LinkHistoryManager::ls_None;
-					}
-
-					if (pListItemData->m_status != statusToSet)
-					{
-						pListItemData->m_status = statusToSet;
-						lNumberItemsChanged++;
-					}
-					
-					//	This link was touched, update touch time accordingly
-					pListItemData->m_lLastTouchTime = time(NULL);
-				}
-			}
-		}
-		
-		if (lNumberItemsChanged > 0)
-		{
-			LinkHistoryManager::Instance()->SetDirtyState(true);
+			pListItemData = (LPUrlItemData) lvi.lParam;
 			
-			//	Items were changed, if the status is remind then tell the LinkHistoryManager to remind
-			if (status == LinkHistoryManager::ls_Remind)
-				LinkHistoryManager::Instance()->SetShouldRemind();
+			ASSERT(pListItemData);
+
+			if (pListItemData != NULL)
+			{
+				//	Determine the appropriate status to set
+				statusToSet = status;
+				if (statusToSet == LinkHistoryManager::ls_None)
+				{
+					//	Handle special case of no visit date stamp
+					if (pListItemData->m_lLastVisitTime == 0)
+						statusToSet = LinkHistoryManager::ls_NotVisited;
+					else
+						statusToSet = LinkHistoryManager::ls_None;
+				}
+
+				if (pListItemData->m_status != statusToSet)
+				{
+					pListItemData->m_status = statusToSet;
+					lNumberItemsChanged++;
+				}
+				
+				//	This link was touched, update touch time accordingly
+				pListItemData->m_lLastTouchTime = time(NULL);
+			}
+		}
+	}
+		
+	if (lNumberItemsChanged > 0)
+	{
+		LinkHistoryManager::Instance()->SetDirtyState(true);
+		
+		//	Items were changed, if the status is remind then tell the LinkHistoryManager to remind
+		if (status == LinkHistoryManager::ls_Remind)
+			LinkHistoryManager::Instance()->SetShouldRemind();
 
 		
-			//	Resort the items immediately if necessary (if this ever proves to be too slow,
-			//	we'll need to wait to do this at idle time)
-			if ( ResortItemsIfSortedByDate() )
-			{
-				//	Scroll the first selected item into view (so that the selected item
-				//	or items don't suddenly seem to disappear).
-				int		firstItemIndex = GetListCtrl().GetNextItem(-1, LVNI_ALL | LVNI_SELECTED);
-				if (firstItemIndex != -1)
-					GetListCtrl().EnsureVisible(firstItemIndex, FALSE);
-			}
-
-			//	Make sure list refreshes, because the information has changed
-			Invalidate();
+		//	Resort the items immediately if necessary (if this ever proves to be too slow,
+		//	we'll need to wait to do this at idle time)
+		if ( ResortItemsIfSortedByDate() )
+		{
+			//	Scroll the first selected item into view (so that the selected item
+			//	or items don't suddenly seem to disappear).
+			int		firstItemIndex = GetListCtrl().GetNextItem(-1, LVNI_ALL | LVNI_SELECTED);
+			if (firstItemIndex != -1)
+				GetListCtrl().EnsureVisible(firstItemIndex, FALSE);
 		}
+
+		//	Make sure list refreshes, because the information has changed
+		Invalidate();
 	}
 }
 
@@ -1475,20 +1449,13 @@ void CLinkHistoryList::OnChangeSelItemsStatus(
 
 void CLinkHistoryList::OnEditSelectAll()
 {
-	if ( !UsingFullFeatureSet() )
-	{
-		FeatureNotInFree();
-	}
-	else
-	{
-		int		nCount = GetListCtrl().GetItemCount();
+	int		nCount = GetListCtrl().GetItemCount();
 
-		for (int i = 0; i < nCount; i++)
-			GetListCtrl().SetItemState(i, LVIS_SELECTED, LVIS_SELECTED);
+	for (int i = 0; i < nCount; i++)
+		GetListCtrl().SetItemState(i, LVIS_SELECTED, LVIS_SELECTED);
 
-		//	Set the focus on the first item.
-		GetListCtrl().SetItemState(0, LVIS_FOCUSED, LVIS_FOCUSED);
-	}
+	//	Set the focus on the first item.
+	GetListCtrl().SetItemState(0, LVIS_FOCUSED, LVIS_FOCUSED);
 }
 
 

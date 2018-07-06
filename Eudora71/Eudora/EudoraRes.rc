@@ -3626,54 +3626,6 @@ BEGIN
                     ES_READONLY
 END
 
-IDD_PAYMENT_REGISTRATION DIALOGEX 0, 0, 246, 248
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
-CAPTION "Payment & Registration"
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    CTEXT           "Sponsored Mode\n(free, with &ads)",IDC_STATIC,15,52,60,
-                    19
-    CONTROL         "",IDC_PAR_ADWARE,"Button",BS_AUTOCHECKBOX | BS_BITMAP | 
-                    BS_PUSHLIKE | WS_TABSTOP,30,19,30,30
-    CTEXT           "Paid Mode\n(costs &money, no ads)",IDC_STATIC,86,52,73,
-                    19
-    CONTROL         "",IDC_PAR_PAID,"Button",BS_AUTOCHECKBOX | BS_BITMAP | 
-                    BS_PUSHLIKE | WS_TABSTOP,108,19,30,30
-    CTEXT           "Light Mode\n(&free, fewer features)",IDC_STATIC,160,52,
-                    77,19
-    CONTROL         "",IDC_PAR_FREE,"Button",BS_AUTOCHECKBOX | BS_BITMAP | 
-                    BS_PUSHLIKE | WS_TABSTOP,183,19,30,30
-    CTEXT           "Update Your &Registration",IDC_PAR_REGISTER_TEXT,18,127,
-                    54,19
-    CONTROL         "",IDC_PAR_REGISTER,"Button",BS_OWNERDRAW | BS_BITMAP | 
-                    WS_TABSTOP,30,94,30,30
-    CTEXT           "Update Your &Profile",IDC_PAR_PROFILE,98,127,49,19
-    CONTROL         "",IDC_PAR_DEMOGRAPHICS,"Button",BS_OWNERDRAW | 
-                    BS_BITMAP | WS_TABSTOP,108,94,30,30
-    CTEXT           "Find the Latest &Versions",IDC_STATIC,172,127,52,19
-    CONTROL         "",IDC_PAR_FIND_VERSIONS,"Button",BS_OWNERDRAW | 
-                    BS_BITMAP | WS_TABSTOP,183,94,30,30
-    CTEXT           "&Enter Your Code",IDC_STATIC,165,202,66,19
-    CONTROL         "",IDC_PAR_CHANGE_REGISTRATION,"Button",BS_OWNERDRAW | 
-                    BS_BITMAP | WS_TABSTOP,183,169,30,30
-    CONTROL         "<No registration name entered>",
-                    IDC_PAR_REGISTRATION_NAME,"Static",SS_LEFTNOWORDWRAP | 
-                    WS_GROUP,21,169,156,10
-    CONTROL         "<No registration code entered>",
-                    IDC_PAR_REGISTRATION_CODE,"Static",SS_LEFTNOWORDWRAP | 
-                    WS_GROUP,21,184,156,10
-    PUSHBUTTON      "Cancel",IDCANCEL,10,196,50,14,NOT WS_VISIBLE | NOT 
-                    WS_TABSTOP
-    GROUPBOX        "Which Eudora is right for you?",IDC_STATIC,7,7,231,69
-    GROUPBOX        "Keeping Current",IDC_STATIC,7,82,231,69
-    GROUPBOX        "Your Registration Information",IDC_STATIC,7,157,231,69
-    DEFPUSHBUTTON   "C&lose",IDOK,7,230,54,14,WS_GROUP
-    PUSHBUTTON      "&Go to the Eudora web site for more information",
-                    IDC_PAR_TELL_ME_MORE,70,230,168,14
-    CTEXT           "%d day(s) left",IDC_PAR_DEMO_DAYS_LEFT,94,70,57,8
-END
-
 IDD_REPAY DIALOGEX 0, 0, 245, 199
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
     WS_SYSMENU
@@ -6585,7 +6537,6 @@ BEGIN
                             "Sets the color of the selected text to the text color that was used last\nLast Text Color"
     ID_EDIT_EMOTICON        "Inserts an Emoticon\nEmoticon"
     ID_EDIT_LAST_EMOTICON   "Inserts the last emoticon that was used last\nLast Emoticon"
-    IDS_MODE_DEMO           "Demo of Paid Mode"
     ID_EDIT_TEXT_FORMAT_PAINTER 
                             "Copies formatting from the current selection and applies it to next text you select\nFormat Painter"
 END

@@ -19,6 +19,42 @@ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
 DAMAGE. */
 
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
+
+*/
+
 //
 
 #include "stdafx.h"
@@ -65,7 +101,6 @@ DAMAGE. */
 #include "QCPluginDirector.h"
 
 #include "QCFindMgr.h"
-#include "QCSharewareManager.h"
 #include "compmsgd.h"
 
 
@@ -389,17 +424,7 @@ CCreateContext* pContext)
 	m_pToolBarManager->SetToolBarInfo( m_pFormattingToolBar );
 	m_pFormattingToolBar->EnableDocking(CBRS_ALIGN_TOP);
 
-	// Shareware: In reduced feature mode, you get a less-capable format toolbar
-	if (UsingFullFeatureSet())
-	{
-		// FULL FEATURE mode
-		m_pFormattingToolBar->SetButtons( theFullFeatureFormatButtons, DIM( theFullFeatureFormatButtons ) );
-	}
-	else
-	{
-		// REDUCED FEATURE mode
-		m_pFormattingToolBar->SetButtons( theReducedFeatureFormatButtons, DIM( theReducedFeatureFormatButtons ) );
-	}
+	m_pFormattingToolBar->SetButtons( theFullFeatureFormatButtons, DIM( theFullFeatureFormatButtons ) );
 
 	DockControlBar( m_pFormattingToolBar );
 
@@ -493,18 +518,12 @@ CCreateContext* pContext)
 			
 			if (pEditTextMenu)
 			{
-				// Shareware: In reduced feature mode, you get a less-capable format toolbar
-				if (UsingFullFeatureSet())
-				{
-					// FULL FEATURE mode
-					// get the insert menu
-					VERIFY( pMenu = pEditTextMenu->GetSubMenu( 11 ) );
-					i = m_pFormattingToolBar->CommandToIndex( ID_EDIT_INSERT );
-					VERIFY( pMenuButton = ( CTBarMenuButton* ) ( m_pFormattingToolBar->GetButton( i ) ) );
+				VERIFY( pMenu = pEditTextMenu->GetSubMenu( 11 ) );
+				i = m_pFormattingToolBar->CommandToIndex( ID_EDIT_INSERT );
+				VERIFY( pMenuButton = ( CTBarMenuButton* ) ( m_pFormattingToolBar->GetButton( i ) ) );
 
-					if (pMenu && pMenuButton)
-						pMenuButton->SetHMenu( pMenu->GetSafeHmenu() );
-				}
+				if (pMenu && pMenuButton)
+					pMenuButton->SetHMenu( pMenu->GetSafeHmenu() );
 				
 				// get the text menu
 				VERIFY( pEditTextMenu = pEditTextMenu->GetSubMenu( 10 ) );
@@ -1221,7 +1240,7 @@ void CReadMessageFrame::OnContextMenu(CWnd* pWnd, CPoint ptScreen)
 
 		// If we have a selection generate the menus.
 		CObArray	 oaTransferMatches;
-		if (!strText.IsEmpty() && (GetSharewareMode() != SWM_MODE_LIGHT))
+		if (!strText.IsEmpty())
 		{
 			GenerateTransferToMenus(&tempPopupMenu, strText, &oaTransferMatches);
 		}

@@ -59,6 +59,7 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018.
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
     Removed additional references to Qualcomm's Shareware Maanager.
     Removed code segments specific to demo builds that have a expiration date.
+    Removed code segments specific to payment and registration
 
 */
 
@@ -210,7 +211,6 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
 HMENU g_EudoraProHMENU;
 
 #include "spell.h"
-#include "PaymentAndRegistrationDlg.h"
 #include "DockBar.h"
 #include "ProfileNag.h"
 
@@ -597,8 +597,6 @@ BEGIN_MESSAGE_MAP(CMainFrame, QCWorkbook)
 	ON_UPDATE_COMMAND_UI(ID_EDIT_WRAPSELECTION, OnUpdateNeedSelEdit)
 	ON_UPDATE_COMMAND_UI(ID_SPECIAL_ADDASRECIPIENT, OnUpdateNeedSel)
 	ON_UPDATE_COMMAND_UI(ID_EDIT_REDO, OnUpdateEditRedo)
-	ON_COMMAND(ID_HELP_PAYMENT_AND_REGISTRATION, OnPaymentAndRegistration)
-	ON_UPDATE_COMMAND_UI(ID_HELP_PAYMENT_AND_REGISTRATION, OnUpdatePaymentAndRegistration)
 	ON_UPDATE_COMMAND_UI(ID_WINDOW_USAGE_STATS, OnUpdateStatistics)
 	ON_COMMAND(ID_SYSTEM_TRAY_OPEN_EUDORA, OnOpenEudora)
 	ON_COMMAND(ID_SYSTEM_TRAY_MINIMIZE, OnMinimizeToSystemTray)

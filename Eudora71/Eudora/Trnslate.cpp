@@ -55,6 +55,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     Removed references to Qualcomm's Shareware Manager
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
+    Removed references to payment and registration specific code
+        
 */    
 
 //
@@ -102,7 +105,6 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
 #include "convhtml.h"
 #include "html2text.h"
 #include "Automation.h"
-#include "PaymentAndRegistrationDlg.h"
 #include "msgframe.h"
 #include "JunkMail.h"
 

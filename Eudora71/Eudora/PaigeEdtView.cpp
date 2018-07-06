@@ -19,6 +19,47 @@ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
 DAMAGE. */
 
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
+    Removed references to Qualcomm's Shareware Manager.
+    Removed references to the PaigeDLL Html Control
+    TODO: This source is heavily dependent on Paige. More revisions coming.
+    Just took out the Qualcomm specific stuff plus the includes of the Paige 
+    header files.
+
+*/        
+
 //
 
 
@@ -34,52 +75,15 @@ DAMAGE. */
 #include "MoodMailStatic.h"
 //#include "PaigeEdtDoc.h"
 
-// For all text functions
-#include "pgtraps.h"
-#include "pgscrap.h"
-
-// For Import, Export of files in Text, RTF, Native Paige
-// and HTML formats
-#include "pgTxrCPP.h"
-
-// paige utility routines
-#include "pgutils.h"
-
-// high-level style interface
-#include "pghlevel.h"
-
-// Paige html definitions
-#include "pghtmdef.h"
-
-// Paige hyperlinks
-#include "pghtext.h"
-
-// machine specific
-#include "machine.h"
-#include "pgosutl.h"
-
-// Import/Export == included in PaigeEdtView.h
-#include "Paige_io.h"
-
-//#include "pgtables.h"
-
 // eudora font info
 #include "font.h"
 #include "FaceNameDialog.h"
-
-// line glitter functions
-#include "defprocs.h"
-#include "pgdefpar.h"
-#include "pggrafx.h"
 
 #include "spell.h"
 #include "PaigeEdtView.h"
 
 #include "PgStyleUtils.h"
 #include "spellpaige.h"
-#include "paige.h"
-#include "PGEDIT.H"
-#include "PGSELECT.H"
 
 #include "QCRecipientDirector.h"
 
@@ -92,13 +96,11 @@ DAMAGE. */
 #include "COLORLIS.H"
 #include "SafetyPal.h"
 #include "pgStyleUtils.h"
-#include "PgEmbeddedImage.h"
 #include "InsertLinkDialog.h"
 #include "PictureLinkDlg.h"
 #include "Text2Html.h"
 #include "mainfrm.h"
 #include "QCCommandStack.h"
-#include "QCSharewareManager.h"
 #include "CompMessageFrame.h"
 #include "Summary.h"
 #include "TocDoc.h"
@@ -1677,17 +1679,12 @@ bool CPaigeEdtView::NewPaigeObject(long AddFlags /*= 0*/, long AddFlags2 /*= 0*/
     delete m_styleEx;
 	m_styleEx = DEBUG_NEW CPaigeStyle(m_paigeRef);
 
-    // Shareware: In reduced feature mode, you cannot spell check
-	// or have emoticons converted as you type
-    if (UsingFullFeatureSet())
-    {
-        // re-init the spelling object's paige reference
-        m_spell.Init( this );
+    // re-init the spelling object's paige reference
+    m_spell.Init( this );
 
-		// Set the initial scan timer. Probably not strictly necessary since we'll set
-		// a scan timer anyway when we get focus, but it doesn't hurt.
-        SetTimer( SCAN_TIMER, SCAN_INTERVAL, NULL );
-    }
+	// Set the initial scan timer. Probably not strictly necessary since we'll set
+	// a scan timer anyway when we get focus, but it doesn't hurt.
+    SetTimer( SCAN_TIMER, SCAN_INTERVAL, NULL );
 
 	// set our "global" line-adjust procedure
 	pg_hooks hooks;
@@ -1824,88 +1821,82 @@ embed_ref CPaigeEdtView::GetEmbedRectAtPoint(CPoint & ptMouse, CRect & rect) con
 
 void CPaigeEdtView::OnRButtonDown(UINT nFlags, CPoint point) 
 {
-	// Shareware: In reduced feature mode, you cannot right-click
-	if (UsingFullFeatureSet())
+	//
+	// Put cooridnates in a format that Paige recognizes
+	//
+	co_ordinate pg_mouse;
+	CPointToPgPoint(&point,&pg_mouse);
+	//
+	// This point rests in a word. Select that word.
+	//
+	select_pair wordSel, curSel;
+	long offset = pgPtToChar(m_paigeRef, &pg_mouse, NULL);
+	pgFindWord(m_paigeRef, offset, &wordSel.begin, &wordSel.end,TRUE,FALSE);
+	pgGetSelection(m_paigeRef, &curSel.begin, &curSel.end);
+
+	// 
+	// Avoid treating this as a spelling click if
+	// the click took place in a selection that includes stuff
+	// besides the word
+	//
+	if ( (curSel.begin < offset) && (offset <= curSel.end) )
 	{
-		// FULL FEATURE mode
-
-		//
-		// Put cooridnates in a format that Paige recognizes
-		//
-		co_ordinate pg_mouse;
-		CPointToPgPoint(&point,&pg_mouse);
-		//
-		// This point rests in a word. Select that word.
-		//
-		select_pair wordSel, curSel;
-		long offset = pgPtToChar(m_paigeRef, &pg_mouse, NULL);
-		pgFindWord(m_paigeRef, offset, &wordSel.begin, &wordSel.end,TRUE,FALSE);
-		pgGetSelection(m_paigeRef, &curSel.begin, &curSel.end);
-
-		// 
-		// Avoid treating this as a spelling click if
-		// the click took place in a selection that includes stuff
-		// besides the word
-		//
-		if ( (curSel.begin < offset) && (offset <= curSel.end) )
+		bool	bSelectionIncludesOtherWords = false;
+		
+		if (curSel.begin < wordSel.begin)
 		{
-			bool	bSelectionIncludesOtherWords = false;
-			
-			if (curSel.begin < wordSel.begin)
+			bSelectionIncludesOtherWords = true;
+		}
+		else if (wordSel.end < curSel.end)
+		{
+			if ( (curSel.end - wordSel.end) > 7 )
 			{
 				bSelectionIncludesOtherWords = true;
 			}
-			else if (wordSel.end < curSel.end)
+			else
 			{
-				if ( (curSel.end - wordSel.end) > 7 )
+				// When the user double clicks on a word Paige selects all the spaces to right
+				// of that word. Allow some extra spaces selected to the right within reason.
+				char			szCheckChars[8];
+				long			nLength = 0;
+				select_pair		tempSel;
+
+				tempSel.begin = wordSel.end + 1;
+				tempSel.end = curSel.end;
+
+				GetPgText(szCheckChars, sizeof(szCheckChars), tempSel, FALSE, &nLength);
+
+				for (short i = 0; i < nLength; i++)
 				{
-					bSelectionIncludesOtherWords = true;
-				}
-				else
-				{
-					// When the user double clicks on a word Paige selects all the spaces to right
-					// of that word. Allow some extra spaces selected to the right within reason.
-					char			szCheckChars[8];
-					long			nLength = 0;
-					select_pair		tempSel;
-
-					tempSel.begin = wordSel.end + 1;
-					tempSel.end = curSel.end;
-
-					GetPgText(szCheckChars, sizeof(szCheckChars), tempSel, FALSE, &nLength);
-
-					for (short i = 0; i < nLength; i++)
+					if (szCheckChars[i] != ' ')
 					{
-						if (szCheckChars[i] != ' ')
-						{
-							bSelectionIncludesOtherWords = true;
-							break;
-						}
+						bSelectionIncludesOtherWords = true;
+						break;
 					}
 				}
-
-				if (bSelectionIncludesOtherWords)
-					return;
 			}
-		}
 
-		//
-		// Misspelled?
-		//
-		if ( m_styleEx->IsMisspelled(&wordSel) )
-		{
-			pgSetSelection(m_paigeRef, wordSel.begin, wordSel.end, 0, TRUE);
-			//
-			// This dialog should really be off the lower right corner
-			// of the selection.  Need to change.
-			//
-			POINT pt;
-			pt.x = point.x;
-			pt.y = point.y;
-			ClientToScreen(&pt);
-			m_spell.Popup(this, pt, wordSel);
-		}           
+			if (bSelectionIncludesOtherWords)
+				return;
+		}
 	}
+
+	//
+	// Misspelled?
+	//
+	if ( m_styleEx->IsMisspelled(&wordSel) )
+	{
+		pgSetSelection(m_paigeRef, wordSel.begin, wordSel.end, 0, TRUE);
+		//
+		// This dialog should really be off the lower right corner
+		// of the selection.  Need to change.
+		//
+		POINT pt;
+		pt.x = point.x;
+		pt.y = point.y;
+		ClientToScreen(&pt);
+		m_spell.Popup(this, pt, wordSel);
+	}           
 
     return;
 }
@@ -2497,7 +2488,7 @@ BOOL CPaigeEdtView::OnSetCursor( CWnd* pWnd, UINT nHitTest, UINT message )
 						// We should check the link if we're here (i.e. if the link
 						// can be clicked on), we're using the full feature set,
 						// and the user has ScamWatch ToolTips turned on.
-						bShouldCheckLink = UsingFullFeatureSet() && GetIniShort(IDS_INI_SHOW_SCAMWATCH_TOOLTIP);
+						bShouldCheckLink = GetIniShort(IDS_INI_SHOW_SCAMWATCH_TOOLTIP);
 					}
 					
 					//
@@ -4001,10 +3992,7 @@ void CPaigeEdtView::OnSetFocus(CWnd* pOldWnd)
     pgSetHiliteStates(m_paigeRef, activate_verb, no_change_verb, TRUE); 
     CView::OnSetFocus(pOldWnd);
 
-	// If we're using the full feature set - set the scan timer since
-	// we're focused now.
-	if ( UsingFullFeatureSet() )
-		SetTimer( SCAN_TIMER, SCAN_INTERVAL, NULL );
+	SetTimer( SCAN_TIMER, SCAN_INTERVAL, NULL );
 }
 
 void CPaigeEdtView::OnEditCut() 
@@ -5025,12 +5013,9 @@ void CPaigeEdtView::OnUpdateTextPlain( CCmdUI* pCmdUI )
 
 void CPaigeEdtView::ChangeParaJustification(short in_nNewJustification)
 {
-	if ( UsingFullFeatureSet() )
-	{
-		PaigeJustificationChanger		justificationChanger(in_nNewJustification);
+	PaigeJustificationChanger		justificationChanger(in_nNewJustification);
 
-		ApplyStyleChange(justificationChanger);
-	}
+	ApplyStyleChange(justificationChanger);
 }
 
 
@@ -5041,11 +5026,6 @@ void CPaigeEdtView::OnParaCenter()
 
 void CPaigeEdtView::OnUpdateParaCenter( CCmdUI* pCmdUI )
 {
-	OnUpdateFullFeatureSet(pCmdUI);
-
-	if (!UsingFullFeatureSet())
-		return;
-
     if ((m_fRO) || (!m_bAllowStyled))
         pCmdUI->Enable(false);
     else
@@ -5063,11 +5043,6 @@ void CPaigeEdtView::OnParaLeft()
 
 void CPaigeEdtView::OnUpdateParaLeft( CCmdUI* pCmdUI )
 {
-	OnUpdateFullFeatureSet(pCmdUI);
-
-	if (!UsingFullFeatureSet())
-		return;
-
     if ((m_fRO) || (!m_bAllowStyled))
         pCmdUI->Enable(false);
     else
@@ -5079,11 +5054,6 @@ void CPaigeEdtView::OnUpdateParaLeft( CCmdUI* pCmdUI )
 
 void CPaigeEdtView::OnUpdateLastTextColor( CCmdUI* pCmdUI )
 {
-	OnUpdateFullFeatureSet(pCmdUI);
-
-	if (!UsingFullFeatureSet())
-		return;
-
     if ((m_fRO) || (!m_bAllowStyled))
         pCmdUI->Enable(false);
     else
@@ -5095,13 +5065,11 @@ void CPaigeEdtView::OnUpdateLastTextColor( CCmdUI* pCmdUI )
 
 void CPaigeEdtView::OnUpdateLastEmoticon(CCmdUI * pCmdUI)
 {
-	pCmdUI->Enable(UsingFullFeatureSet() && !m_fRO);
+	pCmdUI->Enable(!m_fRO);
 }
 
 void CPaigeEdtView::OnLastTextColor()
 {
-	if (!UsingFullFeatureSet())
-		return;
     if ( pgNumSelections(m_paigeRef) )
         PrepareUndo(undo_format);
 
@@ -5347,9 +5315,6 @@ void CPaigeEdtView::InsertEmoticonAtCurrentPosition(Emoticon * pEmoticon)
 
 void CPaigeEdtView::OnLastEmoticon()
 {
-	if ( !UsingFullFeatureSet() )
-		return;
-	
 	CString		szEmoticonTrigger;
 
 	GetIniString(IDS_INI_LAST_EMOTICON_TRIGGER, szEmoticonTrigger);
@@ -5374,11 +5339,6 @@ void CPaigeEdtView::OnParaRight()
 
 void CPaigeEdtView::OnUpdateParaRight( CCmdUI* pCmdUI )
 {
-	OnUpdateFullFeatureSet(pCmdUI);
-
-	if (!UsingFullFeatureSet())
-		return;
-
     if ((m_fRO) || (!m_bAllowStyled))
         pCmdUI->Enable(false);
     else
@@ -5461,48 +5421,30 @@ void CPaigeEdtView::ApplyStyleChange(PaigeStyleChanger & paigeStyleChanger, bool
 
 void CPaigeEdtView::OnIndentIn()
 {
-	// Shareware: In reduced feature mode, you cannot change margins
-	if (UsingFullFeatureSet())
-	{
-		// FULL FEATURE mode
-		PaigeIndentLevelChanger		indentLevelChanger(DEFLIST_INDENT_VALUE);
+	// FULL FEATURE mode
+	PaigeIndentLevelChanger		indentLevelChanger(DEFLIST_INDENT_VALUE);
 
-		ApplyStyleChange(indentLevelChanger);
-	}
+	ApplyStyleChange(indentLevelChanger);
 }
 
 void CPaigeEdtView::OnUpdateIndentCommand(CCmdUI* pCmdUI) 
 {
-	OnUpdateFullFeatureSet(pCmdUI);
-
-	if (!UsingFullFeatureSet())
-		return;
-
 	pCmdUI->Enable(!m_fRO && m_bAllowStyled);
 }
 
 void CPaigeEdtView::OnIndentOut()
 {
- 	// Shareware: In reduced feature mode, you cannot change margins
-	if (UsingFullFeatureSet())
-	{
-		// FULL FEATURE mode
-		PaigeIndentLevelChanger		indentLevelChanger(-DEFLIST_INDENT_VALUE);
+	// FULL FEATURE mode
+	PaigeIndentLevelChanger		indentLevelChanger(-DEFLIST_INDENT_VALUE);
 
-		ApplyStyleChange(indentLevelChanger);
-	}
+	ApplyStyleChange(indentLevelChanger);
 }
 
 void CPaigeEdtView::OnMarginsNormal()
 {
- 	// Shareware: In reduced feature mode, you cannot change margins
-	if (UsingFullFeatureSet())
-	{
-		// FULL FEATURE mode
-		PaigeMarginsNormalChanger		marginsNormalChanger;
+	PaigeMarginsNormalChanger		marginsNormalChanger;
 
-		ApplyStyleChange(marginsNormalChanger);
-	}
+	ApplyStyleChange(marginsNormalChanger);
 }
 
 
@@ -5754,8 +5696,7 @@ void CPaigeEdtView::OnTimer(UINT nIDEvent)
 			bool					bFoundEmoticons;
 			EmoticonsInTextList		emoticonsInText;
 			select_pair				textRange;
-			bool					bConvertEmoticons = UsingFullFeatureSet() &&
-														(GetIniShort(IDS_INI_DISPLAY_EMOTICON_AS_PICTURES) != 0);
+			bool					bConvertEmoticons =  (GetIniShort(IDS_INI_DISPLAY_EMOTICON_AS_PICTURES) != 0);
 
             while ( DequeueDirtyPair( &textRange.begin, &textRange.end ) )
 			{
@@ -6463,45 +6404,24 @@ int CPaigeEdtView::CheckSpelling(BOOL autoCheck /*=FALSE*/)
 {
     int ret = 0;
 
-	// Shareware: In reduced feature mode, you cannot right-click
-	if (UsingFullFeatureSet())
+	MakeAutoURLSpaghetti(0, pgTextSize(m_paigeRef));
+
+	// Reset whether or not we think redraw is needed
+	m_spell.ResetIsRedrawNeeded();
+
+	ret = m_spell.Check(this,0,autoCheck);
+
+	// We used to update repeatedly when we changed the style to reflect
+	// misspelled words inside of Check. That was *really* slow for messages
+	// with a lot of misspelled words (we were even doing this when the text
+	// wasn't scrolled into view). Now we only update when necessary after
+	// changing the styles.
+	if ( m_spell.IsRedrawNeeded() )
 	{
-		// FULL FEATURE mode
-
-		MakeAutoURLSpaghetti(0, pgTextSize(m_paigeRef));
-
-		// Reset whether or not we think redraw is needed
-		m_spell.ResetIsRedrawNeeded();
-
-		ret = m_spell.Check(this,0,autoCheck);
-
-		// We used to update repeatedly when we changed the style to reflect
-		// misspelled words inside of Check. That was *really* slow for messages
-		// with a lot of misspelled words (we were even doing this when the text
-		// wasn't scrolled into view). Now we only update when necessary after
-		// changing the styles.
-		if ( m_spell.IsRedrawNeeded() )
-		{
-			Invalidate();
-			UpdateWindow();
-		}
-
-	/*      int stCh, endCh;
-			GetEditCtrl().GetSel(stCh, endCh);
-			if (GetFocus() == &GetEditCtrl() && stCh != endCh)
-			ret = Spell.Check(&GetEditCtrl());
-			else
-			{
-			GetEditCtrl().SetSel(0, 0);
-			CEdit *sub = (CEdit *)m_pHeader->GetDlgItem(IDC_HDRFLD_EDIT3);
-			if (sub) 
-			ret = Spell.Check(sub, 0, TRUE); 
-			if (!ret)
-			ret = Spell.Check(&GetEditCtrl(), 0, autoCheck);
-			}
-	*/
+		Invalidate();
+		UpdateWindow();
 	}
-    
+
 	return ret;
 }
 
@@ -7316,49 +7236,34 @@ void CPaigeEdtView::OnUpdateFontCombo(CCmdUI* pCmdUI)
 // Happy-crappy picture stuff...
 void CPaigeEdtView::OnInsertPicture()
 {
-	// Shareware: In reduced feature mode, you cannot insert pictures
-	if (UsingFullFeatureSet())
-	{
-		// FULL FEATURE mode
-		char* filter = NULL;
-		PgGetOfnFilterString( &filter );
-		CFileDialog dlg( true, "jpg", NULL, 0, filter, this );
+	char* filter = NULL;
+	PgGetOfnFilterString( &filter );
+	CFileDialog dlg( true, "jpg", NULL, 0, filter, this );
 
-		if ( dlg.DoModal() == IDOK ) {
-			unsigned er;
-			if ( (er = PgValidateImageFile(dlg.GetPathName())) == 0 ) {
-				//Need to call Undo here, maybe with app_insert verb
-				PrepareUndo(undo_embed_insert);
-				// Schmookie!
-				PgInsertImageFromFile( m_paigeRef, dlg.GetPathName() );
-				Invalidate();
-			}
-			else
-				ErrorDialog( er );
+	if ( dlg.DoModal() == IDOK ) {
+		unsigned er;
+		if ( (er = PgValidateImageFile(dlg.GetPathName())) == 0 ) {
+			//Need to call Undo here, maybe with app_insert verb
+			PrepareUndo(undo_embed_insert);
+			// Schmookie!
+			PgInsertImageFromFile( m_paigeRef, dlg.GetPathName() );
+			Invalidate();
 		}
+		else
+			ErrorDialog( er );
 	}
 }
 
 void CPaigeEdtView::OnInsertPictureLink()
 {
-	// Shareware: In reduced feature mode, you cannot insert pictures
-	if (UsingFullFeatureSet())
-	{
-		// FULL FEATURE mode
-		CPictureLinkDlg dlg;
+	CPictureLinkDlg dlg;
 
-		if (dlg.DoModal() == IDOK)
-			SetSelectedHTML(dlg.GetHtmlCode(), false);
-	}
+	if (dlg.DoModal() == IDOK)
+		SetSelectedHTML(dlg.GetHtmlCode(), false);
 }
 
 void CPaigeEdtView::OnUpdateInsertPicture(CCmdUI* pCmdUI) 
 {
-	OnUpdateFullFeatureSet(pCmdUI);
-
-	if (!UsingFullFeatureSet())
-		return;
-
     pCmdUI->Enable( !m_fRO && m_bAllowStyled /*&& g_qtInitialized*/ );
 }
 
@@ -7367,51 +7272,44 @@ void CPaigeEdtView::OnEditInsertHR()
 	sec_toolbar_menu_hack();
 
 	// FULL FEATURE MODE
-	if ( UsingFullFeatureSet() ) {
-		select_pair sel;
-		pgGetSelection( m_paigeRef, &sel.begin, &sel.end );
+	select_pair sel;
+	pgGetSelection( m_paigeRef, &sel.begin, &sel.end );
 
-		// HRs must have their own par. rather that trying to split line-wrapped
-		// pars in two, we just always put the rule above the current par. this
-		// simplifies the code a lot, and sidesteps some pretty flakey behavior.
-		// the user must split pars themselves, if that's what they want.
+	// HRs must have their own par. rather that trying to split line-wrapped
+	// pars in two, we just always put the rule above the current par. this
+	// simplifies the code a lot, and sidesteps some pretty flakey behavior.
+	// the user must split pars themselves, if that's what they want.
 
-		// BOG: the one remaining bug here is that if the previous line is an
-		// HR, then instead of getting a second one, the existing one just kinda
-		// gets pushed down a line---i give up.
+	// BOG: the one remaining bug here is that if the previous line is an
+	// HR, then instead of getting a second one, the existing one just kinda
+	// gets pushed down a line---i give up.
 
-		long parLeft, parRight;
-		pgFindPar( m_paigeRef, sel.begin, &parLeft, &parRight );
+	long parLeft, parRight;
+	pgFindPar( m_paigeRef, sel.begin, &parLeft, &parRight );
 
-		long insert_Ref[2];
-		insert_Ref[0] = parLeft;
-		insert_Ref[1] = 1;
-		PrepareUndo( undo_app_insert, insert_Ref, TRUE );
+	long insert_Ref[2];
+	insert_Ref[0] = parLeft;
+	insert_Ref[1] = 1;
+	PrepareUndo( undo_app_insert, insert_Ref, TRUE );
 
-		TCHAR cr = (TCHAR) PgGlobalsPtr()->line_wrap_char;
-		pgInsert( m_paigeRef, (pg_char_ptr)&cr, sizeof(cr), parLeft,
-				data_insert_mode, 0, best_way );
+	TCHAR cr = (TCHAR) PgGlobalsPtr()->line_wrap_char;
+	pgInsert( m_paigeRef, (pg_char_ptr)&cr, sizeof(cr), parLeft,
+			data_insert_mode, 0, best_way );
 
-		par_info info, mask;
-		pgInitParMask( &info, 0 );
-		pgInitParMask( &mask, 0 );
+	par_info info, mask;
+	pgInitParMask( &info, 0 );
+	pgInitParMask( &mask, 0 );
 
-		mask.table.border_info = -1;
-		info.table.border_info |= PG_BORDER_LINERULE;
+	mask.table.border_info = -1;
+	info.table.border_info |= PG_BORDER_LINERULE;
 
-		sel.begin = sel.end = parLeft;
-		PrepareUndo( undo_insert_hr_withCR );
-		pgSetParInfoEx( m_paigeRef, &sel, &info, &mask, FALSE, best_way );
-	}
+	sel.begin = sel.end = parLeft;
+	PrepareUndo( undo_insert_hr_withCR );
+	pgSetParInfoEx( m_paigeRef, &sel, &info, &mask, FALSE, best_way );
 }
 
 void CPaigeEdtView::OnUpdateEditInsertHR( CCmdUI* pCmdUI )
 {
-	OnUpdateFullFeatureSet(pCmdUI);
-
-	if (!UsingFullFeatureSet())
-		return;
-
     OnUpdateEditStyle( pCmdUI );
 }
 
@@ -7435,7 +7333,7 @@ void CPaigeEdtView::OnUpdateDynamicCommand(CCmdUI * pCmdUI)
 		(theAction == CA_EMOTICON) )
 	{
 		//	Disabled if in light mode or if message is read only
-		if (!UsingFullFeatureSet() || m_fRO)
+		if (m_fRO)
 			pCmdUI->Enable(FALSE);
 		else
 			pCmdUI->Enable(TRUE);
@@ -7463,16 +7361,13 @@ void CPaigeEdtView::OnTextSizeChange( UINT uSizeID )
 
 void CPaigeEdtView::OnColorChange( UINT uColorID ) 
 {
-	if (UsingFullFeatureSet())
-	{
-		if ( pgNumSelections( m_paigeRef ) ) {
-			PrepareUndo( undo_format );
-		}
-
-		COLORREF theColor =  CColorMenu::GetColor( uColorID );
-
-		pgSetTextColor( m_paigeRef, &theColor, NULL, TRUE );
+	if ( pgNumSelections( m_paigeRef ) ) {
+		PrepareUndo( undo_format );
 	}
+
+	COLORREF theColor =  CColorMenu::GetColor( uColorID );
+
+	pgSetTextColor( m_paigeRef, &theColor, NULL, TRUE );
 }
 
 
@@ -7484,7 +7379,7 @@ BOOL CPaigeEdtView::OnDynamicCommand(UINT uID)
 	if( !g_theCommandStack.GetCommand(static_cast<WORD>(uID), &pCommand, &theAction) )
 		return FALSE;
 
-	if ( UsingFullFeatureSet() && (theAction == CA_EMOTICON) )
+	if ( (theAction == CA_EMOTICON) )
 	{
 		//	Find indicated emoticon
 		Emoticon *		pEmoticon = NULL;
@@ -7557,24 +7452,15 @@ void CPaigeEdtView::OnFormatPainter()
 
 void CPaigeEdtView::OnUpdateFormatPainter(CCmdUI* pCmdUI) 
 {
-	if ( UsingFullFeatureSet() )
-	{
-		//	If we'll be enabling Format Painter, do that before we call SetCheck
-		if (m_bAllowStyled)
-			pCmdUI->Enable(true);
+	//	If we'll be enabling Format Painter, do that before we call SetCheck
+	if (m_bAllowStyled)
+		pCmdUI->Enable(true);
 		
-		pCmdUI->SetCheck( (m_mouseState & MOUSE_FORMAT_PAINTER) ? 1 : 0 );
+	pCmdUI->SetCheck( (m_mouseState & MOUSE_FORMAT_PAINTER) ? 1 : 0 );
 		
-		//	If we'll be disabling Format Painter, do that after we call SetCheck
-		if (!m_bAllowStyled)
-			pCmdUI->Enable(false);
-	}
-	else
-	{
-		//	We're in Light mode - disable Format Painter
-		pCmdUI->SetCheck(false);
+	//	If we'll be disabling Format Painter, do that after we call SetCheck
+	if (!m_bAllowStyled)
 		pCmdUI->Enable(false);
-	}
 }
 
 
@@ -7621,26 +7507,16 @@ void CPaigeEdtView::UpdateBlockFmt(CCmdUI* pCmdUI, unsigned char* szStylename)
 
 void CPaigeEdtView::OnBlkfmtBullettedList() 
 {
- 	// Shareware: In reduced feature mode, you cannot insert bullet lists
-	if (UsingFullFeatureSet())
-	{
-		// FULL FEATURE mode
-		if ( pgNumSelections(m_paigeRef) )
-			PrepareUndo(undo_format);
-		if ( !m_styleEx->IsBullet(NULL) )
-			m_styleEx->ApplyBullet(TRUE);
-		else
-			m_styleEx->ApplyBullet(FALSE);
-	}
+    if ( pgNumSelections(m_paigeRef) )
+		PrepareUndo(undo_format);
+	if ( !m_styleEx->IsBullet(NULL) )
+		m_styleEx->ApplyBullet(TRUE);
+	else
+		m_styleEx->ApplyBullet(FALSE);
 }
 
 void CPaigeEdtView::OnUpdateBlkfmtBullettedList(CCmdUI* pCmdUI) 
 {
-	OnUpdateFullFeatureSet(pCmdUI);
-
-	if (!UsingFullFeatureSet())
-		return;
-
 	if ( m_styleEx->IsBullet(NULL) )
 		pCmdUI->SetCheck( TRUE );
 	else
@@ -7649,108 +7525,6 @@ void CPaigeEdtView::OnUpdateBlkfmtBullettedList(CCmdUI* pCmdUI)
 	pCmdUI->Enable(m_bAllowStyled);
 }
 
-/*
-
-void CPaigeEdtView::OnBlkfmtBq() 
-{
-        if ( pgNumSelections(m_paigeRef) )
-                PrepareUndo(undo_format);
-        pgApplyNamedStyle (m_paigeRef, NULL, blockquote_style,  best_way);
-}
-
-void CPaigeEdtView::OnUpdateBlkfmtBQ(CCmdUI* pCmdUI) 
-{
-        UpdateBlockFmt( pCmdUI, blockquote_style );
-}
-
-void CPaigeEdtView::OnBlkfmtH1() 
-{
-        if ( pgNumSelections(m_paigeRef) )
-                PrepareUndo(undo_format);
-        pgApplyNamedStyle (m_paigeRef, NULL, heading1_style,  best_way);
-}
-
-void CPaigeEdtView::OnUpdateBlkfmtH1(CCmdUI* pCmdUI) 
-{
-        UpdateBlockFmt( pCmdUI, heading1_style );
-}
-
-void CPaigeEdtView::OnBlkfmtH2() 
-{
-        if ( pgNumSelections(m_paigeRef) )
-                PrepareUndo(undo_format);
-        pgApplyNamedStyle (m_paigeRef, NULL, heading2_style,  best_way);
-}
-
-void CPaigeEdtView::OnUpdateBlkfmtH2(CCmdUI* pCmdUI) 
-{
-        UpdateBlockFmt( pCmdUI, heading2_style );
-}
-
-void CPaigeEdtView::OnBlkfmtH3() 
-{
-        if ( pgNumSelections(m_paigeRef) )
-                PrepareUndo(undo_format);
-        pgApplyNamedStyle (m_paigeRef, NULL, heading3_style,  best_way);
-}
-
-void CPaigeEdtView::OnUpdateBlkfmtH3(CCmdUI* pCmdUI) 
-{
-        UpdateBlockFmt( pCmdUI, heading3_style );
-}
-
-void CPaigeEdtView::OnBlkfmtH4() 
-{
-        if ( pgNumSelections(m_paigeRef) )
-                PrepareUndo(undo_format);
-        pgApplyNamedStyle (m_paigeRef, NULL, heading4_style,  best_way);
-}
-
-void CPaigeEdtView::OnUpdateBlkfmtH4(CCmdUI* pCmdUI) 
-{
-        UpdateBlockFmt( pCmdUI, heading4_style );
-}
-
-void CPaigeEdtView::OnBlkfmtH5() 
-{
-        if ( pgNumSelections(m_paigeRef) )
-                PrepareUndo(undo_format);
-        pgApplyNamedStyle (m_paigeRef, NULL, heading5_style,  best_way);
-}
-
-void CPaigeEdtView::OnUpdateBlkfmtH5(CCmdUI* pCmdUI) 
-{
-        UpdateBlockFmt( pCmdUI,heading5_style );
-}
-
-void CPaigeEdtView::OnBlkfmtH6() 
-{
-        if ( pgNumSelections(m_paigeRef) )
-                PrepareUndo(undo_format);
-        pgApplyNamedStyle (m_paigeRef, NULL, heading6_style,  best_way);
-}
-
-void CPaigeEdtView::OnUpdateBlkfmtH6(CCmdUI* pCmdUI) 
-{
-        UpdateBlockFmt( pCmdUI,heading6_style );
-}
-
-
-void CPaigeEdtView::OnBlkfmtNormal() 
-{
-//      OnClearFormatting();
-        if ( pgNumSelections(m_paigeRef) )
-                PrepareUndo(undo_format);
-        pgApplyNamedStyle (m_paigeRef, NULL, body_style,  best_way);
-
-}
-
-void CPaigeEdtView::OnUpdateBlkfmtNormal(CCmdUI* pCmdUI) 
-{
-        UpdateBlockFmt( pCmdUI,body_style );
-
-}
-*/
 //
 //  This is a helper function for the tri-state toolbar buttons.  
 //  1 = style is consistently on.
@@ -7874,11 +7648,6 @@ void CPaigeEdtView::OnEditWrapSelection()
 
 void CPaigeEdtView::OnUpdateInsertLink(CCmdUI* pCmdUI) 
 {
-	OnUpdateFullFeatureSet(pCmdUI);
-
-	if (!UsingFullFeatureSet())
-		return;
-
 	bool bEnable = false;
 
 	if (m_bAllowStyled)
@@ -7909,68 +7678,60 @@ void CPaigeEdtView::OnUpdateInsertLink(CCmdUI* pCmdUI)
 
 void CPaigeEdtView::OnEditInsertLink()
 {
-	// Shareware: In reduced feature mode, you cannot insert hyperlinks
-	if (UsingFullFeatureSet())
+	char pURL[INTERNET_MAX_URL_LENGTH];
+
+	pURL[0] = 0;
+	//
+	// Editing or Creating a Hyperlink?
+	//
+	select_pair sel;
+	pgGetSelection(m_paigeRef, &sel.begin, &sel.end);
+
+	pg_hyperlink hyperlink;
+	bool bEdit=FALSE;
+	if ( (pgGetHyperlinkSourceInfo (m_paigeRef, sel.begin, 0, false, &hyperlink)) ||
+		 (pgGetHyperlinkSourceInfo (m_paigeRef, sel.end  , 0, false, &hyperlink)))
 	{
-		// FULL FEATURE mode
-		char pURL[INTERNET_MAX_URL_LENGTH];
+		sel.begin = min(sel.begin, hyperlink.applied_range.begin);
+		sel.end   = max(sel.end, hyperlink.applied_range.end); 
+		pgSetSelection(m_paigeRef, sel.begin, sel.end,0,true);
+		//The URL source may have been stored in URL (char *) or 
+		//cloaked in alt_URL (memory_ref) So use the function to get 
+		//the URL.
+		//pURL = hyperlink.URL;
+		pgGetSourceURL(m_paigeRef, hyperlink.applied_range.begin, (unsigned char*)pURL, INTERNET_MAX_URL_LENGTH);
+		bEdit = TRUE;
+	}
+	CInsertLinkDialog dlg((const char*)pURL);
+	pgSetHiliteStates(m_paigeRef, activate_verb,activate_verb , FALSE);
+	m_bDontDeactivateHighlight=TRUE;
+	if ( dlg.DoModal() != IDOK)
+		return;
+	m_bDontDeactivateHighlight=FALSE;
 
-		pURL[0] = 0;
-		//
-		// Editing or Creating a Hyperlink?
-		//
-		select_pair sel;
-		pgGetSelection(m_paigeRef, &sel.begin, &sel.end);
+	//Manually set the modified flag since there is no undo support for this.
+	GetDocument()->SetModifiedFlag();
 
-		pg_hyperlink hyperlink;
-		bool bEdit=FALSE;
-		if ( (pgGetHyperlinkSourceInfo (m_paigeRef, sel.begin, 0, false, &hyperlink)) ||
-			 (pgGetHyperlinkSourceInfo (m_paigeRef, sel.end  , 0, false, &hyperlink)))
-		{
-			sel.begin = min(sel.begin, hyperlink.applied_range.begin);
-			sel.end   = max(sel.end, hyperlink.applied_range.end); 
-			pgSetSelection(m_paigeRef, sel.begin, sel.end,0,true);
-			//The URL source may have been stored in URL (char *) or 
-			//cloaked in alt_URL (memory_ref) So use the function to get 
-			//the URL.
-			//pURL = hyperlink.URL;
-			pgGetSourceURL(m_paigeRef, hyperlink.applied_range.begin, (unsigned char*)pURL, INTERNET_MAX_URL_LENGTH);
-			bEdit = TRUE;
-		}
-		CInsertLinkDialog dlg((const char*)pURL);
-		pgSetHiliteStates(m_paigeRef, activate_verb,activate_verb , FALSE);
-		m_bDontDeactivateHighlight=TRUE;
-		if ( dlg.DoModal() != IDOK)
-			return;
-		m_bDontDeactivateHighlight=FALSE;
+	CString szURL = EscapeURL( dlg.GetURL() );
+	strncpy(pURL, szURL, sizeof(pURL));
+	pURL[sizeof(pURL) - 1] = 0;
 
-		//Manually set the modified flag since there is no undo support for this.
-		GetDocument()->SetModifiedFlag();
+	if (m_styleEx)
+	{
+		//m_styleEx->ApplyMisspelled(FALSE,&sel);
+		m_styleEx->SetNeedsScanned(TRUE,&sel);
+		//m_styleEx->ApplyBadMoodWord(FALSE, &sel,0);
+	}
 
-		CString szURL = EscapeURL( dlg.GetURL() );
-		strncpy(pURL, szURL, sizeof(pURL));
-		pURL[sizeof(pURL) - 1] = 0;
-
-		if (m_styleEx)
-		{
-			//m_styleEx->ApplyMisspelled(FALSE,&sel);
-			m_styleEx->SetNeedsScanned(TRUE,&sel);
-			//m_styleEx->ApplyBadMoodWord(FALSE, &sel,0);
-		}
-
-		if (bEdit)
-			pgChangeHyperlinkSource (m_paigeRef, hyperlink.applied_range.begin,     &sel,
-									 (unsigned char*)pURL,NULL, hlCallback, 0, 0,0, best_way);
-		else
-		{
-			paige_rec_ptr pgPtr = (paige_rec_ptr) UseMemory(m_paigeRef);
-			pgSetHyperlinkSource (m_paigeRef, NULL,(unsigned char*) pURL,NULL, hlCallback,
-								  HYPERLINK_EUDORA_URL,  pgAssignLinkID(pgPtr->hyperlinks),0,0,0, best_way);
-			UnuseMemory(m_paigeRef);
-		}
-								
-        
-		//delete [] pURL;
+	if (bEdit)
+		pgChangeHyperlinkSource (m_paigeRef, hyperlink.applied_range.begin,     &sel,
+								 (unsigned char*)pURL,NULL, hlCallback, 0, 0,0, best_way);
+	else
+	{
+		paige_rec_ptr pgPtr = (paige_rec_ptr) UseMemory(m_paigeRef);
+		pgSetHyperlinkSource (m_paigeRef, NULL,(unsigned char*) pURL,NULL, hlCallback,
+							  HYPERLINK_EUDORA_URL,  pgAssignLinkID(pgPtr->hyperlinks),0,0,0, best_way);
+		UnuseMemory(m_paigeRef);
 	}
 }
 
@@ -8469,9 +8230,6 @@ BOOL CPaigeEdtView::CleanURLonPosteriorDelete(long selectBegin)
 
 void CPaigeEdtView::OnBlkfmtFixedwidth() 
 {
-	if (!UsingFullFeatureSet())
-		return;
-
 	bool bOn = true;
 
 	if ( pgNumSelections(m_paigeRef) )
@@ -8508,11 +8266,6 @@ void CPaigeEdtView::OnBlkfmtFixedwidth()
 
 void CPaigeEdtView::OnUpdateBlkfmtFixedwidth(CCmdUI* pCmdUI) 
 {
-	OnUpdateFullFeatureSet(pCmdUI);
-
-	if (!UsingFullFeatureSet())
-		return;
-
     if ((m_fRO) || (!m_bAllowStyled))
         pCmdUI->Enable( false );
     else

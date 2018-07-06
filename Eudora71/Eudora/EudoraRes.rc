@@ -7303,7 +7303,6 @@ BEGIN
     IDS_INI_NAG_LOC_5       "NGLoc5\n0,0,0,0"
     IDS_INI_USE_JUNK_MAILBOX "UseJunkMailbox\n0"
     IDS_INI_ASKED_ABOUT_JUNK "AskedAboutJunk\n0"
-    IDS_INI_MODE            "Mode\n-1"
     IDS_INI_NAG_SECS_PER_DAY "NagSecsPerDay\n86400"
     IDS_INI_NAG_EMAIL_ADDRESS "NagEmailAddress"
     IDS_INI_NAG_EMAIL_SUBJECT "NagEmailSubject"

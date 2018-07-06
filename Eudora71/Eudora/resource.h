@@ -599,7 +599,6 @@
 #define IDC_DONT_SEND                   1041
 #define IDC_MBOX_TREE                   1042
 #define IDC_PROMPT_TEXT                 1043
-#define IDC_DEMO_PAY_NOW_BTN            1045
 #define IDC_OPTIONS                     1046
 #define IDC_LEX_LB                      1047
 #define IDC_EDIT_LEX                    1048
@@ -1149,7 +1148,6 @@
 #define IDC_RR_NEVER                    1595
 #define IDS_BUFFER_OVERFLOW             1596
 #define IDS_QUIT_EUDORA_BUTTON          1597
-#define IDC_PAR_DEMO_DAYS_LEFT          1598
 #define IDS_SMTP_SERVICE                1600
 #define IDS_SMTP_RESET                  1601
 #define IDS_SMTP_HELLO                  1602
@@ -2527,7 +2525,6 @@
 #define IDC_SEARCHWND_X1_ICON           8176
 #define IDS_STRING8204                  8204
 #define IDC_JUSTDOIT                    8232
-#define IDC_AUDIT_SENDDEMO              8240
 #define IDC_AUDIT_SENDADINFO            8241
 #define IDC_AUDIT_SENDNONSETTINGS       8242
 #define IDC_AUDIT_SENDUSAGE             8243
@@ -2607,8 +2604,6 @@
 #define IDS_WEB_STEP_INFO_DIALOG_UPDATE_REG_DLG_TITLE 8714
 #define IDS_WEB_STEP_INFO_DIALOG_UPDATE_REG_MSG_TITLE 8715
 #define IDS_WEB_STEP_INFO_DIALOG_UPDATE_REG_MSG 8716
-#define IDD_NAG_DEMOEXPIRE              8717
-#define IDD_NAG_DEMOEXPIRED             8718
 #define IDS_STATISTICS_GRAPH_TYPES      8750
 #define IDS_STATISTICS_RESET_WARN       8751
 #define IDS_STATISTICS_DAY_PERIOD_STRINGS 8752
@@ -4407,7 +4402,6 @@
 #define ID_EDIT_CTRL_7                  33227
 #define ID_EDIT_CTRL_8                  33228
 #define ID_EDIT_CTRL_9                  33229
-#define IDS_MODE_DEMO                   33230
 #define ID_EDIT_TEXT_FORMAT_PAINTER     33231
 #define IDS_IMAGE_NAME_SEPARATOR        33232
 #define IDS_IMAGE_EXTENSION_JPEG        33233

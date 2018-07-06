@@ -148,10 +148,8 @@
 #define IDC_POINTER_COPY                240
 #define IDC_POINTER_SELECT              241
 #define IDD_EXCEPTION                   242
-#define IDD_PAYMENT_REGISTRATION        244
 #define IDD_INTRODUCTION                245
 #define IDB_UNREAD_STATUS               246
-#define IDD_REGISTRATION_CODE           247
 #define IDB_LINK_HISTORY_TYPES          248
 #define IDB_IL_MOOD_MAIL                249
 #define IDB_SORTBYMOOD                  250
@@ -477,7 +475,6 @@
 #define IDB_REGISTER_BUTTON             713
 #define IDB_DEMOGRAPHICS_BUTTON         714
 #define IDB_FIND_VERSIONS_BUTTON        715
-#define IDB_CHANGE_REGISTRATION_BUTTON  716
 #define IDB_PRIOR_HIGHEST               800
 #define IDS_PRIORITY_HIGHEST            800
 #define IDB_PRIOR_HIGH                  801
@@ -1136,9 +1133,6 @@
 #define IDC_PAR_REGISTER                1583
 #define IDC_PAR_DEMOGRAPHICS            1584
 #define IDC_PAR_FIND_VERSIONS           1585
-#define IDC_PAR_CHANGE_REGISTRATION     1586
-#define IDC_PAR_REGISTRATION_NAME       1587
-#define IDC_PAR_REGISTRATION_CODE       1588
 #define IDC_PAR_TELL_ME_MORE            1589
 #define IDC_LOST_CODE                   1590
 #define IDC_FIRST_NAME                  1591
@@ -4190,7 +4184,6 @@
 #define ID_EDIT_TEXT_REMOVE_QUOTE       33018
 #define IDM_IMPORT_MAIL                 33019
 #define ID_MESSAGE_STATUS_TOGGLE        33020
-#define ID_HELP_PAYMENT_AND_REGISTRATION 33021
 #define ID_OPEN_TOC                     33022
 #define ID_OPEN_MSG                     33023
 #define ID_BLKFMT_BULLETTED_LIST        33024

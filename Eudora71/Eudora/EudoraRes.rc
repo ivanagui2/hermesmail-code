@@ -232,10 +232,8 @@ IDB_STATUS_RECOVERED    BITMAP                  "res\\icons\\StatusRecovered.bmp
 IDB_IL_DIGITS_4X5       BITMAP                  "res\\icons\\Digits_4x5.bmp"
 IDB_ADWARE_BUTTON       BITMAP                  "res\\icons\\AdwareButton.bmp"
 IDB_FREE_BUTTON         BITMAP                  "res\\icons\\FreeButton.bmp"
-IDB_REGISTER_BUTTON     BITMAP                  "res\\icons\\RegisterButton.bmp"
 IDB_DEMOGRAPHICS_BUTTON BITMAP                  "res\\icons\\DemographicsButton.bmp"
 IDB_FIND_VERSIONS_BUTTON BITMAP                  "res\\icons\\FindVersionsButton.bmp"
-IDB_CHANGE_REGISTRATION_BUTTON BITMAP                  "res\\icons\\ChangeRegistrationButton.bmp"
 IDB_FULL_FEATURE        BITMAP                  "res\\icons\\FullFeature.bmp"
 IDB_AD_BLANK_TIME       BITMAP                  "res\\AdBlankTime.bmp"
 IDB_LINK_HISTORY_TYPES  BITMAP                  "res\\icons\\LinkHistoryTypes.bmp"
@@ -3644,7 +3642,6 @@ CAPTION "Introduction"
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "&OK",IDOK,26,200,64,14
-    PUSHBUTTON      "&Enter Code",IDC_PAR_CHANGE_REGISTRATION,99,200,64,14
     PUSHBUTTON      "&Tell Me More",IDC_ABOUT,172,200,64,14
     GROUPBOX        "Welcome to Eudora!",IDC_STATIC,7,7,250,187
     LTEXT           "Eudora is licensed in three ways. If you have purchased a registration code and registered it within the last 12 months, click the ""Enter Code"" button below and Eudora will install in Paid mode.",
@@ -3711,41 +3708,6 @@ BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,4,101,20,20
 END
 
-IDD_REGISTRATION_CODE DIALOGEX 0, 0, 253, 164
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
-CAPTION "Registration"
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    GROUPBOX        "Thanks title message",IDC_MESSAGE_TITLE,7,7,239,50
-    LTEXT           "Complete registration message",IDC_MESSAGE,16,19,224,33
-    LTEXT           "The exact name you registered under:",IDC_STATIC,19,63,
-                    140,8
-    LTEXT           "&First Name:",IDC_STATIC,33,77,50,8
-    EDITTEXT        IDC_FIRST_NAME,33,88,95,14,ES_AUTOHSCROLL
-    LTEXT           "&Last Name:",IDC_STATIC,135,77,50,8
-    EDITTEXT        IDC_LAST_NAME,135,88,95,14,ES_AUTOHSCROLL
-    LTEXT           "Your registration &code:",IDC_STATIC,19,109,90,8
-    EDITTEXT        IDC_CODE,33,120,95,14,ES_AUTOHSCROLL
-    DEFPUSHBUTTON   "OK",IDOK,136,143,50,14
-    PUSHBUTTON      "Cancel",IDCANCEL,196,143,50,14
-    PUSHBUTTON      "I Lost the Code",IDC_LOST_CODE,135,120,59,14
-END
-
-IDD_NAG_REGISTER DIALOGEX 0, 0, 264, 199
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | 
-    WS_VISIBLE | WS_CAPTION | WS_SYSMENU
-CAPTION "Eudora Registration"
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    DEFPUSHBUTTON   "&Take me to the registration page!",IDOK,26,178,120,14
-    PUSHBUTTON      "&Maybe later",IDCANCEL,177,178,50,14
-    LTEXT           "Registration will enable us to provide you with the best open source email client:",
-                    IDC_NAGTEXT,15,21,234,19
-    GROUPBOX        "Please Register Your Copy of Eudora",IDC_STATIC,6,7,251,
-                    163
-END
-
 IDD_OFFLINE_LINK DIALOGEX 0, 0, 274, 150
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
     WS_SYSMENU
@@ -3790,34 +3752,6 @@ BEGIN
                     IDC_STATIC,11,109,190,8
 END
 
-IDD_PAYMENT_REG_INFO DIALOGEX 0, 0, 249, 181
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
-CAPTION "Payment & Registration Info"
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    DEFPUSHBUTTON   "C&ontinue",IDOK,68,160,50,14
-    LTEXT           "Registration info text",IDC_MESSAGE,13,19,223,128,
-                    SS_NOPREFIX
-    GROUPBOX        "Registration title message",IDC_MESSAGE_TITLE,7,7,235,
-                    146
-    PUSHBUTTON      "&Cancel",IDCANCEL,134,160,50,14
-END
-
-IDD_UPDATE_REG_INFO DIALOGEX 0, 0, 249, 84
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
-CAPTION "Payment & Registration Info"
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    DEFPUSHBUTTON   "C&ontinue",IDOK,68,63,50,14
-    LTEXT           "Registration info text",IDC_MESSAGE,13,19,223,33,
-                    SS_NOPREFIX
-    GROUPBOX        "Registration title message",IDC_MESSAGE_TITLE,7,7,235,
-                    52
-    PUSHBUTTON      "&Cancel",IDCANCEL,134,63,50,14
-END
-
 IDD_PROFILE_CONFIRMATION DIALOGEX 0, 0, 242, 103
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
     WS_SYSMENU
@@ -3851,20 +3785,6 @@ BEGIN
     ICON            32515,IDC_STATIC,7,10,20,20
     LTEXT           "A buffer overflow has been detected in Eudora.\n\nInformation is being written to EudoraCrashDump.dmp.",
                     IDC_STATIC,44,7,220,30
-END
-
-IDD_PAYMENT_REG_INFO_SMALL DIALOGEX 0, 0, 249, 84
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
-CAPTION "Payment & Registration Info"
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    DEFPUSHBUTTON   "C&ontinue",IDOK,68,63,50,14
-    LTEXT           "Registration info text",IDC_MESSAGE,13,19,223,33,
-                    SS_NOPREFIX
-    GROUPBOX        "Registration title message",IDC_MESSAGE_TITLE,7,7,235,
-                    52
-    PUSHBUTTON      "&Cancel",IDCANCEL,134,63,50,14
 END
 
 IDD_USAGE_STATISTICS DIALOGEX 0, 0, 453, 19
@@ -5293,7 +5213,6 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Ti&p of the Day",             ID_TIP_OF_THE_DAY
         MENUITEM SEPARATOR
-        MENUITEM "Payment && &Registration",    ID_HELP_PAYMENT_AND_REGISTRATION
 
         MENUITEM "&Insert System Configuration", IDM_SYSTEM_CONFIGURATION
         MENUITEM SEPARATOR
@@ -6098,7 +6017,6 @@ BEGIN
     BUTTON      IDM_VIEW_TASK_ERROR
     BUTTON      ID_HELP_TECHNICAL_SUPPORT
     BUTTON      ID_TIP_OF_THE_DAY
-    BUTTON      ID_HELP_PAYMENT_AND_REGISTRATION
     BUTTON      ID_WINDOW_CASCADE
     BUTTON      ID_WINDOW_TILE_HORZ
     BUTTON      ID_WINDOW_TILE_VERT
@@ -6153,7 +6071,6 @@ BEGIN
     BUTTON      IDM_VIEW_TASK_ERROR
     BUTTON      ID_HELP_TECHNICAL_SUPPORT
     BUTTON      ID_TIP_OF_THE_DAY
-    BUTTON      ID_HELP_PAYMENT_AND_REGISTRATION
     BUTTON      ID_WINDOW_CASCADE
     BUTTON      ID_WINDOW_TILE_HORZ
     BUTTON      ID_WINDOW_TILE_VERT
@@ -6803,7 +6720,6 @@ BEGIN
                             "Opens the window for managing signature files\nSignatures"
     ID_CHANGE_PERSONA       "Changes the Personality for the selected message(s)"
     ID_TIP_OF_THE_DAY       "Displays the Tip of the Day dialog"
-    ID_CHECK_REG_CODE_FILE  "Checks RegCode.dat for registration number at startup"
     IDC_SIGNATURE_COMBO     "Signature to be appended to the message\nSignature"
     IDC_ENCODING_COMBO      "Attachment encoding\nEncoding"
     IDM_NEW_STATIONERY      "Add a new piece of stationery"
@@ -6895,8 +6811,6 @@ BEGIN
     ID_EDIT_TEXT_REMOVE_QUOTE 
                             "Remove a level of quoting to the selected text\nRemove Quote"
     IDM_IMPORT_MAIL         "Import messages, mailboxes, and address books from other applications\nImport"
-    ID_HELP_PAYMENT_AND_REGISTRATION 
-                            "Show a dialog allowing you to pay, register, switch modes, look for updates, etc."
 END
 
 STRINGTABLE 
@@ -10574,12 +10488,6 @@ BEGIN
     IDS_REG_DIALOG_MSG_AUTO "Your registration information is entered for you below.  In order to complete your registration, just click OK.  If you think this registration was in error, you may correct it and then click OK, or just click Cancel and live to register another day."
     IDS_REG_DIALOG_MSG_INVALID 
                             "Double check the information below, or click on ""I lost the Code"" to go to Eudora's web site for more information."
-    IDS_WEB_STEP_INFO_DIALOG_PAYMENT_DLG_TITLE "Payment Web Steps"
-    IDS_WEB_STEP_INFO_DIALOG_REG_DLG_TITLE "Registration Web Steps"
-    IDS_WEB_STEP_INFO_DIALOG_PAYMENT_MSG_TITLE 
-                            "Thank you for choosing to purchase Eudora!"
-    IDS_WEB_STEP_INFO_DIALOG_REG_MSG_TITLE 
-                            "Thank you for choosing to register Eudora!"
 END
 
 STRINGTABLE 

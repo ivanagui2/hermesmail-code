@@ -97,8 +97,6 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
 #include "TipOfDayDlg.h"
 #include "MoodWatch.h"
 
-#include "RegInfoReader.h"
-
 #include "TridentPreviewView.h"	// Just so I can use IsKindOf() on a window when sending mousewheels.
 #include "CompMessageFrame.h"
 #include "ReadMessageFrame.h"

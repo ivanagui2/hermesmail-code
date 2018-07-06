@@ -19,6 +19,43 @@ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
 DAMAGE. */
 
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
+    Removed references to Qualcomm's Shareware Manager
+
+*/        
+
 //
 
 #include "stdafx.h"
@@ -33,8 +70,6 @@ DAMAGE. */
 #include "fileutil.h"
 #include "helpcntx.h"
 #include "guiutils.h"
-
-#include "QCSharewareManager.h"
 
 #include "DebugNewHelpers.h"
 
@@ -262,12 +297,6 @@ INT CSpellDialog::getSuggestions(const SpellCheck_CHAR* word )
 
 void CSpellDialog::RunChecker()
 {
-	// Shareware: In reduced feature mode, no spell check
-	if (!UsingFullFeatureSet())
-		return;
-
-	// FULL-FEATURE
-	
 	SpellCheck_CHAR	szProbWord[SpellCheck_MAX_WORD_SZ];
 	SpellCheck_CHAR	szRepWord[SpellCheck_MAX_WORD_SZ];
 	INT			iResult;
@@ -978,12 +1007,6 @@ void CSpellDialog::IgnoreAll(SpellCheck_CHAR* probWord)
 
 void CSpellDialog::OnReplaceIt() 
 {
-	// Shareware: In reduced feature mode, no spell check
-	if (!UsingFullFeatureSet())
-		return;
-
-	// FULL-FEATURE
-
 	SpellCheck_CHAR probWord[SpellCheck_MAX_WORD_SZ];
 	SpellCheck_CHAR repWord[SpellCheck_MAX_WORD_SZ];
 
@@ -1014,12 +1037,6 @@ void CSpellDialog::OnReplaceIt()
 
 void CSpellDialog::OnReplaceAll() 
 {
-	// Shareware: In reduced feature mode, no spell check
-	if (!UsingFullFeatureSet())
-		return;
-
-	// FULL-FEATURE
-
 	SpellCheck_CHAR probWord[SpellCheck_MAX_WORD_SZ];
 	SpellCheck_CHAR repWord[SpellCheck_MAX_WORD_SZ];
 
@@ -1316,31 +1333,25 @@ BOOL CSpellDialog::DoCoolSpell( BOOL bSilent /* = FALSE */)
 {
     BOOL bRet = TRUE;
 
-    // Shareware: In reduced feature mode, no spell check
-    if (UsingFullFeatureSet())
-    {
-        // FULL-FEATURE
+    SpellCheck_CHAR   szProbWord[SpellCheck_MAX_WORD_SZ];
+    SpellCheck_CHAR   szRepWord[SpellCheck_MAX_WORD_SZ];
+    INT         iResult;
 
-        SpellCheck_CHAR   szProbWord[SpellCheck_MAX_WORD_SZ];
-        SpellCheck_CHAR   szRepWord[SpellCheck_MAX_WORD_SZ];
-        INT         iResult;
+    CWaitCursor wait;
+    m_bAUserChange = FALSE;
 
-        CWaitCursor wait;
-        m_bAUserChange = FALSE;
+    m_pSpell->mySetRedraw(FALSE);
 
-        m_pSpell->mySetRedraw(FALSE);
+    for ( ;; ) {
+        iResult = m_pSpell->my_CheckBlock( m_ulOptionsMask, szProbWord, szRepWord );
 
-        for ( ;; ) {
-            iResult = m_pSpell->my_CheckBlock( m_ulOptionsMask, szProbWord, szRepWord );
+        if( iResult & SpellCheck_END_OF_BLOCK_RSLT )
+            break;
 
-            if( iResult & SpellCheck_END_OF_BLOCK_RSLT )
-                break;
-
-            if( iResult & (SpellCheck_MISSPELLED_WORD_RSLT | SpellCheck_DOUBLED_WORD_RSLT) ) {
-                if ( !bSilent )
-                    m_pSpell->myHilightWord(TRUE);    // highlight the misspelled word
-                bRet = FALSE;
-            }
+        if( iResult & (SpellCheck_MISSPELLED_WORD_RSLT | SpellCheck_DOUBLED_WORD_RSLT) ) {
+            if ( !bSilent )
+                m_pSpell->myHilightWord(TRUE);    // highlight the misspelled word
+            bRet = FALSE;
         }
     }
 

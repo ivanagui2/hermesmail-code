@@ -55,6 +55,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     Sanitized the source file of all references to Qualcomm's Shareware Manager.
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
+    Removed additional references to Qualcomm's Shareware Manager.
 
 */    
 
@@ -387,16 +389,8 @@ void CLinkHistoryWazooWnd::UpdateButtonsEnabledStates()
 {
     UINT	nSel = m_pLinkHistoryList->GetListCtrl().GetSelectedCount();
 
-	if ( UsingFullFeatureSet() )
-	{
-		m_ViewButton.EnableWindow(nSel == 1);
-		m_RemoveButton.EnableWindow(nSel >= 1);
-	}
-	else
-	{
-		m_ViewButton.EnableWindow(FALSE);
-		m_RemoveButton.EnableWindow(FALSE);
-	}
+	m_ViewButton.EnableWindow(nSel == 1);
+	m_RemoveButton.EnableWindow(nSel >= 1);
 }
 
 

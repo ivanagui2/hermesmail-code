@@ -57,7 +57,10 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     Removed a reference to Qualcomm's Shareware Manager header file.
     TODO: Cannot find where this code uses the Shareware Manager therefore
     it is highly likely more work needs to be done to sanitize the Shareware 
-    Manager from the code.
+    Manager from the c.ode.
+File revised by Jeff Prickett                    on July 6, 2018
+    Removed code specific to paying and registering the application
+        
 */    
 
 //
@@ -94,7 +97,6 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
 #include "mainfrm.h"
 
 #include "LinkHistoryManager.h"
-#include "PaymentAndRegistrationDlg.h"
 
 #include "EudoraMsgs.h"
 #include "SearchDoc.h"
@@ -2086,21 +2088,6 @@ BOOL LaunchURLNoHistory(LPCSTR szURL, LPCSTR szLinkText /* = NULL */, int comman
 	CString EscapedParens;
 	CString	sz;
 	INT		i;
-
-	// Zeroth, let's see if these are our special "buying" urls
-	if (!stricmp(szURL,CRString(IDS_EUDORA_BUYING_BY_HTTP_URL)) || !stricmp(szURL,CRString(IDS_EUDORA_BUYING_BY_MAIL_URL)))
-	{
-		// help the user pay
-		CPaymentAndRegWebStepInfoDlg	dlg( IDD_PAYMENT_REG_INFO,
-											 IDS_WEB_STEP_INFO_DIALOG_PAYMENT_DLG_TITLE,
-											 IDS_WEB_STEP_INFO_DIALOG_PAYMENT_MSG_TITLE,
-											 IDS_WEB_STEP_INFO_DIALOG_PAYMENT_MSG );
-		if (dlg.DoModal() == IDOK)
-		{
-			LaunchURLWithQuery(NULL, ACTION_PAY);
-		}
-		return TRUE;
-	}
 
 	// First, let's check out what the URL is, because we want to intercept a couple of them
 	if (!strnicmp( szURL, "mailto:", 7))

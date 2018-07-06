@@ -97,10 +97,6 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2017
 #define WM_USER_REGISTER_MAILTO WM_USER+301
 #define WM_USER_MCI_NOTIFY_MODE WM_USER+302
 
-#ifdef EXPIRING
-#define WM_USER_EVAL_EXPIRED	WM_USER+302
-#endif // EXPIRING
-
 #define WM_USER_AUTOMATION_MSG  WM_USER+303
 #define WM_USER_QUERY_PALETTE   WM_USER+304
 
@@ -591,10 +587,6 @@ protected:
 	afx_msg LRESULT OnTrayCallback( WPARAM wParam, LPARAM lParam);
     afx_msg LRESULT OnUserCheckMail( WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnUserRegisterMailto(WPARAM wParam, LPARAM lParam);
-
-#ifdef EXPIRING
-	afx_msg LRESULT OnUserEvalExpired(WPARAM wParam, LPARAM lParam);
-#endif // EXPIRING
 
 	afx_msg LRESULT OnUserAutomationMsg(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnShowProgress(WPARAM wParam, LPARAM lParam);

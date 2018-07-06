@@ -42,13 +42,6 @@ DAMAGE. */
 #include "QCWorkerSocket.h"		// for Network
 #include "QCSSL.h"				// for CertData struct
 	
-#ifdef EXPIRING
-	#include "timestmp.h"
-	#include "mainfrm.h"
-	extern CTimeStamp	g_TimeStamp;
-#endif
-
-
 #include "DebugNewHelpers.h"
 
 
@@ -266,15 +259,6 @@ bool QCTaskManager::QueueWorkerThread(QCWorkerThreadMT *pThread)
 bool QCTaskManager::CanScheduleTask(CTaskInfoMT *pTaskInfo)
 {
 	CSingleLock lock(&m_Guard_TaskInfoList, TRUE);
-
-#ifdef EXPIRING
-	// this is the first line of defense
-	if ( g_TimeStamp.IsExpired0() )
-	{
-		AfxGetMainWnd()->PostMessage(WM_USER_EVAL_EXPIRED);
-		return false;
-	}
-#endif
 
 	int nScheduleTypes = pTaskInfo->GetScheduleTypes();
 

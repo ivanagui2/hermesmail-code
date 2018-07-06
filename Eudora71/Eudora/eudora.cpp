@@ -56,6 +56,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     Removing references to the Paige Html component and the Qualcomm Shareware
     Manager.
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
+    Removed code that was specific to demo builds that expired.
 
 */
 
@@ -209,12 +211,6 @@ QCPersonalityDirector	g_thePersonalityDirector;
 EmoticonDirector		g_theEmoticonDirector;
 QCCommandDirector		g_theSearchDirector;
 
-
-#ifdef EXPIRING
-	// The Evaluation Time Stamp object
-	#include "timestmp.h"
-	CTimeStamp	g_TimeStamp;
-#endif
 
 CLIPFORMAT cfEmbeddedObject;
 CLIPFORMAT cfRTF;
@@ -1195,25 +1191,6 @@ BOOL CEudoraApp::InitInstance()
 
 	// Oh sure, I bet you're going to try and paste something here too. Everyone wants to be right after the creation
 	// of the mainframe. GET IN LINE BUDDY!
-
-#ifdef EXPIRING
-	// initialize the evaluation timestamp
-	char szPath[ 256 ];
-	if ( GetModuleFileName(AfxGetInstanceHandle(), szPath, sizeof(szPath) ))
-		if ( g_TimeStamp.Read( szPath ) )
-			g_TimeStamp.ReadRegistry();
-
-	DWORD dwDaysLeft = g_TimeStamp.GetDaysRemaining();
-	if ( dwDaysLeft <= 0 )
-	{
-		AfxGetMainWnd()->PostMessage(WM_USER_EVAL_EXPIRED);
-	}
-	else if ( dwDaysLeft < 7 )
-	{
-		if (WarnYesNoDialog(0, IDS_TIME_BOMB_DAYS_LEFT_BETA, (int)dwDaysLeft) == IDOK)
-			LaunchURLWithQuery(NULL, ACTION_UPDATE);
-	}
-#endif
 
 	// Initialize RAS library
 	QCRasLibrary::Init( GetIniShort(IDS_INI_RAS_USE_EXISTING_CONN)?true:false,

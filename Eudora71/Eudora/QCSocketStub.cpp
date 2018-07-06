@@ -12,12 +12,6 @@
 
 #include "persona.h"  //for getting current personality as arg to qcworkersocket
 
-#ifdef EXPIRING
-	#include "timestmp.h"
-	#include "mainfrm.h"
-	extern CTimeStamp	g_TimeStamp;
-#endif
-
 #include "DebugNewHelpers.h"
 
 
@@ -158,15 +152,6 @@ Network* CreateNetConnection(BOOL ShowProgress /*= TRUE*/, BOOL FileIO /*= FALSE
 
 	//Network* theConnection = NULL;
 	
-#ifdef EXPIRING
-	// this is the first line of defense
-	if ( g_TimeStamp.IsExpired0() )
-	{
-		AfxGetMainWnd()->PostMessage(WM_USER_EVAL_EXPIRED);
-		return NULL;
-	}
-#endif
-	
 	if (GetIniShort(IDS_INI_CONNECT_OFFLINE))
 	{
 		int res = AlertDialog(IDD_ERR_OFFLINE);
@@ -244,15 +229,6 @@ Network* CreateNetConnectionMT(QCNetworkSettings *pSettings,
 {
 	//ASSERT(::IsMainThreadMT());
 
-
-#ifdef EXPIRING
-	// this is the first line of defense
-	if ( g_TimeStamp.IsExpired0() )
-	{
-		AfxGetMainWnd()->PostMessage(WM_USER_EVAL_EXPIRED);
-		return NULL;
-	}
-#endif
 
 	Network* theConnection = NULL;
 	

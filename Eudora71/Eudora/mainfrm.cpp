@@ -58,6 +58,7 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018.
     Removed references to Qualcomm's Shareware Manager as Hermes is not shareware.
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
     Removed additional references to Qualcomm's Shareware Maanager.
+    Removed code segments specific to demo builds that have a expiration date.
 
 */
 

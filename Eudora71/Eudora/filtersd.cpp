@@ -57,6 +57,9 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     Removed reference to IsRestrictedFilterAction  and ContainsProAction 
     procedures because they are obselete since there is now only one mode for 
     the program to run (Pro).
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
+    Removed code specific to demo builds that have an expiration date.
+        
 */    
 
 #include "stdafx.h"
@@ -118,11 +121,6 @@ extern QCStationeryDirector	g_theStationeryDirector;
 
 
 #include "DebugNewHelpers.h"
-
-#ifdef EXPIRING
-#include "timestmp.h"
-extern CTimeStamp	g_TimeStamp;
-#endif
 
 static CFilterActions g_FiltActions;
 static CFiltersDoc* g_Filters = NULL;
@@ -3362,14 +3360,6 @@ BOOL CFilterActions::HasFilterContext(FILTER_FILE_TYPE ffType, const int WhenToA
 //
 BOOL CFilterActions::StartFiltering(const int WhenToApply/* = 0*/)
 {
-
-#ifdef EXPIRING
-	if ( g_TimeStamp.IsExpired1() )
-	{
-		AfxGetMainWnd()->PostMessage(WM_USER_EVAL_EXPIRED);
-		return FALSE;
-	}
-#endif 
 
 	ASSERT(g_Filters);
 

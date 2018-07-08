@@ -1,3 +1,60 @@
+/* Copyright (c) 2016, Computer History Museum 
+All rights reserved. 
+Redistribution and use in source and binary forms, with or without modification, are permitted (subject to 
+the limitations in the disclaimer below) provided that the following conditions are met: 
+ * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. 
+ * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following 
+   disclaimer in the documentation and/or other materials provided with the distribution. 
+ * Neither the name of Computer History Museum nor the names of its contributors may be used to endorse or promote products 
+   derived from this software without specific prior written permission. 
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS LICENSE. THIS SOFTWARE IS PROVIDED BY THE 
+COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
+DAMAGE. */
+
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 8, 2018
+    Remooved references to the Stingray Toolkit and replaced them with references
+    to the Hermes UI Toolkit.
+
+*/
+
+
 // WazooWnd.cpp : implementation file
 //
 
@@ -23,10 +80,10 @@ BEGIN_MESSAGE_MAP(CWazooWnd, CWnd)
 	//}}AFX_MSG_MAP
 	ON_WM_INITMENUPOPUP()
 	ON_WM_SETFOCUS()
-	ON_COMMAND(ID_SEC_ALLOWDOCKING, OnCmdSECAllowDocking)
-	ON_COMMAND(ID_SEC_HIDE, OnCmdSECHide)
-	ON_COMMAND(ID_SEC_MDIFLOAT, OnCmdSECMDIFloat)
-	ON_UPDATE_COMMAND_UI(ID_SEC_ALLOWDOCKING, OnCmdUpdateSECAllowDocking)
+	ON_COMMAND(ID_HRM_ALLOWDOCKING, OnCmdHRMAllowDocking)
+	ON_COMMAND(ID_HRM_HIDE, OnCmdHRMHide)
+	ON_COMMAND(ID_HRM_MDIFLOAT, OnCmdHRMMDIFloat)
+	ON_UPDATE_COMMAND_UI(ID_HRM_ALLOWDOCKING, OnCmdUpdateHRMAllowDocking)
 	ON_MESSAGE(WM_COMMANDHELP, OnCommandHelp)
 END_MESSAGE_MAP()
 
@@ -96,9 +153,9 @@ HMENU	hMenu )
 	INT			iMax;
 	UINT		uID;
 	CString		szString;
-	CRString	szAllowDocking( ID_SEC_ALLOWDOCKING );
-	CRString	szHide( ID_SEC_HIDE );
-	CRString	szFloat( ID_SEC_MDIFLOAT);
+	CRString	szAllowDocking( ID_HRM_ALLOWDOCKING );
+	CRString	szHide( ID_HRM_HIDE );
+	CRString	szFloat( ID_HRM_MDIFLOAT);
 	
 	CWazooBar*	pBar = DYNAMIC_DOWNCAST(CWazooBar, GetParentControlBar());	
 	if( pBar == NULL )
@@ -162,17 +219,17 @@ HMENU	hMenu )
 		dwStyle = MF_STRING;
 		if (pBar->m_dwDockStyle & CBRS_ALIGN_ANY)
 			dwStyle |= MF_CHECKED;
-		menu.AppendMenu( dwStyle, ID_SEC_ALLOWDOCKING, szAllowDocking );
+		menu.AppendMenu( dwStyle, ID_HRM_ALLOWDOCKING, szAllowDocking );
 
 		// add the Hide string
-		menu.AppendMenu( MF_STRING, ID_SEC_HIDE, szHide );
+		menu.AppendMenu( MF_STRING, ID_HRM_HIDE, szHide );
 		menu.AppendMenu( MF_SEPARATOR );
 		
 		// add the float string
 		dwStyle = MF_STRING;
 		if( pBar->IsMDIChild() )
 			dwStyle |= MF_CHECKED;
-		menu.AppendMenu( dwStyle, ID_SEC_MDIFLOAT, szFloat );
+		menu.AppendMenu( dwStyle, ID_HRM_MDIFLOAT, szFloat );
 	}
 
 	menu.TrackPopupMenu(TPM_RIGHTBUTTON | TPM_LEFTALIGN, point.x, point.y, this);
@@ -455,20 +512,20 @@ void CWazooWnd::OnSetFocus(CWnd*)
 
 
 ////////////////////////////////////////////////////////////////////////
-// OnCmdSECMDIFloat [protected]
+// OnCmdHRMMDIFloat [protected]
 //
 // Since we're rolling our own context menu and sticking some
-// SECControlBar commands onto our menu ...  guess what?  Yep.  We
+// HRMControlBar commands onto our menu ...  guess what?  Yep.  We
 // need to provide our own command handler proxy that just forwards
-// the command to the SECControlBar implementation.
+// the command to the HRMControlBar implementation.
 ////////////////////////////////////////////////////////////////////////
-void CWazooWnd::OnCmdSECMDIFloat()
+void CWazooWnd::OnCmdHRMMDIFloat()
 { 
-	SECControlBar* p_ctrlbar = (SECControlBar *) GetParentControlBar();
+	HRMControlBar* p_ctrlbar = (HRMControlBar *) GetParentControlBar();
 	if (p_ctrlbar)
 	{
-		ASSERT_KINDOF(SECControlBar, p_ctrlbar);
-		p_ctrlbar->SendMessage(WM_COMMAND, ID_SEC_MDIFLOAT, 0);
+		ASSERT_KINDOF(HRMControlBar, p_ctrlbar);
+		p_ctrlbar->SendMessage(WM_COMMAND, ID_HRM_MDIFLOAT, 0);
 		return;
 	}
 	ASSERT(0);
@@ -476,20 +533,20 @@ void CWazooWnd::OnCmdSECMDIFloat()
 
 
 ////////////////////////////////////////////////////////////////////////
-// OnCmdSECAllowDocking [protected]
+// OnCmdHRMAllowDocking [protected]
 //
 // Since we're rolling our own context menu and sticking some
-// SECControlBar commands onto our menu ...  guess what?  Yep.  We
+// HRMControlBar commands onto our menu ...  guess what?  Yep.  We
 // need to provide our own command handler proxy that just forwards
-// the command to the SECControlBar implementation.
+// the command to the HRMControlBar implementation.
 ////////////////////////////////////////////////////////////////////////
-void CWazooWnd::OnCmdSECAllowDocking()
+void CWazooWnd::OnCmdHRMAllowDocking()
 { 
-	SECControlBar* p_ctrlbar = (SECControlBar *) GetParentControlBar();
+	HRMControlBar* p_ctrlbar = (HRMControlBar *) GetParentControlBar();
 	if (p_ctrlbar)
 	{
-		ASSERT_KINDOF(SECControlBar, p_ctrlbar);
-		p_ctrlbar->SendMessage(WM_COMMAND, ID_SEC_ALLOWDOCKING, 0);
+		ASSERT_KINDOF(HRMControlBar, p_ctrlbar);
+		p_ctrlbar->SendMessage(WM_COMMAND, ID_HRM_ALLOWDOCKING, 0);
 		return;
 	}
 	ASSERT(0);
@@ -497,20 +554,20 @@ void CWazooWnd::OnCmdSECAllowDocking()
 
 
 ////////////////////////////////////////////////////////////////////////
-// OnCmdSECHide [protected]
+// OnCmdHRMHide [protected]
 //
 // Since we're rolling our own context menu and sticking some
-// SECControlBar commands onto our menu ...  guess what?  Yep.  We
+// HRMControlBar commands onto our menu ...  guess what?  Yep.  We
 // need to provide our own command handler proxy that just forwards
-// the command to the SECControlBar implementation.
+// the command to the HRMControlBar implementation.
 ////////////////////////////////////////////////////////////////////////
-void CWazooWnd::OnCmdSECHide()
+void CWazooWnd::OnCmdHRMHide()
 { 
-	SECControlBar* p_ctrlbar = (SECControlBar *) GetParentControlBar();
+	HRMControlBar* p_ctrlbar = (HRMControlBar *) GetParentControlBar();
 	if (p_ctrlbar)
 	{
-		ASSERT_KINDOF(SECControlBar, p_ctrlbar);
-		p_ctrlbar->SendMessage(WM_COMMAND, ID_SEC_HIDE, 0);
+		ASSERT_KINDOF(HRMControlBar, p_ctrlbar);
+		p_ctrlbar->SendMessage(WM_COMMAND, ID_HRM_HIDE, 0);
 		return;
 	}
 	ASSERT(0);
@@ -518,19 +575,19 @@ void CWazooWnd::OnCmdSECHide()
 
 
 ////////////////////////////////////////////////////////////////////////
-// OnCmdUpdateSECAllowDocking [protected]
+// OnCmdUpdateHRMAllowDocking [protected]
 //
 // Since we're rolling our own context menu and sticking some
-// SECControlBar commands onto our menu ...  guess what?  Yep.  We
+// HRMControlBar commands onto our menu ...  guess what?  Yep.  We
 // need to provide our own command UI handler proxy that mimics
-// the SECControlBar implementation.
+// the HRMControlBar implementation.
 ////////////////////////////////////////////////////////////////////////
-void CWazooWnd::OnCmdUpdateSECAllowDocking(CCmdUI* pCmdUI)
+void CWazooWnd::OnCmdUpdateHRMAllowDocking(CCmdUI* pCmdUI)
 {
-	SECControlBar* p_ctrlbar = (SECControlBar *) GetParentControlBar();
+	HRMControlBar* p_ctrlbar = (HRMControlBar *) GetParentControlBar();
 	if (p_ctrlbar)
 	{
-		ASSERT_KINDOF(SECControlBar, p_ctrlbar);
+		ASSERT_KINDOF(HRMControlBar, p_ctrlbar);
 		pCmdUI->Enable(! p_ctrlbar->IsMDIChild());
 		return;
 	}

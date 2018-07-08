@@ -53,6 +53,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
 
+File revised by Jeff Prickett                    on July 8, 2018
+    Removed references to the Stingray Toolkit and replaced them with 
+    references to the Hermes UI Toolkit.
+
 */
 
 //
@@ -310,7 +314,7 @@ CCreateContext* pContext)
 
 	// set up the toolbar manager
 
-	m_pToolBarManager = DEBUG_NEW_MFCOBJ_NOTHROW SECToolBarManager( this );
+	m_pToolBarManager = DEBUG_NEW_MFCOBJ_NOTHROW HRMToolBarManager( this );
 	m_pToolBar = DEBUG_NEW_MFCOBJ_NOTHROW CReadMessageToolBar;  
 	m_pFormattingToolBar = DEBUG_NEW_MFCOBJ_NOTHROW QCChildToolBar;  
 

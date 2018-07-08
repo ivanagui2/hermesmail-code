@@ -59,6 +59,9 @@ File modified by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     Removed reference to Qualcomm's Shareware Manager header file
     TODO: Likely more references to the Shareware Manager but I could not find 
     them.
+File modified by Jeff Prickett                    on July 8, 2018
+    Removed references to the StingrayToolkit and replaced them with references
+    to the Hermes UI Toolkit.
 
 */
 
@@ -274,7 +277,7 @@ CWazooBar* CWazooBarMgr::CreateNewWazooBar(CMDIFrameWnd* pFrameWnd)
 	//
 	ASSERT(NULL == pWazooBar->m_pDockBar);
 	pMainFrame->DockControlBarEx(pWazooBar, AFX_IDW_DOCKBAR_BOTTOM, 0, 0, (float)1.00, 180);
-	pWazooBar->SendMessage(WM_COMMAND, ID_SEC_MDIFLOAT, 0);
+	pWazooBar->SendMessage(WM_COMMAND, ID_HRM_MDIFLOAT, 0);
 
 	//
 	// Set the initial size of the window to be 80% of the
@@ -351,9 +354,9 @@ BOOL CWazooBarMgr::UnlinkWazooBar(CWazooBar* pWazooBar)
 
 bool CWazooBarMgr::SetDefaultWazooBarState(CWazooBar *pWazooBar, int nIndex, DefaultStateType tWhichType /* = DST_ALL */)
 {
-	SECWorkbook* pMainFrame = (SECWorkbook *) ::AfxGetMainWnd();
+	HRMWorkbook* pMainFrame = (HRMWorkbook *) ::AfxGetMainWnd();
 	ASSERT(pMainFrame);
-	ASSERT_KINDOF(SECWorkbook, pMainFrame);
+	ASSERT_KINDOF(HRMWorkbook, pMainFrame);
 
 	switch (nIndex)
 	{
@@ -376,7 +379,7 @@ bool CWazooBarMgr::SetDefaultWazooBarState(CWazooBar *pWazooBar, int nIndex, Def
 				// Now that it is docked ... convert it to an
 				// MDI child window.
 				//
-				pWazooBar->SendMessage(WM_COMMAND, ID_SEC_MDIFLOAT, 0);
+				pWazooBar->SendMessage(WM_COMMAND, ID_HRM_MDIFLOAT, 0);
 				pMainFrame->RecalcLayout(FALSE);	// make sure MDI client area size is up to date
 
 				//
@@ -410,7 +413,7 @@ bool CWazooBarMgr::SetDefaultWazooBarState(CWazooBar *pWazooBar, int nIndex, Def
 			if ((DST_SHOWHIDE == tWhichType) || (DST_ALL == tWhichType))
 			{
 				// Hide the MDI DS/AB/F/FR child window.
-				pWazooBar->SendMessage(WM_COMMAND, ID_SEC_HIDE, 0);
+				pWazooBar->SendMessage(WM_COMMAND, ID_HRM_HIDE, 0);
 			}
 		}
 		break;
@@ -427,7 +430,7 @@ bool CWazooBarMgr::SetDefaultWazooBarState(CWazooBar *pWazooBar, int nIndex, Def
 
 				// Set the default height (pixels)
 				{
-					SECControlBarInfo info;
+					HRMControlBarInfo info;
 					pWazooBar->GetBarInfo(&info);
 					info.m_szDockHorz.cy = 80;
 					pWazooBar->SetBarInfo(&info, pMainFrame);
@@ -437,7 +440,7 @@ bool CWazooBarMgr::SetDefaultWazooBarState(CWazooBar *pWazooBar, int nIndex, Def
 			if ((DST_SHOWHIDE == tWhichType) || (DST_ALL == tWhichType))
 			{
 				// Hide the Task Status/Task Error window
-				pWazooBar->SendMessage(WM_COMMAND, ID_SEC_HIDE, 0);
+				pWazooBar->SendMessage(WM_COMMAND, ID_HRM_HIDE, 0);
 			}
 		}
 		break;
@@ -618,7 +621,7 @@ CWazooBar *CWazooBarMgr::EnsureGroupExists(CRuntimeClass **pArr)
 	if (!pFoundBar)
 	{
 		pNewWazooBar = CreateNewWazooBar((QCWorkbook*)::AfxGetMainWnd());
-		pNewWazooBar->SendMessage(WM_COMMAND, ID_SEC_HIDE, 0);
+		pNewWazooBar->SendMessage(WM_COMMAND, ID_HRM_HIDE, 0);
 		pFoundBar = pNewWazooBar;
 	}
 
@@ -779,9 +782,9 @@ BOOL CWazooBarMgr::ActivateWazooWindow
 		//
 		// Activate the MDI child window containing the tree control.
 		//
-		SECWorksheet* p_childframe = (SECWorksheet *) pWazooBar->GetParentFrame();
+		HRMWorksheet* p_childframe = (HRMWorksheet *) pWazooBar->GetParentFrame();
 		ASSERT(p_childframe);
-		ASSERT_KINDOF(SECWorksheet, p_childframe);
+		ASSERT_KINDOF(HRMWorksheet, p_childframe);
 
 		// If this window is being shown and it's the first MDI window to be opened up,
 		// and the last MDI window that was open was maximized, then maximize this one.
@@ -813,7 +816,7 @@ BOOL CWazooBarMgr::ActivateWazooWindow
 		// is not already maximized.
 		//
 		BOOL bIsMaximized = FALSE;
-		SECWorksheet* p_childframe = (SECWorksheet *) pWazooBar->GetParentFrame();
+		HRMWorksheet* p_childframe = (HRMWorksheet *) pWazooBar->GetParentFrame();
 		CMDIChildWnd* pActiveMDIChild = pMainFrame->MDIGetActive(&bIsMaximized);
 		ASSERT(p_childframe == pActiveMDIChild);
 		if (bShouldMax)

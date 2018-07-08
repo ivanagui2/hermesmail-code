@@ -56,6 +56,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
     Removed references to Qualcomm's Shareware Manager.
+File revised by Jeff Prickett                    on July 8, 2016
+    Changed references to the Stingray Toolkit to reference the Hermes UI Toolkit.
 
 */
 
@@ -344,7 +346,7 @@ void CStationeryWazooWnd::OnReplyWith()
 void CStationeryWazooWnd::DoReply(
 COMMAND_ACTION_TYPE theAction )
 {
-	SECControlBar*			pParentBar;
+	HRMControlBar*			pParentBar;
 	CMainFrame*				pMainFrame;
 	CFrameWnd*				pFrame;
 	QCStationeryCommand*	pCommand;
@@ -373,8 +375,8 @@ COMMAND_ACTION_TYPE theAction )
 	pMainFrame = (CMainFrame *) ::AfxGetMainWnd();
 	ASSERT_KINDOF(CMainFrame, pMainFrame);
 
-	pParentBar = (SECControlBar *) GetParentControlBar();
-	ASSERT_KINDOF(SECControlBar, pParentBar);
+	pParentBar = (HRMControlBar *) GetParentControlBar();
+	ASSERT_KINDOF(HRMControlBar, pParentBar);
 
 	if( pParentBar->IsMDIChild() )
 		pFrame = (CFrameWnd *) GetParentFrame()->GetNextWindow();
@@ -402,7 +404,7 @@ void CStationeryWazooWnd::OnUpdateReplyToAllWith(CCmdUI* pCmdUI)
 
 void CStationeryWazooWnd::DoUpdateReply(COMMAND_ACTION_TYPE theAction, CCmdUI* pCmdUI)
 {	
-	SECControlBar*			pParentBar;
+	HRMControlBar*			pParentBar;
 	CMainFrame*				pMainFrame;
 	CFrameWnd*				pFrame;
 	QCStationeryCommand*	pCommand;
@@ -432,8 +434,8 @@ void CStationeryWazooWnd::DoUpdateReply(COMMAND_ACTION_TYPE theAction, CCmdUI* p
 	pMainFrame = (CMainFrame *) ::AfxGetMainWnd();
 	ASSERT_KINDOF(CMainFrame, pMainFrame);
 
-	pParentBar = (SECControlBar *) GetParentControlBar();
-	ASSERT_KINDOF(SECControlBar, pParentBar);
+	pParentBar = (HRMControlBar *) GetParentControlBar();
+	ASSERT_KINDOF(HRMControlBar, pParentBar);
 
 	if( pParentBar->IsMDIChild() )
 		pFrame = (CFrameWnd *) GetParentFrame()->GetNextWindow();

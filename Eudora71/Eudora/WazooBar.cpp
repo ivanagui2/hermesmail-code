@@ -50,13 +50,18 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     Removed a conditional debug section of code.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 8, 2018
+    Removed references to the Stingray Toolkit and replaced them with references
+    to the Hermes UI Toolkit.
+        
 */    
 
 
 // WazooBar.cpp : implementation file
 //
 // CWazooBar
-// Specific implementation of a resizable SECControlBar.
+// Specific implementation of a resizable HRMControlBar.
 
 #include "stdafx.h"
 
@@ -91,9 +96,9 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
 
 #include "DebugNewHelpers.h"
 
-IMPLEMENT_DYNCREATE(CWazooBar, SECControlBar)
+IMPLEMENT_DYNCREATE(CWazooBar, HRMControlBar)
 
-BEGIN_MESSAGE_MAP(CWazooBar, SECControlBar)
+BEGIN_MESSAGE_MAP(CWazooBar, HRMControlBar)
 	//{{AFX_MSG_MAP(CWazooBar)
 	ON_COMMAND(IDOK, OnOK)
 	ON_COMMAND(IDCANCEL, OnCancel)
@@ -104,7 +109,7 @@ BEGIN_MESSAGE_MAP(CWazooBar, SECControlBar)
 	ON_WM_TIMER()
 	ON_WM_WINDOWPOSCHANGING()
 	ON_MESSAGE(TCM_TABSEL, OnTabSelect)
-	ON_COMMAND(ID_SEC_MDIFLOAT, OnCmdSECMDIFloat)
+	ON_COMMAND(ID_HRM_MDIFLOAT, OnCmdHRMMDIFloat)
 	ON_COMMAND(ID_WAZOO_TAB_ON_TOP, OnTabsOnTop)
 	ON_COMMAND(ID_WAZOO_TAB_ON_BOTTOM, OnTabsOnBottom)
 	ON_COMMAND(ID_WAZOO_TAB_ON_LEFT, OnTabsOnLeft)
@@ -150,7 +155,7 @@ BOOL CWazooBar::Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, UINT nID,
 	DWORD dwStyle, DWORD dwExStyle, const RECT& rect, CWnd* pParentWnd,
 	CCreateContext* pContext)
 {
-	if (!SECControlBar::Create(lpszClassName, lpszWindowName, nID, dwStyle & CBRS_ALL,
+	if (!HRMControlBar::Create(lpszClassName, lpszWindowName, nID, dwStyle & CBRS_ALL,
 		dwExStyle, rect, pParentWnd, pContext))
 	{
 		return FALSE;
@@ -202,7 +207,7 @@ BOOL CWazooBar::AddWazooWindow(CWazooWnd* pWazooWnd, const CPoint& ptScreen)
 	// Based on the results of the hit test (stored in the nIndex value), 
 	// decide whether to insert or append the new wazoo.
 	//
-	SECTab* pNewTab = NULL;
+	HRMTab* pNewTab = NULL;
 	if (nIndex != -1)
 	{
 		//
@@ -315,7 +320,7 @@ BOOL CWazooBar::ShuffleWazooWindow(CWazooWnd* pWazooWnd, const CPoint& ptScreen)
 		// Based on the relative tab positions of the source and target
 		// tabs, decide where to surgically re-insert the wazoo.
 		//
-		SECTab* pNewTab = NULL;
+		HRMTab* pNewTab = NULL;
 		if (nInsertionIndex < nSelectionIndex)
 		{
 			//
@@ -402,7 +407,7 @@ BOOL CWazooBar::ShuffleWazooWindow(CWazooWnd* pWazooWnd, const CPoint& ptScreen)
 				m_wndTab.ActivateTab(i);
 
 				//
-				// In the SEC stuff, the ActivateTab() call doesn't do
+				// In the HRM stuff, the ActivateTab() call doesn't do
 				// anything if the tab is ALREADY active, so make sure the 
 				// Wazoo gets an initialization notice anyway.  This
 				// covers cases like a wazoo container with only
@@ -997,7 +1002,7 @@ void CWazooBar::RefreshWindowTitle()
 ////////////////////////////////////////////////////////////////////////
 BOOL CWazooBar::PreTranslateMessage(MSG* pMsg)
 {
-	BOOL bProcessed = SECControlBar::PreTranslateMessage(pMsg);
+	BOOL bProcessed = HRMControlBar::PreTranslateMessage(pMsg);
 
 	if (bProcessed)
 	{
@@ -1170,7 +1175,7 @@ void CWazooBar::OnExtendContextMenu(CMenu* pMenu)
 			pTabPopupMenu->EnableMenuItem(ID_WAZOO_TAB_SHOW, MF_BYCOMMAND | MF_GRAYED);
 
 		//
-		// Insert the temp menu in the SEC context menu.
+		// Insert the temp menu in the HRM context menu.
 		//
 		pMenu->InsertMenu(0, MF_BYPOSITION | MF_SEPARATOR);
 		pMenu->InsertMenu(0, MF_BYPOSITION | MF_POPUP, UINT(pTabPopupMenu->GetSafeHmenu()), CRString(IDS_WAZOOBAR_TAB_LOCATION));
@@ -1186,7 +1191,7 @@ void CWazooBar::OnExtendContextMenu(CMenu* pMenu)
 ////////////////////////////////////////////////////////////////////////
 int CWazooBar::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
-	if (SECControlBar::OnCreate(lpCreateStruct) == -1)
+	if (HRMControlBar::OnCreate(lpCreateStruct) == -1)
 		return -1;
 
 	m_wndTab.Create(this);
@@ -1252,7 +1257,7 @@ void CWazooBar::OnDestroy()
 		}
 	}
 
-	SECControlBar::OnDestroy();
+	HRMControlBar::OnDestroy();
 }
 
 
@@ -1264,7 +1269,7 @@ void CWazooBar::OnDestroy()
 ////////////////////////////////////////////////////////////////////////
 void CWazooBar::OnSize(UINT nType, int cx, int cy)
 {
-	SECControlBar::OnSize(nType, cx, cy);
+	HRMControlBar::OnSize(nType, cx, cy);
 
 	// Don't do anything if the controls aren't created yet, or
 	// the window is being minimized
@@ -1283,7 +1288,7 @@ void CWazooBar::OnSize(UINT nType, int cx, int cy)
 // OnEraseBkgnd [protected]
 //
 // Strangely, we need to handle the drawing of the control bar background
-// ourselves.  This code is stolen from the SEC "VIZ" sample.
+// ourselves.  This code is stolen from the HRM "VIZ" sample.
 ////////////////////////////////////////////////////////////////////////
 BOOL CWazooBar::OnEraseBkgnd(CDC* pDC)
 {
@@ -1363,7 +1368,7 @@ void CWazooBar::OnTimer(UINT nIDEvent)
 		//
 		// Let the base class deal with timers that we didn't set.
 		//
-		SECControlBar::OnTimer( nIDEvent );
+		HRMControlBar::OnTimer( nIDEvent );
 		return;
 	}
 
@@ -1426,25 +1431,25 @@ void CWazooBar::OnWindowPosChanging(WINDOWPOS* lpwndpos)
 		}
 	}
 
-	SECControlBar::OnWindowPosChanging(lpwndpos);
+	HRMControlBar::OnWindowPosChanging(lpwndpos);
 }
 
 
 ////////////////////////////////////////////////////////////////////////
-// OnCmdSECMDIFloat [protected]
+// OnCmdHRMMDIFloat [protected]
 //
-// We need to hook and handle the generic ID_SEC_MDIFLOAT command in order
+// We need to hook and handle the generic ID_HRM_MDIFLOAT command in order
 // to detect the transition from docked/floating mode to MDI mode.
 // Yep.  We just need this hook so that we can set the title on the
 // floating mini-frame or the MDI child frame properly.
 ////////////////////////////////////////////////////////////////////////
-void CWazooBar::OnCmdSECMDIFloat()
+void CWazooBar::OnCmdHRMMDIFloat()
 { 
 	//
 	// Call standard base class handler to toggle the window
 	// state.
 	//
-	SECControlBar::OnFloatAsMDIChild();
+	HRMControlBar::OnFloatAsMDIChild();
 
 	RefreshWindowTitle();
 }
@@ -1600,7 +1605,7 @@ void CWazooBar::OnBarFloat()
 		}
 	}
 
-	SECControlBar::OnBarFloat();
+	HRMControlBar::OnBarFloat();
 }
 
 void CWazooBar::OnBarMDIFloat()
@@ -1633,7 +1638,7 @@ void CWazooBar::OnBarMDIFloat()
 		}
 	}
 
-	SECControlBar::OnBarMDIFloat();
+	HRMControlBar::OnBarMDIFloat();
 }
 
 

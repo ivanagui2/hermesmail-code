@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////
 // File: workbook.cpp
 //
-// These are overrides of the standard SECWorkbook and SECWorksheet 
+// These are overrides of the standard HRMWorkbook and HRMWorksheet 
 // classes which implement some Eudora-specific behavior.
 //
 // Copyright (c) 1996-2000 by QUALCOMM, Incorporated
@@ -58,6 +58,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 File revised by Jeff Prickett (kg4ygs@gmail.com) July 4, 2018
     Removed commented out unused FORNOW code.
     Removed 2 conditional DEBUG code sections
+File revised by Jeff Prickett                    July 8, 2016
+    Changing references from the StingrayToolKit to the HermesUIToolkit
+    Deleted unused commented out code that referenced the Stingray libraries.
 
 */        
 
@@ -80,17 +83,17 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) July 4, 2018
 
 #include "DebugNewHelpers.h"
 
-IMPLEMENT_DYNCREATE(QCWorksheet, SECWorksheet);
-IMPLEMENT_DYNCREATE(QCControlBarWorksheet, SECControlBarWorksheet);
-IMPLEMENT_DYNCREATE(QCMiniDockFrameWnd, SECMiniDockFrameWnd);
-IMPLEMENT_DYNCREATE(QCWorkbook, SECWorkbook);
+IMPLEMENT_DYNCREATE(QCWorksheet, HRMWorksheet);
+IMPLEMENT_DYNCREATE(QCControlBarWorksheet, HRMControlBarWorksheet);
+IMPLEMENT_DYNCREATE(QCMiniDockFrameWnd, HRMMiniDockFrameWnd);
+IMPLEMENT_DYNCREATE(QCWorkbook, HRMWorkbook);
   
 
 /*****************************************************************************/
 /*                              QCWorksheet                                  */
 /*****************************************************************************/
 
-BEGIN_MESSAGE_MAP(QCWorksheet, SECWorksheet)
+BEGIN_MESSAGE_MAP(QCWorksheet, HRMWorksheet)
 	//{{AFX_MSG_MAP(QCWorksheet)
 	ON_COMMAND(ID_MDI_TASKBAR_RESTORE, OnCmdMdiRestore)
 	ON_COMMAND(ID_MDI_TASKBAR_MINIMIZE, OnCmdMdiMinimize)
@@ -159,21 +162,21 @@ void QCWorksheet::OnMDIActivate(BOOL bActivate, CWnd* pActivateWnd, CWnd* pDeact
 	// HACK ALERT.  Deliberately bypass the parent class implementation in
 	// favor of the grandparent class implementation.
 	//
-	SECMDIChildWnd::OnMDIActivate(bActivate, pActivateWnd, pDeactivateWnd);
+	HRMMDIChildWnd::OnMDIActivate(bActivate, pActivateWnd, pDeactivateWnd);
 
 	QCWorkbook* p_workbook = (QCWorkbook *) GetWorkbook();
 	ASSERT_KINDOF(QCWorkbook, p_workbook);
 	CRect tabRect;
 
-    if (pDeactivateWnd && pDeactivateWnd->IsKindOf(RUNTIME_CLASS(SECWorksheet)))
+    if (pDeactivateWnd && pDeactivateWnd->IsKindOf(RUNTIME_CLASS(HRMWorksheet)))
     {
-		p_workbook->QCGetTabRect((SECWorksheet *) pDeactivateWnd, tabRect);
+		p_workbook->QCGetTabRect((HRMWorksheet *) pDeactivateWnd, tabRect);
 		tabRect.InflateRect(2, 2);
 		p_workbook->InvalidateRect(tabRect, TRUE);
     }
-    if (pActivateWnd && pActivateWnd->IsKindOf(RUNTIME_CLASS(SECWorksheet)))
+    if (pActivateWnd && pActivateWnd->IsKindOf(RUNTIME_CLASS(HRMWorksheet)))
     {
-		p_workbook->QCGetTabRect((SECWorksheet *) pActivateWnd, tabRect);
+		p_workbook->QCGetTabRect((HRMWorksheet *) pActivateWnd, tabRect);
 		tabRect.InflateRect(2, 2);
 		p_workbook->InvalidateRect(tabRect, TRUE);
     }
@@ -193,7 +196,7 @@ void QCWorksheet::OnMDIActivate(BOOL bActivate, CWnd* pActivateWnd, CWnd* pDeact
 void QCWorksheet::OnDestroy() 
 {
 	DestroyDockBars();
-	SECWorksheet::OnDestroy();    
+	HRMWorksheet::OnDestroy();    
 }
 
 
@@ -269,7 +272,7 @@ void QCWorksheet::DestroyDockBars()
 /*                         QCControlBarWorksheet                             */
 /*****************************************************************************/
 
-BEGIN_MESSAGE_MAP(QCControlBarWorksheet, SECControlBarWorksheet)
+BEGIN_MESSAGE_MAP(QCControlBarWorksheet, HRMControlBarWorksheet)
 	//{{AFX_MSG_MAP(QCControlBarWorksheet)
 	ON_COMMAND(ID_FILE_CLOSE, OnCmdMdiClose)
 	ON_COMMAND(ID_MDI_TASKBAR_RESTORE, OnCmdMdiRestore)
@@ -321,7 +324,7 @@ void QCControlBarWorksheet::RecalcLayout(BOOL bNotify /*=TRUE*/)
 		// UGLY HACK to bypass parent implementation in favor of
 		// grandparent implementation.
 		//
-		SECWorksheet::RecalcLayout(bNotify);
+		HRMWorksheet::RecalcLayout(bNotify);
 
 	}
 }
@@ -360,7 +363,7 @@ void QCControlBarWorksheet::OnCmdUpdateMdiMaximize(CCmdUI* pCmdUI)
 ////////////////////////////////////////////////////////////////////////
 // OnMDIActivate [protected]
 //
-// Yuck.  Override SECWorksheet base class implementation to hook MDI
+// Yuck.  Override HRMWorksheet base class implementation to hook MDI
 // window activations.  All we're trying to do here is to invalidate
 // the "tab buttons" so that they get repainted correctly by the
 // QCWorkbook paint code.  The yucky thing here is that we're
@@ -375,7 +378,7 @@ void QCControlBarWorksheet::OnMDIActivate(BOOL bActivate, CWnd* pActivateWnd, CW
 	// HACK ALERT.  Deliberately bypass the parent class implementation in
 	// favor of the great-grandparent class implementation.  :-)
 	//
-	SECMDIChildWnd::OnMDIActivate(bActivate, pActivateWnd, pDeactivateWnd);
+	HRMMDIChildWnd::OnMDIActivate(bActivate, pActivateWnd, pDeactivateWnd);
 
 	QCWorkbook* p_workbook = (QCWorkbook *) GetWorkbook();
 	ASSERT_KINDOF(QCWorkbook, p_workbook);
@@ -387,7 +390,7 @@ void QCControlBarWorksheet::OnMDIActivate(BOOL bActivate, CWnd* pActivateWnd, CW
 		//
 		if ((m_wndDockBar.m_dwStyle & CBRS_FLOAT_MULTI) == 0)
 	    {
-			SECControlBar* pBar = ((SECDockBar *) &m_wndDockBar)->GetFirstControlBar();
+			HRMControlBar* pBar = ((HRMDockBar *) &m_wndDockBar)->GetFirstControlBar();
 			if (pBar != NULL) 
 			{
 				CWazooBar* pWazooBar = DYNAMIC_DOWNCAST(CWazooBar, pBar);
@@ -447,15 +450,15 @@ void QCControlBarWorksheet::OnMDIActivate(BOOL bActivate, CWnd* pActivateWnd, CW
 	}
 
 	CRect tabRect;
-    if (pDeactivateWnd && pDeactivateWnd->IsKindOf(RUNTIME_CLASS(SECWorksheet)))
+    if (pDeactivateWnd && pDeactivateWnd->IsKindOf(RUNTIME_CLASS(HRMWorksheet)))
     {
-		p_workbook->QCGetTabRect((SECWorksheet *) pDeactivateWnd, tabRect);
+		p_workbook->QCGetTabRect((HRMWorksheet *) pDeactivateWnd, tabRect);
 		tabRect.InflateRect(2, 2);
 		p_workbook->InvalidateRect(tabRect, TRUE);
     }
-    if (pActivateWnd && pActivateWnd->IsKindOf(RUNTIME_CLASS(SECWorksheet)))
+    if (pActivateWnd && pActivateWnd->IsKindOf(RUNTIME_CLASS(HRMWorksheet)))
     {
-		p_workbook->QCGetTabRect((SECWorksheet *) pActivateWnd, tabRect);
+		p_workbook->QCGetTabRect((HRMWorksheet *) pActivateWnd, tabRect);
 		tabRect.InflateRect(2, 2);
 		p_workbook->InvalidateRect(tabRect, TRUE);
     }
@@ -465,7 +468,7 @@ void QCControlBarWorksheet::OnMDIActivate(BOOL bActivate, CWnd* pActivateWnd, CW
 ////////////////////////////////////////////////////////////////////////
 // OnClose [protected]
 //
-// Yuck.  Override SECControlBarWorksheet base class implementation to
+// Yuck.  Override HRMControlBarWorksheet base class implementation to
 // handle closing MDI child windows.  We do this since we don't want
 // to destroy the window.  We really just hide it.
 ////////////////////////////////////////////////////////////////////////
@@ -473,7 +476,7 @@ void QCControlBarWorksheet::OnClose()
 {
 	if ((m_wndDockBar.m_dwStyle & CBRS_FLOAT_MULTI) == 0)
     {
-		SECControlBar* pBar = ((SECDockBar *) &m_wndDockBar)->GetFirstControlBar();
+		HRMControlBar* pBar = ((HRMDockBar *) &m_wndDockBar)->GetFirstControlBar();
 		if (pBar != NULL) 
 		{
 			CMDIFrameWnd* pMainFrame = (CMDIFrameWnd *) ::AfxGetMainWnd();
@@ -535,7 +538,7 @@ void QCControlBarWorksheet::OnClose()
 	// Intentionally bypass parent implementation in favor of grandparent
 	// implementation.
 	//
-	SECWorksheet::OnClose();
+	HRMWorksheet::OnClose();
 }
 
 
@@ -544,7 +547,7 @@ void QCControlBarWorksheet::OnClose()
 /*****************************************************************************/
 
 
-BEGIN_MESSAGE_MAP(QCMiniDockFrameWnd, SECMiniDockFrameWnd)
+BEGIN_MESSAGE_MAP(QCMiniDockFrameWnd, HRMMiniDockFrameWnd)
 	//{{AFX_MSG_MAP(QCMiniDockFrameWnd)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
@@ -563,7 +566,7 @@ QCMiniDockFrameWnd::~QCMiniDockFrameWnd()
 // RecalcLayout [protected, virtual]
 //
 // HACK ALERT.  Note that we're intentionally bypassing and completely 
-// replacing the badly behaved SEC parent implementation here.
+// replacing the badly behaved HRM parent implementation here.
 ////////////////////////////////////////////////////////////////////////
 void QCMiniDockFrameWnd::RecalcLayout(BOOL bNotify)
 {
@@ -571,13 +574,9 @@ void QCMiniDockFrameWnd::RecalcLayout(BOOL bNotify)
 	{
 		CMiniFrameWnd::RecalcLayout(bNotify);
 
-//BADSECSTUFF		// syncronize window text of frame window with dockbar itself
-//BADSECSTUFF		TCHAR szTitle[_MAX_PATH];
-//BADSECSTUFF		m_wndSECDockBar.GetWindowText(szTitle, _countof(szTitle));
-//BADSECSTUFF		AfxSetWindowText(m_hWnd, szTitle);
-		if ((m_wndSECDockBar.m_dwStyle & CBRS_FLOAT_MULTI) == 0)			//GOODQCSTUFF
+		if ((m_wndHRMDockBar.m_dwStyle & CBRS_FLOAT_MULTI) == 0)			//GOODQCSTUFF
 		{																	//GOODQCSTUFF
-			SECControlBar* pBar = m_wndSECDockBar.GetFirstControlBar();		//GOODQCSTUFF
+			HRMControlBar* pBar = m_wndHRMDockBar.GetFirstControlBar();		//GOODQCSTUFF
 			ASSERT(pBar != NULL);											//GOODQCSTUFF
 			CWazooBar* pWazooBar = DYNAMIC_DOWNCAST(CWazooBar, pBar);		//GOODQCSTUFF
 			if (pWazooBar)													//GOODQCSTUFF
@@ -586,7 +585,7 @@ void QCMiniDockFrameWnd::RecalcLayout(BOOL bNotify)
 			{																//GOODQCSTUFF
 				// syncronize frame window title with dockbar itself		//GOODQCSTUFF
 				TCHAR szTitle[_MAX_PATH];									//GOODQCSTUFF
-				m_wndSECDockBar.GetWindowText(szTitle, sizeof(szTitle));	//GOODQCSTUFF
+				m_wndHRMDockBar.GetWindowText(szTitle, sizeof(szTitle));	//GOODQCSTUFF
 				SetWindowText(szTitle);										//GOODQCSTUFF
 			}																//GOODQCSTUFF
 		}																	//GOODQCSTUFF
@@ -598,7 +597,7 @@ void QCMiniDockFrameWnd::RecalcLayout(BOOL bNotify)
 // RecalcLayout [protected, virtual]
 //
 // HACK ALERT.  Note that we're intentionally bypassing and completely 
-// replacing the badly behaved SEC parent implementation here.
+// replacing the badly behaved HRM parent implementation here.
 ////////////////////////////////////////////////////////////////////////
 void QCMiniDockFrameWnd::RecalcLayout(CPoint point, BOOL bNotify)
 {
@@ -626,14 +625,9 @@ void QCMiniDockFrameWnd::RecalcLayout(CPoint point, BOOL bNotify)
 	else
 		RepositionBars(0, 0xffff, AFX_IDW_PANE_FIRST, reposExtra, &m_rectBorder);
 
-//BADSECSTUFF	// syncronize window text of frame window with dockbar itself
-//BADSECSTUFF	TCHAR szTitle[_MAX_PATH];
-//BADSECSTUFF	m_wndSECDockBar.GetWindowText(szTitle, _countof(szTitle));
-//BADSECSTUFF	AfxSetWindowText(m_hWnd, szTitle);
-
-	if ((m_wndSECDockBar.m_dwStyle & CBRS_FLOAT_MULTI) == 0)			//GOODQCSTUFF
+	if ((m_wndHRMDockBar.m_dwStyle & CBRS_FLOAT_MULTI) == 0)			//GOODQCSTUFF
 	{																	//GOODQCSTUFF
-		SECControlBar* pBar = m_wndSECDockBar.GetFirstControlBar();		//GOODQCSTUFF
+		HRMControlBar* pBar = m_wndHRMDockBar.GetFirstControlBar();		//GOODQCSTUFF
 		ASSERT(pBar != NULL);											//GOODQCSTUFF
 		CWazooBar* pWazooBar = DYNAMIC_DOWNCAST(CWazooBar, pBar);		//GOODQCSTUFF
 		if (pWazooBar)													//GOODQCSTUFF
@@ -642,7 +636,7 @@ void QCMiniDockFrameWnd::RecalcLayout(CPoint point, BOOL bNotify)
 		{																//GOODQCSTUFF
 			// syncronize frame window title with dockbar itself		//GOODQCSTUFF
 			TCHAR szTitle[_MAX_PATH];									//GOODQCSTUFF
-			m_wndSECDockBar.GetWindowText(szTitle, sizeof(szTitle));	//GOODQCSTUFF
+			m_wndHRMDockBar.GetWindowText(szTitle, sizeof(szTitle));	//GOODQCSTUFF
 			SetWindowText(szTitle);										//GOODQCSTUFF
 		}																//GOODQCSTUFF
 	}																	//GOODQCSTUFF
@@ -655,7 +649,7 @@ void QCMiniDockFrameWnd::RecalcLayout(CPoint point, BOOL bNotify)
 /*                               QCWorkbook                                  */
 /*****************************************************************************/
 
-BEGIN_MESSAGE_MAP(QCWorkbook, SECWorkbook)
+BEGIN_MESSAGE_MAP(QCWorkbook, HRMWorkbook)
 	//{{AFX_MSG_MAP(QCWorkbook)
 	ON_WM_SIZE()
 	ON_WM_LBUTTONDOWN()
@@ -681,7 +675,7 @@ QCWorkbook::QCWorkbook() :
 	m_cxActive = 0;
 	m_cyActive = 0;
 	m_nMaxTabWidth = 130;
-	ASSERT(m_pFloatingMDIChildClass == RUNTIME_CLASS(SECControlBarWorksheet));
+	ASSERT(m_pFloatingMDIChildClass == RUNTIME_CLASS(HRMControlBarWorksheet));
 	m_pFloatingMDIChildClass = RUNTIME_CLASS(QCControlBarWorksheet);
 
 	//
@@ -759,10 +753,10 @@ void QCWorkbook::ShowMDITaskBar(BOOL bShow)
 //
 // Public wrapper for protected GetTabPts() method in base class.
 ////////////////////////////////////////////////////////////////////////
-void QCWorkbook::QCGetTabRect(SECWorksheet* pSheet, CRect& rectTab)
+void QCWorkbook::QCGetTabRect(HRMWorksheet* pSheet, CRect& rectTab)
 {
 	ASSERT_VALID(pSheet);
-	ASSERT_KINDOF(SECWorksheet, pSheet);
+	ASSERT_KINDOF(HRMWorksheet, pSheet);
 
 	CPoint* tab_pts = NULL;
 	int count = 0;
@@ -781,9 +775,9 @@ void QCWorkbook::QCGetTabRect(SECWorksheet* pSheet, CRect& rectTab)
 // Invalidates tab region.  Use when changing window title of a specific
 // MDI child window.
 ////////////////////////////////////////////////////////////////////////
-void QCWorkbook::QCUpdateTab(SECWorksheet* pSheet)
+void QCWorkbook::QCUpdateTab(HRMWorksheet* pSheet)
 {
-	if (DYNAMIC_DOWNCAST(SECWorksheet, pSheet))
+	if (DYNAMIC_DOWNCAST(HRMWorksheet, pSheet))
 	{
 		CRect rectTab;
 		QCGetTabRect(pSheet, rectTab);
@@ -814,7 +808,7 @@ void QCWorkbook::ResetTaskBar()
 ////////////////////////////////////////////////////////////////////////
 BOOL QCWorkbook::CreateClient(LPCREATESTRUCT lpCreateStruct, CMenu* pWindowMenu)
 {
-    BOOL rtn = SECWorkbook::CreateClient(lpCreateStruct, pWindowMenu);
+    BOOL rtn = HRMWorkbook::CreateClient(lpCreateStruct, pWindowMenu);
 	if (-1 == rtn)
 		return -1;			// failure, so no point in continuing
 
@@ -920,7 +914,7 @@ void QCWorkbook::ShutdownMDITaskBarTooltips()
 ////////////////////////////////////////////////////////////////////////
 void QCWorkbook::OnSize(UINT nType, int cx, int cy)
 {
-	SECWorkbook::OnSize(nType, cx, cy);
+	HRMWorkbook::OnSize(nType, cx, cy);
 
 	// Don't do anything if the controls aren't created yet, or
 	// the window is being minimized
@@ -992,9 +986,9 @@ void QCWorkbook::QCInvalidateAllTabs()
 // Override base class implementation so that all tabs are the same
 // size.
 ////////////////////////////////////////////////////////////////////////
-void QCWorkbook::GetTabPts(SECWorksheet* pSheet, CPoint*& pts, int& count)
+void QCWorkbook::GetTabPts(HRMWorksheet* pSheet, CPoint*& pts, int& count)
 {
-	SECWorkbook::GetTabPts(pSheet, pts, count);
+	HRMWorkbook::GetTabPts(pSheet, pts, count);
 	for (int i = 0; i < count; i++)
 	{
 		pts[i].x += 2;
@@ -1099,7 +1093,7 @@ LRESULT QCWorkbook::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 		break; 
 	} 
 
-	return SECWorkbook::WindowProc(message, wParam, lParam);
+	return HRMWorkbook::WindowProc(message, wParam, lParam);
 }
 
 
@@ -1117,7 +1111,7 @@ void QCWorkbook::OnLButtonDown(UINT nFlags, CPoint point)
 
 	if (m_bWorkbookMode) 
 	{
-		SECWorksheet* pSheet = TabHitTest(point, FALSE);
+		HRMWorksheet* pSheet = TabHitTest(point, FALSE);
 		if (pSheet)
 		{
 			//
@@ -1126,7 +1120,7 @@ void QCWorkbook::OnLButtonDown(UINT nFlags, CPoint point)
 			pSheet->SetSelected(TRUE);
 				
 			//
-			// Unlike the SECWorkbook::OnLButtonDown() implementation,
+			// Unlike the HRMWorkbook::OnLButtonDown() implementation,
 			// we're not calling pSheet->ActivateFrame() here since
 			// that conflicts with the logic in Eudora's 
 			// CMDIChild::ActivateFrame() method.  Here, we're using
@@ -1179,7 +1173,7 @@ void QCWorkbook::OnLButtonDown(UINT nFlags, CPoint point)
 	// implementation here and going to our grandparent's
 	// implementation.
 	//
-	SECMDIFrameWnd::OnLButtonDown(nFlags, point);
+	HRMMDIFrameWnd::OnLButtonDown(nFlags, point);
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -1204,7 +1198,7 @@ long QCWorkbook::OnContextMenu(WPARAM wParam, LPARAM lParam)
 		CPoint client_pt(ptScreen);
 		ScreenToClient(&client_pt);
 
-		SECWorksheet* pSheet = TabHitTest(client_pt);
+		HRMWorksheet* pSheet = TabHitTest(client_pt);
 		if (pSheet)
 		{
 			//
@@ -1239,9 +1233,9 @@ long QCWorkbook::OnContextMenu(WPARAM wParam, LPARAM lParam)
 // for tooltips and to do a QC-specific invalidation of the MDI Task Bar,
 // affectionately known as the Auto-Wazoo.
 ////////////////////////////////////////////////////////////////////////
-void QCWorkbook::AddSheet(SECWorksheet* pSheet)
+void QCWorkbook::AddSheet(HRMWorksheet* pSheet)
 {
-	SECWorkbook::AddSheet(pSheet);
+	HRMWorkbook::AddSheet(pSheet);
 
 	ResetTaskBar();
 }
@@ -1254,9 +1248,9 @@ void QCWorkbook::AddSheet(SECWorksheet* pSheet)
 // for tooltips and to do a QC-specific invalidation of the MDI Task Bar,
 // affectionately known as the Auto-Wazoo.
 ////////////////////////////////////////////////////////////////////////
-void QCWorkbook::RemoveSheet(SECWorksheet* pSheet)
+void QCWorkbook::RemoveSheet(HRMWorksheet* pSheet)
 {
-	SECWorkbook::RemoveSheet(pSheet);
+	HRMWorkbook::RemoveSheet(pSheet);
 
 	ResetTaskBar();
 }
@@ -1268,7 +1262,7 @@ void QCWorkbook::RemoveSheet(SECWorksheet* pSheet)
 // Override base class implementation to draw buttons that look like 
 // Version 4 shell task bars.
 ////////////////////////////////////////////////////////////////////////
-void QCWorkbook::OnDrawTab(CDC* pDC, SECWorksheet* pSheet)
+void QCWorkbook::OnDrawTab(CDC* pDC, HRMWorksheet* pSheet)
 {
 	CPen *pOldPen = NULL;
 	CRgn rgn;
@@ -1277,14 +1271,14 @@ void QCWorkbook::OnDrawTab(CDC* pDC, SECWorksheet* pSheet)
 
 	ASSERT_VALID(pDC);
 
-	ASSERT_KINDOF(SECWorksheet, pSheet);
+	ASSERT_KINDOF(HRMWorksheet, pSheet);
 	GetTabPts(pSheet, tab_pts, count);
 	rgn.CreateRectRgn(tab_pts[0].x + 1, tab_pts[0].y + 1, tab_pts[4].x - 1, tab_pts[4].y);
 
 	// If this is the active (or selected) tab, draw it differently
-	ASSERT_KINDOF(SECWorksheet, pSheet);
+	ASSERT_KINDOF(HRMWorksheet, pSheet);
 
-	if (pSheet->IsSelected() || pSheet == (SECWorksheet*)GetActiveFrame()) 
+	if (pSheet->IsSelected() || pSheet == (HRMWorksheet*)GetActiveFrame()) 
 	{
 		//
 		// Draw active button in "down" state.
@@ -1360,7 +1354,7 @@ void QCWorkbook::OnDrawTab(CDC* pDC, SECWorksheet* pSheet)
 // active button with "bold" font using left-justified text rather
 // than centered.
 ////////////////////////////////////////////////////////////////////////
-void QCWorkbook::OnDrawTabIconAndLabel(CDC* pDC, SECWorksheet* pSheet)
+void QCWorkbook::OnDrawTabIconAndLabel(CDC* pDC, HRMWorksheet* pSheet)
 {
 	ASSERT_VALID(pDC);
 
@@ -1382,10 +1376,10 @@ void QCWorkbook::OnDrawTabIconAndLabel(CDC* pDC, SECWorksheet* pSheet)
 		//
 		// Decide whether or not to use the normal font or the bold font
 		//
-		ASSERT_KINDOF(SECWorksheet, pSheet);
+		ASSERT_KINDOF(HRMWorksheet, pSheet);
 
 		CFont* pOldFont = NULL;
-		if (pSheet->IsSelected() || pSheet == (SECWorksheet*)GetActiveFrame())
+		if (pSheet->IsSelected() || pSheet == (HRMWorksheet*)GetActiveFrame())
 			pOldFont = pDC->SelectObject(&m_fontTabBold);
 		else
 			pOldFont = pDC->SelectObject(&m_fontTab);
@@ -1461,8 +1455,8 @@ BOOL QCWorkbook::CalcLogoTopLeft(CPoint* TopLeft, CPoint* pIntersectPoint /*= NU
 		rectLastVisibleTab.SetRect(0, 0, 0, 0);
 		for (int i = m_worksheets.GetSize() - 1; i >= 0; i--)
 		{
-			SECWorksheet* pSheet = (SECWorksheet*) m_worksheets.GetAt(i);
-			ASSERT_KINDOF(SECWorksheet, pSheet);
+			HRMWorksheet* pSheet = (HRMWorksheet*) m_worksheets.GetAt(i);
+			ASSERT_KINDOF(HRMWorksheet, pSheet);
 			if (pSheet->GetStyle() & WS_VISIBLE)
 			{
 				QCGetTabRect(pSheet, rectLastVisibleTab);
@@ -1509,14 +1503,14 @@ BOOL QCWorkbook::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 		}
 	}
 
-	return SECWorkbook::OnSetCursor(pWnd, nHitTest, message);
+	return HRMWorkbook::OnSetCursor(pWnd, nHitTest, message);
 }
 
 ////////////////////////////////////////////////////////////////////////
 // OnDrawBorder [protected, virtual]
 //
 // Override default base class implementation to draw the QC logo
-// on the Auto-Wazoo bar.  Note that we completely override the SEC
+// on the Auto-Wazoo bar.  Note that we completely override the HRM
 // base class implementation here.
 ////////////////////////////////////////////////////////////////////////
 void QCWorkbook::OnDrawBorder(CDC* pDC)
@@ -1542,7 +1536,7 @@ void QCWorkbook::OnDrawBorder(CDC* pDC)
 //
 // Returns TRUE if "button text" is too long to fit in the tab button.
 ////////////////////////////////////////////////////////////////////////
-BOOL QCWorkbook::IsTabLabelTruncated(SECWorksheet* pSheet)
+BOOL QCWorkbook::IsTabLabelTruncated(HRMWorksheet* pSheet)
 {
 	CPaintDC dc(this);		// device context for painting
     
@@ -1557,10 +1551,10 @@ BOOL QCWorkbook::IsTabLabelTruncated(SECWorksheet* pSheet)
 		//
 		// Decide whether or not to use the normal font or the bold font
 		//
-		ASSERT_KINDOF(SECWorksheet, pSheet);
+		ASSERT_KINDOF(HRMWorksheet, pSheet);
 
 		CFont* pOldFont = NULL;
-		if (pSheet->IsSelected() || pSheet == (SECWorksheet *) GetActiveFrame())
+		if (pSheet->IsSelected() || pSheet == (HRMWorksheet *) GetActiveFrame())
 			pOldFont = dc.SelectObject(&m_fontTabBold);
 		else
 			pOldFont = dc.SelectObject(&m_fontTab);
@@ -1585,7 +1579,7 @@ BOOL QCWorkbook::IsTabLabelTruncated(SECWorksheet* pSheet)
 ////////////////////////////////////////////////////////////////////////
 void QCWorkbook::GetIconAndTextPositions
 (
-	SECWorksheet* pSheet, 		//(i) worksheet for "tab button"
+	HRMWorksheet* pSheet, 		//(i) worksheet for "tab button"
 	CPoint& ptIcon, 			//(o) upper left coordinates of icon position
 	CRect& rectText				//(o) rect for rendering text
 )
@@ -1646,7 +1640,7 @@ BOOL QCWorkbook::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 					ASSERT(0);
 				else
 				{
-					SECWorksheet* pSheet = GetWorksheet(nID);
+					HRMWorksheet* pSheet = GetWorksheet(nID);
 					if (pSheet && IsTabLabelTruncated(pSheet))
 					{
 						CString tooltip(GetTabLabel(pSheet));
@@ -1675,7 +1669,7 @@ BOOL QCWorkbook::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 		}
 	}
 
-	return SECWorkbook::OnNotify(wParam, lParam, pResult);
+	return HRMWorkbook::OnNotify(wParam, lParam, pResult);
 }
 
 
@@ -1717,7 +1711,7 @@ void QCWorkbook::RecalcToolTipRects()
 			//
 			for (i = 0; i < GetSheetCount(); i++)
 			{
-				SECWorksheet* pSheet = GetWorksheet(i);
+				HRMWorksheet* pSheet = GetWorksheet(i);
 				ASSERT(pSheet);
 
 				if (pSheet->GetStyle() & WS_VISIBLE)
@@ -1747,7 +1741,7 @@ void QCWorkbook::RecalcToolTipRects()
 // Recalculate tooltip regions to reflect current positions of all tab
 // "buttons".
 ////////////////////////////////////////////////////////////////////////
-SECWorksheet* QCWorkbook::TabHitTest(const CPoint& ptClient, BOOL bWantActive /*=TRUE*/)
+HRMWorksheet* QCWorkbook::TabHitTest(const CPoint& ptClient, BOOL bWantActive /*=TRUE*/)
 {
 	ASSERT(m_bWorkbookMode);
 
@@ -1755,15 +1749,15 @@ SECWorksheet* QCWorkbook::TabHitTest(const CPoint& ptClient, BOOL bWantActive /*
 	// Set up filter for "active" MDI child window.  Sometimes the
 	// caller wants the active window and sometimes they don't.
 	//
-	SECWorksheet* pActive = NULL;
+	HRMWorksheet* pActive = NULL;
 	if (! bWantActive)
 	{
-		pActive = (SECWorksheet*) GetActiveFrame();
+		pActive = (HRMWorksheet*) GetActiveFrame();
 		ASSERT(pActive);
 
 		if (this == (QCWorkbook *) pActive)
 			return NULL;			// no active MDI child window
-		ASSERT_KINDOF(SECWorksheet, pActive);
+		ASSERT_KINDOF(HRMWorksheet, pActive);
 	}
 
 	//
@@ -1775,8 +1769,8 @@ SECWorksheet* QCWorkbook::TabHitTest(const CPoint& ptClient, BOOL bWantActive /*
 	CRect rectTab;
 	for (int i = 0; i < m_worksheets.GetSize(); i++)
 	{
-		SECWorksheet* pSheet = (SECWorksheet*) m_worksheets.GetAt(i);
-		ASSERT_KINDOF(SECWorksheet, pSheet);
+		HRMWorksheet* pSheet = (HRMWorksheet*) m_worksheets.GetAt(i);
+		ASSERT_KINDOF(HRMWorksheet, pSheet);
 		if (pSheet->GetStyle() & WS_VISIBLE)
 		{
 			QCGetTabRect(pSheet, rectTab);
@@ -1831,8 +1825,8 @@ BOOL QCWorkbook::IsOnMDIClientAreaBlankSpot(const CPoint& ptClient)
 	CRect rectMDIFrame;
 	for (int i = 0; i < m_worksheets.GetSize(); i++)
 	{
-		SECWorksheet* pSheet = (SECWorksheet*) m_worksheets.GetAt(i);
-		ASSERT_KINDOF(SECWorksheet, pSheet);
+		HRMWorksheet* pSheet = (HRMWorksheet*) m_worksheets.GetAt(i);
+		ASSERT_KINDOF(HRMWorksheet, pSheet);
 		if (pSheet->GetStyle() & WS_VISIBLE)
 		{
 			pSheet->GetWindowRect(rectMDIFrame);
@@ -1866,8 +1860,8 @@ LRESULT QCWorkbook::OnTabSelect(WPARAM, LPARAM)
 		//
 		for (int i = 0; i < m_worksheets.GetSize(); i++)
 		{
-			SECWorksheet* pSheet = (SECWorksheet*) m_worksheets.GetAt(i);
-			ASSERT_KINDOF(SECWorksheet, pSheet);
+			HRMWorksheet* pSheet = (HRMWorksheet*) m_worksheets.GetAt(i);
+			ASSERT_KINDOF(HRMWorksheet, pSheet);
 			if (DYNAMIC_DOWNCAST(QCControlBarWorksheet, pSheet))
 			{
 				if (pSheet->GetStyle() & WS_VISIBLE)
@@ -1909,5 +1903,5 @@ void QCWorkbook::OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized)
 		SetActiveView(pActiveView);
 	}
 
-	SECWorkbook::OnActivate(nState, pWndOther, bMinimized);
+	HRMWorkbook::OnActivate(nState, pWndOther, bMinimized);
 }

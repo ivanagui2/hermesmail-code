@@ -1,3 +1,59 @@
+/* Copyright (c) 2016, Computer History Museum 
+All rights reserved. 
+Redistribution and use in source and binary forms, with or without modification, are permitted (subject to 
+the limitations in the disclaimer below) provided that the following conditions are met: 
+ * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. 
+ * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following 
+   disclaimer in the documentation and/or other materials provided with the distribution. 
+ * Neither the name of Computer History Museum nor the names of its contributors may be used to endorse or promote products 
+   derived from this software without specific prior written permission. 
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS LICENSE. THIS SOFTWARE IS PROVIDED BY THE 
+COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
+DAMAGE. */
+
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 8, 2018
+    Removed references to the Stingray Toolkit and changed them to reference
+    the Hermes UI Toolkit.
+
+*/        
+
 // STATBAR.CPP: CStatusBarEx implementation
 //
 
@@ -70,7 +126,7 @@ static const UINT BASED_CODE indicators[] =
 
 // --------------------------------------------------------------------------
 
-BEGIN_MESSAGE_MAP(CStatusBarEx, SECStatusBar)
+BEGIN_MESSAGE_MAP(CStatusBarEx, HRMStatusBar)
 	//{{AFX_MSG_MAP(CStatusBarEx)
 	ON_WM_DRAWITEM_REFLECT()
 	ON_WM_LBUTTONDBLCLK()
@@ -167,7 +223,7 @@ BOOL CStatusBarEx::Create(CWnd* pParentWnd, DWORD dwStyle, UINT nID)
 	if (m_pStatBar != NULL)
 		return (FALSE);
 
-	if (!SECStatusBar::Create(pParentWnd, dwStyle & CBRS_ALL, nID))
+	if (!HRMStatusBar::Create(pParentWnd, dwStyle & CBRS_ALL, nID))
 		return FALSE;
 
 	const DWORD dwNonControlBarStyle = dwStyle & ~CBRS_ALL;
@@ -217,7 +273,7 @@ BOOL CStatusBarEx::Create(CWnd* pParentWnd, DWORD dwStyle, UINT nID)
 //
 void CStatusBarEx::OnBarStyleChange(DWORD dwOldStyle, DWORD dwNewStyle)
 {
-	SECStatusBar::OnBarStyleChange(dwOldStyle, dwNewStyle);
+	HRMStatusBar::OnBarStyleChange(dwOldStyle, dwNewStyle);
 
 	if (dwNewStyle & ~CBRS_ALL)
 		SetBarStyle(dwNewStyle & CBRS_ALL);
@@ -245,7 +301,7 @@ LRESULT CStatusBarEx::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 		}
 	}
 	
-	return (SECStatusBar::WindowProc(message, wParam, lParam));
+	return (HRMStatusBar::WindowProc(message, wParam, lParam));
 }
 
 // --------------------------------------------------------------------------
@@ -711,7 +767,7 @@ void CStatusBarEx::OnTimer(UINT nIDEvent)
 		InvalidateRect(rct);
 	}
 
-	SECStatusBar::OnTimer(nIDEvent);
+	HRMStatusBar::OnTimer(nIDEvent);
 }
 
 // --------------------------------------------------------------------------
@@ -729,7 +785,7 @@ BOOL CStatusBarEx::PreTranslateMessage(MSG* pMsg)
 
 void CStatusBarEx::OnDestroy() 
 {
-	SECStatusBar::OnDestroy();
+	HRMStatusBar::OnDestroy();
 	
 	if (m_RunningTimerID)
 	{
@@ -770,7 +826,7 @@ void CStatusBarEx::SetTooltipRect(int nIndex, UINT nIDTool)
 
 void CStatusBarEx::OnSize(UINT nType, int cx, int cy) 
 {
-	SECStatusBar::OnSize(nType, cx, cy);
+	HRMStatusBar::OnSize(nType, cx, cy);
 
 	// OnSize() is called before we get a chance to initialize the
 	// tooltips, so only do this if initialization has happened.
@@ -791,7 +847,7 @@ void CStatusBarEx::OnSize(UINT nType, int cx, int cy)
 void CStatusBarEx::OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized) 
 {
 	// Calling the base class seems to be a bad idea, so DON'T!!
-	//	SECStatusBar::OnActivate(nState, pWndOther, bMinimized);
+	//	HRMStatusBar::OnActivate(nState, pWndOther, bMinimized);
 
 	if (m_bInitToolTip)
 		m_ToolTip.Activate(nState != WA_INACTIVE);
@@ -868,7 +924,7 @@ BOOL CStatusBarEx::OnEraseBkgnd(CDC* pDC)
 	rct3.InflateRect(-1,-1);
 	pDC->ExcludeClipRect( rct3 );
 
-	if (!SECStatusBar::OnEraseBkgnd(pDC))
+	if (!HRMStatusBar::OnEraseBkgnd(pDC))
 		return (FALSE);
 
 // Force the owner-drawn controls to redraw
@@ -886,7 +942,7 @@ BOOL CStatusBarEx::OnEraseBkgnd(CDC* pDC)
 void CStatusBarEx::OnLButtonDown(UINT nFlags, CPoint point) 
 {
 	if (!HandleLeftClick(nFlags, point))
-		SECStatusBar::OnLButtonDown(nFlags, point);
+		HRMStatusBar::OnLButtonDown(nFlags, point);
 }
 
 // --------------------------------------------------------------------------
@@ -894,7 +950,7 @@ void CStatusBarEx::OnLButtonDown(UINT nFlags, CPoint point)
 void CStatusBarEx::OnLButtonDblClk(UINT nFlags, CPoint point) 
 {
 	if (!HandleLeftClick(nFlags, point))
-		SECStatusBar::OnLButtonDblClk(nFlags, point);
+		HRMStatusBar::OnLButtonDblClk(nFlags, point);
 }
 
 // --------------------------------------------------------------------------
@@ -902,7 +958,7 @@ void CStatusBarEx::OnLButtonDblClk(UINT nFlags, CPoint point)
 void CStatusBarEx::OnRButtonDown(UINT nFlags, CPoint point) 
 {
 	if (!HandleRightClick(nFlags, point))
-		SECStatusBar::OnRButtonDown(nFlags, point);
+		HRMStatusBar::OnRButtonDown(nFlags, point);
 }
 
 // --------------------------------------------------------------------------

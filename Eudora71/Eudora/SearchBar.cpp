@@ -21,6 +21,43 @@ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
 DAMAGE. */
 
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 8, 2018
+    Removed references to the Stingray Toolkit and changed them to refer
+    to the Hermes UI Toolkit.
+
+*/        
 
 
 #include "stdafx.h"
@@ -63,9 +100,9 @@ BEGIN_MESSAGE_MAP(CSearchBarComboBox, CComboBoxEnhanced)
 END_MESSAGE_MAP()
 
 
-IMPLEMENT_DYNCREATE(CSearchBar, SECCustomToolBar)
+IMPLEMENT_DYNCREATE(CSearchBar, HRMCustomToolBar)
 
-BEGIN_MESSAGE_MAP(CSearchBar, SECCustomToolBar)
+BEGIN_MESSAGE_MAP(CSearchBar, HRMCustomToolBar)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
 	ON_WM_PAINT()
@@ -521,7 +558,7 @@ CSearchBar::RecentSearch::~RecentSearch()
 //	Construct CSearchBar.
 
 CSearchBar::CSearchBar()
-	:	SECCustomToolBar(), m_nCurrentSearch(kSearchWeb),
+	:	HRMCustomToolBar(), m_nCurrentSearch(kSearchWeb),
 		m_nSearchBarWidth(kSearchBarMinWidth), m_nEditTextMinHeight(10),
 		m_nToolbarHeight(kLargeToolbarButtonHeight), m_bWasFloating(FALSE),
 		m_dwExOldStyle(m_dwExStyle), m_SearchCombo(&m_ComboEdit), m_ComboEdit(this)
@@ -575,7 +612,7 @@ CSearchBar::Create(
 	m_cyBottomBorder = 1;
 
 	//	Call our parent's Create
-	if ( !SECControlBar::Create( NULL, _T(CRString(IDS_SEARCH_BAR_TITLE)), IDC_SEARCH_BAR,
+	if ( !HRMControlBar::Create( NULL, _T(CRString(IDS_SEARCH_BAR_TITLE)), IDC_SEARCH_BAR,
 								 dwStyle & CBRS_ALL, dwExStyle, CRect(0,0,0,0), in_pParentWnd, NULL) )
 	{
 		return FALSE;
@@ -1144,14 +1181,14 @@ CSearchBar::SearchForCurrentText(
 // ------------------------------------------------------------------------------------------
 //		* GetBarInfoEx																[Public]
 // ------------------------------------------------------------------------------------------
-//	Overrides SECCustomToolBar implementation and calls SECControlBar (grandparent)
+//	Overrides HRMCustomToolBar implementation and calls HRMControlBar (grandparent)
 //	implementation.
 //
-//	We mostly just want the functionality of being an SECControlBar because we don't want
-//	to support additional buttons. Unfortunately being an SECCustomToolBar has two important
+//	We mostly just want the functionality of being an HRMControlBar because we don't want
+//	to support additional buttons. Unfortunately being an HRMCustomToolBar has two important
 //	advantages:
 //	* We'll draw more like a toolbar with the drop shadows
-//	* SECDockBar::CalcFixedLayout makes a layout decision based on whether or not
+//	* HRMDockBar::CalcFixedLayout makes a layout decision based on whether or not
 //	  we're a toolbar (it shifts the origin up a pixel to y=-2 instead of y=-1, which
 //	  throws off more drawing in subtle ways than you'd expect).
 //
@@ -1160,23 +1197,23 @@ CSearchBar::SearchForCurrentText(
 
 void
 CSearchBar::GetBarInfoEx(
-	SECControlBarInfo *		pInfo)
+	HRMControlBarInfo *		pInfo)
 {
-	SECControlBar::GetBarInfoEx(pInfo);
+	HRMControlBar::GetBarInfoEx(pInfo);
 }
 
 
 // ------------------------------------------------------------------------------------------
 //		* SetBarInfoEx																[Public]
 // ------------------------------------------------------------------------------------------
-//	Overrides SECCustomToolBar implementation and calls SECControlBar (grandparent)
+//	Overrides HRMCustomToolBar implementation and calls HRMControlBar (grandparent)
 //	implementation.
 //
-//	We mostly just want the functionality of being an SECControlBar because we don't want
-//	to support additional buttons. Unfortunately being an SECCustomToolBar has two important
+//	We mostly just want the functionality of being an HRMControlBar because we don't want
+//	to support additional buttons. Unfortunately being an HRMCustomToolBar has two important
 //	advantages:
 //	* We'll draw more like a toolbar with the drop shadows
-//	* SECDockBar::CalcFixedLayout makes a layout decision based on whether or not
+//	* HRMDockBar::CalcFixedLayout makes a layout decision based on whether or not
 //	  we're a toolbar (it shifts the origin up a pixel to y=-2 instead of y=-1, which
 //	  throws off more drawing in subtle ways than you'd expect).
 //
@@ -1186,10 +1223,10 @@ CSearchBar::GetBarInfoEx(
 
 void
 CSearchBar::SetBarInfoEx(
-	SECControlBarInfo *		pInfo,
+	HRMControlBarInfo *		pInfo,
 	CFrameWnd *				pFrameWnd)
 {
-	SECControlBar::SetBarInfoEx(pInfo, pFrameWnd);
+	HRMControlBar::SetBarInfoEx(pInfo, pFrameWnd);
 }
 
 
@@ -1211,7 +1248,7 @@ CSearchBar::OnBarStyleChange(
 	DWORD				dwOldStyle,
 	DWORD				dwNewStyle)
 {
-	SECControlBar::OnBarStyleChange(dwOldStyle, dwNewStyle);
+	HRMControlBar::OnBarStyleChange(dwOldStyle, dwNewStyle);
 	
 	if (dwOldStyle | CBRS_BORDER_3D)
 		m_dwStyle |= CBRS_BORDER_3D;
@@ -1227,14 +1264,14 @@ CSearchBar::OnBarStyleChange(
 // ------------------------------------------------------------------------------------------
 //		* OnUpdateCmdUI																[Public]
 // ------------------------------------------------------------------------------------------
-//	Overrides SECCustomToolBar implementation and calls SECControlBar (grandparent)
+//	Overrides HRMCustomToolBar implementation and calls HRMControlBar (grandparent)
 //	implementation.
 //
-//	We mostly just want the functionality of being an SECControlBar because we don't want
-//	to support additional buttons. Unfortunately being an SECCustomToolBar has two important
+//	We mostly just want the functionality of being an HRMControlBar because we don't want
+//	to support additional buttons. Unfortunately being an HRMCustomToolBar has two important
 //	advantages:
 //	* We'll draw more like a toolbar with the drop shadows
-//	* SECDockBar::CalcFixedLayout makes a layout decision based on whether or not
+//	* HRMDockBar::CalcFixedLayout makes a layout decision based on whether or not
 //	  we're a toolbar (it shifts the origin up a pixel to y=-2 instead of y=-1, which
 //	  throws off more drawing in subtle ways than you'd expect).
 
@@ -1243,21 +1280,21 @@ CSearchBar::OnUpdateCmdUI(
 	CFrameWnd *				pTarget,
 	BOOL					bDisableIfNoHndler)
 {
-	SECControlBar::OnUpdateCmdUI(pTarget, bDisableIfNoHndler);
+	HRMControlBar::OnUpdateCmdUI(pTarget, bDisableIfNoHndler);
 }
 
 
 // ------------------------------------------------------------------------------------------
 //		* OnToolHitTest																[Public]
 // ------------------------------------------------------------------------------------------
-//	Overrides SECCustomToolBar implementation and calls SECControlBar (grandparent)
+//	Overrides HRMCustomToolBar implementation and calls HRMControlBar (grandparent)
 //	implementation.
 //
-//	We mostly just want the functionality of being an SECControlBar because we don't want
-//	to support additional buttons. Unfortunately being an SECCustomToolBar has two important
+//	We mostly just want the functionality of being an HRMControlBar because we don't want
+//	to support additional buttons. Unfortunately being an HRMCustomToolBar has two important
 //	advantages:
 //	* We'll draw more like a toolbar with the drop shadows
-//	* SECDockBar::CalcFixedLayout makes a layout decision based on whether or not
+//	* HRMDockBar::CalcFixedLayout makes a layout decision based on whether or not
 //	  we're a toolbar (it shifts the origin up a pixel to y=-2 instead of y=-1, which
 //	  throws off more drawing in subtle ways than you'd expect).
 
@@ -1266,7 +1303,7 @@ CSearchBar::OnToolHitTest(
 	CPoint					point,
 	TOOLINFO *				pTI) const
 {
-	return SECControlBar::OnToolHitTest(point, pTI);
+	return HRMControlBar::OnToolHitTest(point, pTI);
 }
 
 
@@ -1394,7 +1431,7 @@ CSearchBar::DoPaint(
 
 	m_dwExOldStyle = m_dwExStyle;
 	
-	SECCustomToolBar::DoPaint(pDC);
+	HRMCustomToolBar::DoPaint(pDC);
 }
 
 
@@ -1497,13 +1534,13 @@ CSearchBar::ResizeComboBox(
 // ------------------------------------------------------------------------------------------
 //		* BalanceWrap															 [Protected]
 // ------------------------------------------------------------------------------------------
-//	Overrides SECCustomToolBar implementation and does nothing.
+//	Overrides HRMCustomToolBar implementation and does nothing.
 //
-//	We mostly just want the functionality of being an SECControlBar because we don't want
-//	to support additional buttons. Unfortunately being an SECCustomToolBar has two important
+//	We mostly just want the functionality of being an HRMControlBar because we don't want
+//	to support additional buttons. Unfortunately being an HRMCustomToolBar has two important
 //	advantages:
 //	* We'll draw more like a toolbar with the drop shadows
-//	* SECDockBar::CalcFixedLayout makes a layout decision based on whether or not
+//	* HRMDockBar::CalcFixedLayout makes a layout decision based on whether or not
 //	  we're a toolbar (it shifts the origin up a pixel to y=-2 instead of y=-1, which
 //	  throws off more drawing in subtle ways than you'd expect).
 
@@ -1519,13 +1556,13 @@ CSearchBar::BalanceWrap(
 // ------------------------------------------------------------------------------------------
 //		* GetDragMode															 [Protected]
 // ------------------------------------------------------------------------------------------
-//	Overrides SECCustomToolBar implementation and returns FALSE.
+//	Overrides HRMCustomToolBar implementation and returns FALSE.
 //
-//	We mostly just want the functionality of being an SECControlBar because we don't want
-//	to support additional buttons. Unfortunately being an SECCustomToolBar has two important
+//	We mostly just want the functionality of being an HRMControlBar because we don't want
+//	to support additional buttons. Unfortunately being an HRMCustomToolBar has two important
 //	advantages:
 //	* We'll draw more like a toolbar with the drop shadows
-//	* SECDockBar::CalcFixedLayout makes a layout decision based on whether or not
+//	* HRMDockBar::CalcFixedLayout makes a layout decision based on whether or not
 //	  we're a toolbar (it shifts the origin up a pixel to y=-2 instead of y=-1, which
 //	  throws off more drawing in subtle ways than you'd expect).
 
@@ -1539,13 +1576,13 @@ CSearchBar::GetDragMode() const
 // ------------------------------------------------------------------------------------------
 //		* AcceptDrop															 [Protected]
 // ------------------------------------------------------------------------------------------
-//	Overrides SECCustomToolBar implementation and returns FALSE.
+//	Overrides HRMCustomToolBar implementation and returns FALSE.
 //
-//	We mostly just want the functionality of being an SECControlBar because we don't want
-//	to support additional buttons. Unfortunately being an SECCustomToolBar has two important
+//	We mostly just want the functionality of being an HRMControlBar because we don't want
+//	to support additional buttons. Unfortunately being an HRMCustomToolBar has two important
 //	advantages:
 //	* We'll draw more like a toolbar with the drop shadows
-//	* SECDockBar::CalcFixedLayout makes a layout decision based on whether or not
+//	* HRMDockBar::CalcFixedLayout makes a layout decision based on whether or not
 //	  we're a toolbar (it shifts the origin up a pixel to y=-2 instead of y=-1, which
 //	  throws off more drawing in subtle ways than you'd expect).
 
@@ -1572,7 +1609,7 @@ CSearchBar::OnSize(
 	int					cx,
 	int					cy)
 {
-	SECControlBar::OnSize(nType, cx, cy);
+	HRMControlBar::OnSize(nType, cx, cy);
 
 	if (cx && cy)
 	{

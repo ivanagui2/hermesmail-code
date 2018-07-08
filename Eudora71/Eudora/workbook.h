@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////
 // File: workbook.h
 //
-// These are overrides of the standard SECWorkbook and SECWorksheet 
+// These are overrides of the standard HRMWorkbook and HRMWorksheet 
 // classes which implement some Eudora-specific behavior.
 //
 // Copyright (c) 1996-2000 by QUALCOMM, Incorporated
@@ -23,6 +23,43 @@ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
 DAMAGE. */
 
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett on July 8, 2018
+    Changed references to HRMWorksheet to HRMWorksheet.
+
+*/        
+
 //
 ////////////////////////////////////////////////////////////////////////
 
@@ -32,11 +69,11 @@ DAMAGE. */
 ///////////////////////////////////////////////////////////////////////
 // QCWorksheet
 //
-// Override of SECWorksheet implementation to implement some custom
+// Override of HRMWorksheet implementation to implement some custom
 // command handlers and trap window activations for updating the 
 // Auto-Wazoo MDI task bar.
 ///////////////////////////////////////////////////////////////////////
-class QCWorksheet : public SECWorksheet
+class QCWorksheet : public HRMWorksheet 
 {
 	friend class QCWorkbook;
 	DECLARE_DYNCREATE(QCWorksheet);
@@ -78,12 +115,12 @@ protected:
 ///////////////////////////////////////////////////////////////////////
 // QCControlBarWorksheet
 //
-// Enhance default SEC implementation of SECControlBarWorksheet to get
+// Enhance default HRM implementation of HRMControlBarWorksheet to get
 // some the MDI child window behaviors that we need for the QCWorkbook
 // implementation.  Unfortunately, this is largely a parallel implementation
 // of all the same stuff from QCWorksheet.
 ///////////////////////////////////////////////////////////////////////
-class QCControlBarWorksheet : public SECControlBarWorksheet
+class QCControlBarWorksheet : public HRMControlBarWorksheet
 {
 	DECLARE_DYNCREATE(QCControlBarWorksheet)
 
@@ -130,10 +167,10 @@ protected:
 ///////////////////////////////////////////////////////////////////////
 // QCMiniDockFrameWnd
 //
-// Override annoying behavior of SECMiniDockFrameWnd RecalcLayout()
+// Override annoying behavior of HRMMiniDockFrameWnd RecalcLayout()
 // methods which constantly reset the window frame titles.
 ///////////////////////////////////////////////////////////////////////
-class QCMiniDockFrameWnd : public SECMiniDockFrameWnd
+class QCMiniDockFrameWnd : public HRMMiniDockFrameWnd
 {
 	DECLARE_DYNCREATE(QCMiniDockFrameWnd)
 
@@ -168,10 +205,10 @@ protected:
 ///////////////////////////////////////////////////////////////////////
 // QCWorkbook
 //
-// Extension of standard SECWorkbook to get the MDI task bar and
+// Extension of standard HRMWorkbook to get the MDI task bar and
 // drag and drop behaviors that we want.
 ///////////////////////////////////////////////////////////////////////
-class QCWorkbook : public SECWorkbook
+class QCWorkbook : public HRMWorkbook
 {
 	DECLARE_DYNCREATE(QCWorkbook);
 
@@ -187,7 +224,7 @@ protected:
 
 // Overrides
 	// ClassWizard generated virtual function overrides
-	//{{AFX_VIRTUAL(SECWorkbook)
+	//{{AFX_VIRTUAL(HRMWorkbook)
 public:
 	virtual BOOL CreateClient(LPCREATESTRUCT lpCreateStruct, CMenu* pWindowMenu);
 	//}}AFX_VIRTUAL
@@ -199,9 +236,9 @@ public:
 	BOOL InitMDITaskBarTooltips();
 	void ShutdownMDITaskBarTooltips();
 
-	void QCGetTabRect(SECWorksheet* pSheet, CRect& rectTab);
+	void QCGetTabRect(HRMWorksheet* pSheet, CRect& rectTab);
 	void QCGetTaskBarRect(CRect& rectTaskBar) const;
-	void QCUpdateTab(SECWorksheet* pSheet);
+	void QCUpdateTab(HRMWorksheet* pSheet);
 
 	void ResetTaskBar();
 
@@ -211,11 +248,11 @@ protected:
 	//
 	// Override default implementations in base class.
 	//
-	virtual void AddSheet(SECWorksheet* pSheet);
-	virtual void RemoveSheet(SECWorksheet* pSheet);
-	virtual void GetTabPts(SECWorksheet* pSheet, CPoint*& pts, int& count);
-	virtual void OnDrawTab(CDC* pDC, SECWorksheet* pSheet);
-	virtual void OnDrawTabIconAndLabel(CDC* pDC, SECWorksheet* pSheet);
+	virtual void AddSheet(HRMWorksheet* pSheet);
+	virtual void RemoveSheet(HRMWorksheet* pSheet);
+	virtual void GetTabPts(HRMWorksheet* pSheet, CPoint*& pts, int& count);
+	virtual void OnDrawTab(CDC* pDC, HRMWorksheet* pSheet);
+	virtual void OnDrawTabIconAndLabel(CDC* pDC, HRMWorksheet* pSheet);
 	virtual void OnDrawBorder(CDC* pDC);
 	virtual int recalcTabWidth();	// they weren't expect us to override this!  SD 12/22/99
 
@@ -250,11 +287,11 @@ protected:
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP();
 
-	void GetIconAndTextPositions(SECWorksheet* pSheet, CPoint& ptIcon, CRect& rectText);
-	BOOL IsTabLabelTruncated(SECWorksheet* pSheet);
+	void GetIconAndTextPositions(HRMWorksheet* pSheet, CPoint& ptIcon, CRect& rectText);
+	BOOL IsTabLabelTruncated(HRMWorksheet* pSheet);
 	void QCInvalidateAllTabs();
 	void RecalcToolTipRects();
-	SECWorksheet* TabHitTest(const CPoint& ptClient, BOOL bWantActive = TRUE);
+	HRMWorksheet* TabHitTest(const CPoint& ptClient, BOOL bWantActive = TRUE);
 	BOOL IsOnMDIClientAreaBlankSpot(const CPoint& ptClient);
 
 	CFont	m_fontTabBold;		// The font to use for bold tab labels

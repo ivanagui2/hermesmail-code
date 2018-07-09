@@ -1,7 +1,63 @@
+/* Copyright (c) 2016, Computer History Museum 
+All rights reserved. 
+Redistribution and use in source and binary forms, with or without modification, are permitted (subject to 
+the limitations in the disclaimer below) provided that the following conditions are met: 
+ * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. 
+ * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following 
+   disclaimer in the documentation and/or other materials provided with the distribution. 
+ * Neither the name of Computer History Museum nor the names of its contributors may be used to endorse or promote products 
+   derived from this software without specific prior written permission. 
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS LICENSE. THIS SOFTWARE IS PROVIDED BY THE 
+COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
+DAMAGE. */
+
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 9, 2018
+    Removed references to the Stingray Toolkit and replaced them with references
+    to the Hermes UI Toolkit.
+
+*/    
+
 // QC3DTabWnd.cpp : implementation file
 //
 // QC3DTabWnd
-// QC customizations of the SEC3DTabWnd.
+// QC customizations of the HRM3DTabWnd.
 
 #include "stdafx.h"
 
@@ -15,15 +71,15 @@
 
 #include "DebugNewHelpers.h"
 
-IMPLEMENT_DYNCREATE(QC3DTabControl, SEC3DTabControl)
-IMPLEMENT_DYNCREATE(QC3DTabWnd, SEC3DTabWnd)
+IMPLEMENT_DYNCREATE(QC3DTabControl, HRM3DTabControl)
+IMPLEMENT_DYNCREATE(QC3DTabWnd, HRM3DTabWnd)
 
 
 /**********************************************************************/
 /*                           QC3DTabCtrl                              */
 /**********************************************************************/
 
-BEGIN_MESSAGE_MAP(QC3DTabControl, SEC3DTabControl)
+BEGIN_MESSAGE_MAP(QC3DTabControl, HRM3DTabControl)
 	//{{AFX_MSG_MAP(QC3DTabControl)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONUP()
@@ -57,7 +113,7 @@ QC3DTabControl::~QC3DTabControl()
 HICON QC3DTabControl::QCGetIcon(int nTabIndex) const
 {
 	ASSERT(nTabIndex >= 0 && nTabIndex < GetTabCount());
-	SEC3DTab* pTab = GetTabPtr(nTabIndex);
+	HRM3DTab* pTab = GetTabPtr(nTabIndex);
 	if (pTab)
 		return pTab->m_hIcon;
 
@@ -128,7 +184,7 @@ void QC3DTabControl::ActivateTab(int nTab)
 		pWazooWnd->OnActivateWazoo();
 	}
 
-	SEC3DTabControl::ActivateTab(nTab);
+	HRM3DTabControl::ActivateTab(nTab);
 }
 
 
@@ -146,7 +202,7 @@ void QC3DTabControl::OnLButtonDown(UINT nFlags, CPoint point)
 	// Do all the normal button down stuff first, such as activating
 	// the tab window.
 	//
-	SEC3DTabControl::OnLButtonDown(nFlags, point);
+	HRM3DTabControl::OnLButtonDown(nFlags, point);
 
 	m_MouseState = MOUSE_IDLE;
 	m_SavedMouseDownPoint = CPoint(-1, -1);
@@ -175,7 +231,7 @@ void QC3DTabControl::OnLButtonDown(UINT nFlags, CPoint point)
 void QC3DTabControl::OnLButtonUp(UINT nFlags, CPoint point) 
 {
 	//TRACE("QC3DTabControl::OnLButtonUp\n");
-	SEC3DTabControl::OnLButtonUp(nFlags, point);
+	HRM3DTabControl::OnLButtonUp(nFlags, point);
 }
 
 
@@ -198,7 +254,7 @@ void QC3DTabControl::OnMouseMove(UINT nFlags, CPoint pt)
 			ASSERT(m_SavedMouseDownPoint != CPoint(-1, -1));
 			ASSERT(m_nSavedTabIndex != -1);
 			m_MouseState = MOUSE_IS_MOVING;			// indicate we're in the drag part of a click and drag action
-			SEC3DTabControl::OnMouseMove(nFlags, pt);
+			HRM3DTabControl::OnMouseMove(nFlags, pt);
 			return;
 		case MOUSE_IS_MOVING:
 			//
@@ -283,12 +339,12 @@ void QC3DTabControl::OnMouseMove(UINT nFlags, CPoint pt)
 			{
 				pWazooBar->OnBarFloat();
 				VERIFY(pWazooBar->UnlinkFromManager());
-				SECDockBar* pDockBar = (SECDockBar *) pWazooBar->m_pDockBar;
-				ASSERT_KINDOF(SECDockBar, pDockBar);
+				HRMDockBar* pDockBar = (HRMDockBar *) pWazooBar->m_pDockBar;
+				ASSERT_KINDOF(HRMDockBar, pDockBar);
 
 				//
 				// After much experimentation and guessing about how
-				// the SEC docking window code works :-), I'm hopeful
+				// the HRM docking window code works :-), I'm hopeful
 				// that the following calls are sufficient to actually
 				// blow away a control bar.  There are no known examples
 				// of how to do this anywhere that I could find.
@@ -298,7 +354,7 @@ void QC3DTabControl::OnMouseMove(UINT nFlags, CPoint pt)
 
 				//
 				// Here's an ugly hack to remove the to-be-deleted control bar
-				// from the SECDockBar cache of invalidated control bars.
+				// from the HRMDockBar cache of invalidated control bars.
 				// If we don't do this, then an invalid (deleted) pointer
 				// remains in the cache and causes a crash later.
 				//
@@ -335,7 +391,7 @@ void QC3DTabControl::OnMouseMove(UINT nFlags, CPoint pt)
 	m_MouseState = MOUSE_IDLE;
 	m_SavedMouseDownPoint = CPoint(-1, -1);
 	m_nSavedTabIndex = -1;
-	SEC3DTabControl::OnMouseMove(nFlags, pt);
+	HRM3DTabControl::OnMouseMove(nFlags, pt);
 }
 
 
@@ -344,7 +400,7 @@ void QC3DTabControl::OnMouseMove(UINT nFlags, CPoint pt)
 /*                              QC3DTabWnd                            */
 /**********************************************************************/
 
-BEGIN_MESSAGE_MAP(QC3DTabWnd, SEC3DTabWnd)
+BEGIN_MESSAGE_MAP(QC3DTabWnd, HRM3DTabWnd)
 	//{{AFX_MSG_MAP(QC3DTabWnd)
 	ON_WM_PAINT()
 	//}}AFX_MSG_MAP
@@ -387,7 +443,7 @@ HICON QC3DTabWnd::QCGetIcon(int nTabIndex) const
 ////////////////////////////////////////////////////////////////////////
 // QCTabHit [public]
 //
-// Wrapper for the SEC3DTabControl::TabHit() method.
+// Wrapper for the HRM3DTabControl::TabHit() method.
 ////////////////////////////////////////////////////////////////////////
 BOOL QC3DTabWnd::QCTabHit(int nTabIndex, const CPoint& ptScreen)
 {
@@ -548,14 +604,14 @@ void QC3DTabWnd::RecalcLayout()
 
 	if (m_bShowTabs)
 	{
-		SEC3DTabWnd::RecalcLayout();
+		HRM3DTabWnd::RecalcLayout();
 		return;
 	}
 
 	//
 	// m_cxTabCtrl and m_cyTabCtrl are used by
-	// SEC3DTabWnd::GetInsideRect(), so they must be computed here as
-	// in the base class SEC3DTabWnd::RecalcLayout() implementation.
+	// HRM3DTabWnd::GetInsideRect(), so they must be computed here as
+	// in the base class HRM3DTabWnd::RecalcLayout() implementation.
 	//
 	if (m_dwTabCtrlStyle & TCS_TABS_ON_BOTTOM)
 	{
@@ -591,7 +647,7 @@ void QC3DTabWnd::RecalcLayout()
     // Resize tab control
     // Note, the tab control draws it's own border, so
     // no need to subtract border pixels
-    CWnd* pTabCtrl = GetDlgItem(SEC_IDW_TABCTRL);     
+    CWnd* pTabCtrl = GetDlgItem(HRM_IDW_TABCTRL);     
     ASSERT(pTabCtrl != NULL);
     hDWP = ::DeferWindowPos(hDWP, pTabCtrl->m_hWnd, NULL, 0, 0, 0, 0, 
     						SWP_NOZORDER | SWP_NOACTIVATE | SWP_NOCOPYBITS | SWP_NOREDRAW);
@@ -612,7 +668,7 @@ void QC3DTabWnd::RecalcLayout()
 void QC3DTabWnd::OnPaint()
 {
 	if (m_Draw3DBorder)
-		SEC3DTabWnd::OnPaint();
+		HRM3DTabWnd::OnPaint();
 	else
 		Default();
 }

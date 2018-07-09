@@ -53,6 +53,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
     Removed references to Qualcomm's Shareware Manager.
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 8, 2018
+    Removed references to the Stingray Toolkit and replaced them with references 
+    to the Hermes UI Toolkit.
 
 */
 
@@ -143,9 +146,9 @@ static LONG theMap[][2] =
 
 static const int nMinHorzDrag = 1;				// Min. drag distance before we
 
-IMPLEMENT_DYNCREATE( QCCustomToolBar, SECCustomToolBar )
+IMPLEMENT_DYNCREATE( QCCustomToolBar, HRMCustomToolBar )
 
-BEGIN_MESSAGE_MAP(QCCustomToolBar, SECCustomToolBar)
+BEGIN_MESSAGE_MAP(QCCustomToolBar, HRMCustomToolBar)
 	//{{AFX_MSG_MAP(QCCustomToolBar)
 	ON_MESSAGE(WM_USER_QUERY_PALETTE, OnMyQueryNewPalette)
 	ON_WM_PALETTECHANGED()
@@ -181,11 +184,11 @@ QCCustomToolBar::~QCCustomToolBar()
 
 BOOL  QCCustomToolBar::AcceptDrop() const
 {
-	return SECCustomToolBar::AcceptDrop();
+	return HRMCustomToolBar::AcceptDrop();
 }
 
 
-void QCCustomToolBar::DropButton(CRect& dropRect, SECStdBtn* pDragBtn, BOOL bAdd)
+void QCCustomToolBar::DropButton(CRect& dropRect, HRMStdBtn* pDragBtn, BOOL bAdd)
 {
 	// A button has been dropped over me!
 
@@ -237,7 +240,7 @@ void QCCustomToolBar::DropButton(CRect& dropRect, SECStdBtn* pDragBtn, BOOL bAdd
 	}
 
 
-	SECCustomToolBar* pConfigFocus = GetConfigFocus();
+	HRMCustomToolBar* pConfigFocus = GetConfigFocus();
 
 	// Find where to add the button
 	if(GetBtnCount() == 0)
@@ -354,7 +357,7 @@ BOOL QCCustomToolBar::RemoveButton(int nIndex, BOOL bNoUpdate /* = FALSE */, INT
 		pTheFrame->ToolBarButtonDeleted(this, nIndex);
 	}
 
-	return SECCustomToolBar::RemoveButton(nIndex, bNoUpdate, pIndex);
+	return HRMCustomToolBar::RemoveButton(nIndex, bNoUpdate, pIndex);
 }
 
 BOOL QCCustomToolBar::DestroyWindow()
@@ -365,13 +368,13 @@ BOOL QCCustomToolBar::DestroyWindow()
 		pTheFrame->ToolBarDeleted(this);
 	}
 
-	return SECCustomToolBar::DestroyWindow();
+	return HRMCustomToolBar::DestroyWindow();
 }
 
-void QCCustomToolBar::GetBarInfoEx(SECControlBarInfo* pInfo)
+void QCCustomToolBar::GetBarInfoEx(HRMControlBarInfo* pInfo)
 {
-	SECCustomToolBarInfoEx* pEx;
-	pEx = DEBUG_NEW SECCustomToolBarInfoEx;
+	HRMCustomToolBarInfoEx* pEx;
+	pEx = DEBUG_NEW HRMCustomToolBarInfoEx;
 
 	GetWindowText(pEx->m_strBarName);			// My title
 
@@ -384,8 +387,8 @@ void QCCustomToolBar::GetBarInfoEx(SECControlBarInfo* pInfo)
 				( m_btns[i]->m_nID == m_btns[i]->m_ulData ) )
 			{
 				// only process non-customized buttons
-				SECCustomToolBarInfoEx::BtnInfo* pBtnInfo = 
-					DEBUG_NEW SECCustomToolBarInfoEx::BtnInfo;
+				HRMCustomToolBarInfoEx::BtnInfo* pBtnInfo = 
+					DEBUG_NEW HRMCustomToolBarInfoEx::BtnInfo;
 				pBtnInfo->m_nID = (m_btns[i]->m_nStyle & TBBS_SEPARATOR) ? 
 					ID_SEPARATOR : m_btns[i]->m_nID;
 
@@ -950,7 +953,7 @@ BOOL QCCustomToolBar::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 				break;
 			}
 
-			SECStdBtn* pButton = m_btns[ iCurrentButton ];
+			HRMStdBtn* pButton = m_btns[ iCurrentButton ];
 			if( g_theCommandStack.Lookup( wCommandID, &pObject, &theAction ) )
 			{
 				if( theAction == CA_ATTACH_PLUGIN ||
@@ -984,7 +987,7 @@ BOOL QCCustomToolBar::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 		break;
 	}
 	
-	return SECCustomToolBar::OnNotify( wParam, lParam, pResult );
+	return HRMCustomToolBar::OnNotify( wParam, lParam, pResult );
 }
 
 
@@ -1271,7 +1274,7 @@ BOOL QCCustomToolBar::CreateEx(DWORD dwExStyle, CWnd* pParentWnd,
 	m_cyTopBorder    = 1;
 	m_cyBottomBorder = 1;
 
-	if (!SECCustomToolBar::CreateEx(dwExStyle, pParentWnd, dwStyle & CBRS_ALL, nID, lpszTitle))
+	if (!HRMCustomToolBar::CreateEx(dwExStyle, pParentWnd, dwStyle & CBRS_ALL, nID, lpszTitle))
 		return FALSE;
 
 	const DWORD dwNonControlBarStyle = dwStyle & ~CBRS_ALL;
@@ -1301,9 +1304,9 @@ void QCCustomToolBar::ResetImageOffsets()
 // Need to override this base-class function to correctly initialize
 // the ID field of separators.
 //////////////////////////////////////////////////////////////////////
-SECStdBtn* QCCustomToolBar::CreateSeparator(SECCustomToolBar* pToolBar)
+HRMStdBtn* QCCustomToolBar::CreateSeparator(HRMCustomToolBar* pToolBar)
 {
-	SECStdBtn* pBtn = SECCustomToolBar::CreateSeparator(pToolBar);
+	HRMStdBtn* pBtn = HRMCustomToolBar::CreateSeparator(pToolBar);
 
 	if (pBtn)
 		pBtn->m_nID = ID_SEPARATOR;
@@ -1483,7 +1486,7 @@ void QCCustomToolBar::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void QCCustomToolBar::OnWindowPosChanged(WINDOWPOS* lpwndpos)
 {
-	SECCustomToolBar::OnWindowPosChanged(lpwndpos);
+	HRMCustomToolBar::OnWindowPosChanged(lpwndpos);
 
 	// DRW - If you completely remove a toolbar (by floating it then closing
 	// the window) there doesn't seem to be any direct notification to the

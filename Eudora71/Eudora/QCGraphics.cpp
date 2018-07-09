@@ -19,6 +19,44 @@ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
 DAMAGE. */
 
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 8, 2018
+    Removed references to the Stingray Toolkit and replaced them with references
+    to the Hermes UI Toolkit.
+
+*/    
+
 //
 
 #include "stdafx.h"
@@ -71,13 +109,13 @@ bool IsEudoraPaletteCurrent(void)
 	return bCurrent;
 }
 
-SECImage* LoadImage(LPCSTR pURL, int TransparencySysColor /*= COLOR_3DFACE*/)
+HRMImage* LoadImage(LPCSTR pURL, int TransparencySysColor /*= COLOR_3DFACE*/)
 {
-	SECImage* pImage = NULL;
+	HRMImage* pImage = NULL;
 
 	switch (CanHandleImageInternally(pURL))
 	{
-	case IF_BMP:	pImage = DEBUG_NEW_MFCOBJ_NOTHROW SECDib;	break;
+	case IF_BMP:	pImage = DEBUG_NEW_MFCOBJ_NOTHROW HRMDib;	break;
 	case IF_JPEG:	pImage = DEBUG_NEW_MFCOBJ_NOTHROW QCJpeg;	break;
 	case IF_PNG:	pImage = DEBUG_NEW_MFCOBJ_NOTHROW QCPng(TransparencySysColor); break;
 	default:
@@ -121,7 +159,7 @@ bool MetafileFromImage(LPCSTR pURL, QCMetaFileInfo* pMFI, int TransparencySysCol
 	mdc.Create();
 	mdc.SetMapMode(MM_TEXT);
 
-	SECImage* pImage = LoadImage(pURL, TransparencySysColor);
+	HRMImage* pImage = LoadImage(pURL, TransparencySysColor);
 	if (pImage)
 	{
 		::StretchDIBits(mdc.GetSafeHdc(), 0, 0, pImage->m_dwWidth, pImage->m_dwHeight,
@@ -221,14 +259,14 @@ bool CreateJpegFromIcon(HICON hIcon, LPCSTR filename, COLORREF BackColor)
 		}
 	}
 
-	// Create SEC (Stingray) bitmap from MFC bitmap
-	SECDib Dib;
+	// Create HRM (Stingray) bitmap from MFC bitmap
+	HRMDib Dib;
 	Dib.CreateFromBitmap(&cdc, &Bitmap);
 
 	// Unselect bitmap
 	cdc.SelectObject(pOldBitmap);
 
-	// Convert SEC bitmap to a jpeg and save to file
+	// Convert HRM bitmap to a jpeg and save to file
 	QCJpeg Jpeg;
 	Jpeg.ConvertImage(&Dib);
 	Jpeg.SaveImage(filename);
@@ -237,8 +275,8 @@ bool CreateJpegFromIcon(HICON hIcon, LPCSTR filename, COLORREF BackColor)
 }
 
 
-// CreateJpegFromBitmap - creates a SEC bitmap from an MFC bitmap, uses
-// SEC's conversion to an SEC jpeg, then writes it to "filename"
+// CreateJpegFromBitmap - creates a HRM bitmap from an MFC bitmap, uses
+// HRM's conversion to an HRM jpeg, then writes it to "filename"
 //
 bool CreateJpegFromBitmap( CBitmap* pBitmap, LPCSTR filename )
 {
@@ -252,11 +290,11 @@ bool CreateJpegFromBitmap( CBitmap* pBitmap, LPCSTR filename )
 	// Check to see pBitmap is non-NULL before proceeding - CreateFromBitmap
 	// asserts but doesn't bother checking for NULL before calling a CBitmap method.
 	if ( pBitmap && cdc.CreateCDC() ) {
-		SECDib* pDib = DEBUG_NEW_MFCOBJ_NOTHROW SECDib();
+		HRMDib* pDib = DEBUG_NEW_MFCOBJ_NOTHROW HRMDib();
 
 		if ( pDib ) {
 			pDib->CreateFromBitmap( &cdc, pBitmap );
-			SECJpeg* pJpeg = DEBUG_NEW_MFCOBJ_NOTHROW QCJpeg();
+			HRMJpeg* pJpeg = DEBUG_NEW_MFCOBJ_NOTHROW QCJpeg();
 
 			if ( pJpeg ) {
 				pJpeg->ConvertImage( pDib );
@@ -276,7 +314,7 @@ bool CreateJpegFromBitmap( CBitmap* pBitmap, LPCSTR filename )
 BOOL QCJpeg::DoSaveImage(CFile* pFile)
 {
 	m_nQuality = 200;
-	return SECJpeg::DoSaveImage(pFile);
+	return HRMJpeg::DoSaveImage(pFile);
 }
 
 
@@ -316,12 +354,12 @@ static void libpng_error(png_structp png_ptr, png_const_charp message)
 	longjmp(png_ptr->jmpbuf, 1);
 }
 
-QCPng::QCPng(int in_nSystemTransparencySysColor /*= COLOR_3DFACE*/) : SECDib()
+QCPng::QCPng(int in_nSystemTransparencySysColor /*= COLOR_3DFACE*/) : HRMDib()
 {
 	m_crTransparent = GetSysColor(in_nSystemTransparencySysColor);
 }
 
-QCPng::QCPng(COLORREF in_crTransparent) : SECDib()
+QCPng::QCPng(COLORREF in_crTransparent) : HRMDib()
 {
 	m_crTransparent = in_crTransparent;
 }
@@ -549,12 +587,12 @@ BOOL QCPng::LoadImage(LPCTSTR lpszFileName)
 }
 
 
-QCImage::QCImage(int in_nSystemTransparencySysColor /*= COLOR_3DFACE*/) : SECDib()
+QCImage::QCImage(int in_nSystemTransparencySysColor /*= COLOR_3DFACE*/) : HRMDib()
 {
 	m_crTransparent = GetSysColor(in_nSystemTransparencySysColor);
 }
 
-QCImage::QCImage(COLORREF in_crTransparent) : SECDib()
+QCImage::QCImage(COLORREF in_crTransparent) : HRMDib()
 {
 	m_crTransparent = in_crTransparent;
 }

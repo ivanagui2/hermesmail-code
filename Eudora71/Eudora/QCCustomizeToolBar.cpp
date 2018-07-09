@@ -1,3 +1,59 @@
+/* Copyright (c) 2016, Computer History Museum 
+All rights reserved. 
+Redistribution and use in source and binary forms, with or without modification, are permitted (subject to 
+the limitations in the disclaimer below) provided that the following conditions are met: 
+ * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. 
+ * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following 
+   disclaimer in the documentation and/or other materials provided with the distribution. 
+ * Neither the name of Computer History Museum nor the names of its contributors may be used to endorse or promote products 
+   derived from this software without specific prior written permission. 
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS LICENSE. THIS SOFTWARE IS PROVIDED BY THE 
+COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
+DAMAGE. */
+
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 9, 2018
+    Removed references to the Stingray Toolkit and replaced them with references
+    to the Hermes UI Toolkit.
+
+*/        
+
 // QCCustomizeToolBar.cpp: implementation of the QCCustomizeToolBar class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -14,11 +70,11 @@
 
 #include "DebugNewHelpers.h"
 
-extern SEC_AUX_DATA secData;
+extern HRM_AUX_DATA secData;
 
-IMPLEMENT_DYNAMIC(QCCustomizeToolBar, SECCustomizeToolBar);
+IMPLEMENT_DYNAMIC(QCCustomizeToolBar, HRMCustomizeToolBar);
 
-BEGIN_MESSAGE_MAP(QCCustomizeToolBar, SECCustomizeToolBar)
+BEGIN_MESSAGE_MAP(QCCustomizeToolBar, HRMCustomizeToolBar)
 	ON_MESSAGE(WM_USER_QUERY_PALETTE, OnMyQueryNewPalette)
 	ON_WM_PALETTECHANGED()
 	ON_WM_SYSCOLORCHANGE()
@@ -42,7 +98,7 @@ BOOL QCCustomizeToolBar::DragButton(int nIndex, CPoint point)
 {
 	QCToolBarCmdPage*	pParent;
 	UINT				uNewID;
-	SECStdBtn			theButton;		
+	HRMStdBtn			theButton;		
 	
 	SetConfigFocus(nIndex, TRUE);
 
@@ -68,7 +124,7 @@ BOOL QCCustomizeToolBar::DragButton(int nIndex, CPoint point)
 	// Now start the drag ....
 	CRect rect;
 	GetItemRect(nIndex, rect);
-	SECToolBarRectTracker tracker(rect);
+	HRMToolBarRectTracker tracker(rect);
 	
 	if(bAdd)
 		::SetCursor(AfxGetApp()->LoadCursor(IDC_TOOLBAR_DRAGADD));
@@ -81,12 +137,12 @@ BOOL QCCustomizeToolBar::DragButton(int nIndex, CPoint point)
 
 #ifdef _DEBUG
 		if (m_pManager)
-			ASSERT_KINDOF(SECToolBarManager, m_pManager);
+			ASSERT_KINDOF(HRMToolBarManager, m_pManager);
 #endif
 
 		QCCustomToolBar* pToolBar;
 		if( (m_pManager && 
-			(pToolBar = ( QCCustomToolBar* )((SECToolBarManager*)m_pManager)->ToolBarUnderRect(rect)) != NULL) ||
+			(pToolBar = ( QCCustomToolBar* )((HRMToolBarManager*)m_pManager)->ToolBarUnderRect(rect)) != NULL) ||
 		   (pToolBar = ( QCCustomToolBar* )ToolBarFromPoint(rect.left, rect.top)) != NULL ||
 		   (pToolBar = ( QCCustomToolBar* )ToolBarFromPoint(rect.right, rect.top)) != NULL ||
 		   (pToolBar = ( QCCustomToolBar* )ToolBarFromPoint(rect.left, rect.bottom)) != NULL ||
@@ -118,7 +174,7 @@ BOOL QCCustomizeToolBar::DragButton(int nIndex, CPoint point)
 			if(m_pManager != NULL)
 			{
 				CRect tempRect;
-				((SECToolBarManager*)m_pManager)->GetNoDropRect(rect);
+				((HRMToolBarManager*)m_pManager)->GetNoDropRect(rect);
 				if(tempRect.IntersectRect(rect, tracker.m_rect))
 				{
 					// It has been dropped over our no drop rect. So ignore drag
@@ -160,7 +216,7 @@ void QCCustomizeToolBar::OnSysColorChange()
 }
 
 
-void QCCustomizeToolBar::NewToolBar(CPoint pt, SECStdBtn& btn, BOOL bPrompt )
+void QCCustomizeToolBar::NewToolBar(CPoint pt, HRMStdBtn& btn, BOOL bPrompt )
 {
 	UINT				nID;
 	UINT				u;
@@ -224,12 +280,12 @@ void QCCustomizeToolBar::NewToolBar(CPoint pt, SECStdBtn& btn, BOOL bPrompt )
 		}
 	}
 	
-	SECCustomToolBar* pToolBar = ((QCToolBarManager*)m_pManager)->CreateUserToolBar( theDlg.m_szName );
+	HRMCustomToolBar* pToolBar = ((QCToolBarManager*)m_pManager)->CreateUserToolBar( theDlg.m_szName );
 	if(!pToolBar)
 		return;
 
 	// Add the button and give it the config focus.
-	//	SECStdBtn* pBtn = CreateButton(btn.m_nID, pToolBar);
+	//	HRMStdBtn* pBtn = CreateButton(btn.m_nID, pToolBar);
 	//	pToolBar->m_btns.Add(pBtn);
 	
 	pToolBar->AddButton( 0, btn.m_nID, FALSE, TRUE );
@@ -238,7 +294,7 @@ void QCCustomizeToolBar::NewToolBar(CPoint pt, SECStdBtn& btn, BOOL bPrompt )
 	// but button's m_ulData is set to zero. Because of that, Eudora thinks of it as a normal (as opposed to a custom) button
 	// Hence causing VI#6129. 
 	
-	// Altho' pToolBar is a SECCustonToolBar, the below typecase should not hurt what we want to achieve. We set the Button's (whose
+	// Altho' pToolBar is a HRMCustonToolBar, the below typecase should not hurt what we want to achieve. We set the Button's (whose
 	// index would be zero, 'coz it's a new toolbar) m_ulData to the appropriate value rather than zero.
 	((QCCustomToolBar *)pToolBar)->SetButtonData(btn.m_ulData);
 	
@@ -262,10 +318,10 @@ void QCCustomizeToolBar::NewToolBar(CPoint pt, SECStdBtn& btn, BOOL bPrompt )
 	if(!pFrameWnd->IsKindOf(RUNTIME_CLASS(CFrameWnd)))
 		return;
 
-	if (pFrameWnd->IsKindOf(RUNTIME_CLASS(SECMDIFrameWnd)))
-		((SECMDIFrameWnd*)pFrameWnd)->FloatControlBar(pToolBar, pt);
-	else if (pFrameWnd->IsKindOf(RUNTIME_CLASS(SECFrameWnd)))
-		((SECFrameWnd*)pFrameWnd)->FloatControlBar(pToolBar, pt);
+	if (pFrameWnd->IsKindOf(RUNTIME_CLASS(HRMMDIFrameWnd)))
+		((HRMMDIFrameWnd*)pFrameWnd)->FloatControlBar(pToolBar, pt);
+	else if (pFrameWnd->IsKindOf(RUNTIME_CLASS(HRMFrameWnd)))
+		((HRMFrameWnd*)pFrameWnd)->FloatControlBar(pToolBar, pt);
 	else
 		pFrameWnd->FloatControlBar(pToolBar, pt);
 }

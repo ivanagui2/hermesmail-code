@@ -54,6 +54,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     Removed the Notify method as it was only used by Qualcomm's Shareware Manager.
 
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 8, 2018
+    Removed references to teh Stingray Toolkit and replaced them with references
+    to the Hermes UI Toolkit.
+
 */    
 
 #ifndef __SEARCHVIEW_H__
@@ -414,7 +418,7 @@ class CSearchView : public C3DFormView, public QICommandClient
 	CLabelComboBox						m_LabelCombo[MAX_CONTROLS_CRITERIA];
 	CComboBox							m_PersonaCombo[MAX_CONTROLS_CRITERIA];
 	CComboBox							m_PriorityCombo[MAX_CONTROLS_CRITERIA];
-	SECDateTimeCtrl						m_DateTimeCtrl[MAX_CONTROLS_CRITERIA];
+	HRMDateTimeCtrl						m_DateTimeCtrl[MAX_CONTROLS_CRITERIA];
 
 	CResultsListCtrl					m_ResultsList;
 	CTabCtrl							m_ResultsMbxTabCtrl;

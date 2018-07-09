@@ -53,6 +53,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
     Removed references to Qualcomm's Shareware Manager.
+File revised by Jeff Prickett                    on July 8, 2018
+    Removed references to the Stingray Toolkit and replaced them with references
+    to the Hermes UI Toolkit
+        
 */    
 
 //
@@ -270,13 +274,13 @@ static UINT BASED_CODE theHelpButtons[] =
 	ID_APP_ABOUT
 };
 
-IMPLEMENT_DYNAMIC( QCToolBarManagerWithBM, SECToolBarManager )
+IMPLEMENT_DYNAMIC( QCToolBarManagerWithBM, HRMToolBarManager )
 IMPLEMENT_DYNAMIC( QCToolBarManager, QCToolBarManagerWithBM )
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-QCToolBarManagerWithBM::QCToolBarManagerWithBM( CFrameWnd*	pFrameWnd ) : SECToolBarManager(pFrameWnd) 
+QCToolBarManagerWithBM::QCToolBarManagerWithBM( CFrameWnd*	pFrameWnd ) : HRMToolBarManager(pFrameWnd) 
 {
 
 }
@@ -312,9 +316,9 @@ BOOL QCToolBarManager::LargeButtonsEnabled()
 }
 
 
-// c_dalew 10/11/99 - This is a version of SECToolBarManager::EnableLargeBtns()
+// c_dalew 10/11/99 - This is a version of HRMToolBarManager::EnableLargeBtns()
 // that allows more than one bitmap resource.  This code is a combination of
-// SECToolBarManager::EnableLargeBtns() which switches the toolbar to/from large
+// HRMToolBarManager::EnableLargeBtns() which switches the toolbar to/from large
 // buttons and QCToolBarManager::LoadToolBarResource() which loads a toolbar from
 // multiple bitmap resources.
 BOOL QCToolBarManager::QCEnableLargeBtns(BOOL bEnable, BOOL bForceSwitch)
@@ -378,7 +382,7 @@ BOOL QCToolBarManager::QCEnableLargeBtns(BOOL bEnable, BOOL bForceSwitch)
 		lpszNameB = MAKEINTRESOURCE(SMALL_TOOLBARS_B);
 	}
 
-	if (!SECLoadToolBarResource(lpszName, m_bmp, m_pBmpItems, m_nBmpItems, m_nImgWidth, m_nImgHeight))
+	if (!HRMLoadToolBarResource(lpszName, m_bmp, m_pBmpItems, m_nBmpItems, m_nImgWidth, m_nImgHeight))
 		return false;
 
 	VERIFY(m_bmp.GetObject(sizeof(bmp1), &bmp1));
@@ -386,13 +390,13 @@ BOOL QCToolBarManager::QCEnableLargeBtns(BOOL bEnable, BOOL bForceSwitch)
 	int iToolbarDisplayFix = GetIniShort(IDS_INI_TOOLBAR_DISPLAY_FIX);
 	if (iToolbarDisplayFix < 2)
 	{
-		if (!::SECLoadToolBarResource(	lpszNameA, 
+		if (!::HRMLoadToolBarResource(	lpszNameA, 
 										theBitmapA, 
 										pBmpItemsA, 
 										nBmpItemsA, 
 										nImgWidthA, 
 										nImgHeightA) || 
-			!::SECLoadToolBarResource(	lpszNameB, 
+			!::HRMLoadToolBarResource(	lpszNameB, 
 										theBitmapB, 
 										pBmpItemsB, 
 										nBmpItemsB, 
@@ -451,7 +455,7 @@ BOOL QCToolBarManager::QCEnableLargeBtns(BOOL bEnable, BOOL bForceSwitch)
 		{
 			// DRW - Some users see messed up toolbar buttons.  Try building the toolbar with
 			// StretchDIBits() rather than BitBlt().  Who knows, maybe this will do the trick.
-			SECDib		secDIB2;
+			HRMDib		secDIB2;
 			theSrcDC.SelectObject(&m_bmp);
 			secDIB2.CreateFromBitmap(&theSrcDC, &m_bmp);
 			::StretchDIBits(
@@ -527,7 +531,7 @@ BOOL QCToolBarManager::QCEnableLargeBtns(BOOL bEnable, BOOL bForceSwitch)
 		m_pBmpItems = pBmpItems;
 	}
 
-	// c_dalew 10/11/99 - And now back to the code taken from SECToolBarManager::EnableLargeBtns().
+	// c_dalew 10/11/99 - And now back to the code taken from HRMToolBarManager::EnableLargeBtns().
 
 	if(pOldBmpItems)
 	{
@@ -552,9 +556,9 @@ BOOL QCToolBarManager::QCEnableLargeBtns(BOOL bEnable, BOOL bForceSwitch)
 			CControlBar* pBar = (CControlBar*) 
 				m_pFrameWnd->m_listControlBars.GetNext(pos);
 
-			if(pBar->IsKindOf(RUNTIME_CLASS(SECCustomToolBar)))
+			if(pBar->IsKindOf(RUNTIME_CLASS(HRMCustomToolBar)))
 			{
-				SECCustomToolBar* pToolBar = (SECCustomToolBar*) pBar;
+				HRMCustomToolBar* pToolBar = (HRMCustomToolBar*) pBar;
 				SetToolBarInfo(pToolBar);
 
 				if(pToolBar->IsFloating())
@@ -599,7 +603,7 @@ BOOL QCToolBarManagerWithBM::AddButtonImage( CBitmap& theNewButtonBitmap, UINT u
 	pBmpOldDest = ( CBitmap* ) theDestDC.SelectObject( &theNewBM );	
 	VERIFY(m_pFrameWnd->ReleaseDC(pDC));
 
-	SECDib		secDIB;
+	HRMDib		secDIB;
 
 	secDIB.CreateFromBitmap(&theSrcDC, &m_bmp);
 	::StretchDIBits(
@@ -651,9 +655,9 @@ BOOL QCToolBarManagerWithBM::AddButtonImage( CBitmap& theNewButtonBitmap, UINT u
 		CControlBar* pBar = (CControlBar*) 
 			m_pFrameWnd->m_listControlBars.GetNext(pos);
 
-		if(pBar->IsKindOf(RUNTIME_CLASS(SECCustomToolBar)))
+		if(pBar->IsKindOf(RUNTIME_CLASS(HRMCustomToolBar)))
 		{
-			SetToolBarInfo( ( SECCustomToolBar* ) pBar );
+			SetToolBarInfo( ( HRMCustomToolBar* ) pBar );
 		}
 	}
 
@@ -1074,7 +1078,7 @@ void QCToolBarManager::OnCustomize()
 	INT								iMajorVersion;
 	INT								iMinorVersion;
 	CString							szDllPathname;
-	SECToolBarSheet					toolbarSheet( IDS_TOOLBAR_CUSTOMIZE, ::AfxGetMainWnd() );
+	HRMToolBarSheet					toolbarSheet( IDS_TOOLBAR_CUSTOMIZE, ::AfxGetMainWnd() );
 	QCCustomizeGeneralPage			theGeneralPage;
 	QCMailboxCustomizeToolbarPage	theMailboxPage;
 	QCCustomizePluginsPage			thePluginsPage;
@@ -1093,7 +1097,7 @@ void QCToolBarManager::OnCustomize()
 
 	theGeneralPage.SetManager( this );
 	
-	// Have to make these non-temporaries because the SEC code doesn't make copies
+	// Have to make these non-temporaries because the HRM code doesn't make copies
 	// of them, but instead just keeps pointers to the character buffers
 	CRString FileLabel(IDS_TOOLBAR_CUSTOM_FILE);
 	CRString EditLabel(IDS_TOOLBAR_CUSTOM_EDIT);
@@ -1147,8 +1151,8 @@ void QCToolBarManager::OnCustomize()
 }
 
 
-// c_dalew 10/11/99 - Override of SECToolBarManager::LoadState() that calls
-// QCEnableLargeBtns().  I really hate doing this, but SECToolBarManager::EnableLargeBtns()
+// c_dalew 10/11/99 - Override of HRMToolBarManager::LoadState() that calls
+// QCEnableLargeBtns().  I really hate doing this, but HRMToolBarManager::EnableLargeBtns()
 // is not virtual but I need to override it to load the toolbar from multiple resources.
 void QCToolBarManager::QCLoadState(LPCTSTR lpszProfileName)
 {
@@ -1184,15 +1188,15 @@ void QCToolBarManager::QCLoadState(LPCTSTR lpszProfileName)
 	// c_dalew 10/11/99 - This is the only change I made to this method's functionality.
 	QCEnableLargeBtns(bVal);
 
-	// Iterate through all SECCustomToolBars setting
+	// Iterate through all HRMCustomToolBars setting
 	// us as its manager.
 	int nToolbars = 0;
 	CPtrList& list = m_pFrameWnd->m_listControlBars;
 	POSITION pos = list.GetHeadPosition();
 	while(pos != NULL)
 	{
-		SECCustomToolBar* pBar = (SECCustomToolBar*) list.GetNext(pos);
-		if(pBar->IsKindOf(RUNTIME_CLASS(SECCustomToolBar))) {
+		HRMCustomToolBar* pBar = (HRMCustomToolBar*) list.GetNext(pos);
+		if(pBar->IsKindOf(RUNTIME_CLASS(HRMCustomToolBar))) {
 			pBar->SetManager(this);
 			nToolbars++;
 		}
@@ -1208,7 +1212,7 @@ void QCToolBarManager::QCLoadState(LPCTSTR lpszProfileName)
 void QCToolBarManager::LoadState(LPCTSTR lpszProfileName)
 {
 	CString				szSection;
-	SECCustomToolBar*	pToolBar;
+	HRMCustomToolBar*	pToolBar;
 	POSITION			pos;
 
 	// c_dalew 10/11/99 - Call our version of LoadState().  See note on QCLoadState()
@@ -1219,7 +1223,7 @@ void QCToolBarManager::LoadState(LPCTSTR lpszProfileName)
 	
 	while(pos != NULL)
 	{
-		pToolBar = (SECCustomToolBar*) m_pFrameWnd->m_listControlBars.GetNext(pos);
+		pToolBar = (HRMCustomToolBar*) m_pFrameWnd->m_listControlBars.GetNext(pos);
 
 		if( pToolBar->IsKindOf( RUNTIME_CLASS( QCCustomToolBar ) ) )
 		{
@@ -1235,16 +1239,16 @@ void QCToolBarManager::LoadState(LPCTSTR lpszProfileName)
 void QCToolBarManager::SaveState(LPCTSTR lpszProfileName)
 {
 	CString				szSection;
-	SECCustomToolBar*	pToolBar;
+	HRMCustomToolBar*	pToolBar;
 	POSITION			pos;
 
-	SECToolBarManager::SaveState( lpszProfileName );
+	HRMToolBarManager::SaveState( lpszProfileName );
 
 	pos = m_pFrameWnd->m_listControlBars.GetHeadPosition();
 	
 	while(pos != NULL)
 	{
-		pToolBar = (SECCustomToolBar*) m_pFrameWnd->m_listControlBars.GetNext(pos);
+		pToolBar = (HRMCustomToolBar*) m_pFrameWnd->m_listControlBars.GetNext(pos);
 
 		if( pToolBar->IsKindOf( RUNTIME_CLASS( QCCustomToolBar ) ) )
 		{
@@ -1278,13 +1282,13 @@ BOOL QCToolBarManager::ConvertOldStuff()
 }
 
 
-SECCustomToolBar* QCToolBarManager::CreateUserToolBar(
+HRMCustomToolBar* QCToolBarManager::CreateUserToolBar(
 										LPCTSTR lpszTitle /* = NULL */,
 										DWORD dwStyle,
 										DWORD dwExStyle)
 {
 	// Creates a 'user' toolbar. First find an ID to use
-	int nID = SEC_IDW_FIRST_USER_TOOLBAR;
+	int nID = HRM_IDW_FIRST_USER_TOOLBAR;
 	BOOL bFound = TRUE;
 	CPtrList& list = m_pFrameWnd->m_listControlBars;
 	while(bFound)
@@ -1294,7 +1298,7 @@ SECCustomToolBar* QCToolBarManager::CreateUserToolBar(
 		while(pos != NULL)
 		{
 			CControlBar* pBar = (CControlBar*) list.GetNext(pos);
-			if(pBar->IsKindOf(RUNTIME_CLASS(SECCustomToolBar)))
+			if(pBar->IsKindOf(RUNTIME_CLASS(HRMCustomToolBar)))
 			{
 				if(pBar->GetDlgCtrlID() == nID)
 				{
@@ -1318,14 +1322,14 @@ SECCustomToolBar* QCToolBarManager::CreateUserToolBar(
 	if(!pToolBar)
 		return NULL;
 
-	ASSERT_KINDOF(SECCustomToolBar, pToolBar);
+	ASSERT_KINDOF(HRMCustomToolBar, pToolBar);
 
 	pToolBar->SetManager(this);
 
 	// Give the toolbar a default title.
 	TCHAR szBuffer[128];
 	if(!lpszTitle)
-		wsprintf(szBuffer, _T("ToolBar%d"), nID - SEC_IDW_FIRST_USER_TOOLBAR + 1);
+		wsprintf(szBuffer, _T("ToolBar%d"), nID - HRM_IDW_FIRST_USER_TOOLBAR + 1);
 	else
 		lstrcpy(szBuffer, lpszTitle);
 
@@ -1345,7 +1349,7 @@ SECCustomToolBar* QCToolBarManager::CreateUserToolBar(
 	}
 	
 	// had to over write this function so that QCCustomToolBar::CreateEx 
-	// was called instead of SECCustomToolBar::CreateEx
+	// was called instead of HRMCustomToolBar::CreateEx
 	pToolBar->CreateEx(dwExStyle, m_pFrameWnd, dwStyle, nID, szBuffer);
 	
 	SetToolBarInfo(pToolBar);
@@ -1358,15 +1362,15 @@ SECCustomToolBar* QCToolBarManager::CreateUserToolBar(
 }
 
 
-CControlBar* QCToolBarManager::DynCreateControlBar(SECControlBarInfo* pBarInfo)
+CControlBar* QCToolBarManager::DynCreateControlBar(HRMControlBarInfo* pBarInfo)
 {
 	CControlBar* pBar = NULL;
 
 	switch ( pBarInfo->m_dwBarTypeID )
 	{
-	case CBT_SECCUSTOMTOOLBAR:
+	case CBT_HRMCUSTOMTOOLBAR:
 		{
-			// It's an SECCustomToolBar - better create it.
+			// It's an HRMCustomToolBar - better create it.
 			ASSERT(m_pToolBarClass != NULL);
 			QCCustomToolBar* pToolBar = (QCCustomToolBar*) 
 											m_pToolBarClass->CreateObject();
@@ -1388,11 +1392,11 @@ CControlBar* QCToolBarManager::DynCreateControlBar(SECControlBarInfo* pBarInfo)
 
 			if( pBarInfo->m_pBarInfoEx != NULL ) 
 			{
-				ASSERT_KINDOF( SECCustomToolBarInfoEx, pBarInfo->m_pBarInfoEx );
+				ASSERT_KINDOF( HRMCustomToolBarInfoEx, pBarInfo->m_pBarInfoEx );
 
 				VERIFY(pToolBar->CreateEx(dwExStyle, m_pFrameWnd, dwStyle,
 										  pBarInfo->m_nBarID,
-										  ( ( SECCustomToolBarInfoEx* ) ( pBarInfo->m_pBarInfoEx ) )->m_strBarName));
+										  ( ( HRMCustomToolBarInfoEx* ) ( pBarInfo->m_pBarInfoEx ) )->m_strBarName));
 			}
 			else
 			{
@@ -1407,7 +1411,7 @@ CControlBar* QCToolBarManager::DynCreateControlBar(SECControlBarInfo* pBarInfo)
 		}
 		break;
 	default:
-		pBar = SECControlBarManager::DynCreateControlBar(pBarInfo);
+		pBar = HRMControlBarManager::DynCreateControlBar(pBarInfo);
 		break;
 	}
 

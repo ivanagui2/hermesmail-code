@@ -57,6 +57,9 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
     Removed references to the UsingFullFeatureSet method of Qualcomm's
     Shareware Manager.
+File revised by Jeff Prickett                    on July 9, 2018
+    Removed references to the Stingray Toolkit and replaed them with references
+    to the Hermes UI Toolkit.
 
 */
 
@@ -377,11 +380,11 @@ void CPersonalityView::GetCommandTarget(CSummary *& out_pSummary, CTocFrame *& o
 	CWazooWnd *			pParentWazoo = reinterpret_cast<CWazooWnd *>( GetParent() );
 	ASSERT_KINDOF(CWazooWnd, pParentWazoo);
 
-	SECControlBar *		pParentBar = NULL;
+	HRMControlBar *		pParentBar = NULL;
 	if (pParentWazoo)
 	{
-		pParentBar = reinterpret_cast<SECControlBar *>( pParentWazoo->GetParentControlBar() );
-		ASSERT_KINDOF(SECControlBar, pParentBar);
+		pParentBar = reinterpret_cast<HRMControlBar *>( pParentWazoo->GetParentControlBar() );
+		ASSERT_KINDOF(HRMControlBar, pParentBar);
 	}
 	
 	//	Make sure we have the pParentBar as expected

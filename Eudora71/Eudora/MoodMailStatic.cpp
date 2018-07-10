@@ -1,3 +1,59 @@
+/* Copyright (c) 2016, Computer History Museum 
+All rights reserved. 
+Redistribution and use in source and binary forms, with or without modification, are permitted (subject to 
+the limitations in the disclaimer below) provided that the following conditions are met: 
+ * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. 
+ * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following 
+   disclaimer in the documentation and/or other materials provided with the distribution. 
+ * Neither the name of Computer History Museum nor the names of its contributors may be used to endorse or promote products 
+   derived from this software without specific prior written permission. 
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS LICENSE. THIS SOFTWARE IS PROVIDED BY THE 
+COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
+DAMAGE. */
+
+/*
+
+HERMES MESSENGER SOFTWARE LICENSE AGREEMENT | Hermes Messenger Client Source Code
+Copyright (c) 2018, Hermes Messenger Development Team. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted (subject to the limitations in the disclaimer below) provided that 
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list 
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this 
+list of conditions and the following disclaimer in the documentation and/or 
+other materials provided with the distribution.
+
+Neither the name of Hermes Messenger nor the names of its contributors
+may be used to endorse or promote products derived from this software without 
+specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY’S PATENT RIGHTS ARE GRANTED BY THIS 
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+“AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+File revised by Jeff Prickett (kg4ygs@gmail.com) on July 9, 2018
+    Removed references to the Stingray Toolkit and replaced them with references 
+    to the Hermes UI Toolkit.
+
+*/    
+
 // MoodMailStatic.cpp : implementation file
 //
 
@@ -31,7 +87,7 @@ CMoodMailStatic::~CMoodMailStatic()
 
 void CMoodMailStatic::AdjustSize()
 {
-	SECStdBtn::AdjustSize();
+	HRMStdBtn::AdjustSize();
 
 }
 void CMoodMailStatic::SetScore(int nScore)
@@ -47,10 +103,10 @@ int CMoodMailStatic::GetScore()
 ////////////////////////////////////////////////////////////////////////
 // DrawFace [protected, virtual]
 //
-// Override of SECStdBtn::DrawFace() implemenation.  Handles the details
+// Override of HRMStdBtn::DrawFace() implemenation.  Handles the details
 // of drawing the face of the wider-than-average "Send/Queue" button.
 ////////////////////////////////////////////////////////////////////////
-void CMoodMailStatic::DrawFace(SECBtnDrawData& data, BOOL bForce, int& x, int& y, 
+void CMoodMailStatic::DrawFace(HRMBtnDrawData& data, BOOL bForce, int& x, int& y, 
 						 int& nWidth, int& nHeight, int nImgWidth)
 {
 /*	static BOOL bImagesAdded = FALSE;
@@ -60,7 +116,7 @@ void CMoodMailStatic::DrawFace(SECBtnDrawData& data, BOOL bForce, int& x, int& y
 		bImagesAdded = TRUE;
 	}
 
-	extern SEC_AUX_DATA secData;
+	extern HRM_AUX_DATA secData;
 
 	// Draw the face of the button to m_drawDC (bForce causes the button to
 	// be drawn up and enabled).
@@ -98,7 +154,7 @@ void CMoodMailStatic::DrawFace(SECBtnDrawData& data, BOOL bForce, int& x, int& y
 		// Offset image to give impression of movement.
 		xImg++; yImg++;
 	}
-	else if(bCool && (m_nStyle & SEC_TBBS_RAISED) && !bForce)
+	else if(bCool && (m_nStyle & HRM_TBBS_RAISED) && !bForce)
 	{
 		data.m_drawDC.Draw3dRect(x, y, nWidth, nHeight, secData.clrBtnHilite,
 					 			 secData.clrBtnShadow);
@@ -137,7 +193,7 @@ void CMoodMailStatic::DrawFace(SECBtnDrawData& data, BOOL bForce, int& x, int& y
 	//m_listMoodImages.Draw(&data.m_drawDC, m_nScore, CPoint(8,4), ILD_NORMAL);
 		// Button is up
 	// Lets start with filling the background
-	extern SEC_AUX_DATA secData;
+	extern HRM_AUX_DATA secData;
 	data.m_drawDC.FillSolidRect(x, y, nWidth, nHeight, secData.clrBtnFace);
 	if(GetIniShort( IDS_INI_MOOD_MAIL_CHECK ))
 		g_theMoodImageList.Draw(m_nScore, 5, 4, &data.m_drawDC, RGB(192, 192, 192));

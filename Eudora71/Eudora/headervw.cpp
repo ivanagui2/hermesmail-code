@@ -59,6 +59,9 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     a Pro mode.
 File revised by Jeff Prickett                    on July 6, 2018
     Removing additional references to Qualcomm's Shareware Manager.
+File revised by Jeff Prickett                    on July 10, 2018
+    Removing references to the Stingray Toolkit and replacing them with references
+    to the Hermes UI Toolkit.
 
 */    
 
@@ -473,7 +476,7 @@ void CHeaderView::OnKillFocusHeader()
 	if (doc->GetTitle() != buf)
 	{
 	    doc->ReallySetTitle(buf);
-	    ((CMainFrame*)AfxGetMainWnd())->QCUpdateTab((SECWorksheet*)GetParentFrame());
+	    ((CMainFrame*)AfxGetMainWnd())->QCUpdateTab((HRMWorksheet*)GetParentFrame());
 	}
     }
 }

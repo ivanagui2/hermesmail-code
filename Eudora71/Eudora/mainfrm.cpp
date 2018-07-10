@@ -60,6 +60,9 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
     Removed additional references to Qualcomm's Shareware Maanager.
     Removed code segments specific to demo builds that have a expiration date.
     Removed code segments specific to payment and registration
+File revised by Jeff Prickett                    on July 9, 2018
+    Removed references to the Stingray Toolkit and replaced them with references
+    to the Hermes UI Toolkit.
 
 */
 
@@ -362,14 +365,14 @@ CAdInfo::~CAdInfo()
 ///////////////////////////////////////////////////////////////////////
 // QCWorkbookClient
 //
-// Derivation of SECWorkbookClient (MDI Client Window) to hook messages 
+// Derivation of HRMWorkbookClient (MDI Client Window) to hook messages 
 // destined for the MDI client window.
 ///////////////////////////////////////////////////////////////////////
 
 
 #include "qtwrapper.h"
 
-class QCWorkbookClient : public SECWorkbookClient
+class QCWorkbookClient : public HRMWorkbookClient
 { 
     DECLARE_DYNCREATE(QCWorkbookClient);
 
@@ -400,9 +403,9 @@ protected:
 };
 
 
-IMPLEMENT_DYNCREATE(QCWorkbookClient, SECWorkbookClient)
+IMPLEMENT_DYNCREATE(QCWorkbookClient, HRMWorkbookClient)
 
-BEGIN_MESSAGE_MAP(QCWorkbookClient, SECWorkbookClient)
+BEGIN_MESSAGE_MAP(QCWorkbookClient, HRMWorkbookClient)
         //{{AFX_MSG_MAP(QCWorkbookClient)
         //}}AFX_MSG_MAP
 END_MESSAGE_MAP()
@@ -834,10 +837,10 @@ bool CMainFrame::FinishInitAndShowWindow(
 		return false;
 
 	//	Do the first half of what CMainFrame::LoadBarState (or more accurately
-	//	SECMDIFrameWnd::LoadBarState) used to do. This will allow us to check
+	//	HRMMDIFrameWnd::LoadBarState) used to do. This will allow us to check
 	//	for the previous existence of the Search Bar (or any other future
 	//	dynamically created toolbars).
-	SECDockState state(m_pControlBarManager);
+	HRMDockState state(m_pControlBarManager);
 	if (AfxGetThread()->m_pMainWnd == NULL)
 		AfxGetThread()->m_pMainWnd = this;
 	state.LoadState( _T("ToolBar") );
@@ -850,7 +853,7 @@ bool CMainFrame::FinishInitAndShowWindow(
 
 	for (int i = 0; (i < state.m_arrBarInfo.GetSize()) && !bSearchBarConfigInINI; i++)
 	{
-		SECControlBarInfo *		pInfo = reinterpret_cast<SECControlBarInfo *>( state.m_arrBarInfo[i] );
+		HRMControlBarInfo *		pInfo = reinterpret_cast<HRMControlBarInfo *>( state.m_arrBarInfo[i] );
 		ASSERT(pInfo != NULL);
 
 		if (!pInfo)
@@ -938,7 +941,7 @@ bool CMainFrame::FinishInitAndShowWindow(
 
 	//	Set the dock state now that the Search Bar has been initialized (if appropriate).
 	//	This completes the work previously done by CMainFrame::LoadBarState (or more
-	//	accurately SECMDIFrameWnd::LoadBarState).
+	//	accurately HRMMDIFrameWnd::LoadBarState).
 	SetDockState(state);
 	pMgr->LoadState(_T("ToolBar"));
 
@@ -980,12 +983,12 @@ bool CMainFrame::FinishInitAndShowWindow(
 	if( pMgr->ConvertOldStuff() )
 		SaveBarState(_T("ToolBar"));
 
-	// DRW - Both Eudora and the SEC toolbar maintain their own INI entries
+	// DRW - Both Eudora and the HRM toolbar maintain their own INI entries
 	// for cool look and large buttons and when LoadState() is called above
-	// it uses the SEC INI entries and ignores Eudora's entries.  Since we really
+	// it uses the HRM INI entries and ignores Eudora's entries.  Since we really
 	// want to use the Eudora entries (the entries that the "Tools|Options"
 	// dialog uses) we should check the Eudora INI entries after the
-	// SEC toolbar code has had its shot.
+	// HRM toolbar code has had its shot.
 	pMgr->EnableCoolLook(GetIniShort(IDS_INI_SHOW_COOLBAR) != 0);
 	pMgr->QCEnableLargeBtns(bEnableLargeButtons);
 
@@ -1024,7 +1027,7 @@ bool CMainFrame::FinishInitAndShowWindow(
 //FORNOW		DockControlBarEx(&m_wndWazooBar2, AFX_IDW_DOCKBAR_BOTTOM, 0, 0, (float)1.00, 180);
 //FORNOW	}
 
-	SECControlBar::m_bOptimizedRedrawEnabled = FALSE;
+	HRMControlBar::m_bOptimizedRedrawEnabled = FALSE;
 
 	//
 	// Set visibility of Auto-Wazoo task bar and intialize the tooltips
@@ -1059,7 +1062,7 @@ bool CMainFrame::FinishInitAndShowWindow(
 		
 		if (pEudoraApp)
 		{
-			// The SEC stuff messes with the system color, which would make the splash
+			// The HRM stuff messes with the system color, which would make the splash
 			// screen get redrawn as gray. Force the dialog oolors to the system colors.
 			pEudoraApp->ResetDialogColors();
 		}
@@ -1248,8 +1251,8 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pCreateCont
 ////////////////////////////////////////////////////////////////////////
 // CreateClient [public, virtual]
 //
-// Override of MFC and SEC base class implementations which installs
-// our MDI client window in favor of the SEC MDI client window.
+// Override of MFC and HRM base class implementations which installs
+// our MDI client window in favor of the HRM MDI client window.
 ////////////////////////////////////////////////////////////////////////
 BOOL CMainFrame::CreateClient(LPCREATESTRUCT lpCreateStruct, CMenu* pWindowMenu)
 {
@@ -1570,8 +1573,8 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
     	    POSITION			pos;
     	    pos = m_listControlBars.GetHeadPosition();
     	    while(pos != NULL) {
-    		SECCustomToolBar*	pToolBar;
-    		pToolBar = (SECCustomToolBar*) m_listControlBars.GetNext(pos);
+    		HRMCustomToolBar*	pToolBar;
+    		pToolBar = (HRMCustomToolBar*) m_listControlBars.GetNext(pos);
 
     		if( pToolBar->IsKindOf( RUNTIME_CLASS( QCCustomToolBar ) ) ) {
     		    szSection.Format( "%s-BarID%lu", "ToolBar",
@@ -1677,7 +1680,7 @@ void CMainFrame::OnTimer(UINT nIDEvent)
 				// Check to see if we're over an "inactive" tab button.  If so,
 				// then handle the auto-activate behavior here.
 				//
-				SECWorksheet* pHitInactiveSheet = TabHitTest(pt, FALSE);
+				HRMWorksheet* pHitInactiveSheet = TabHitTest(pt, FALSE);
 				if (pHitInactiveSheet)
 				{
 					//
@@ -1977,14 +1980,14 @@ void CMainFrame::EnableDocking(DWORD dwDockStyle)
 	// Code pilfered from OT, and slightly modified to create our own dock bar
 	for (int i = 0; i < 4; i++)
 	{
-		if (dwSECDockBarMap[i][1] & dwDockStyle & CBRS_ALIGN_ANY)		   // protected
+		if (dwHRMDockBarMap[i][1] & dwDockStyle & CBRS_ALIGN_ANY)		   // protected
 		{
-			CDockBar* pDock = (CDockBar*)GetControlBar(dwSECDockBarMap[i][0]);
+			CDockBar* pDock = (CDockBar*)GetControlBar(dwHRMDockBarMap[i][0]);
 			if (pDock == NULL)
 			{
 				pDock = DEBUG_NEW QCDockBar;
 				pDock->Create(this, WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_CHILD | WS_VISIBLE |
-									dwSECDockBarMap[i][1], dwSECDockBarMap[i][0]);
+									dwHRMDockBarMap[i][1], dwHRMDockBarMap[i][0]);
 			}
 		}
 	}
@@ -2280,11 +2283,11 @@ BOOL CMainFrame::SaveOpenWindows(BOOL Close)
 		{
 			//
 			// The only known MDI Child windows without documents are the
-			// MDI Wazoo container windows.  The SECControl stuff takes
+			// MDI Wazoo container windows.  The HRMControl stuff takes
 			// care of handling the save/restore of these windows so
 			// we don't have to worry about these here.
 			//
-			ASSERT_KINDOF(SECWorksheet, Win);
+			ASSERT_KINDOF(HRMWorksheet, Win);
 			continue;
 		}
 		if (Close && !doc->CanCloseFrame(Win))
@@ -2801,9 +2804,9 @@ BOOL CMainFrame::PreTranslateMessage(MSG* pMsg)
 		CPopupText::Instance()->RelayEvent(pMsg);
 	
 	ASSERT(m_pControlBarManager != NULL);
-	ASSERT_KINDOF(SECToolBarManager, m_pControlBarManager);
+	ASSERT_KINDOF(HRMToolBarManager, m_pControlBarManager);
 
-	if(((SECToolBarManager*)m_pControlBarManager)->IsMainFrameEnabled())
+	if(((HRMToolBarManager*)m_pControlBarManager)->IsMainFrameEnabled())
 	{
 		// Stop the application closing with a customize dialog still active
 		if(pMsg->message == WM_SYSCOMMAND && pMsg->wParam == SC_CLOSE)
@@ -3090,7 +3093,7 @@ void CMainFrame::OnDestroy()
 	// wrapper attached to the MDI client's HWND.  If we don't do
 	// this, then MFC gets upset when it tries to dispatch the
 	// WM_DESTROY message to the bogus CWnd wrapper's WindowProc().
-	// The CWnd wrapper is destroyed by the SEC base class.
+	// The CWnd wrapper is destroyed by the HRM base class.
 	//
 	ASSERT_VALID(m_pWBClient);
 	ASSERT(m_pWBClient->GetSafeHwnd() == m_hWndMDIClient);
@@ -3785,7 +3788,7 @@ void CMainFrame::OnSaveAll()
 //
 // Workaround for a nasty toolbar bug.  That is, if you customize your
 // toolbar and add a "File:Exit" button, clicking the File:Exit button
-// will cause Eudora to crash since the SEC toolbar stuff handles the
+// will cause Eudora to crash since the HRM toolbar stuff handles the
 // command via SendMessage().  Therefore, the workaround is to rig
 // the toolbar File:Exit to generate a "ID_FAKE_APP_EXIT" command
 // which is then converted to a real ID_APP_EXIT here via PostMessage().
@@ -3825,8 +3828,8 @@ CCompMessageDoc* CMainFrame::HuntForTopmostCompMessage(CWazooWnd* pWazooWnd)
 
 	ASSERT(pWazooWnd);
 	ASSERT_KINDOF(CWazooWnd, pWazooWnd);
-	SECControlBar* pParentBar = (SECControlBar *) pWazooWnd->GetParentControlBar();
-	ASSERT_KINDOF(SECControlBar, pParentBar);
+	HRMControlBar* pParentBar = (HRMControlBar *) pWazooWnd->GetParentControlBar();
+	ASSERT_KINDOF(HRMControlBar, pParentBar);
 
 	if (pParentBar->IsMDIChild())
 	{
@@ -4205,11 +4208,11 @@ void CMainFrame::OnSpecialChangePassword()
 
 void CMainFrame::OnUpdateSendToBack(CCmdUI* pCmdUI)
 {
-	SECWorksheet* pMDIChild = (SECWorksheet *) MDIGetActive();
+	HRMWorksheet* pMDIChild = (HRMWorksheet *) MDIGetActive();
 	
 	if (pMDIChild)
 	{
-		ASSERT_KINDOF(SECWorksheet, pMDIChild);
+		ASSERT_KINDOF(HRMWorksheet, pMDIChild);
 		pCmdUI->Enable(pMDIChild->GetNextWindow() != NULL);
 	}
 	else
@@ -4996,12 +4999,12 @@ long CMainFrame::OnContextMenu(WPARAM wParam, LPARAM lParam)
 	CWnd* pWnd = CWnd::FromHandlePermanent(HWND(wParam));
 	CPoint ptScreen(LOWORD(lParam), HIWORD(lParam));
  
-	SECControlBar* pControlBar = DYNAMIC_DOWNCAST(SECControlBar, pWnd);
-	SECDockBar* pDockBar = DYNAMIC_DOWNCAST(SECDockBar, pWnd);
+	HRMControlBar* pControlBar = DYNAMIC_DOWNCAST(HRMControlBar, pWnd);
+	HRMDockBar* pDockBar = DYNAMIC_DOWNCAST(HRMDockBar, pWnd);
 	if (pControlBar != NULL || pDockBar != NULL)
 	{
 		//
-		// Yep.  User hit an SECControlBar object, so display
+		// Yep.  User hit an HRMControlBar object, so display
 		// the context menu for toolbars, etc.
 		//
 
@@ -5019,7 +5022,7 @@ long CMainFrame::OnContextMenu(WPARAM wParam, LPARAM lParam)
 		return TRUE;
 
 	//
-	// If we get this far, the user did not click over a SECDockBar
+	// If we get this far, the user did not click over a HRMDockBar
 	// object or an Auto-Wazoo MDI task bar, so display the normal
 	// "main" context menu at the given cursor coordinates.
 	//
@@ -5092,7 +5095,7 @@ void CMainFrame::OnUpdateOvrIndicator(CCmdUI* pCmdUI)
 ////////////////////////////////////////////////////////////////////////
 // OnUpdateControlBarMenu [protected]
 //
-// UI handler for checking/unchecking menu items on the SECControlBar 
+// UI handler for checking/unchecking menu items on the HRMControlBar 
 // popup menu.
 ////////////////////////////////////////////////////////////////////////
 void CMainFrame::OnUpdateControlBarMenu(CCmdUI* pCmdUI)
@@ -5269,7 +5272,7 @@ void CMainFrame::ChangeSponsor(CString& strAdID, CString& strButtonAdFile, CStri
 		return;
 	}
 
-	SECImage* pImage = LoadImage(strButtonAdFile);
+	HRMImage* pImage = LoadImage(strButtonAdFile);
 	if (pImage)
 	{
 		//	Create the bitmap that we're going to blit into
@@ -5375,7 +5378,7 @@ void CMainFrame::ResetSponsor()
 // OnDrawBorder [protected, virtual]
 //
 // Override default base class implementation to draw the QC logo
-// on the Auto-Wazoo bar.  Note that we completely override the SEC
+// on the Auto-Wazoo bar.  Note that we completely override the HRM
 // base class implementation here.
 ////////////////////////////////////////////////////////////////////////
 void CMainFrame::OnDrawBorder(CDC* pDC)
@@ -5513,14 +5516,14 @@ void CMainFrame::RemoveBogusAdToolBars()
 
 		// When checking custom toolbars, be sure to skip the Search Bar -
 		// it never contains any buttons, but it shouldn't be removed.
-		if ( pBar->IsKindOf(RUNTIME_CLASS(SECCustomToolBar)) &&
+		if ( pBar->IsKindOf(RUNTIME_CLASS(HRMCustomToolBar)) &&
 			 !pBar->IsKindOf(RUNTIME_CLASS(CSearchBar)) )
 		{
 			// Default to removing the toolbar.
 			int		bDeleteIt = true;
-			for (int i = 0; bDeleteIt && (i < ((SECCustomToolBar*)pBar)->GetBtnCount()); i++ )
+			for (int i = 0; bDeleteIt && (i < ((HRMCustomToolBar*)pBar)->GetBtnCount()); i++ )
 			{
-				UINT	iBtnID = ((SECCustomToolBar*)pBar)->GetItemID(i);
+				UINT	iBtnID = ((HRMCustomToolBar*)pBar)->GetItemID(i);
 				if ((iBtnID < TOOBAR_AD_CMD_BASE) || (iBtnID > TOOBAR_AD_CMD_BASE + MAX_TOOLBAR_ADS))
 				{
 					// If we find any buttons that are not ads, skip this toolbar.
@@ -5539,7 +5542,7 @@ void CMainFrame::RemoveBogusAdToolBars()
 	pos = listToDelete.GetHeadPosition();
 	while (pos != NULL)
 	{
-		SECCustomToolBar* pBar = (SECCustomToolBar*)(listToDelete.GetNext(pos));
+		HRMCustomToolBar* pBar = (HRMCustomToolBar*)(listToDelete.GetNext(pos));
 		if (pBar)
 		{
 			// Hide and remove the toolbar.
@@ -5714,8 +5717,8 @@ void CMainFrame::RemoveAdToolBarFromItsDockBar(CControlBar * pAdToolBar)
 
 		//	Now remove the ad toolbar from its dock bar - calling the appropriate
 		//	version of RemoveControlBar (since its not a virtual method).
-		if (pDockBar->IsKindOf(RUNTIME_CLASS(SECDockBar)))
-			reinterpret_cast<SECDockBar *>(pDockBar)->RemoveControlBar(pAdToolBar);
+		if (pDockBar->IsKindOf(RUNTIME_CLASS(HRMDockBar)))
+			reinterpret_cast<HRMDockBar *>(pDockBar)->RemoveControlBar(pAdToolBar);
 		else
 			pDockBar->RemoveControlBar(pAdToolBar);
 	}
@@ -5769,7 +5772,7 @@ void CMainFrame::ShowToolBarAd(CString& strAdID, CString& strButtonAdFile, CStri
 		{
 			// Read the PNG file and convert it to a BMP (this code shamelessly
 			// borrowed from Geoff's link history code).
-			SECImage		*pImage = LoadImage(strButtonAdFile);
+			HRMImage		*pImage = LoadImage(strButtonAdFile);
 			CBitmap			*pBitmapButtonAd = NULL;
 			CBitmap			*pBitmapAltImage = NULL;
 			if (pImage)
@@ -8247,9 +8250,9 @@ void CMainFrameOleDropTarget::OnDragLeave(CWnd* pWnd)
 UINT CMainFrame::OnNcHitTest(CPoint point) 
 {
 	ASSERT(m_pControlBarManager != NULL);
-	ASSERT_KINDOF(SECToolBarManager, m_pControlBarManager);
+	ASSERT_KINDOF(HRMToolBarManager, m_pControlBarManager);
 
-	if(!((SECToolBarManager*)m_pControlBarManager)->IsMainFrameEnabled())
+	if(!((HRMToolBarManager*)m_pControlBarManager)->IsMainFrameEnabled())
 		return QCWorkbook::OnNcHitTest(point);
 	else
 		return (UINT)HTERROR;
@@ -8258,9 +8261,9 @@ UINT CMainFrame::OnNcHitTest(CPoint point)
 void CMainFrame::OnEnable(BOOL bEnable) 
 {
 	ASSERT(m_pControlBarManager != NULL);
-	ASSERT_KINDOF(SECToolBarManager, m_pControlBarManager);
+	ASSERT_KINDOF(HRMToolBarManager, m_pControlBarManager);
 
-	if(((SECToolBarManager*)m_pControlBarManager)->IsMainFrameEnabled())
+	if(((HRMToolBarManager*)m_pControlBarManager)->IsMainFrameEnabled())
 		m_nFlags &= ~WF_STAYACTIVE;
 
 	// This code is pretty important.  What is does is when the main window is
@@ -8306,9 +8309,9 @@ LRESULT CMainFrame::OnShowProgress(WPARAM wParam, LPARAM lParam)
 BOOL CMainFrame::OnNcActivate(BOOL bActive) 
 {
 	ASSERT(m_pControlBarManager != NULL);
-	ASSERT_KINDOF(SECToolBarManager, m_pControlBarManager);
+	ASSERT_KINDOF(HRMToolBarManager, m_pControlBarManager);
 
-	if(((SECToolBarManager*)m_pControlBarManager)->IsMainFrameEnabled())
+	if(((HRMToolBarManager*)m_pControlBarManager)->IsMainFrameEnabled())
 		m_nFlags &= ~WF_STAYACTIVE;
 	
 	// This makes sure the Progress window gets shown when the main
@@ -8322,9 +8325,9 @@ BOOL CMainFrame::OnNcActivate(BOOL bActive)
 void CMainFrame::OnEnterIdle(UINT nWhy, CWnd* pWho) 
 {
 	ASSERT(m_pControlBarManager != NULL);
-	ASSERT_KINDOF(SECToolBarManager, m_pControlBarManager);
+	ASSERT_KINDOF(HRMToolBarManager, m_pControlBarManager);
 
-	if(nWhy == MSGF_DIALOGBOX && ((SECToolBarManager*)m_pControlBarManager)->IsMainFrameEnabled())
+	if(nWhy == MSGF_DIALOGBOX && ((HRMToolBarManager*)m_pControlBarManager)->IsMainFrameEnabled())
 	{
 		// We have a customize dialog up. Check to see if we require a delayed
 		// "RecalcLayout". Normally these would be handled on WM_IDLE ... but,

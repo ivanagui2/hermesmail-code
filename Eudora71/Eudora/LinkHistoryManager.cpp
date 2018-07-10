@@ -57,6 +57,9 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     Removed a reference to Qualcomm's Shareware Manager header file.
 File revised by Jeff Prickett                    on July 6, 2018.
     Removed additional references to Qualcomm's Shareware Manager.
+File revised on by Jeff Prickett                 on July 10, 2018
+    Removed references to the Stingray Toolkit and replaced them with references
+    to the Hermes UI Toolkit.
 
 */    
 
@@ -579,7 +582,7 @@ void LinkHistoryManager::LoadThumbnailIfNecessary(LPUrlItemData pEntry)
 		
 		if ( ::FileExistsMT(szThumbnailFullPath) )
 		{
-			SECImage * pThumbnailImage = LoadImage(szThumbnailFullPath, COLOR_WINDOW);
+			HRMImage * pThumbnailImage = LoadImage(szThumbnailFullPath, COLOR_WINDOW);
 
 			if (pThumbnailImage)
 			{
@@ -1112,7 +1115,7 @@ LinkHistoryManager::MakeThumbnail(
 	const char *		szImageFullPath,
 	const char *		szThumbnailName)
 {
-	SECImage *		pImage = NULL;
+	HRMImage *		pImage = NULL;
 	CBitmap *		pThumbnailBitmap = NULL;
 
 	pImage = LoadImage(szImageFullPath, COLOR_WINDOW);
@@ -1150,7 +1153,7 @@ LinkHistoryManager::MakeThumbnail(
 
 			cdc.SelectObject(pSavePrevBitmap);
 
-			SECDib *	pThumbnailBMP = DEBUG_NEW_MFCOBJ_NOTHROW SECDib();
+			HRMDib *	pThumbnailBMP = DEBUG_NEW_MFCOBJ_NOTHROW HRMDib();
 			if (pThumbnailBMP)
 			{
 				CString		szThumbnailFullPath = m_szLHDirPath + szThumbnailName;

@@ -58,6 +58,9 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2017
     only one section in the ini file as it will be all inclusive.
 File revised by Jeff Prickett                    on July 6, 2018
     Removing code that is specific to payment and registration.
+File revised by Jeff Prickett                    on July 9, 2018
+    Removed references to the Stingra Toolkit and replaced them with references
+    to the Hermes UI Toolkit.
 
 */
 
@@ -408,7 +411,7 @@ protected:
 	CSearchBar *		m_pSearchBar;
 	BOOL				m_bFlushBars;
 
-	SECCustomToolBar	*m_pToolBarAd;
+	HRMCustomToolBar	*m_pToolBarAd;
 	CObArray			 m_arrayToolBarAds;
 	CBitmap				*m_pBitmapToolBar;
 	int					 m_iAdsShown;

@@ -1,0 +1,12 @@
+testSubDir
+*.log
+*.trs
+*.gv
+*.svg
+/*_test
+
+# testing binaries
+/*.catch
+
+# automatically downloaded
+/catch*.hpp

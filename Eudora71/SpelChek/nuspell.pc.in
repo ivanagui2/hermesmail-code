@@ -1,0 +1,12 @@
+prefix=@prefix@
+exec_prefix=${prefix}
+libdir=@libdir@
+includedir=@includedir@
+
+Name: @PACKAGE@
+Description: Nuspell spellchecking library
+URL: @PACKAGE_URL@
+Version: @VERSION@
+Libs: -L${libdir} -lnuspell @BOOST_LOCALE_LDFLAGS@ @BOOST_LOCALE_LIBS@
+Requires: icu-uc
+Cflags: -I${includedir} @BOOST_CPPFLAGS@

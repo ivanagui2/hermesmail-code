@@ -1,0 +1,84 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "NUSPELL" "1" "April 2018" "" ""
+.
+.SH "NAME"
+\fBnuspell\fR \- spell checker
+.
+.SH "SYNOPSIS"
+.
+.nf
+
+nuspell [\-d dict_NAME] [\-i enc] [file_name]\.\.\.
+nuspell \-l|\-G [\-L] [\-d dict_NAME] [\-i enc] [file_name]\.\.\.
+nuspell \-D|\-h|\-\-help|\-v|\-\-version
+.
+.fi
+.
+.SH "DESCRIPTION"
+Check spelling of each FILE\. Without FILE, check standard input\.
+.
+.SH "OPTIONS"
+.
+.TP
+\fB\-d <di_CT>\fR
+use di_CT dictionary\. Only one dictionary is currently supported\.
+.
+.TP
+\fB\-D\fR
+show available dictionaries and exit
+.
+.TP
+\fB\-i <enc>\fR
+input encoding, default is active locale
+.
+.TP
+\fB\-l\fR
+print only misspelled words or lines
+.
+.TP
+\fB\-G\fR
+print only correct words or lines
+.
+.TP
+\fB\-L\fR
+lines mode
+.
+.TP
+\fB\-h, \-\-help\fR
+display this help and exit
+.
+.TP
+\fB\-v, \-\-version\fR
+print version number and exit
+.
+.SH "ENVIRONMENT"
+.
+.TP
+DICPATH
+Dictionary path\.
+.
+.SH "RETURN VALUES"
+Returns error if the argument syntax is invalid or some file can not be opened\. Otherwise, spell checking has occured and returns success\.
+.
+.SH "BUGS"
+Bug reports: \fIhttps://github\.com/hunspell/nuspell/issues\fR
+.
+.SH "EXAMPLES"
+.
+.nf
+
+nuspell \-d en_US file\.txt
+.
+.fi
+.
+.SH "AUTHOR"
+.
+.SH "COPYRIGHT"
+.
+.SH "SEE ALSO"
+Full documentation: \fIhttps://github\.com/hunspell/hunspell/wiki\fR
+.
+.P
+Home page: \fIhttp://hunspell\.github\.io/\fR

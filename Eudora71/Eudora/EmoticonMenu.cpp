@@ -51,7 +51,7 @@ EmoticonMenu::EmoticonMenu()
 		// is not a synonym.
 		if ( !pEmoticon->IsSynonym() ) {
 			// Attempt to load the image that we'll put in the menu
-			SECImage *	pTempEmoticonImage = LoadImage( pEmoticon->GetImageFullPathForMenu() );
+			HRMImage *	pTempEmoticonImage = LoadImage( pEmoticon->GetImageFullPathForMenu() );
 
 			if (pTempEmoticonImage) {
 				// Convert the image into a bitmap
@@ -113,7 +113,7 @@ EmoticonMenu::EmoticonMenu()
 					delete pTempEmoticonBitmap;
 				}
 
-				// We're done with the temporary SECImage - delete it
+				// We're done with the temporary HRMImage - delete it
 				delete pTempEmoticonImage;
 			}
 		}

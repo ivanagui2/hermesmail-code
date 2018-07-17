@@ -13,7 +13,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // QCDockBar window
 
-class QCDockBar : public SECDockBar
+class QCDockBar : public HRMDockBar
 {
 // Construction
 public:
@@ -21,9 +21,9 @@ public:
 
 // Attributes
 public:
-	virtual BOOL IsControlBarAtMaxWidthInRow(SECControlBar* pBar);
-	virtual BOOL IsOnlyControlBarInRow(SECControlBar* pBar);
-	bool			FindControlBarLocation(SECControlBar* in_pBar, int & out_nCol, int & out_nRow);
+	virtual BOOL IsControlBarAtMaxWidthInRow(HRMControlBar* pBar);
+	virtual BOOL IsOnlyControlBarInRow(HRMControlBar* pBar);
+	bool			FindControlBarLocation(HRMControlBar* in_pBar, int & out_nCol, int & out_nRow);
 
 // Operations
 public:

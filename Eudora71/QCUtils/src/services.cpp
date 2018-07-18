@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////
-// File: session.cpp
+// File: services.cpp
 //
 //
 //
@@ -20,7 +20,7 @@
 #include "rs.h"
 #include "resource.h"
 
-const char chrSLASH = '\\';
+const char chrBackSlash = '\\';
 
 #include "DebugNewHelpers.h"
 
@@ -191,22 +191,22 @@ char* TimeDateStringFormatMT(char* buf, long Seconds, int TimeZoneMinutes, const
 	static char sShortDate[32];
 	if (!bWasInited)
 	{
-		if (!::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_ITIME, iTime, sizeof(iTime)))
+		if (!::GetLocaleInfoA(LOCALE_USER_DEFAULT, LOCALE_ITIME, iTime, sizeof(iTime)))
 			::strcpy(iTime, "0");
-		if (!::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_STIME, sTime, sizeof(sTime)))
+		if (!::GetLocaleInfoA(LOCALE_USER_DEFAULT, LOCALE_STIME, sTime, sizeof(sTime)))
 			::strcpy(sTime, ":");
-		if (!::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_S1159, s1159, sizeof(s1159)))
+		if (!::GetLocaleInfoA(LOCALE_USER_DEFAULT, LOCALE_S1159, s1159, sizeof(s1159)))
 			::strcpy(s1159, "AM");
-		if (!::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_S2359, s2359, sizeof(s2359)))
+		if (!::GetLocaleInfoA(LOCALE_USER_DEFAULT, LOCALE_S2359, s2359, sizeof(s2359)))
 			::strcpy(s2359, "PM");
-		if (!::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SSHORTDATE, sShortDate, sizeof(sShortDate)))
+		if (!::GetLocaleInfoA(LOCALE_USER_DEFAULT, LOCALE_SSHORTDATE, sShortDate, sizeof(sShortDate)))
 			::strcpy(sShortDate, "m/d/yy");
 		bWasInited = TRUE;
 	}
 
 	if (Seconds < 0)
 		Seconds = 1;
-	struct tm *TheTime = ::localtime(&Seconds);
+	struct tm *TheTime = ::localtime((const time_t *) &Seconds);
 
 	// Find out types are in the format string
 	BOOL bHasTime = FALSE;
@@ -475,8 +475,7 @@ HRESULT GetGMTOffsetMT(const char* pszTimeZone, int* pOffset)
 	}
 
 	//
-	// Parse the time zone from either the TimeZone INI setting or the
-	// TZ system environment variable.
+	// Parse the time zone from either the TimeZone INI setting or the TZ system environment variable.
 	//
 	::TrimWhitespaceMT(szTimeZone);
 	if (::strlen(szTimeZone) < 4)
@@ -592,7 +591,7 @@ char* SafeStrdupMT(const char* pszString)
 		return NULL;
 
 	char* pszNewString = DEBUG_NEW_NOTHROW char[strlen(pszString) + 1];
-	if (pszNewString)
+	if (pszNewString != NULL)
 		return ::strcpy(pszNewString, pszString);
 
 	return NULL;
@@ -616,6 +615,8 @@ size_t SafeStrlenMT(const char* pszString)
 ////////////////////////////////////////////////////////////////////////
 char* TrimWhitespaceMT(char* pszBuffer)
 {
+	char* pszEnd;
+
 	if (!pszBuffer || !*pszBuffer)
 		return pszBuffer;
 
@@ -624,28 +625,40 @@ char* TrimWhitespaceMT(char* pszBuffer)
 	//
 	char *pszBufPtr = pszBuffer;
 	while (pszBufPtr && ::isspace((int)(unsigned char)*pszBufPtr))
+	{
 		pszBufPtr++;
+	}
 
 	//
 	// Save start character.
 	//
 	char *pszBegin = pszBufPtr++;
 
-	for (char* pszEnd = pszBufPtr; *pszBufPtr; pszBufPtr++)
-		if (!::isspace((int)(unsigned char)*pszBufPtr))
+	for (pszEnd = pszBufPtr; *pszBufPtr; pszBufPtr++)
+	{
+		if (!isspace((int)(unsigned char)*pszBufPtr))
+		{
 			pszEnd = pszBufPtr;
+		}
+	}
 
 	// if buf is 1 char long and 'pszEnd' is a WS, terminate it
-	if (*pszEnd && ::isspace((int)(unsigned char)*pszEnd))
+	if (*pszEnd && isspace((int)(unsigned char)*pszEnd))
+	{
 		*pszEnd = '\0';
+	}
 	else if (*pszEnd)
+	{
 		pszEnd[1] = '\0';
+	}
 
 	//
 	// Copy trimmed string in-place, if necessary.
 	//
 	if (pszBegin != pszBuffer)
-		::strcpy(pszBuffer, pszBegin);
+	{
+		strcpy(pszBuffer, pszBegin);
+	}
 
 	return pszBuffer;
 }
@@ -794,7 +807,7 @@ bool IsVersionGreaterThanOSR2()
 {
 	OSVERSIONINFO osInfo;
 	osInfo.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-	if(!GetVersionEx(&osInfo))
+	if(!::GetVersionExA(&osInfo))
 		return false;
 	
 	//if os is greater than win95 OSR2 
@@ -918,7 +931,7 @@ char* SetFileExtensionMT(char* pszFilename, const char* pszExtension)
 	if (!pszFilename || !pszExtension)
 		return (pszFilename);
 
-	char* p = strrchr(pszFilename, chrSLASH);
+	char* p = strrchr(pszFilename, chrBackSlash);
 	if (!p)
 		p = pszFilename;
 	if ((p = strrchr(p, '.')) != NULL)
@@ -1048,8 +1061,7 @@ HRESULT CreateShortcutMT(LPCTSTR Target, LPCTSTR Link, LPCTSTR Arguments /*= NUL
 	HRESULT hr;
 	IShellLink* piSL;
 
-	hr = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, IID_IShellLink,
-							(LPVOID*)&piSL);
+	hr = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, IID_IShellLink, (LPVOID*)&piSL);
 	if (SUCCEEDED(hr))
 	{
 		piSL->SetPath(Target);
@@ -1075,9 +1087,9 @@ HRESULT CreateShortcutMT(LPCTSTR Target, LPCTSTR Link, LPCTSTR Arguments /*= NUL
 			if (Temp.Find(".lnk") == -1)
 				FullLink += ".lnk";
 			WORD wsz[MAX_PATH];
-			MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, FullLink, -1, wsz, MAX_PATH);
+			MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, FullLink, -1, (LPWSTR) wsz, MAX_PATH);
 
-			hr = piPF->Save(wsz, TRUE);
+			hr = piPF->Save((LPCOLESTR) wsz, TRUE);
 
 			piPF->Release();
 		}
@@ -1097,7 +1109,7 @@ GetFileNameAndParentPath(
 {
 	// Get the full path to the parent directory for the old file name
 	LPTSTR		lpszFileName;
-	GetFullPathName(in_szFullPath, in_nParentPathBufferSize, out_szParentPathBuffer, &lpszFileName);
+	::GetFullPathNameA(in_szFullPath, in_nParentPathBufferSize, out_szParentPathBuffer, &lpszFileName);
 
 	// If the caller wanted the file name copy it before NULL terminating
 	if (out_szFileName)
@@ -1145,7 +1157,7 @@ MoveFileMaintainingCorrectPermissions(
 			//
 			// We'll attempt to copy the file to the new name. This is slower, but it's
 			// the only way to make sure that the default permissions are set up correctly.
-			if ( ::CopyFile(in_szOldName, in_szNewName, TRUE) )
+			if ( ::CopyFileA(in_szOldName, in_szNewName, TRUE) )
 			{
 				// CopyFile worked.
 				hr = S_OK;
@@ -1165,7 +1177,7 @@ MoveFileMaintainingCorrectPermissions(
 		// Either inside the same directory (so permissions should already
 		// correct) or failed to copy the file (perhaps because there was
 		// too little space).
-		if ( ::MoveFile(in_szOldName, in_szNewName) )
+		if ( ::MoveFileA(in_szOldName, in_szNewName) )
 		{
 			// MoveFile worked.
 			hr = S_OK;
@@ -1200,7 +1212,7 @@ HRESULT FileRenameMT(const char* pszOldName, const char* pszNewName)
 
 	if (!pszOldName || !pszNewName)
 		ASSERT(0);
-	else if (!::MoveFile(pszOldName, pszNewName))
+	else if (!::MoveFileA(pszOldName, pszNewName))
 		SetLastErrorResult(&hr);
 	else
 		hr = S_OK;
@@ -1258,11 +1270,11 @@ HRESULT FileRenameReplaceMT(const char * in_szOldName, const char * in_szNewName
 		s_bInitializedReplaceFile = true;
 
 		// Check to see if Kernel32.dll is available
-		HMODULE		hKernel32 = GetModuleHandleA("KERNEL32");
+		HMODULE	hKernel32 = ::GetModuleHandleA("KERNEL32");
 		if (hKernel32)
 		{
 			// Get the ReplaceFile function from Kernel32.dll (available in Windows 2000 and later).
-			s_pReplaceFile = reinterpret_cast<IndirectReplaceFile>( GetProcAddress(hKernel32, "ReplaceFile") );
+			s_pReplaceFile = reinterpret_cast<IndirectReplaceFile>( ::GetProcAddress(hKernel32, "ReplaceFile") );
 		}
 	}
 
@@ -1282,7 +1294,7 @@ HRESULT FileRenameReplaceMT(const char * in_szOldName, const char * in_szNewName
 
 		// Get a temp file name that looks like New<something>.tmp
 		char		szTempPath[_MAX_PATH];
-		hr = GetTempFileName(szNewFilePath, strNewFileName, 0, szTempPath);
+		hr = ::GetTempFileNameA(szNewFilePath, strNewFileName, 0, szTempPath);
 		if ( FAILED(hr) )
 			return hr;
 
@@ -1308,11 +1320,11 @@ HRESULT FileRenameReplaceMT(const char * in_szOldName, const char * in_szNewName
 				// ReplaceFile to work. It preserves more of the file information.
 
 				// Get a temp file name that looks like New<something>.tmp
-				hr = GetTempFileName(szNewFilePath, strNewFileName, 0, szDestVolumeTempFile);
+				hr = ::GetTempFileNameA(szNewFilePath, strNewFileName, 0, szDestVolumeTempFile);
 				if ( SUCCEEDED(hr) )
 				{
 					// Attempt to copy the file to the correct volume
-					if ( ::CopyFile(in_szOldName, szDestVolumeTempFile, FALSE) )
+					if ( ::CopyFileA(in_szOldName, szDestVolumeTempFile, FALSE) )
 					{
 						// We succeeded in copying the file to the new volume.
 						// The temporary copy of the file is now the source for all
@@ -1543,7 +1555,7 @@ BOOL LongFileSupportMT(const char *pszPathname)
 	char szFileSys[255];
 	DWORD dwMaxFileName = 0;
 	DWORD dwFlags = 0;
-	BOOL bSuccess = ::GetVolumeInformation(szDrive, szVolumeName, _MAX_PATH, NULL,
+	BOOL bSuccess = ::GetVolumeInformationA(szDrive, szVolumeName, _MAX_PATH, NULL,
 									&dwMaxFileName, &dwFlags, szFileSys, 255);
 
 	if (bSuccess && dwMaxFileName > 12)
@@ -1560,10 +1572,10 @@ BOOL LongFileSupportMT(const char *pszPathname)
 CString GetTmpFileNameMT(const char *pszPrefix /*="eud"*/)
 {
 	char szPath[_MAX_PATH];				// pathname to TMP directory
-	::GetTempPath(_MAX_PATH, szPath);
+	::GetTempPathA(_MAX_PATH, szPath);
 
 	char szTempFile[_MAX_PATH];			// create new temp file in TMP directory
-	::GetTempFileName(szPath, pszPrefix, 0, szTempFile);
+	::GetTempFileNameA(szPath, pszPrefix, 0, szTempFile);
 
 	return CString(szTempFile);
 }
@@ -1571,12 +1583,12 @@ CString GetTmpFileNameMT(const char *pszPrefix /*="eud"*/)
 LONG GetRegKey(HKEY key, LPCTSTR subkey, LPTSTR retdata)
 {
     HKEY hkey;
-    LONG retval = RegOpenKeyEx(key, subkey, 0, KEY_QUERY_VALUE, &hkey);
+    LONG retval = RegOpenKeyExA(key, subkey, 0, KEY_QUERY_VALUE, &hkey);
 
     if (retval == ERROR_SUCCESS) {
         long datasize = MAX_PATH;
         TCHAR data[MAX_PATH];
-        RegQueryValue(hkey, NULL, data, &datasize);
+        RegQueryValueA(hkey, NULL, data, &datasize);
         lstrcpy(retdata,data);
         RegCloseKey(hkey);
     }
@@ -1589,7 +1601,7 @@ HINSTANCE GotoURL(LPCTSTR url, int showcmd)
     TCHAR key[MAX_PATH + MAX_PATH];
 
     // First try ShellExecute()
-    HINSTANCE result = ShellExecute(NULL, _T("open"), url, NULL,NULL, showcmd);
+    HINSTANCE result = ShellExecuteA(NULL, _T("open"), url, NULL,NULL, showcmd);
 
     // If it failed, get the .htm regkey and lookup the program
     if ((UINT)result <= HINSTANCE_ERROR) {
@@ -1612,7 +1624,7 @@ HINSTANCE GotoURL(LPCTSTR url, int showcmd)
 
                 lstrcat(pos, _T(" "));
                 lstrcat(pos, url);
-                result = (HINSTANCE) WinExec(key,showcmd);
+                result = (HINSTANCE) ::WinExec(key,showcmd);
             }
         }
     }
@@ -1737,7 +1749,7 @@ DWORD FindifExecutingUsingToolHelp32(LPCTSTR lpszModuleName,DWORD *dwProductVers
 				if (NULL != _tcsstr(_tcslwr(moduleEntry.szExePath),_tcslwr((TCHAR *)lpszModuleName)))
 				{
 					DWORD dwHandle = 0;
-					DWORD dwSize = ::GetFileVersionInfoSize((TCHAR *)(const TCHAR *) moduleEntry.szExePath, &dwHandle);
+					DWORD dwSize = ::GetFileVersionInfoSizeA((TCHAR *)(const TCHAR *) moduleEntry.szExePath, &dwHandle);
 					if (NULL == dwSize)
 						return _FP_GENERIC_ERROR;		// EXE doesn't have VERSIONINFO data?
 
@@ -1748,7 +1760,7 @@ DWORD FindifExecutingUsingToolHelp32(LPCTSTR lpszModuleName,DWORD *dwProductVers
 						return _FP_GENERIC_ERROR;
 											
 					// Fetching the actual VERSIONINFO data.						
-					if (! ::GetFileVersionInfo((TCHAR *)(const TCHAR *) moduleEntry.szExePath, dwHandle, dwSize, pVerData))
+					if (! ::GetFileVersionInfoA((TCHAR *)(const TCHAR *) moduleEntry.szExePath, dwHandle, dwSize, pVerData))
 						
 					{
 						ASSERT(0);		// missing VERSIONINFO data?							
@@ -1767,7 +1779,7 @@ DWORD FindifExecutingUsingToolHelp32(LPCTSTR lpszModuleName,DWORD *dwProductVers
 
 					TCHAR sztmpStr[5];
 					_tcscpy(sztmpStr, "\\");
-					if (::VerQueryValue(pVerData,
+					if (::VerQueryValueA(pVerData,
 										sztmpStr, 
 										(void **) &pVsFixedFileInfoData, 
 										&bufsize))
@@ -1799,26 +1811,25 @@ DWORD FindifExecutingUsingToolHelp32(LPCTSTR lpszModuleName,DWORD *dwProductVers
 //DWORD FindifExecutingUsingPSAPI(LPCTSTR lpszModuleName)
 DWORD FindifExecutingUsingPSAPI(LPCTSTR lpszModuleName,DWORD *dwProductVersionMS = NULL, DWORD *dwProductVersionLS = NULL)
 {
-    static HMODULE hModPSAPI = 0;
+    static HMODULE hModPSAPI = NULL;
     static PFNENUMPROCESSES pfnEnumProcesses = 0;
     static PFNENUMPROCESSMODULES pfnEnumProcessModules = 0;
     static PFNGETMODULEFILENAMEEXA pfnGetModuleFileNameExA = 0;
 
     // Hook up to the functions in PSAPI.DLL dynamically.      
-    if ( NULL == hModPSAPI )
-        hModPSAPI = LoadLibrary( "PSAPI.DLL" );
+	if (NULL == hModPSAPI)
+	{
+		hModPSAPI = ::LoadLibraryW(L"PSAPI.DLL");
 
-    if ( NULL == hModPSAPI )
-        return _FP_SYSTEM_DLL_NOT_FOUND;
+		if (NULL == hModPSAPI)
+			return _FP_SYSTEM_DLL_NOT_FOUND;
+	}
         
-    pfnEnumProcesses = (PFNENUMPROCESSES)
-            GetProcAddress( hModPSAPI,"EnumProcesses" );
+    pfnEnumProcesses = (PFNENUMPROCESSES) ::GetProcAddress(hModPSAPI,"EnumProcesses");
 
-    pfnEnumProcessModules = (PFNENUMPROCESSMODULES)
-            GetProcAddress( hModPSAPI, "EnumProcessModules" );
+    pfnEnumProcessModules = (PFNENUMPROCESSMODULES) ::GetProcAddress(hModPSAPI, "EnumProcessModules");
 
-    pfnGetModuleFileNameExA = (PFNGETMODULEFILENAMEEXA)
-            GetProcAddress( hModPSAPI, "GetModuleFileNameExA" );
+    pfnGetModuleFileNameExA = (PFNGETMODULEFILENAMEEXA) ::GetProcAddress(hModPSAPI, "GetModuleFileNameExA");
 
     if ( (NULL == pfnEnumProcesses) ||
 		 (NULL == pfnEnumProcessModules) ||
@@ -1845,17 +1856,14 @@ DWORD FindifExecutingUsingPSAPI(LPCTSTR lpszModuleName,DWORD *dwProductVersionMS
         DWORD nModules;
         
         // Use the process ID to open up a handle to the process
-        hProcess = OpenProcess( PROCESS_QUERY_INFORMATION |
-                                PROCESS_VM_READ,
-                                FALSE, pid );
+        hProcess = ::OpenProcess( PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid );
         if ( NULL == hProcess )
             continue;
             
         // EnumProcessModules returns an array of HMODULEs for the process
-        if ( NULL == pfnEnumProcessModules(hProcess, hModuleArray,
-                                    sizeof(hModuleArray), &cbNeeded ) )
+        if ( NULL == pfnEnumProcessModules(hProcess, hModuleArray, sizeof(hModuleArray), &cbNeeded ) )
         {
-            CloseHandle( hProcess );
+            ::CloseHandle( hProcess );
             continue;
         }
 
@@ -1868,8 +1876,7 @@ DWORD FindifExecutingUsingPSAPI(LPCTSTR lpszModuleName,DWORD *dwProductVersionMS
             HMODULE hModule = hModuleArray[j];
             TCHAR szModuleName[MAX_PATH];
 
-            pfnGetModuleFileNameExA(hProcess, hModule,
-                                    szModuleName, sizeof(szModuleName) );
+            pfnGetModuleFileNameExA(hProcess, hModule, szModuleName, sizeof(szModuleName) );
 
             if ( 0 == j )   // The first module is always the EXE
             {
@@ -1900,10 +1907,7 @@ DWORD FindifExecutingUsingPSAPI(LPCTSTR lpszModuleName,DWORD *dwProductVersionMS
 					UINT bufsize = 0;
 					TCHAR sztmpStr[5];
 					_tcscpy(sztmpStr, "\\");
-					if (::VerQueryValue(pVerData,
-										sztmpStr, 
-										(void **) &pVsFixedFileInfoData, 
-										&bufsize))
+					if (::VerQueryValueA(pVerData, sztmpStr, (void **) &pVsFixedFileInfoData, &bufsize))
 					{
 						if (pVsFixedFileInfoData && bufsize)
 						{
@@ -1920,7 +1924,7 @@ DWORD FindifExecutingUsingPSAPI(LPCTSTR lpszModuleName,DWORD *dwProductVersionMS
             }            
         }
     
-        CloseHandle( hProcess );    // Closing the process handle
+        ::CloseHandle( hProcess );    // Closing the process handle
     }
     
     return _FP_QUERIED_MODULE_NOT_FOUND;
@@ -1944,7 +1948,8 @@ BOOL IsCurrentlyExecuting(LPCTSTR lpszModuleName, DWORD *dwProductVersionMS, DWO
 
 
 // Function to check if netscape is executing & if so is the version greater than or equal to 4.05
-// Actually we are not really interested in knowing if it is executing or not. What matters FOR NOW is the version (if at all executing)
+// Actually we are not really interested in knowing if it is executing or not. What matters FOR NOW is the version
+// (if at all executing)
 BOOL IsNetscapeAbove405Executing()
 {
 	DWORD dwProductVersionMS = 0, dwProductVersionLS = 0;
@@ -2002,8 +2007,8 @@ char* StripAddressMT(char* line)
 	}
 	*t = 0;
 
-	const char* BegAngle = strchr(line, '<');
-	char* EndAngle = BegAngle? strchr(BegAngle + 1, '>') : NULL;
+	char* BegAngle = (char *) strchr(line, '<');
+	char* EndAngle = (BegAngle != NULL) ? strchr(BegAngle + 1, '>') : NULL;
 	if (BegAngle && EndAngle && BegAngle < EndAngle)
 	{
 		*EndAngle = 0;
@@ -2013,8 +2018,7 @@ char* StripAddressMT(char* line)
 	return (::TrimWhitespaceMT(line));
 }
 
-// This function parses the RFC822 date string into Time Zone (in Minutes) & 
-// the actual time (in seconds)
+// This function parses the RFC822 date string into Time Zone (in Minutes) & the actual time (in seconds)
 // Note : This has been moved here from Summary.cpp
 void FormatDateMT(const char* GMTOffset, long &lSeconds, int &nTimeZoneMinutes)
 {
@@ -2262,12 +2266,11 @@ long GetTimeMT(const char* Line, BOOL FromLine)
 	time.tm_isdst = -1;
 	time_t seconds = mktime(&time);
 
-	// Ok, we've got this far.  This is probably a "From " line of some
-	// variety, but the rest of it may not match up.  So if we get a bogus
-	// time, still consider it a "From " line, but we don't know exactly what
-	// date/time it represents, so just return 1.
+	// Ok, we've got this far.  This is probably a "From " line of some variety, but the rest of it may not match up.
+	// So if we get a bogus time, still consider it a "From " line, but we don't know exactly what date/time it
+	// represents, so just return 1.
 
-	return (seconds < 0L? (FromLine? 1L : 0L) : seconds);
+	return (seconds < 0L? (FromLine? 1L : 0L) : (long) seconds);
 }
 
 
@@ -2313,7 +2316,7 @@ public :
 	{
 		if (m_hFile)
 		{
-			CloseHandle(m_hFile);
+			::CloseHandle(m_hFile);
 			remove(szFileName);	// delete the file
 			m_hFile = NULL;
 		}
@@ -2349,7 +2352,7 @@ void CShouldFileIOBeDone::SetDirectory(LPCTSTR szDir)
 	//{	
 		if ( NULL == hModKERNEL32 )
 		{
-			hModKERNEL32 = GetModuleHandle( "KERNEL32.DLL" );
+			hModKERNEL32 = GetModuleHandleW(L"KERNEL32.DLL");
 
 			if (!m_pfnGetDevicePowerState)
 				m_pfnGetDevicePowerState = (PFNGETDEVICEPOWERSTATE) GetProcAddress( hModKERNEL32, "GetDevicePowerState" );
@@ -2368,7 +2371,8 @@ void CShouldFileIOBeDone::SetDirectory(LPCTSTR szDir)
 				strcpy(szBuffer,szDirectory);
 				// Eudora's data directory already consists of a trailing "\\"
 				strcat(szBuffer,szFileName);
-				m_hFile = CreateFile(szBuffer, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_NO_BUFFERING, NULL); 
+				m_hFile = ::CreateFileA(szBuffer, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ, NULL, OPEN_ALWAYS,
+										FILE_ATTRIBUTE_NORMAL | FILE_FLAG_NO_BUFFERING, NULL); 
 			}
 		}
 		
@@ -2426,7 +2430,7 @@ BOOL CShouldFileIOBeDone::IsDiskSpun(BOOL &bSpunState)
 BOOL CShouldFileIOBeDone::IsSystemOnBattery(BOOL &bOnBattery)
 {
 	SYSTEM_POWER_STATUS SystemPower;	
-	if (GetSystemPowerStatus(&SystemPower))
+	if (::GetSystemPowerStatus(&SystemPower))
 	{		
 		if (SystemPower.ACLineStatus == 0)	// offline
 			bOnBattery = TRUE;

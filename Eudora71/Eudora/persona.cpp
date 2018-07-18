@@ -81,7 +81,7 @@ BOOL CPersonality::IsA( const char* Name ) const
 	for ( int i = 0; 1 /* forever */; i++ )
 	{
 		sprintf( Persona, "Persona%d", i );
-		GetPrivateProfileString( m_szPersonality, Persona, "", Entry, sizeof( Entry ), INIPath );
+		::GetPrivateProfileStringA( m_szPersonality, Persona, "", Entry, sizeof( Entry ), INIPath );
 		if ( strcmpi( PersonaID, Entry ) == 0 )
 			break;
 		if ( Entry[ 0 ] == '\0' )
@@ -238,7 +238,7 @@ BOOL CPersonality::Add( CPersParams & Params )
 	for ( int i = 0; 1 /* forever */ ; i++ )
 	{
 		sprintf( Persona, "Persona%d", i );
-		GetPrivateProfileString( m_szPersonality, Persona, "", Entry, sizeof( Entry ), INIPath );
+		::GetPrivateProfileStringA( m_szPersonality, Persona, "", Entry, sizeof( Entry ), INIPath );
 		if ( ! Entry[ 0 ] )
 			break;
 		if ( strcmpi( Entry, PersonaID ) == 0 )
@@ -522,6 +522,7 @@ BOOL CPersonality::Remove( const char* Name )
 	char Persona[ 30 ];
 	char Entry[ MAX_PERSONA_LEN ];
 	CString PersonaID = csPersonaPreface + Name;
+	int iPersona;
 
 	if( QCGetTaskManager()->GetTaskCount(Name) != 0)
 	{
@@ -529,10 +530,10 @@ BOOL CPersonality::Remove( const char* Name )
 		return FALSE;
 	}
 	// make sure the personality exists
-	for ( int i = 0; 1 /* forever */; i++ )
+	for (iPersona = 0; 1 /* forever */; iPersona++ )
 	{
-		sprintf( Persona, "Persona%d", i );
-		GetPrivateProfileString( m_szPersonality, Persona, "", Entry, sizeof( Entry ), INIPath );
+		sprintf( Persona, "Persona%d", iPersona );
+		::GetPrivateProfileStringA( m_szPersonality, Persona, "", Entry, sizeof( Entry ), INIPath );
 		if ( strcmpi( PersonaID, Entry ) == 0 )
 			break;
 		if ( Entry[ 0 ] == '\0' )
@@ -546,20 +547,20 @@ BOOL CPersonality::Remove( const char* Name )
 #endif // IMAP4
 
 	// pack the Personalities index
-	for ( /* i is set above */ ; 1 /*forever*/; i++ )
+	for (iPersona = 0; 1 /* forever */; iPersona++)
 	{
-		sprintf( Persona, "Persona%d", i + 1 );
-		GetPrivateProfileString( m_szPersonality, Persona, "", Entry, sizeof( Entry ), INIPath );
+		sprintf( Persona, "Persona%d", iPersona + 1 );
+		::GetPrivateProfileStringA( m_szPersonality, Persona, "", Entry, sizeof( Entry ), INIPath );
 		if ( Entry[ 0 ] == '\0' )
 			break;			// all done with personality list
 
-		// replace Persona[ i ] with Persona[ j ]
-		sprintf( Persona, "Persona%d", i );
+		// replace Persona[ iPersona ] with Persona[ j ]
+		sprintf( Persona, "Persona%d", iPersona );
 		WritePrivateProfileString(m_szPersonality, Persona, Entry, INIPath);
 	}
 
 	//clean up the last (duplicated) Persona
-	sprintf( Persona, "Persona%d", i );
+	sprintf( Persona, "Persona%d", iPersona );
 	WritePrivateProfileString(m_szPersonality, Persona, NULL, INIPath);
 
 	// delete the section associated with the personality
@@ -636,7 +637,7 @@ LPSTR CPersonality::List( void )
 		for ( int i = 0; i < MAX_PERSONAS-1; i++ )
 		{
 			sprintf( Persona, "Persona%d", i );
-			GetPrivateProfileString( m_szPersonality, Persona, "", Entry, sizeof( Entry ), INIPath );
+			::GetPrivateProfileStringA( m_szPersonality, Persona, "", Entry, sizeof( Entry ), INIPath );
 			if ( Entry[ 0 ] )
 			{
 				// strip the Persona perface
@@ -701,7 +702,7 @@ LPSTR CPersonality::CheckMailList( void )
 	for ( int i = 0; i < MAX_PERSONAS-1; i++ )
 	{
 		sprintf( Persona, "Persona%d", i );
-		GetPrivateProfileString( m_szPersonality, Persona, "", Entry, sizeof( Entry ), INIPath );
+		::GetPrivateProfileStringA( m_szPersonality, Persona, "", Entry, sizeof( Entry ), INIPath );
 		if ( Entry[ 0 ] )
 		{
 			bCheckMail = (BOOL)GetPrivateProfileInt( Entry, szKey, atoi( szDefault ), INIPath );
@@ -899,8 +900,7 @@ DWORD CPersonality::GetProfileString
 	else
 		PersonaID = csPersonaPreface + lpName;
 
-	return ::GetPrivateProfileString( PersonaID, lpKeyName, lpDefault, 
-									  lpReturnString, nSize, INIPath );
+	return ::GetPrivateProfileStringA( PersonaID, lpKeyName, lpDefault, lpReturnString, nSize, INIPath );
 }
 
 BOOL CPersonality::WriteProfileString

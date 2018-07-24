@@ -34,7 +34,7 @@ public:
 protected:
 	// Don't allow copy constructor or assignment operator
 	CSortedStringListMT(CSortedStringListMT & in_copy);
-	operator=(CSortedStringListMT & in_rhs);
+	int operator=(CSortedStringListMT & in_rhs);
 };
 
 //

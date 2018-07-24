@@ -423,7 +423,7 @@ void CMsgRecord::SetDate(const char* pszDate)
 	if (bDateUndefined)
 	{
 		long lCurrentTime = 0;
-		time(&lCurrentTime);
+		time((time_t *) &lCurrentTime);
 		lCurrentTime -= _timezone;		// apply GMT offset
 		//sprintf(m_szDate, "%ld", lCurrentTime); 
 		m_ulDate = lCurrentTime;

@@ -5,7 +5,9 @@ Copyright © 1997-2003 John Robbins -- All rights reserved.
 #include "stdafx.h"
 #include "JFX.h"
 
+#ifndef _countof
 #define _countof(array) (sizeof(array)/sizeof(array[0]))
+#endif
 
 BOOL JFont :: CreatePointFont ( int      nPointSize    ,
                                 LPCTSTR  szFaceName    ,

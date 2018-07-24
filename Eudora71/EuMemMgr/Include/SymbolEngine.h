@@ -100,10 +100,13 @@ typedef BOOL (CALLBACK *PENUM_LOCAL_VARS_CALLBACK)
                                       PVOID    pContext       ) ;
                                       
 // The UNICODE wrapper on UnDecorateSymbolName.
+//PM:  This function is obsoleted in favour of the ImageHlp function of the same name
+#if 0
 DWORD UnDecorateSymbolNameW ( PCWSTR DecoratedName       ,
                               PWSTR  UnDecoratedName     ,
                               DWORD  UndecoratedLength   ,
                               DWORD  Flags                ) ;
+#endif
                                       
 
 // The symbol engine class

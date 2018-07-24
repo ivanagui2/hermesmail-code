@@ -68,6 +68,8 @@ DWORD64 CSymbolEngine :: SymLoadModule64 ( IN  HANDLE     hFile       ,
     return ( dwRet ) ;
 }
 
+//PM:  This function is obsoleted in favour of the ImageHlp function of the same name
+#if 0
 DWORD UnDecorateSymbolNameW ( PCWSTR DecoratedName       ,
                               PWSTR  UnDecoratedName     ,
                               DWORD  UndecoratedLength   ,
@@ -113,6 +115,7 @@ DWORD UnDecorateSymbolNameW ( PCWSTR DecoratedName       ,
     
     return ( dwRet ) ;
 }
+#endif
 
 BOOL CSymbolEngine :: SymGetSearchPath ( OUT LPWSTR SearchPath        ,
                                          IN  DWORD  SearchPathLength   )

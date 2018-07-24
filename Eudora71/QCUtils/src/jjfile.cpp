@@ -811,12 +811,13 @@ HRESULT JJFileMT::GetLine(char* pBuffer, long lBufferSize, long* plNumBytesRead 
 ////////////////////////////////////////////////////////////////////////
 long JJFileMT::ReadLine_(char* pBuffer, long lSize)
 {
+	long lNumRead;
 	ASSERT(this);
 	ASSERT(IsOpen() == S_OK);
 
 	BOOL bFoundCR = FALSE;
 	
-	for (long lNumRead = 0; lNumRead < lSize; pBuffer++)
+	for (lNumRead = 0; lNumRead < lSize; pBuffer++)
 	{
 		if (!m_nValidBytes)
 		{

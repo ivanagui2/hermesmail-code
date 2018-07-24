@@ -202,7 +202,7 @@ const ActionInfo  ACTION_UPDATE				= ActionInfo (  ACTION_UPDATE_STRING,
 			  | QUERY_PART_LANGUAGE
 			) );
             
-														 );
+//PM:														 );
 const ActionInfo  ACTION_ARCHIVED			= ActionInfo (  ACTION_ARCHIVED_STRING,
     			(	QUERY_PART_PLATFORM
 				  | QUERY_PART_PRODUCT
@@ -210,7 +210,7 @@ const ActionInfo  ACTION_ARCHIVED			= ActionInfo (  ACTION_ARCHIVED_STRING,
 				  | QUERY_PART_DISTRIBUTOR_ID
 				  | QUERY_PART_LANGUAGE
 				) );
-														 );
+//PM:														 );
 const ActionInfo  ACTION_PROFILE			= ActionInfo (  ACTION_PROFILE_STRING,
 				(	QUERY_PART_PLATFORM
 				  | QUERY_PART_PRODUCT

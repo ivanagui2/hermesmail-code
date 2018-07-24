@@ -844,7 +844,7 @@ HRESULT CascadeBackupFile(const char * in_szFilePath, const int nBackup)
 	{
 		int		nLastFile = min(n+1, nBackup);
 		
-		for (i=nLastFile;i>1;i--)
+		for (int i = nLastFile; i > 1; i--)
 		{
 			CString sBackupPath2;
 

@@ -117,12 +117,14 @@ DAMAGE. */
 
 		#define VERIFY(expr) QCVERIFY_WRAPPERMACRO(expr)
 
-		#ifdef ASSERT
-		#undef ASSERT
-		#endif
+//		#ifdef ASSERT
+//		#undef ASSERT
+//		#endif
 
+#ifndef ASSERT
 		#define ASSERT(expr) QCASSERT_WRAPPERMACRO(expr)
-		
+#endif
+
 	#else // _DEBUG
 
 		#define VERIFYLOG(expr) \

@@ -48,8 +48,8 @@ public:
 // Internal methods:
 protected:
 	// Encapsulation of protocol specific functions.
-	virtual CString		 GetDLLName();
-	virtual CString		 GetServiceName();
+	virtual CStringA	 GetDLLName();
+	virtual CStringA	 GetServiceName();
 	virtual void		*GetChallenge(unsigned long *lLength);
 	virtual BOOL		 SendResponse(char *szResp, unsigned long lSize);
 	virtual void		 AddLastErrorString(const char *szString);
@@ -60,6 +60,6 @@ long IMAPGssapiAuthenticator(void *challenger,
 							 void *responder,
 							 void *s,
 							 char *szUser,
-							 CString szHost);
+							 CStringA szHost);
 
 #endif /* _IMAPGSSAPI_H_ */

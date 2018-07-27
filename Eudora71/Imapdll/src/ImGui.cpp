@@ -114,7 +114,7 @@ BOOL CAlertDialog::OnInitDialog()
 	{
 		if (!m_Message)
 		{
-			CString Format;
+			CStringA Format;
 			Control->GetWindowText(Format);
 			_vsnprintf(buf, sizeof(buf) - 1, Format, m_Args);
 		}
@@ -122,7 +122,7 @@ BOOL CAlertDialog::OnInitDialog()
 	}
 	va_end(m_Args);
 
-	ASSERT(m_Message || *buf);
+//	ASSERT(m_Message || *buf);
 	
 	CenterWindow(AfxGetMainWnd() && AfxGetMainWnd()->IsIconic()? GetDesktopWindow() : NULL);
 	

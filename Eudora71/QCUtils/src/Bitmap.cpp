@@ -20,7 +20,9 @@ bool CreateBitmapFromIcon(HICON hIcon, LPCSTR filename)
 
 	// Save DIB to file
 	if (SaveDIB(hdib, (char *)filename))
+	{
 		rc = false;
+	}
 
 	// Cleanup
 	DestroyDIB(hdib);
@@ -72,8 +74,10 @@ HDIB BitmapToDIB(HBITMAP hBitmap, HPALETTE hPal)
 
     // if no palette is specified, use default palette
 
-    if (hPal == NULL)
-        hPal = (HPALETTE)GetStockObject(DEFAULT_PALETTE);
+	if (hPal == NULL)
+	{
+		hPal = (HPALETTE)GetStockObject(DEFAULT_PALETTE);
+	}
 
     // calculate bits per pixel
 
@@ -141,11 +145,9 @@ HDIB BitmapToDIB(HBITMAP hBitmap, HPALETTE hPal)
 
     *lpbi = bi;
 
-    // call GetDIBits with a NULL lpBits param, so it will calculate the
-    // biSizeImage field for us    
+    // call GetDIBits with a NULL lpBits param, so it will calculate the biSizeImage field for us    
 
-    GetDIBits(hDC, hBitmap, 0, (UINT)bi.biHeight, NULL, (LPBITMAPINFO)lpbi,
-        DIB_RGB_COLORS);
+    GetDIBits(hDC, hBitmap, 0, (UINT)bi.biHeight, NULL, (LPBITMAPINFO)lpbi, DIB_RGB_COLORS);
 
     // get the info. returned by GetDIBits and unlock memory block
 
@@ -153,15 +155,19 @@ HDIB BitmapToDIB(HBITMAP hBitmap, HPALETTE hPal)
     GlobalUnlock(hDIB);
 
     // if the driver did not fill in the biSizeImage field, make one up 
-    if (bi.biSizeImage == 0)
-        bi.biSizeImage = WIDTHBYTES((DWORD)bm.bmWidth * biBits) * bm.bmHeight;
+	if (bi.biSizeImage == 0)
+	{
+		bi.biSizeImage = WIDTHBYTES((DWORD)bm.bmWidth * biBits) * bm.bmHeight;
+	}
 
     // realloc the buffer big enough to hold all the bits
 
     dwLen = bi.biSize + PaletteSize((LPSTR)&bi) + bi.biSizeImage;
 
-    if ((h = GlobalReAlloc(hDIB, dwLen, 0)) != NULL)
-        hDIB = h;
+	if ((h = GlobalReAlloc(hDIB, dwLen, 0)) != NULL)
+	{
+		hDIB = h;
+	}
     else
     {
         // clean up and return NULL
@@ -218,14 +224,13 @@ WORD SaveDIB(HDIB hDib, LPSTR lpFileName)
     if (!hDib)
         return ERR_INVALIDHANDLE;
 
-    fh = CreateFile(lpFileName, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
+    fh = CreateFileA(lpFileName, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
             FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, NULL);
 
     if (fh == INVALID_HANDLE_VALUE)
         return ERR_OPEN;
 
-    // Get a pointer to the DIB memory, the first of which contains
-    // a BITMAPINFO structure
+    // Get a pointer to the DIB memory, the first of which contains a BITMAPINFO structure
 
     lpBI = (LPBITMAPINFOHEADER)GlobalLock(hDib);
     if (!lpBI)
@@ -235,8 +240,7 @@ WORD SaveDIB(HDIB hDib, LPSTR lpFileName)
     }
 
     // Check to see if we're dealing with an OS/2 DIB.  If so, don't
-    // save it because our functions aren't written to deal with these
-    // DIBs.
+    // save it because our functions aren't written to deal with these DIBs.
 
     if (lpBI->biSize != sizeof(BITMAPINFOHEADER))
     {
@@ -273,16 +277,17 @@ WORD SaveDIB(HDIB hDib, LPSTR lpFileName)
     // It's an RLE bitmap, we can't calculate size, so trust the biSizeImage
     // field
 
-    if ((lpBI->biCompression == BI_RLE8) || (lpBI->biCompression == BI_RLE4))
-        dwDIBSize += lpBI->biSizeImage;
+	if ((lpBI->biCompression == BI_RLE8) || (lpBI->biCompression == BI_RLE4))
+	{
+		dwDIBSize += lpBI->biSizeImage;
+	}
     else
     {
         DWORD dwBmBitsSize;  // Size of Bitmap Bits only
 
         // It's not RLE, so size is Width (DWORD aligned) * Height
 
-        dwBmBitsSize = WIDTHBYTES((lpBI->biWidth)*((DWORD)lpBI->biBitCount)) *
-                lpBI->biHeight;
+        dwBmBitsSize = WIDTHBYTES((lpBI->biWidth)*((DWORD)lpBI->biBitCount)) * lpBI->biHeight;
 
         dwDIBSize += dwBmBitsSize;
 
@@ -304,8 +309,7 @@ WORD SaveDIB(HDIB hDib, LPSTR lpFileName)
     // the file -- It's the Bitmap file header plus the DIB header,
     // plus the size of the color table.
     
-    bmfHdr.bfOffBits = (DWORD)sizeof(BITMAPFILEHEADER) + lpBI->biSize +
-            PaletteSize((LPSTR)lpBI);
+    bmfHdr.bfOffBits = (DWORD)sizeof(BITMAPFILEHEADER) + lpBI->biSize + PaletteSize((LPSTR)lpBI);
 
     // Write the file header
 

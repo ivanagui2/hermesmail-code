@@ -4,7 +4,7 @@
 // Utility class:
 // Data Types
 
-class CRString : public CString
+class CRString : public CStringA
 {
 public:
 	CRString(UINT StringID);

@@ -42,8 +42,17 @@
 //#include <awint.h>
 //#include <dbgint.h>
 
+#ifdef _DEBUG
+#include <crtdbg.h>  
+#endif
+
 // From CRT's crtdbg.h
 #define _CRT_ERROR          1
+
+// I am not clear why malloc.h should not be #included here but there may be a problem (see note in layout.h).
+// (Pete Maclean 27-Jul-2018)
+//#include <malloc.h>
+extern "C" void *          __cdecl _alloca(size_t);
 
 #ifndef _DEBUG
 
@@ -147,7 +156,7 @@ void __cdecl __qc_security_error_handler()
         _RPT0(_CRT_ERROR, msgtext);
 
         progname[MAX_PATH] = '\0';
-        if (!GetModuleFileName(NULL, progname, MAX_PATH))
+        if (!GetModuleFileNameA(NULL, progname, MAX_PATH))
             strcpy(progname, "<program name unknown>");
 
         pch = progname;
@@ -159,6 +168,7 @@ void __cdecl __qc_security_error_handler()
             strncpy(pch, DOTDOTDOT, sizeof(DOTDOTDOT) - 1);
         }
 
+		// _alloca() allocates memory on the stack (which will be automatically freed when the function returns)
         outmsg = (char *)_alloca(subtextlen - 1 + 2
                                  + sizeof(PROGINTRO) - 1
                                  + strlen(pch) + 2);
@@ -175,7 +185,7 @@ void __cdecl __qc_security_error_handler()
         if (hWndParent != NULL)
             hWndParent = GetLastActivePopup(hWndParent);
 
-		MessageBox(
+		MessageBoxA(
             hWndParent,
             outmsg,
             "Eudora",

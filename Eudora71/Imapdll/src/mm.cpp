@@ -103,8 +103,10 @@ CMailGets::CMailGets(CProtocol *stream, CWriter *Writer)
 CMailGets::~CMailGets()
 {
 	// Free buffer.
-	if (m_buffer)
+	if (m_buffer != NULL)
+	{
 		delete[] m_buffer;
+	}
 }
 
 
@@ -156,7 +158,9 @@ BOOL CMailGets::DoMailgets (readfn_t readfn, void *read_data, CProtocol *stream,
 
 	// Allocate buffer
 	if (m_buffer == NULL)
+	{
 		m_buffer = DEBUG_NEW_NOTHROW char[BUFSIZE + 1];
+	}
 
 	if (!m_buffer)
 		return FALSE;

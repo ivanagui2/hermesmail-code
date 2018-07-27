@@ -3469,7 +3469,7 @@ HRESULT CImapConnection::__OpenMailbox (const char *Fullname, BOOL bSilent, Imap
 	CString szPortNum;  pAccount->GetPortNum(szPortNum);
 	SetPortNum (szPortNum);
 
-	// Clear noticifations.
+	// Clear notifications.
 	//
 	if (m_pNetworkNotifier)
 		m_pNetworkNotifier->ResetNotifications();

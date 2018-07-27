@@ -95,7 +95,7 @@ protected:
 	char		m_GetChBuffer[256];
 	int			m_GetChValidBytes;
 	void FlushLogGetChBuffer()
-		{ if (m_GetChValidBytes) { PutDebugLog(DEBUG_MASK_RCV, m_GetChBuffer, m_GetChValidBytes); m_GetChValidBytes = 0; } }
+		{ if (m_GetChValidBytes) { PutDebugLog(DEBUG_MASK_RCV, (LPCTSTR) m_GetChBuffer, m_GetChValidBytes); m_GetChValidBytes = 0; } }
 
 
 	

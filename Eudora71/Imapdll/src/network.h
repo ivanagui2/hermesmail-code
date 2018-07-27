@@ -51,7 +51,7 @@ public:
 
 	BOOL	Abort ();
 
-	void	GetCanonicalHostname (CString& szHostName);
+	void	GetCanonicalHostname (CStringA& szHostName);
 
 // Error management.
 
@@ -87,14 +87,14 @@ public:
 
 	// Server particulars.
 	//
-	CString			m_szHost;			// host name 
-	CString			m_szPort;			// As a string.
+	CStringA			m_szHost;			// host name 
+	CStringA			m_szPort;			// As a string.
 
 	// This is the contained QCSocket object that does the real work.
 	//
 	QCWorkerSocket*			m_pNetConnection;
 
-    bool SetSSLMode(bool bVal, const CString& persona, SSLSettings* pSSLSettings, const CString& protocol );
+    bool SetSSLMode(bool bVal, const CStringA& persona, SSLSettings* pSSLSettings, const CStringA& protocol );
 
 // Internal attributes.
 private:

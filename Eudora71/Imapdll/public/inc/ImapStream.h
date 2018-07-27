@@ -1,11 +1,10 @@
-// imapfr.h - definitions of the IMAP "friend" classes that actually call 
-// the c-client-derived IMAP protocol functions
+// ImapStream.h - definitions of the IMAP "friend" classes that actually call the c-client-derived IMAP protocol
+// functions
 
 // Declarations for the CImap* friend classes.
 //
 // Notes:
-// This file contains classes that actually do the implementation work internally
-// that are exported in the imap.h file.
+// This file contains classes that actually do the implementation work internally that are exported in the imap.h file.
 
 
 #ifndef _IMAPFR_H_
@@ -36,10 +35,10 @@ public:
 	CImapStream(const char *ServerName, UINT ServiceID, const char *PortNum = NULL);
 	~CImapStream();
 
-	BOOL		StreamIsLocked();
+	BOOL		StreamIsLocked(void);
 
 // Open a "control" stream, i.e., with no mailbox selected.
-	HRESULT		OpenControlStream();
+	HRESULT		OpenControlStream(void);
 
 // Methods for initiating the connection to the IMAP server.
 	HRESULT		OpenMailbox  (void);
@@ -146,20 +145,20 @@ public:
 
 // Search messages in a mailbox..
 
-	void		Search (char *charset, SEARCHPGM *pgm, CString& szResults);
+	void		Search (char *charset, SEARCHPGM *pgm, CStringA& szResults);
 	// For searches.
 	//
 	BOOL		FormatSearchCriteria (SEARCHPGM *pPgm, LPCSTR pHeaderList, BOOL bBody, 
 						BOOL bNot, LPCSTR pSearchString);
 
 	HRESULT		UIDFind (LPCSTR pHeaderList, BOOL bBody, BOOL bNot, LPCSTR pSearchString,
-						LPCSTR pUidStr,  CString& szResults);
+						LPCSTR pUidStr,  CStringA& szResults);
 
 // Search entire message text.
-	HRESULT		UIDFindText (LPCSTR pSearchString, unsigned long UidFirst, unsigned long UidLast, CString& szResults);
+	HRESULT		UIDFindText (LPCSTR pSearchString, unsigned long UidFirst, unsigned long UidLast, CStringA& szResults);
 
 // Return the rdonly value in the protocol stream.
-	BOOL			IsReadOnly ();
+	BOOL		IsReadOnly ();
 
 // Status-related methods.
 	HRESULT		UIDFetchStatus (const char *pMailbox, long flags, MAILSTATUS *pStatus);
@@ -178,7 +177,7 @@ public:
 	BOOL		HasUIDPLUS();
 	BOOL		HasNAMESPACE();
 
-	void		GetNameSpace(CString &strNameSpace);
+	void		GetNameSpace(CStringA &strNameSpace);
 
 // ========== non_UID functions ==================/
 	HRESULT		FetchHeader (unsigned long msgNum, CWriter *Writer);
@@ -203,16 +202,16 @@ public:
 	HRESULT		FetchMailboxAttributes (LPCSTR pImapName, CLister *Lister);
 
 // Delete list of messages.
-	HRESULT		UIDDeleteMessages (LPCSTR pUidList, CString& szUidsActuallyRemoved, BOOL Expunge);
+	HRESULT		UIDDeleteMessages (LPCSTR pUidList, CStringA& szUidsActuallyRemoved, BOOL Expunge);
 
 // Undelete
 	HRESULT		UIDUnDeleteMessages (LPCSTR pUidList);
 
 // UID Expunge.
-	HRESULT		UIDExpunge (LPCSTR pUidList, CString& szUidsActuallyRemoved);
+	HRESULT		UIDExpunge (LPCSTR pUidList, CStringA& szUidsActuallyRemoved);
 
 // Simple Expunge.
-	HRESULT		Expunge (CString &szUidsActuallyRemoved);
+	HRESULT		Expunge (CStringA &szUidsActuallyRemoved);
 
 	HRESULT		RecreateMessageMap ();
 
@@ -242,7 +241,7 @@ public:
 	void		SetPassword (LPCSTR pPassword)
 					{ m_szPassword = pPassword; }
 
-	// KERB:
+	// KERBEROS:
 	void		SetKrbDllName (LPCSTR pKrbLibName)
 					{ m_szKrbLibName = pKrbLibName; }
 
@@ -258,8 +257,8 @@ public:
 	HRESULT		GetLastServerMessage (LPSTR szErrorBuf, short nBufSize);
 
 	int			 GetSSLError();
-	void		 GetSSLCertText(CString &strText);
-	void		 GetSSLCertRejection(CString &strRejection);
+	void		 GetSSLCertText(CStringA &strText);
+	void		 GetSSLCertRejection(CStringA &strRejection);
 	void		*GetSSLCert();
 	void		 ClearSSLCertData();
 	void		 AddTrustedCert(void *pCertData);
@@ -272,7 +271,7 @@ public:
 	void		AllowAuthenticate (BOOL Value);
 
 	void		ClearErrorDatabase ();
-    void SetSSLSettings(const SSLSettings*  pSSLSettings, const CString& persona) 
+    void SetSSLSettings(const SSLSettings*  pSSLSettings, const CStringA& persona) 
 	{
 		m_SSLSettings = *pSSLSettings; m_Persona = persona;
 
@@ -319,8 +318,8 @@ private:
 
 	// Login and password.
 	//
-	CString			m_szLogin;
-	CString			m_szPassword;
+	CStringA		m_szLogin;
+	CStringA		m_szPassword;
 
 	BOOL			m_bAllowAuthenticate;
 
@@ -341,16 +340,16 @@ private:
 	QCNetworkSettings *m_pNetSettings;
 
 	//
-	CString		m_szKrbLibName;
-	CString		m_szDesLibName;
-	CString		m_szGssLibName;
+	CStringA		m_szKrbLibName;
+	CStringA		m_szDesLibName;
+	CStringA		m_szGssLibName;
 
 private:
 	// Syncgronization object for locking the list while we search it or create a new one.
 	//
 	CSyncObject* m_pLockable;
 	SSLSettings m_SSLSettings;
-	CString m_Persona;//needed only for SSL
+	CStringA m_Persona;//needed only for SSL
 	
 
 };

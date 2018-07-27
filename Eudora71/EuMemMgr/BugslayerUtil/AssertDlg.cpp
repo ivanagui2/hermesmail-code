@@ -852,7 +852,7 @@ BOOL JAssertionDlg :: OnInitDialog ( HWND , LPARAM )
 
     // Loop through the windows again and record their states.
     int i = 0 ;
-    for ( hCurr = GetWindow ( GetDlgItem( IDC_DIVIDER ) ,
+    for ( HWND hCurr = GetWindow ( GetDlgItem( IDC_DIVIDER ) ,
                               GW_HWNDNEXT                 ) ;
           hCurr != NULL                                     ;
           hCurr = GetWindow ( hCurr , GW_HWNDNEXT )          )
@@ -1290,17 +1290,15 @@ LPCTSTR JAssertionDlg :: AllocAndCopyAssertionData ( size_t * pChrCount)
     // Move up to the last position in the buffer.
     TCHAR * pCurrPos = (szClipBuff + iAssertLen) - sizeof ( TCHAR ) ;
 
-    // Loop through the stacks again and plop any already walked into
-    // the buffer.
-    for ( i = 0 ; i < m_dwThreadCount ; i++ )
+    // Loop through the stacks again and plop any already walked into the buffer.
+    for ( DWORD i = 0 ; i < m_dwThreadCount ; i++ )
     {
         if ( NULL != m_pThreadInfo[ i ].szStackWalk )
         {
             pCurrPos += wsprintf ( pCurrPos                  ,
                                    k_THREADIDFMTSTR          ,
                                    m_pThreadInfo[ i ].dwTID   ) ;
-            // The largest buffer wsprintf will handle is 1024
-            // characters.  Since the stack walk with locals can get
+            // The largest buffer wsprintf will handle is 1024 characters.  Since the stack walk with locals can get
             // huge, I have to do it manually.
             size_t iLen = _tcslen ( m_pThreadInfo[ i ].szStackWalk ) ;
             memcpy ( pCurrPos                       ,

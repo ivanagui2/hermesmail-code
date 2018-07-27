@@ -52,7 +52,7 @@ long CramMD5Authenticator (authchallenge_t challenger,
 	// Sanity:
 	if (! (challenger && responder && s && trial && user) )
 	{
-		ASSERT (0);
+//		ASSERT (0);
 		return NIL;
 	}
 
@@ -110,7 +110,7 @@ long CramMD5Authenticator (authchallenge_t challenger,
 
 	if ( !*szDigest )
 	{
-		ASSERT (0);
+//		ASSERT (0);
 		goto end;
 	}
 

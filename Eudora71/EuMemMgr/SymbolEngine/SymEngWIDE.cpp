@@ -68,8 +68,7 @@ DWORD64 CSymbolEngine :: SymLoadModule64 ( IN  HANDLE     hFile       ,
     return ( dwRet ) ;
 }
 
-//PM:  This function is obsoleted in favour of the ImageHlp function of the same name
-#if 0
+#if 0 //  This function is obsoleted in favour of the ImageHlp function of the same name (Pete Maclean, 24-Jul-2018)
 DWORD UnDecorateSymbolNameW ( PCWSTR DecoratedName       ,
                               PWSTR  UnDecoratedName     ,
                               DWORD  UndecoratedLength   ,

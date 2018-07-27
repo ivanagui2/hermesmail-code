@@ -426,7 +426,7 @@ HRESULT GetGMTOffsetMT(const char* pszTimeZone, int* pOffset)
 	if (!*szTimeZone)
 	{
 		char szBuffer[64];
-		if (::GetEnvironmentVariable("TZ", szBuffer, sizeof(szBuffer)))
+		if (::GetEnvironmentVariableA("TZ", szBuffer, sizeof(szBuffer)))
 		{
 			//
 			// TimeZone INI setting not set, so use TZ environment
@@ -805,8 +805,8 @@ unsigned long SwapLongMT(unsigned long lword)
 
 bool IsVersionGreaterThanOSR2()
 {
-	OSVERSIONINFO osInfo;
-	osInfo.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+	OSVERSIONINFOA osInfo;
+	osInfo.dwOSVersionInfoSize = sizeof(OSVERSIONINFOA);
 	if(!::GetVersionExA(&osInfo))
 		return false;
 	
@@ -885,7 +885,7 @@ DWORD GetAvailableSpaceMT(const char* pszDrive)
 		// through the address obtained by GetProcAddress(). This means that GetDisFreeSpaceEx()
 		// never gets called directly and the run-time loader will merrily load away.
 
-		HINSTANCE hKernel32Inst = ::GetModuleHandle("KERNEL32.DLL");
+		HINSTANCE hKernel32Inst = ::GetModuleHandleW(L"KERNEL32.DLL");
 
 		if (hKernel32Inst) {
 			// But GetDiskFreeSpaceEx is a macro. So, we have to call the right one.
@@ -1211,11 +1211,17 @@ HRESULT FileRenameMT(const char* pszOldName, const char* pszNewName)
 	HRESULT hr = MAKE_HRESULT(1, FACILITY_ITF, QCUTIL_E_FILE_RENAME);
 
 	if (!pszOldName || !pszNewName)
+	{
 		ASSERT(0);
+	}
 	else if (!::MoveFileA(pszOldName, pszNewName))
+	{
 		SetLastErrorResult(&hr);
+	}
 	else
+	{
 		hr = S_OK;
+	}
 
 	return hr;
 }
@@ -1486,11 +1492,17 @@ HRESULT FileRemoveMT(const char* pszFilename)
 	HRESULT hr = MAKE_HRESULT(1, FACILITY_ITF, QCUTIL_E_FILE_DELETE);
 
 	if (!pszFilename || !*pszFilename)
+	{
 		ASSERT(0);
+	}
 	else if (::FileExistsMT(pszFilename) && ::remove(pszFilename) == -1)
+	{
 		SetLastErrorResult(&hr);
+	}
 	else
+	{
 		hr = S_OK;
+	}
 
 	return hr;
 }
@@ -1686,7 +1698,7 @@ DWORD FindifExecutingUsingToolHelp32(LPCTSTR lpszModuleName,DWORD *dwProductVers
     // Hook up to the ToolHelp32 functions dynamically.
     
     if ( NULL == hModKERNEL32 )
-        hModKERNEL32 = GetModuleHandle( "KERNEL32.DLL" );
+        hModKERNEL32 = GetModuleHandleW( L"KERNEL32.DLL" );
 
     pfnCreateToolhelp32Snapshot = (PFNCREATETOOLHELP32SNAPSHOT)
         GetProcAddress( hModKERNEL32, "CreateToolhelp32Snapshot" );

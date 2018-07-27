@@ -69,7 +69,7 @@ public:
 	~CErrorData ();
 	
 // Public data.
-	CString m_Msg;		// error message
+	CStringA m_Msg;		// error message
 	int		m_Type;		// Error type. 	
 };
 
@@ -100,7 +100,7 @@ CStream::CStream()
 	m_Nmsgs = 0;
 
 	// Put this here.
-	m_hErrorLockable = CreateMutex(NULL,	// Security
+	m_hErrorLockable = ::CreateMutexW(NULL,	// Security
 							  FALSE,		// Initial owner
 							  NULL);	// Name of object
 
@@ -111,8 +111,10 @@ CStream::CStream()
 
 CStream::~CStream()
 {
-	if (m_hErrorLockable)
-		CloseHandle(m_hErrorLockable);
+	if (m_hErrorLockable != NULL)
+	{
+		::CloseHandle(m_hErrorLockable);
+	}
 
 	// Free memory in m_Reply.
 	//
@@ -131,7 +133,7 @@ void CStream::Initialize ()
 	m_szDesLibName.Empty();
 	m_szGssLibName.Empty();
 
-	// THis should go away!!
+	// This should go away!!
 	m_ServiceID = 0;
 
 	mgets_data = mboxgets_data = m_pEltWriter = NULL;
@@ -139,8 +141,7 @@ void CStream::Initialize ()
 	// Store search results results in this, as a command separated list of uid's.
 	m_szSearchResults.Empty();
 
-	// The last tagged response is copied here before parsing so it can be available to
-	// a caller.
+	// The last tagged response is copied here before parsing so it can be available to a caller.
 	//
 	*szSrvTRespBuf	= 0;
 
@@ -216,8 +217,7 @@ void CStream::Initialize ()
 	//
 	m_pUserCallback = NULL;
 	//
-	// User passes this opaque data that must be passed back in 
-	// m_pUserCallback.
+	// User passes this opaque data that must be passed back in  m_pUserCallback.
 	//
 	m_ulUserData = 0;
 
@@ -229,12 +229,6 @@ void CStream::Initialize ()
 	//
 	ClearAllErrorEntries();
 }
-
-
-
-
-
-
 
 
 // StreamNotify [PUBLIC]
@@ -272,11 +266,13 @@ void CStream::mm_searched (unsigned long number)
 
 	// Accumulate the message numbers into m_szSearchResults, as a comma-separated list 
 	//
-	if ( m_szSearchResults.IsEmpty() )
-		m_szSearchResults.Format ("%ld", number);
+	if (m_szSearchResults.IsEmpty())
+	{
+		m_szSearchResults.Format("%ld", number);
+	}
 	else
 	{
-		CString sUid;
+		CStringA sUid;
 		sUid.Format (",%ld", number);
 
 		m_szSearchResults += sUid;
@@ -315,7 +311,7 @@ void CStream::mm_expunged (unsigned long MessageNumber)
 
 		if (uid > 0)
 		{
-			CString sUid;
+			CStringA sUid;
 
 			if ( m_szExpungeUidList.IsEmpty() )
 			{
@@ -390,8 +386,7 @@ void CStream::mm_alert (char *string)
 void CStream::mm_list (int delimiter,char *mailbox,long attributes)
 {
 	// If mailbox is NULL or empty, and there is a delimiter, assume that this
-	// is the "account's" top level delimiter. Set this within the
-	// stream
+	// is the "account's" top level delimiter. Set this within the stream
 	// 
 	if ( !(mailbox && *mailbox) )
 	{
@@ -495,7 +490,7 @@ long CStream::mm_diskerror (long, long)
 {
 
   // abort ();
-  mm_log ("mm_diskerror: Disk error occurred", IMAPERROR);
+	mm_log ("mm_diskerror: Disk error occurred", IMAPERROR);
 
   return NIL;
 }
@@ -524,7 +519,7 @@ void CStream::mm_error (unsigned short)
 //
 // Return kerberos library names.
 //
-void CStream::GetGssLibraryName (CString& szName)
+void CStream::GetGssLibraryName (CStringA& szName)
 { 
 	// Overridden??
 	//
@@ -537,7 +532,7 @@ void CStream::GetGssLibraryName (CString& szName)
 
 // GetKrb4LibraryName [PUBLIC]
 //
-void CStream::GetKrb4LibraryName (CString& szName)
+void CStream::GetKrb4LibraryName (CStringA& szName)
 { 
 	// Overridden??
 	//
@@ -550,7 +545,7 @@ void CStream::GetKrb4LibraryName (CString& szName)
 
 // GetDesLibraryName [PUBLIC]
 //
-void CStream::GetDesLibraryName (CString& szName)
+void CStream::GetDesLibraryName (CStringA& szName)
 { 
 	// Overridden??
 	//
@@ -574,7 +569,7 @@ void CStream::ReportError (LPCSTR pStr, UINT Type)
 
 	// First, get a lock on the mutex:
 	//
-	DWORD dwRes = WaitForSingleObject (m_hErrorLockable, dwErrorWaitTimeout);
+	DWORD dwRes = ::WaitForSingleObject (m_hErrorLockable, dwErrorWaitTimeout);
 
 	if (dwRes != WAIT_OBJECT_0)
 		return;
@@ -590,7 +585,7 @@ void CStream::ReportError (LPCSTR pStr, UINT Type)
 	}
 
 	// Make sure:
-	ReleaseMutex (m_hErrorLockable);
+	::ReleaseMutex (m_hErrorLockable);
 }
 
 
@@ -657,7 +652,9 @@ void CStream::AppendErrorStringAndType (UINT Type, LPCSTR pString)
 
 		// Add to list.
 		if (m_ErrorList.GetCount() == 0)
-			m_ErrorList.AddTail ( (void *) pErrData);
+		{
+			m_ErrorList.AddTail((void *)pErrData);
+		}
 		else
 		{
 			// Must we remove the first list member?
@@ -704,7 +701,7 @@ HRESULT CStream::GetLastServerMessage (LPSTR szErrorBuf, short nBufSize)
 
 	// First, get a lock on the mutex:
 	//
-	WaitForSingleObject (m_hErrorLockable, dwErrorWaitTimeout);
+	::WaitForSingleObject (m_hErrorLockable, dwErrorWaitTimeout);
 
 	// In case we fail.
 	szErrorBuf[0] = '\0';
@@ -721,7 +718,7 @@ HRESULT CStream::GetLastServerMessage (LPSTR szErrorBuf, short nBufSize)
 	}
 
 	// Make sure:
-	ReleaseMutex (m_hErrorLockable);
+	::ReleaseMutex (m_hErrorLockable);
 
 	return bResult ? S_OK : E_FAIL;
 }	
@@ -748,7 +745,7 @@ int CStream::GetLastErrorStringAndType (LPSTR szErrorBuf, short nBufSize)
 
 	// First, get a lock on the mutex:
 	//
-	DWORD dwRes = WaitForSingleObject (m_hErrorLockable, dwErrorWaitTimeout);
+	DWORD dwRes = ::WaitForSingleObject (m_hErrorLockable, dwErrorWaitTimeout);
 
 	if (dwRes != WAIT_OBJECT_0)
 		return iType;
@@ -777,7 +774,7 @@ int CStream::GetLastErrorStringAndType (LPSTR szErrorBuf, short nBufSize)
 	}
 
 	// Make sure:
-	ReleaseMutex (m_hErrorLockable);
+	::ReleaseMutex (m_hErrorLockable);
 
 	return iType;
 }
@@ -795,7 +792,7 @@ void CStream::ClearAllErrorEntries()
 
 	// First, get a lock on the mutex:
 	//
-	WaitForSingleObject (m_hErrorLockable, dwErrorWaitTimeout);
+	::WaitForSingleObject (m_hErrorLockable, dwErrorWaitTimeout);
 
 	pos = m_ErrorList.GetHeadPosition();
 
@@ -814,7 +811,7 @@ void CStream::ClearAllErrorEntries()
 	// Note: Don't free the list object itself.
 
 	// Make sure:
-	ReleaseMutex (m_hErrorLockable);
+	::ReleaseMutex (m_hErrorLockable);
 }
 
 
@@ -823,7 +820,7 @@ int CStream::NumEntriesInErrorDbase ()
 {
 	// First, get a lock on the mutex:
 	//
-	WaitForSingleObject (m_hErrorLockable, dwErrorWaitTimeout);
+	::WaitForSingleObject (m_hErrorLockable, dwErrorWaitTimeout);
 
 	POSITION pos = m_ErrorList.GetHeadPosition();
 	int iNumEntries = 0;
@@ -836,7 +833,7 @@ int CStream::NumEntriesInErrorDbase ()
 	}
 
 	// Make sure:
-	ReleaseMutex (m_hErrorLockable);
+	::ReleaseMutex (m_hErrorLockable);
 
 	return iNumEntries;
 }
@@ -850,7 +847,7 @@ void CStream::SetErrorCallback (ImapErrorFunc pImapErrorFn)
 
 	// First, get a lock on the mutex:
 	//
-	DWORD dwRes = WaitForSingleObject (m_hErrorLockable, dwErrorWaitTimeout);
+	DWORD dwRes = ::WaitForSingleObject (m_hErrorLockable, dwErrorWaitTimeout);
 
 	if (dwRes != WAIT_OBJECT_0)
 		return;
@@ -859,7 +856,7 @@ void CStream::SetErrorCallback (ImapErrorFunc pImapErrorFn)
 	m_pErrorFn = pImapErrorFn;
 
 	// Make sure:
-	ReleaseMutex (m_hErrorLockable);
+	::ReleaseMutex (m_hErrorLockable);
 }
 
 
@@ -867,7 +864,7 @@ void CStream::ResetErrorCallback ()
 {
 	// First, get a lock on the mutex:
 	//
-	DWORD dwRes = WaitForSingleObject (m_hErrorLockable, dwErrorWaitTimeout);
+	DWORD dwRes = ::WaitForSingleObject (m_hErrorLockable, dwErrorWaitTimeout);
 
 	if (dwRes != WAIT_OBJECT_0)
 		return;
@@ -876,7 +873,7 @@ void CStream::ResetErrorCallback ()
 	m_pErrorFn = NULL;
 
 	// Make sure:
-	ReleaseMutex (m_hErrorLockable);
+	::ReleaseMutex (m_hErrorLockable);
 }
 
 
@@ -887,7 +884,7 @@ void CStream::SetAlertCallback (ImapErrorFunc pImapAlertFn)
 
 	// First, get a lock on the mutex:
 	//
-	DWORD dwRes = WaitForSingleObject (m_hErrorLockable, dwErrorWaitTimeout);
+	DWORD dwRes = ::WaitForSingleObject (m_hErrorLockable, dwErrorWaitTimeout);
 
 	if (dwRes != WAIT_OBJECT_0)
 		return;
@@ -896,7 +893,7 @@ void CStream::SetAlertCallback (ImapErrorFunc pImapAlertFn)
 	m_pAlertFn = pImapAlertFn;
 
 	// Make sure:
-	ReleaseMutex (m_hErrorLockable);
+	::ReleaseMutex (m_hErrorLockable);
 }
 
 

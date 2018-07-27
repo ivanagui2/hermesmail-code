@@ -1,4 +1,4 @@
-// imapfr.cpp -  class implementation that does all the work.
+// ImapStream.cpp -  class implementation that does all the work.
 //
 // Copyright (c) 1997-2000 by QUALCOMM, Incorporated
 /* Copyright (c) 2016, Computer History Museum 
@@ -67,7 +67,7 @@ void SetTimeoutQuery (BOOL (*fn) () )
 }
 
 
-// Timeout value for the CSingleLoc.Lock() to wait on thye lock (milliseconds).
+// Timeout value for the CSingleLoc.Lock() to wait on the lock (milliseconds).
 const unsigned long COMMAND_TIMEOUT = 10000;		// 10 seconds..
 
 // Break a long UID-list into chunks of this number of uid per op.
@@ -252,7 +252,7 @@ HRESULT CImapStream::OpenStream(const char *Mailbox)
 	// Must also have a server name or ip address.
 	if (!m_pServer)
 	{
-		ASSERT (0);
+//		ASSERT (0);
 		return E_FAIL;
 	}
 
@@ -260,7 +260,7 @@ HRESULT CImapStream::OpenStream(const char *Mailbox)
 	//
 	if (!m_pNetSettings)
 	{
-		ASSERT (0);
+//		ASSERT (0);
 		return E_FAIL;
 	}
 
@@ -702,7 +702,7 @@ HRESULT	CImapStream::UIDFetchEnvelopeAndExtraHeaders (
 		}
 	}
 
-	// Go do th fetch now:
+	// Go do the fetch now:
 
 	// Note that the implementation of CProtocol::MsgData() does not support a message sequence
 	// so the second parameter (szSequence) should always be NULL. -dwiggins
@@ -1625,7 +1625,7 @@ HRESULT CImapStream::UIDFetchBodyText (unsigned long uid, char *szSection, CWrit
 HRESULT CImapStream::UIDRemoveFlaglist (LPCSTR pUidList, LPCSTR pFlagList, BOOL Silent /* = TRUE */)
 {
 	unsigned long flags;
-	TCHAR	sflaglist[1024];
+	char	sflaglist[1024];
 
 	// Sanity:
 	if (!(pUidList && pFlagList))
@@ -1634,7 +1634,7 @@ HRESULT CImapStream::UIDRemoveFlaglist (LPCSTR pUidList, LPCSTR pFlagList, BOOL 
 	/// Must have a stream.		
 	if (! IsSelected () )
 	{
-		ASSERT (0);
+//		ASSERT (0);
 		return E_FAIL;
 	}
 
@@ -1687,7 +1687,7 @@ HRESULT CImapStream::UIDRemoveFlaglist (LPCSTR pUidList, LPCSTR pFlagList, BOOL 
 HRESULT CImapStream::UIDAddFlaglist (LPCSTR pUidList, LPCSTR pFlagList, BOOL Silent /* = TRUE */)
 {
 	unsigned long flags;
-	TCHAR	sflaglist[1024];
+	char	sflaglist[1024];
 
 	// Sanity:
 	if (!(pUidList && pFlagList))
@@ -1696,7 +1696,7 @@ HRESULT CImapStream::UIDAddFlaglist (LPCSTR pUidList, LPCSTR pFlagList, BOOL Sil
 	/// Must have a stream.		
 	if (! IsSelected () )
 	{
-		ASSERT (0);
+//		ASSERT (0);
 		return E_FAIL;
 	}
 
@@ -1764,7 +1764,7 @@ HRESULT CImapStream::UIDCopy (const char *pUidlist, const char *pDestMailbox, CD
 	// The stream MUST be open, otherwise fail.
 	if ( !(m_pProtocol && IsSelected()) )
 	{
-		ASSERT (0);
+//		ASSERT (0);
 		return E_FAIL;
 	}
 
@@ -1886,7 +1886,7 @@ HRESULT CImapStream::AppendMessage (const char* pFlags, unsigned long Seconds, S
 	// Must be SELECT'ed
 	if ( !IsSelected() )
 	{
-		ASSERT (0);
+//		ASSERT (0);
 		return E_FAIL;
 	}
 
@@ -2129,7 +2129,7 @@ HRESULT CImapStream::GetRfc822Size (IMAPUID uid,unsigned long *pSize)
 
 	if (!(m_pProtocol && IsSelected()))
 	{
-		ASSERT (0);
+//		ASSERT (0);
 		return E_FAIL;
 	}
 
@@ -2160,7 +2160,7 @@ HRESULT CImapStream::GetRfc822Size(char *szSequence, unsigned long *pulSizes, in
 
 	if (!(m_pProtocol && IsSelected()))
 	{
-		ASSERT (0);
+//		ASSERT (0);
 		return E_FAIL;
 	}
 
@@ -2225,7 +2225,7 @@ HRESULT CImapStream::Check()
 // If Expunge is TRUE, send an expunge afterwards.
 // END FUNCTION
 
-HRESULT CImapStream::UIDDeleteMessages (LPCSTR pUidList, CString& szUidsActuallyRemoved, BOOL Expunge)
+HRESULT CImapStream::UIDDeleteMessages (LPCSTR pUidList, CStringA& szUidsActuallyRemoved, BOOL Expunge)
 {
 	if (!pUidList)
 		return E_INVALIDARG;
@@ -2233,7 +2233,7 @@ HRESULT CImapStream::UIDDeleteMessages (LPCSTR pUidList, CString& szUidsActually
 	// We must already be connected. 
 	if (!(m_pProtocol && IsSelected()))
 	{
-		ASSERT (0);
+//		ASSERT (0);
 		return FALSE;
 	}
 
@@ -2274,7 +2274,7 @@ HRESULT CImapStream::UIDUnDeleteMessages (LPCSTR pUidList)
 	// We must already be connected. 
 	if (!(m_pProtocol && IsSelected()))
 	{
-		ASSERT (0);
+//		ASSERT (0);
 		return E_FAIL;
 	}
 
@@ -2313,11 +2313,11 @@ HRESULT CImapStream::UIDUnDeleteMessages (LPCSTR pUidList)
 // * Written by J.King, 3/20/97
 // BUG: This doeas a simple expunge, NOT a UID expunge!!
 // END HISTORY
-HRESULT CImapStream::UIDExpunge (LPCSTR pUidList, CString& szUidsActuallyRemoved)
+HRESULT CImapStream::UIDExpunge (LPCSTR pUidList, CStringA& szUidsActuallyRemoved)
 {
 	if (!(m_pProtocol && IsSelected()))
 	{
-		ASSERT (0);
+//		ASSERT (0);
 		return E_FAIL;
 	}
 
@@ -2353,11 +2353,11 @@ HRESULT CImapStream::UIDExpunge (LPCSTR pUidList, CString& szUidsActuallyRemoved
 // HISTORY
 // * Written by J.King, 3/20/97
 // END HISTORY
-HRESULT CImapStream::Expunge (CString &szUidsActuallyRemoved)
+HRESULT CImapStream::Expunge (CStringA &szUidsActuallyRemoved)
 {
 	if (!(m_pProtocol && IsSelected()))
 	{
-		ASSERT (0);
+//		ASSERT (0);
 		return E_FAIL;
 	}
 
@@ -2389,7 +2389,7 @@ HRESULT CImapStream::RecreateMessageMap ()
 {
 	if (!(m_pProtocol && IsSelected()))
 	{
-		ASSERT (0);
+//		ASSERT (0);
 		return E_FAIL;
 	}
 
@@ -2685,10 +2685,7 @@ HRESULT CImapStream::FetchMailboxAttributes (LPCSTR pImapName, CLister *Lister)
 }
 
 
-
-
-
-// Do a LIST on the given mailbox so we will get it's attributes.
+// Send a CREATE command to make a new mailbox.
 HRESULT CImapStream::CreateMailbox (LPCSTR pImapName)
 {
 	char 		pattern[MAILTMPLEN + 4];
@@ -2703,10 +2700,12 @@ HRESULT CImapStream::CreateMailbox (LPCSTR pImapName)
 
 	// If we have a stream, use it, else open temporary one.
 	if (!m_pProtocol)
+	{
 		OpenControlStream();
 
-	if (!m_pProtocol)
-		return FALSE;
+		if (!m_pProtocol)
+			return FALSE;
+	}
 
 	// Attempt to lock the stream:
 	CStreamLock sLock (m_pProtocol);
@@ -2728,8 +2727,6 @@ HRESULT CImapStream::CreateMailbox (LPCSTR pImapName)
 }
 
 
-
-
 // Delete a mailbox..
 HRESULT CImapStream::DeleteMailbox (LPCSTR pImapName)
 {
@@ -2745,10 +2742,12 @@ HRESULT CImapStream::DeleteMailbox (LPCSTR pImapName)
 
 	// If we have a stream, use it, else open temporary one.
 	if (!m_pProtocol)
+	{
 		OpenControlStream();
 
-	if (!m_pProtocol)
-		return E_FAIL;
+		if (!m_pProtocol)
+			return E_FAIL;
+	}
 
 	// Attempt to lock the stream:
 	CStreamLock sLock (m_pProtocol);
@@ -2901,8 +2900,7 @@ HRESULT CImapStream::UnSubscribeMailbox (LPCSTR pImapName)
 
 
 //
-// Return the error type as the result. If Error, return 
-// IMAPERR_BAD_CODE.
+// Return the error type as the result. If Error, return IMAPERR_BAD_CODE.
 // 
 HRESULT CImapStream::GetLastErrorStringAndType (LPSTR szErrorBuf, short nBufSize, int *pType)
 {	
@@ -2931,7 +2929,7 @@ HRESULT CImapStream::GetLastServerMessage (LPSTR szErrorBuf, short nBufSize)
 {	
 	if (!m_pProtocol)
 	{
-		ASSERT (0);
+//		ASSERT (0);
 		return E_FAIL;
 	}
 
@@ -2959,7 +2957,7 @@ int CImapStream::GetSSLError()
 //	If we have a protocol object with a network connection object, ask the network connection object
 //	for the text of its SSL cert.
 //
-void CImapStream::GetSSLCertText(CString &strText)
+void CImapStream::GetSSLCertText(CStringA &strText)
 {
 	if (m_pProtocol && m_pProtocol->m_pNetConnection)
 	{
@@ -2973,7 +2971,7 @@ void CImapStream::GetSSLCertText(CString &strText)
 //	If we have a protocol object with a network connection object, ask the network connection object
 //	for the rejection text for its SSL cert.
 //
-void CImapStream::GetSSLCertRejection(CString &strRejection)
+void CImapStream::GetSSLCertRejection(CStringA &strRejection)
 {
 	if (m_pProtocol && m_pProtocol->m_pNetConnection)
 	{
@@ -3285,7 +3283,7 @@ BOOL CImapStream::HasNAMESPACE()
 //
 // Ask the the stream for the NAMESPACE value (if any).
 //
-void CImapStream::GetNameSpace(CString &strNameSpace)
+void CImapStream::GetNameSpace(CStringA &strNameSpace)
 {
 	if (m_pProtocol)
 	{
@@ -3328,7 +3326,7 @@ void CImapStream::RegisterUserCallback (ImapNotificationCallback_p pUserCallback
 HRESULT CImapStream::UIDFetchStatus (const char *pMailbox, long flags, MAILSTATUS *pStatus)
 {
 	BOOL bResult = FALSE;
-	TCHAR buf [1024];
+	char buf [1024];
 
 	// Must have a mailbox and a status.
 	if (! (pMailbox && pStatus) )
@@ -3395,7 +3393,7 @@ void CImapStream::ClearErrorDatabase ()
 //
 // Forward the command as-is to the protocol.
 //
-void CImapStream::Search (char *charset, SEARCHPGM *pgm, CString& szResults)
+void CImapStream::Search (char *charset, SEARCHPGM *pgm, CStringA& szResults)
 {
 
 	if (m_pProtocol)
@@ -3417,7 +3415,7 @@ void CImapStream::Search (char *charset, SEARCHPGM *pgm, CString& szResults)
 // END FUNCTION
 //
 HRESULT CImapStream::UIDFind (LPCSTR pHeaderList, BOOL bBody, BOOL bNot, LPCSTR pSearchString,
-						LPCSTR pUidStr,  CString& szResults)
+						LPCSTR pUidStr,  CStringA& szResults)
 {
 	unsigned long flags = 0;
 	BOOL		  bResult = FALSE;
@@ -3524,7 +3522,7 @@ HRESULT CImapStream::UIDFind (LPCSTR pHeaderList, BOOL bBody, BOOL bNot, LPCSTR 
 				// Do the search.
 				if (pPgm->uid)
 				{
-					CString szThisResult;
+					CStringA szThisResult;
 
 					m_pProtocol->Search (NULL, pPgm, flags, szThisResult);
 
@@ -3588,7 +3586,7 @@ HRESULT CImapStream::UIDFind (LPCSTR pHeaderList, BOOL bBody, BOOL bNot, LPCSTR 
 //
 // END FUNCTION
 //
-HRESULT CImapStream::UIDFindText (LPCSTR pSearchString, unsigned long UidFirst, unsigned long UidLast, CString& szResults)
+HRESULT CImapStream::UIDFindText (LPCSTR pSearchString, unsigned long UidFirst, unsigned long UidLast, CStringA& szResults)
 {
 	unsigned long flags = 0;
 	BOOL		  bResult = FALSE;
@@ -3658,7 +3656,7 @@ HRESULT CImapStream::UIDFindText (LPCSTR pSearchString, unsigned long UidFirst, 
 		// Do UID SEARCH
 		flags |= SE_UID;
 
-		CString szThisResult;
+		CStringA szThisResult;
 		m_pProtocol->Search (NULL, pPgm, flags, szThisResult);
 
 		// Copy the stream's results.

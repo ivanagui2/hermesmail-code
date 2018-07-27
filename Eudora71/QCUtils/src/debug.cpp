@@ -94,7 +94,7 @@ BOOL QCLogFileMT::InitDebug(DWORD dwMask, DWORD dwSize, LPCTSTR strEudoraDir, LP
 
 		char Filename[_MAX_PATH + 1];
 		//wsprintf(Filename, "%s%s", (const char*)EudoraDir, GetIniString(IDS_INI_DEBUG_LOG_FILE_NAME));
-		wsprintf(Filename, "%s%s", strEudoraDir, strLogFileName);
+		wsprintfA(Filename, "%s%s", strEudoraDir, strLogFileName);
 
 		g_strLogFileName = Filename;
 
@@ -239,20 +239,20 @@ void QCLogFileMT::PutLineHeader(DebugMaskType ID)
 	else
 	{
 		if (m_bIsNT)
-			wsprintf(DigitString, "%-4.0u ", GetCurrentThreadId());  //reuse the digitstring
+			wsprintfA(DigitString, "%-4.0u ", GetCurrentThreadId());  //reuse the digitstring
 		else
-			wsprintf(DigitString, "%-4.0X ", GetCurrentThreadId() & 0xFFFF);  //reuse the digitstring
+			wsprintfA(DigitString, "%-4.0X ", GetCurrentThreadId() & 0xFFFF);  //reuse the digitstring
 	}
 	if (FAILED(s_pLogFile->Put(DigitString))) return;
 	
 
-	wsprintf(DigitString, "%5d", ID);
+	wsprintfA(DigitString, "%5d", ID);
 	if (FAILED(s_pLogFile->Put(DigitString))) return;
 	if (FAILED(s_pLogFile->Put(":"))) return;
-	wsprintf(DigitString, "%2ld", (Now - MarkerTime) / 60);
+	wsprintfA(DigitString, "%2ld", (Now - MarkerTime) / 60);
 	if (FAILED(s_pLogFile->Put(DigitString))) return;
 	if (FAILED(s_pLogFile->Put("."))) return;
-	wsprintf(DigitString, "%02ld", (Now - MarkerTime) % 60);
+	wsprintfA(DigitString, "%02ld", (Now - MarkerTime) % 60);
 	if (FAILED(s_pLogFile->Put(DigitString))) return;
 	if (FAILED(s_pLogFile->Put(" "))) return;
 

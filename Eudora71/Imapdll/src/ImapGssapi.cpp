@@ -63,9 +63,9 @@ CImapGssapi::~CImapGssapi()
 //	Return:
 //		A CString containing the DLL file name.
 //
-CString CImapGssapi::GetDLLName()
+CStringA CImapGssapi::GetDLLName()
 {
-	CString			 strDLLName;
+	CStringA			 strDLLName;
 
 	// Get the DLL name from the protocol.  This will handle checking if the
 	// user overrode the default name and if no override is provided it will
@@ -87,11 +87,11 @@ CString CImapGssapi::GetDLLName()
 //	Return:
 //		A CRString containing the service name.
 //
-CString CImapGssapi::GetServiceName()
+CStringA CImapGssapi::GetServiceName()
 {
 	AFX_MANAGE_STATE(AfxGetStaticModuleState( ));
 	
-	CString		strServiceName;
+	CStringA		strServiceName;
 
 	strServiceName.LoadString(IDS_IMAP_SERVICE);
 
@@ -185,13 +185,13 @@ long IMAPGssapiAuthenticator(authchallenge_t challenger,authrespond_t responder,
 	}
 
 	CProtocol	*pProtocol = (CProtocol*)stream;
-	CString		 szHostName;
+	CStringA	 szHostName;
 	pProtocol->GetCanonicalHostname(szHostName);
 
 	// Never retry.
 	*trial = 0;
 
-	TCHAR tmp[MAILTMPLEN];
+	char tmp[MAILTMPLEN];
 	pProtocol->mm_login (user, tmp, *trial);
 
 	// Instantiate a CGssapi to do all the work.

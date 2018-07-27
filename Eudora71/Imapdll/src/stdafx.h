@@ -13,6 +13,8 @@
 // Turn on leak checking with malloc (must be defined before stdlib.h is included)
 #define _CRTDBG_MAP_ALLOC
 
+#define ASSERT(x)
+
 #define VC_EXTRALEAN		// Exclude rarely-used stuff from Windows headers
 
 #include <afxwin.h>         // MFC core and standard components

@@ -173,7 +173,7 @@ BOOL CNetStream::NetOpen(const char* Machine, const char* Service, UINT ServiceI
 
 	if(m_szHost.CompareNoCase("hesiod") ==0 && SUCCEEDED(QCHesiodLibMT::LoadHesiodLibrary()))
 	{
-		CString LoginName(loginname);
+		CStringA LoginName(loginname);
 		int At = LoginName.ReverseFind('@');
 		if (At > 0)
 			LoginName.ReleaseBuffer(At);
@@ -237,7 +237,7 @@ void CNetStream::RequestStop()
 }
 
 
-void CNetStream::GetCanonicalHostname (CString& szHostName)
+void CNetStream::GetCanonicalHostname (CStringA& szHostName)
 { 
 	if (!m_pNetConnection)
 	{
@@ -533,7 +533,7 @@ BOOL CNetStream::UserAborted ()
 	return m_pNetConnection->Aborted();
 }
 
-bool CNetStream::SetSSLMode(bool bVal, const CString& persona, SSLSettings* pSSLSettings, const CString& protocol )
+bool CNetStream::SetSSLMode(bool bVal, const CStringA& persona, SSLSettings* pSSLSettings, const CStringA& protocol )
 {
 	if(m_pNetConnection)
 		m_pNetConnection->SetSSLMode(bVal, persona, pSSLSettings, protocol);

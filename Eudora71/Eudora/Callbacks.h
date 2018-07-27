@@ -337,7 +337,7 @@ protected:
 			{
 			//memcpy(memFunc,mf,sz);
 			// JB 1/21/00
-			ASSERT(sz <= MEM_FUNC_SIZE);
+//			ASSERT(sz <= MEM_FUNC_SIZE);
 			memcpy(memFunc,mf,__min(sz, MEM_FUNC_SIZE));
 
 			if(sz<MEM_FUNC_SIZE)	//zero-out the rest, if any, so comparisons work

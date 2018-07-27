@@ -108,15 +108,15 @@ public:
 
 	RCODE SetFlags (LPCSTR pUidList, char* sFlagList, long flags);
 
-	void Search (char *charset, SEARCHPGM *pgm, long flags, CString& szResults);
+	void Search (char *charset, SEARCHPGM *pgm, long flags, CStringA& szResults);
 
 	RCODE Ping ();
 
 	void Check ();
 
-	RCODE	UIDExpunge (LPCSTR pUidList, CString& szUidsActuallyRemoved);
+	RCODE	UIDExpunge (LPCSTR pUidList, CStringA& szUidsActuallyRemoved);
 
-	void Expunge (CString& szUidsActuallyRemoved);
+	void Expunge (CStringA& szUidsActuallyRemoved);
 
 	RCODE Copy (char *sequence, char *mailbox, long flags, CDWordArray *dwaNewUIDs);
 
@@ -244,7 +244,7 @@ public:
 
 	void ClearMailStatus ();
     SSLSettings m_SSLSettings;
-	CString m_Persona;
+	CStringA m_Persona;
 
 // Attributes:
 //
@@ -261,7 +261,7 @@ private:
 
 	long		 m_lUIDValidity;
 
-	CString			 m_strData;		// For grabbing extra data along the way.  This is used for grabbing
+	CStringA		 m_strData;		// For grabbing extra data along the way.  This is used for grabbing
 									// info on ranges of messages.
 	unsigned int	 m_iDataType;	// What type of data is gathered in m_strData.
 };

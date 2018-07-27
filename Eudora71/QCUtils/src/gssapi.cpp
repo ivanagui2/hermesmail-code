@@ -320,7 +320,7 @@ void CGssapi::ShowStatusMessage(OM_uint32 min)
 		{
 			case GSS_S_COMPLETE:
 			case GSS_S_CONTINUE_NEEDED:
-				sprintf (tmp,"GSSAPI failure: %s",mresp.value);
+				sprintf (tmp, "GSSAPI failure: %s", (char *) mresp.value);
 				AddLastErrorString (tmp);
 
 				gss_release_buffer (&mmin,&mresp);
@@ -378,7 +378,7 @@ long CGssapi::Authenticate()
 	chal.value = GetChallenge((unsigned long *) &chal.length);
 
 	// Set up the printable version of service name for gss_import_name().
-	sprintf (tmp,"%s@%s", m_szService, m_szHost);
+	sprintf (tmp, "%s@%s", m_szService.GetBuffer(), m_szHost.GetBuffer());
 
 	buf.length = strlen ( (char *) (buf.value = tmp)) + 1;
 
@@ -554,7 +554,7 @@ long CGssapi::Authenticate()
 			fs_give ((void **) &chal.value);
 
 			// Show and log the error message.
-			sprintf (tmp,"Kerberos credentials expired (try running kinit) for %s", m_szHost);
+			sprintf (tmp, "Kerberos credentials expired (try running kinit) for %s", m_szHost.GetBuffer());
 			AddLastErrorString (tmp);
 
 			// Abort.
@@ -568,12 +568,10 @@ long CGssapi::Authenticate()
 			// Give the value memory back.
 			fs_give ((void **) &chal.value);
 
-			// Try to obtain a more specific error message which will be shown
-			// to the user and logged.
+			// Try to obtain a more specific error message which will be shown to the user and logged.
 			if (min == (OM_uint32) KRB5_FCC_NOFILE)
 			{
-				sprintf (tmp,"No credentials cache found (try running kinit) for %s",
-						m_szHost);
+				sprintf (tmp, "No credentials cache found (try running kinit) for %s", m_szHost.GetBuffer());
 
 				AddLastErrorString (tmp);
 			}

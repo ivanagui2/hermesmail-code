@@ -349,15 +349,15 @@ private:
 	authrespond_t	m_pResponder;
 
 	//
-	CString			m_szService;
-	CString			m_szInstance;
-	CString			m_szRealm;
+	CStringA			m_szService;
+	CStringA			m_szInstance;
+	CStringA			m_szRealm;
 
 	CProtocol*		m_pProtocol;
-	CString			m_szUser;
+	CStringA			m_szUser;
 
 	// hostname.domain
-	CString			m_szServerFQDN;
+	CStringA			m_szServerFQDN;
 
 	// Kerberos library instance: (loaded every time??)
 	//

@@ -193,7 +193,7 @@ RCODE CProtocol::FetchText (unsigned long msgno, char *section, long flags)
 {
 	char tmp[MAILTMPLEN];
 
-	/* build IMAP-format section specifier */
+	// build IMAP-format section specifier
 	if (section && *section)
 	{
 	    sprintf (tmp,"%s.TEXT",section);
@@ -201,7 +201,7 @@ RCODE CProtocol::FetchText (unsigned long msgno, char *section, long flags)
 	}
 	else
 	{
-		/* top-level message text wanted */
+		// top-level message text wanted
 	    strcpy (tmp,"TEXT");
 	}
 
@@ -233,7 +233,7 @@ RCODE CProtocol::PartialBody (unsigned long msgno, char *section,
 
 RCODE CProtocol::FetchBody (unsigned long msgno, char *section, long flags)
 {
-	/* top-level text wanted? */
+	// top-level text wanted?
 	if (!(section && *section))	
 		return FetchMessage (msgno, flags);
 
@@ -553,8 +553,7 @@ RCODE CProtocol::Open (LPCSTR pMailbox, unsigned long options)
 		prt = this->m_SSLSettings.m_IMAPAlternatePort ;
 	}
 
-	/* try to open ordinary (no PREAUTH) connection */
-
+	// Try to open ordinary (no PREAUTH) connection
 	if ( !NetOpen (s, "imap", m_ServiceID, prt, this->GetLogin()) )
 	{
 		return R_FAIL;		
@@ -585,10 +584,9 @@ RCODE CProtocol::Open (LPCSTR pMailbox, unsigned long options)
 	// Get server capabilities.
 	if ( IsConnected() )
 	{
-		// Get the canonical hostname for possible use in
-		// imap_auth below:
+		// Get the canonical hostname for possible use in imap_auth below:
 		//
-		CString szCanonHostname; GetCanonicalHostname (szCanonHostname);
+		CStringA szCanonHostname; GetCanonicalHostname (szCanonHostname);
 
 		if ( (szCanonHostname.GetLength() > 0) &&
 			 (szCanonHostname.GetLength() < sizeof (host) ) )
@@ -738,7 +736,7 @@ RCODE CProtocol::SelectMailbox (LPCSTR pMailbox)
 		// We've succeeded.
 		SetSelected (TRUE);
 
-		/* note if server said it was readonly */
+		// note if server said it was readonly
 		if (reply->text)
 			SetReadOnly ( strncmp (ucase (reply->text),"[READ-ONLY]",11) == 0 );
 
@@ -815,7 +813,7 @@ BOOL CProtocol::Authenticate (char *tmp, char *usr)
 			if (ImapSoutr (tmp) &&
 				(*at->client) (imap_challenge, imap_response, (void *)this, &trial, usr))
 			{
-				/* abort if don't have tagged response */
+				// abort if don't have tagged response
 
 				// THis replaces original (JOK).
 				while (1)
@@ -830,7 +828,7 @@ BOOL CProtocol::Authenticate (char *tmp, char *usr)
 						break;
 				}
 
-				/* done if got success response */
+				// done if got success response
 				if (reply && ImapOK (reply))
 					return TRUE;
 
@@ -879,8 +877,8 @@ BOOL CProtocol::Login (char *tmp, char *usr)
 
 		if (!tmp[0])
 		{
-			/* user refused to give a password */
-			mm_log ("Login aborted",IMAPERROR);
+			// user refused to give a password
+			mm_log ("Login aborted", IMAPERROR);
 
 			//
 			// Signal that the user has aborted the login.
@@ -902,7 +900,7 @@ BOOL CProtocol::Login (char *tmp, char *usr)
 			{
 				if ( ImapOK (reply) )
 				{
-					/* login successful, note if anonymous */
+					// login successful, note if anonymous
 					SetAnonymous ( strcmp (usr, "anonymous") ? NIL : T );
 
 					// If we have succeeded, tell that to the stream
@@ -914,8 +912,7 @@ BOOL CProtocol::Login (char *tmp, char *usr)
 
 			if (!bResult)
 			{
-				// Probably invalid password. In any case,
-				// client should get new password from user.
+				// Probably invalid password. In any case, client should get new password from user.
 				// (JOK - 8/18/98 - not any more).
 				//
 
@@ -976,8 +973,7 @@ void* CProtocol::ImapChallenge (unsigned long *len)
 
 // ImapResponse [PUBLIC]
 //
-// NOTE (JOK): Use this to send our resonse back to the server. Pass the response text
-// via "Response".
+// NOTE (JOK): Use this to send our response back to the server. Pass the response text via "Response".
 //
 BOOL  CProtocol::ImapResponse (char *response, unsigned long size)
 {
@@ -987,7 +983,7 @@ BOOL  CProtocol::ImapResponse (char *response, unsigned long size)
 
 	if (size)
 	{
-  		/* make CRLFless BASE64 string */
+  		// make CRLFless BASE64 string
 		for (t = (char *) rfc822_binary ((void *) response,size,&i),u = t,j = 0;
 				j < i; j++) if (t[j] > ' ')
 		{
@@ -1046,12 +1042,12 @@ void CProtocol::Close (long options)
 {
 	IMAPPARSEDREPLY *reply = NIL;
 
-	/* send "LOGOUT" */
+	// send "LOGOUT"
 	if (IsSelected() && !m_bByeseen)
 	{
-		/* don't even think of doing it if saw a BYE */
+		// don't even think of doing it if saw a BYE
 
-		/* expunge silently if requested */
+		// expunge silently if requested
 		if (options & CL_EXPUNGE)
 			 Send ("EXPUNGE", NIL);
 
@@ -1064,7 +1060,7 @@ void CProtocol::Close (long options)
 		}
 	}
 
-	/* close NET connection if still open */
+	// close NET connection if still open
 	NetClose ();
 
 	// Reset stream status:
@@ -1072,7 +1068,7 @@ void CProtocol::Close (long options)
 	SetAuthenticated (FALSE);
 	SetSelected (FALSE);
 
-	/* free up memory */
+	// free up memory
 	// 
 	if (m_Reply.line)
 		fs_give ((void **) &m_Reply.line);
@@ -1244,7 +1240,7 @@ ENVELOPE* CProtocol::FetchEnvelope (unsigned long msgno, long flags)
     }
 	else if (IsImap2bis ())
 	{
-		/* has non-extensive body and no UID. */
+		// has non-extensive body and no UID.
 		sprintf (tmp,"(BODY)");
 
 		aatt.text = (void *) tmp;	/* do the built command */
@@ -1358,7 +1354,7 @@ BODY* CProtocol::FetchStructure (unsigned long msgno, long flags)
     }
 	else if (IsImap2bis ())
 	{
-		/* has non-extensive body and no UID. */
+		// has non-extensive body and no UID.
 		sprintf (tmp,"(BODY)");
 
 		aatt.text = (void *) tmp;	/* do the built command */
@@ -1403,12 +1399,6 @@ BODY* CProtocol::FetchStructure (unsigned long msgno, long flags)
 }
 
 
-
-
-
-
-
-
 // GetUid [PUBLIC]
 //
 // IMAP fetch UID
@@ -1424,7 +1414,7 @@ unsigned long CProtocol::GetUid (unsigned long msgno)
 	unsigned long uid;
 	MESSAGECACHE  *elt = NULL;
 
-	/* IMAP2 didn't have UIDs */
+	// IMAP2 didn't have UIDs
 	if (!IsImap4 ())
 		return msgno;
 
@@ -1454,7 +1444,7 @@ unsigned long CProtocol::GetUid (unsigned long msgno)
 	args[1] = &aatt;
 	args[2] = NIL;
 
-	/* send "FETCH msgno UID" */
+	// send "FETCH msgno UID"
     if (!ImapOK (reply = Send ("FETCH", args)))
 	{
 		if (reply && reply->text)
@@ -1489,14 +1479,14 @@ unsigned long CProtocol::GetMsgno (unsigned long uid)
 	unsigned long msgno;
 	MESSAGECACHE *elt = NULL;
 
-	/* IMAP2 didn't have UIDs */
+	// IMAP2 didn't have UIDs
 	if ( !IsImap4 () )
 		return uid;
 
 	// Initialize
 	msgno = 0;
 
-	/* have server hunt for UID */
+	// have server hunt for UID
 	aseq.type = SEQUENCE; aseq.text = (void *) seq;
 	aatt.type = ATOM; aatt.text = (void *) "UID";
 	args[0] = &aseq; args[1] = &aatt; args[2] = NIL;
@@ -1512,7 +1502,7 @@ unsigned long CProtocol::GetMsgno (unsigned long uid)
 		elt->privat.uid = uid;
 
 
-	/* send "UID FETCH uid UID" */
+	// send "UID FETCH uid UID"
 	if (!ImapOK (reply = Send ("UID FETCH", args)))
 	{
 		if (reply && reply->text)
@@ -1532,9 +1522,6 @@ unsigned long CProtocol::GetMsgno (unsigned long uid)
 
 	return msgno;			/* didn't find the UID anywhere */
 }
-
-
-
 
 
 // FetchRfc822size [PUBLIC]
@@ -1583,7 +1570,7 @@ unsigned long CProtocol::FetchRfc822size (unsigned long msgno, long flags)
 	args[1] = &aatt;
 	args[2] = NIL;
 
-	/* send "FETCH msgno UID" */
+	// send "FETCH msgno UID"
     if (!ImapOK (reply = Send (cmd, args)))
 	{
 		if (reply && reply->text)
@@ -1645,7 +1632,7 @@ unsigned long CProtocol::FetchRfc822size (char *szSequence, unsigned long *pulSi
 	m_strData = "";
 	m_iDataType = kSizeData;
 
-	/* send "FETCH msgno UID" */
+	// send "FETCH msgno UID"
     if (!ImapOK(reply = Send(cmd, args)))
 	{
 		if (reply && reply->text)
@@ -1826,7 +1813,7 @@ RCODE CProtocol::__SetFlags (char *sequence,char *flag,long flags)
 	// Allocate a new one.
 	elt = MailElt ();
 
-	/* send "STORE sequence +Flags flag" */
+	// send "STORE sequence +Flags flag"
 	if (!ImapOK (reply = Send (cmd, args)))
 	{
 		// We failed.
@@ -1859,7 +1846,7 @@ RCODE CProtocol::__SetFlags (char *sequence,char *flag,long flags)
 // This now just sends the command to the server. Untagged respponses will 
 // be sent to a callback function.
 //
-void CProtocol::Search (char *charset, SEARCHPGM *pgm, long flags, CString& szResults)
+void CProtocol::Search (char *charset, SEARCHPGM *pgm, long flags, CStringA& szResults)
 {
 	IMAPPARSEDREPLY *reply;
 	IMAPARG *args[3],apgm,aseq,aatt;
@@ -1883,7 +1870,7 @@ void CProtocol::Search (char *charset, SEARCHPGM *pgm, long flags, CString& szRe
 	else
 		args[0] = &apgm;
 
-	/* do the SEARCH */
+	// do the SEARCH
 	if (!ImapOK (reply = Send ((flags & SE_UID) ? "UID SEARCH" : "SEARCH", args)))
 	{
 		if (reply && reply->text)
@@ -1931,7 +1918,7 @@ void CProtocol::Check ()
 //
 // Send "EXPUNGE".
 //
-RCODE CProtocol::UIDExpunge (LPCSTR pUidList, CString& szUidsActuallyRemoved)
+RCODE CProtocol::UIDExpunge (LPCSTR pUidList, CStringA& szUidsActuallyRemoved)
 {
 	RCODE rCode = R_OK;
 
@@ -1984,7 +1971,7 @@ RCODE CProtocol::UIDExpunge (LPCSTR pUidList, CString& szUidsActuallyRemoved)
 //
 // Send "EXPUNGE".
 //
-void CProtocol::Expunge (CString& szUidsActuallyRemoved)
+void CProtocol::Expunge (CStringA& szUidsActuallyRemoved)
 {
 
 	IMAPPARSEDREPLY *reply = Send ("EXPUNGE", NIL);
@@ -2109,9 +2096,11 @@ RCODE CProtocol::Append (char *mailbox, char *flags, char *date, STRING *msg, CD
 		}
 	}
 	else
-		mm_log ("APPEND: No mailbox selected.", IMAPERROR);
+	{
+		mm_log("APPEND: No mailbox selected.", IMAPERROR);
+	}
 
-  return ret;			/* return */
+  return ret;
 }
 
 /************************************************************************
@@ -2313,8 +2302,7 @@ RCODE CProtocol::Msgdata (unsigned long msgno, char *szSequence, char *section,
 		return R_FAIL;
 
 	// Do we also fetch the envelope??
-	// Note: We must put the ENVELOPE command args (in args[]), ahead of
-	// BODYFETCH!!.
+	// Note: We must put the ENVELOPE command args (in args[]), ahead of BODYFETCH!!.
 	//
 	if (ppEnvelope)
 	{
@@ -2329,8 +2317,7 @@ RCODE CProtocol::Msgdata (unsigned long msgno, char *szSequence, char *section,
 		aenvplus.type = ENVELOPEPLUS;
 		aenvplus.text = "ENVELOPE";
 
-		// Note: We must put the ENVELOPE command args (in args[]), ahead of
-		// BODYFETCH!!.
+		// Note: We must put the ENVELOPE command args (in args[]), ahead of BODYFETCH!!.
 		//
 		args[1] = &aenvplus;
 		args[2] = &aatt;
@@ -2359,12 +2346,12 @@ RCODE CProtocol::Msgdata (unsigned long msgno, char *szSequence, char *section,
 	//
 	if ( IsImap4Rev1 () )
 	{
-		/* easy case if IMAP4rev1 server */
+		// easy case if IMAP4rev1 server
 		aatt.type = (flags & FT_PEEK) ? BODYPEEK : BODYTEXT;
 
 		if (lines)
 		{
-			/* want specific header lines? */
+			// want specific header lines?
 			sprintf (tmp,"%s.FIELDS%s",section,(flags & FT_NOT) ? ".NOT" : "");
 			aatt.text = (void *) tmp;
 
@@ -2396,7 +2383,7 @@ RCODE CProtocol::Msgdata (unsigned long msgno, char *szSequence, char *section,
 		if (first || last)
 			sprintf (part,"<%lu.%lu>",first,last ? last:-1);
 	}
-	/* BODY.PEEK[HEADER] becomes RFC822.HEADER */
+	// BODY.PEEK[HEADER] becomes RFC822.HEADER
 	else if (!strcmp (section,"HEADER"))
 	{
 	    if (flags & FT_PEEK)
@@ -2428,7 +2415,7 @@ RCODE CProtocol::Msgdata (unsigned long msgno, char *szSequence, char *section,
 	{
 		if ( !IsImap4Only () )
 		{	
-			/* this was introduced in RFC-1730 */
+			// this was introduced in RFC-1730
 			mm_notify ("[NOTIMAP4] Can't do nested header fetch",WARN);
 			return R_FAIL;
 		}
@@ -2581,8 +2568,7 @@ IMAPPARSEDREPLY* CProtocol::Send (char *cmd, IMAPARG *args[])
 
 	    switch (arg->type)
 		{
-			// Used for envelope along with other arguments, so we can
-			// prepend an open brace.
+			// Used for envelope along with other arguments, so we can prepend an open brace.
 			//
 			case ENVELOPEPLUS:
 				*s++ = '(';		/* wrap parens around string */
@@ -2673,8 +2659,7 @@ IMAPPARSEDREPLY* CProtocol::Send (char *cmd, IMAPARG *args[])
 				//
 				// JOK - Now put "(" around BODY fetches (11/7/97).
 				//
-				// If we've been in an ENVELOPEPLUS, don't start with
-				// a brace.
+				// If we've been in an ENVELOPEPLUS, don't start with a brace.
 				if (!bSeenEnvplus)
 					*s++ = '(';
 
@@ -2689,8 +2674,7 @@ IMAPPARSEDREPLY* CProtocol::Send (char *cmd, IMAPARG *args[])
 				// JOK - Now put "(" around BODY fetches (11/7/97).
 				//
 			
-				// If we've been in an ENVELOPEPLUS, don't start with
-				// a brace.
+				// If we've been in an ENVELOPEPLUS, don't start with a brace.
 				if (!bSeenEnvplus)
 					*s++ = '(';
 
@@ -2707,8 +2691,7 @@ IMAPPARSEDREPLY* CProtocol::Send (char *cmd, IMAPARG *args[])
 				//
 				for (t = (char *) arg->text; *t; *s++ = *t++);
 
-				// If we've been in an ENVELOPEPLUS, don't end with
-				// a brace.
+				// If we've been in an ENVELOPEPLUS, don't end with a brace.
 
 				if (!bSeenEnvplus)
 					*s++ = ')';
@@ -4836,7 +4819,7 @@ void CProtocol::ParseBodyStructure (BODY *body, char **txtptr, IMAPPARSEDREPLY *
 					// "FetchAttachmentContentsToFile" below, set an appropriate encoding flag.
 					// 
 					CRString szBinhex (IDS_MIME_BINHEX);
-					CString  szSubtype = body->subtype;
+					CStringA  szSubtype = body->subtype;
 
 					if ( (body->subtype != NULL) &&
 					     (!strnicmp ( (LPCSTR)szSubtype, (LPCSTR)szBinhex, szBinhex.GetLength() ) ) )

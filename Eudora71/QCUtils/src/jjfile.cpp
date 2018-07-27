@@ -93,10 +93,11 @@ HRESULT JJFileMT::Open(const char* filename, int mode, long tries, long interval
 {
 	ASSERT(this);
 
-	// Check for both NULL and file names that are too big if we strip
-	// off trailing periods.
-	if ( !filename || (strlen(filename) >= _MAX_PATH) )
+	// Check for both NULL and file names that are too big if we strip off trailing periods.
+	if (!filename || (strlen(filename) >= _MAX_PATH))
+	{
 		m_strFName.Empty();
+	}
 	else
 	{
 		char StrippedName[_MAX_PATH + 1];
@@ -120,8 +121,7 @@ HRESULT JJFileMT::Open(const char* filename, int mode, long tries, long interval
 		m_strFName = StrippedName;
 
 retry:
-		// If mode contains _O_CREAT, then _S_IWRITE is 
-		// necessary so the file doesn't become read-only.
+		// If mode contains _O_CREAT, then _S_IWRITE is necessary so the file doesn't become read-only.
 		// _O_APPEND seems to be broken with the Symantec C++ library.
 		m_fd = open(StrippedName, (mode & ~O_APPEND) | O_BINARY, S_IWRITE);
 		if (m_fd < 0)
@@ -138,7 +138,9 @@ retry:
 		{
 			// _O_APPEND seems to be broken with the Symantec C++ library.
 			if (mode & O_APPEND)
+			{
 				lseek(m_fd, 0L, SEEK_END);
+			}
 
 			LPCTSTR pFilename = strrchr(m_strFName, '\\');
 			if (pFilename && stricmp(pFilename + 1, "in.mbx") == 0)
@@ -202,8 +204,7 @@ HRESULT JJFileMT::Close(void)
 	}
 
 	//
-	// If we get here, either the close failed, or the file wasn't
-	// open in the first place.
+	// If we get here, either the close failed, or the file wasn't open in the first place.
 	//
 	m_nLastError = errno;
 	return MAKE_HRESULT(1, FACILITY_ITF, QCUTIL_E_FILE_CLOSE);
@@ -312,7 +313,8 @@ HRESULT JJFileMT::Seek(long lOffset, int nMode /*= SEEK_SET*/, long* plNewOffset
 				if (pFilename && stricmp(pExt + 1, "mbx") == 0)
 				{
 					char		szLogBuf[512];
-					sprintf(szLogBuf, "LOGNULL Seeking past end of %s (SEEK_CUR) %d + %d > %d", pFilename, lTell, lOffset, lFSize);
+					sprintf(szLogBuf, "LOGNULL Seeking past end of %s (SEEK_CUR) %d + %d > %d",
+							pFilename, lTell, lOffset, lFSize);
 					PutDebugLog(DEBUG_MASK_TOC_CORRUPT, szLogBuf);
 				}
 			}
@@ -343,7 +345,9 @@ HRESULT JJFileMT::Seek(long lOffset, int nMode /*= SEEK_SET*/, long* plNewOffset
 	}
 
 	if (plNewOffset)
+	{
 		*plNewOffset = lNewOffset;		// caller wants the new offset
+	}
 
 	return S_OK;
 }
@@ -756,7 +760,9 @@ HRESULT JJFileMT::RawRead(char* pBuffer, int nSize, long* plNumBytesRead /* = NU
 
 	int nNumBytesRead = ::read(m_fd, pBuffer, nSize);
 	if (plNumBytesRead)
+	{
 		*plNumBytesRead = long(nNumBytesRead);
+	}
 
 	if (nNumBytesRead < 0)
 	{
@@ -848,7 +854,9 @@ long JJFileMT::ReadLine_(char* pBuffer, long lSize)
 		lNumRead++;
 
 		if (*pBuffer == '\r')
+		{
 			bFoundCR = TRUE;
+		}
 		else
 		{
 			if (*pBuffer == '\n')
@@ -923,7 +931,10 @@ HRESULT JJFileMT::Write_(const char* pBuffer, long lNumBytesToWrite)
 	long count = 0;
 
 	if (lNumBytesToWrite < 0)
+	{
 		lNumBytesToWrite = strlen(pBuffer);
+	}
+
 	while (lNumBytesToWrite)
 	{
 		int nBytesToCopy = int(min(lNumBytesToWrite, long(m_nSize - m_nValidBytes)));
@@ -940,7 +951,8 @@ HRESULT JJFileMT::Write_(const char* pBuffer, long lNumBytesToWrite)
 				if (m_bIsIn)
 				{
 					char		szLogBuf[256];
-					sprintf(szLogBuf, "LOGNULL JJFileMT::Write_() %s, Write %d bytes, %d actually written", (LPCTSTR)m_strFName, m_nValidBytes, iBytesWritten);
+					sprintf(szLogBuf, "LOGNULL JJFileMT::Write_() %s, Write %d bytes, %d actually written",
+							(LPCTSTR)m_strFName, m_nValidBytes, iBytesWritten);
 					PutDebugLog(DEBUG_MASK_TOC_CORRUPT, szLogBuf);
 				}
 

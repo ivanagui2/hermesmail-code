@@ -40,14 +40,20 @@ class Certificate;
 
 #define MAX_BUF 500
 
-class CResString: public CString
+#ifdef ASSERT
+#undef ASSERT
+#endif
+
+#define ASSERT(x)
+
+class CResString: public CStringA
 {
 public:
 	CResString(UINT nID)
 	{
 		char buffer[MAX_BUF];
-		HINSTANCE hInstance = ::GetModuleHandle("qcssl.dll");
-		::LoadString(hInstance, nID, buffer, MAX_BUF-1);
+		HINSTANCE hInstance = ::GetModuleHandleW(L"qcssl.dll");
+		::LoadStringA(hInstance, nID, buffer, MAX_BUF-1);
 
 		this->Insert(0, buffer);
 	}

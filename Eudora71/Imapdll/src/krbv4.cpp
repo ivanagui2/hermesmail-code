@@ -33,10 +33,10 @@ BOOL (CALLBACK* SendTicketForService)(LPSTR service, LPSTR version, int fd) = NU
 
 // Internal functions
 //
-unsigned long	ntohl (unsigned long ulNet);
-unsigned short	ntohs (unsigned short usNet);
-unsigned long	htonl (unsigned long ulHost);
-unsigned short	htons (unsigned short usHost);
+unsigned long	internal_ntohl (unsigned long ulNet);
+unsigned short	internal_ntohs (unsigned short usNet);
+unsigned long	internal_htonl (unsigned long ulHost);
+unsigned short	internal_htons (unsigned short usHost);
 
 
 /////////////////////////////////////////////////////////////////////////
@@ -77,7 +77,7 @@ long KrbV4Authenticator (authchallenge_t challenger,
 		pProto->mm_login (user, tmp, *trial);
 
 		// Kerberos requires lowercase host names.  Same as POP.  -jdboyd 3/27/00
-		CString szHost;
+		CStringA szHost;
 		char szFullIMAPHost[133];	// fully-qualified domain name (e.g., "adept.qualcomm.com")
 
 		pProto->GetCanonicalHostname (szHost);
@@ -284,9 +284,9 @@ BOOL CKrb4::Initialize ()
 
 	// Library names.
 	//
-	CString szLibName; m_pProtocol->GetKrb4LibraryName(szLibName);
+	CStringA szLibName; m_pProtocol->GetKrb4LibraryName(szLibName);
 
-	CString szDesLibName; m_pProtocol->GetDesLibraryName (szDesLibName);
+	CStringA szDesLibName; m_pProtocol->GetDesLibraryName (szDesLibName);
 
 	// If already loaded, return:
 	//
@@ -387,13 +387,13 @@ BOOL CKrb4::Stage0Challenge (unsigned long *ulRndNum)
 	memcpy ((void *)ulRndNum, pChallenge, 4);
 
 	{
-		CString str; str.Format ("random number in network byte order is %lu", *ulRndNum);
+		CStringA str; str.Format ("random number in network byte order is %lu", *ulRndNum);
 //		AfxMessageBox (str);
 	}
 
     // NOTE: ulRndNum is now in local byte order:
 	//
-	*ulRndNum = ntohl(*ulRndNum);
+	*ulRndNum = internal_ntohl(*ulRndNum);
 
 	// Can now free it:
 	//
@@ -520,7 +520,7 @@ BOOL CKrb4::Stage1Response (unsigned long ulRndNum)
 		// Did krb_mk_req fail with some error?
 		if (result)
 		{
-			CString szErr = krb_get_err_text ((KRB_INT)result);
+			CStringA szErr = krb_get_err_text ((KRB_INT)result);
 
 			if ( !szErr.IsEmpty() )
 			{
@@ -626,7 +626,7 @@ BOOL CKrb4::Stage2Challenge (unsigned long ulRndNum)
 
     testnum = (in[0]*256*256*256)+(in[1]*256*256)+(in[2]*256)+in[3];
 
-//    testnum = ntohl(testnum);
+//    testnum = internal_ntohl(testnum);
 
     if (testnum != ulRndNum + 1)
       return FALSE;
@@ -637,10 +637,10 @@ BOOL CKrb4::Stage2Challenge (unsigned long ulRndNum)
      * 6-8 max buffer size
      */
 
-    unsigned long nchal = htonl(ulRndNum);
+    unsigned long nchal = internal_htonl(ulRndNum);
 
 	{
-		CString str; str.Format ("random number in network byte order is %lu", nchal);
+		CStringA str; str.Format ("random number in network byte order is %lu", nchal);
 //		AfxMessageBox (str);
 	}
 
@@ -668,7 +668,7 @@ BOOL CKrb4::Stage2Challenge (unsigned long ulRndNum)
 
 #if 0 
 	{
-		CString str; str.Format ("Userid is %s", m_szUser);
+		CStringA str; str.Format ("Userid is %s", m_szUser);
 		AfxMessageBox (str);
 	}
 #endif
@@ -717,7 +717,7 @@ BOOL CKrb4::Stage2Challenge (unsigned long ulRndNum)
 
 
 
-unsigned long ntohl (unsigned long ulNet)
+unsigned long internal_ntohl (unsigned long ulNet)
 {
 	// 
 	unsigned long b0 = (ulNet & 0xFF000000) >> 24;
@@ -731,7 +731,7 @@ unsigned long ntohl (unsigned long ulNet)
 
 
 
-unsigned short ntohs (unsigned short usNet)
+unsigned short internal_ntohs (unsigned short usNet)
 {
 	// 
 	unsigned short b0 = (unsigned short) ( (usNet & 0xFF00) >> 8 );
@@ -741,15 +741,15 @@ unsigned short ntohs (unsigned short usNet)
 }
 
 
-unsigned long htonl (unsigned long ulHost)
+unsigned long internal_htonl (unsigned long ulHost)
 {
-	return ntohl (ulHost);
+	return internal_ntohl (ulHost);
 }
 
 
-unsigned short htons (unsigned short usHost)
+unsigned short internal_htons (unsigned short usHost)
 {
-	return ntohs (usHost);
+	return internal_ntohs (usHost);
 }
 
 

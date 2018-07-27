@@ -52,9 +52,9 @@ public:
 	void SetDesLibName (LPCSTR pName)
 		{ m_szDesLibName = pName; }
 
-	void GetGssLibraryName (CString& szName);
-	void GetKrb4LibraryName (CString& szName);
-	void GetDesLibraryName (CString& szName);
+	void GetGssLibraryName (CStringA& szName);
+	void GetKrb4LibraryName (CStringA& szName);
+	void GetDesLibraryName (CStringA& szName);
 
 	void SetGssLibName (LPCSTR pName)
 		{ m_szGssLibName = pName; }
@@ -105,13 +105,13 @@ public:
 		{ m_szLogin = pLogin; }
 
 	LPCSTR GetLogin ()
-		{ return m_szLogin; }
+		{ return (LPCSTR) m_szLogin; }
 
 	void SetPassword (LPCSTR pPw)
 		{ m_szPassword = pPw; }
 
 	LPCSTR GetPassword ()
-		{ return m_szPassword; }
+		{ return (LPCSTR) m_szPassword; }
 
 	
 	// Connection state:
@@ -185,7 +185,7 @@ public:
 	BOOL HasNAMESPACE()
 		{ return m_bSupportsNAMESPACE; }
 
-	void GetNameSpace(CString &strNameSpace)
+	void GetNameSpace(CStringA &strNameSpace)
 		{ strNameSpace = m_strNameSpace; }
 
 	// 
@@ -198,7 +198,7 @@ public:
 	// Mailbox name:
 	//
 	LPCSTR GetMailbox ()
-		{ return m_szMailbox; }
+		{ return (LPCSTR) m_szMailbox; }
 
 	void SetMailbox (LPCSTR pMailboxName)
 		{ m_szMailbox = pMailboxName; }
@@ -223,7 +223,7 @@ public:
 // Data:
 public:
 
-	// THis should go away!!
+	// This should go away!!
 	unsigned int m_ServiceID;
 
 
@@ -257,13 +257,13 @@ private:
 // Attributes.
 protected:
 	// Store message list results in this, as a command separated list of uid's.
-	CString			m_szSearchResults;
+	CStringA			m_szSearchResults;
 
 	// Library names:
 	//
-	CString		m_szKrbLibName;
-	CString		m_szDesLibName;
-	CString		m_szGssLibName;
+	CStringA		m_szKrbLibName;
+	CStringA		m_szDesLibName;
+	CStringA		m_szGssLibName;
 
 	//
 	unsigned long		m_PermUserFlags;			/* mask of permanent user flags */
@@ -337,7 +337,7 @@ protected:
 	char *m_Prefix;					/* find prefix */
 	char m_tmpbuf[IMAPTMPLEN];		/* temporary buffer */
 
-	CString		m_strNameSpace;
+	CStringA		m_strNameSpace;
 
 	// This is a linear list mapping msgno to UID.
 	// We use a linked list so we can easily renumber expunged messages, i.e.,
@@ -347,7 +347,7 @@ protected:
 
 	// Used to return list of uid's acrually removed.
 	//
-	CString		m_szExpungeUidList;
+	CStringA		m_szExpungeUidList;
 
 private:
 	// Store these status flags explicitly (JOK).
@@ -359,8 +359,8 @@ private:
 	//
 	BOOL		m_bLocked;
 
-	CString		m_szLogin;
-	CString		m_szPassword;
+	CStringA		m_szLogin;
+	CStringA		m_szPassword;
 
 	// User registers this when this struct is instantiated:
 	//
@@ -373,7 +373,7 @@ private:
 
 	// Our mailbox name.
 	//
-	CString		m_szMailbox;
+	CStringA		m_szMailbox;
 
 	// Error database. This is an MFC list object.
 	CPtrList	m_ErrorList;

@@ -47,7 +47,7 @@
 /*
  * The global security cookie.  This name is known to the compiler.
  */
-extern DWORD_PTR __security_cookie;
+//extern DWORD_PTR __security_cookie;
 
 /*
  * Union to facilitate converting from FILETIME to unsigned __int64

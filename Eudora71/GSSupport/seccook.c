@@ -61,4 +61,4 @@
  * initialize the cookie to the final value.
  */
 
-DWORD_PTR __security_cookie = DEFAULT_SECURITY_COOKIE;
+//DWORD_PTR __security_cookie = DEFAULT_SECURITY_COOKIE;

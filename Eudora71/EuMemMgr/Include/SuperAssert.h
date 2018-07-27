@@ -139,7 +139,9 @@ int BUGSUTIL_DLLINTERFACE GetSuperAssertionCount ( void ) ;
 #endif  // #ifdef _DEBUG
 
 #ifndef USE_OLD_ASSERTS
+#ifndef ASSERT
 #define ASSERT NEWASSERT
+#endif
 #define VERIFY NEWVERIFY
 #define SUPERASSERT NEWASSERT
 #endif  //  USE_OLD_ASSERTS

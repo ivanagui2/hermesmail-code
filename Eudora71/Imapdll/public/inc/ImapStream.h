@@ -233,23 +233,18 @@ public:
 	// Set the QCNetworkSettings to point to the given parameter.
 	// Note that this is contained by reference.
 	//
-	void		SetNetSettingsObject (QCNetworkSettings* pNetSettings)
-					{ m_pNetSettings = pNetSettings; }
+	void		SetNetSettingsObject(QCNetworkSettings* pNetSettings);
 
-	void		SetLogin (LPCSTR pLogin)
-					{ m_szLogin = pLogin; }
-	void		SetPassword (LPCSTR pPassword)
-					{ m_szPassword = pPassword; }
+	void		SetLogin(LPCSTR pLogin);
+
+	void		SetPassword(LPCSTR pPassword);
 
 	// KERBEROS:
-	void		SetKrbDllName (LPCSTR pKrbLibName)
-					{ m_szKrbLibName = pKrbLibName; }
+	void		SetKrbDllName(LPCSTR pKrbLibName);
 
-	void		SetDesDllName (LPCSTR pDesLibName)
-					{ m_szDesLibName = pDesLibName; }
+	void		SetDesDllName(LPCSTR pDesLibName);
 
-	void		SetGssDllName (LPCSTR pGssLibName)
-					{ m_szGssLibName = pGssLibName; }
+	void		SetGssDllName(LPCSTR pGssLibName);
 		
 	// For fetching error strings.
 	HRESULT		GetLastErrorStringAndType (LPSTR szErrorBuf, short nBufSize, int *pType);
@@ -271,11 +266,8 @@ public:
 	void		AllowAuthenticate (BOOL Value);
 
 	void		ClearErrorDatabase ();
-    void SetSSLSettings(const SSLSettings*  pSSLSettings, const CStringA& persona) 
-	{
-		m_SSLSettings = *pSSLSettings; m_Persona = persona;
 
-	}
+	void SetSSLSettings(const SSLSettings*  pSSLSettings, const CStringA& persona);
 
 	// These are class methods:  (STATIC)
 	//

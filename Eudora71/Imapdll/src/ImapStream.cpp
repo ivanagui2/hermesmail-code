@@ -291,8 +291,7 @@ HRESULT CImapStream::OpenStream(const char *Mailbox)
 		}
 	}
 
-	// If we get here, we have to open the stream. However, re-use current one
-	// if there is one.
+	// If we get here, we have to open the stream. However, re-use current one if there is one.
 	if (!m_pProtocol)
 	{
 		// Allocate a new "stream" to pass to imapmail_open. The stream will be
@@ -3764,8 +3763,45 @@ cleanup:
 	return bResult;
 }
 
+// The following Setxxxxxx functions were originally defined in ImapStream.h.  I moved the definitions here
+// because the functions were not getting exported in the new build and simply moving them here solved that
+// problem.  (Pete Maclean, 2-Aug-2018)
 
+void CImapStream::SetSSLSettings(const SSLSettings*  pSSLSettings, const CStringA& persona)
+{
+	m_SSLSettings = *pSSLSettings;
+	m_Persona = persona;
+}
 
+void CImapStream::SetNetSettingsObject(QCNetworkSettings* pNetSettings)
+{
+	m_pNetSettings = pNetSettings;
+}
+
+void CImapStream::SetLogin(LPCSTR pLogin)
+{
+	m_szLogin = pLogin;
+}
+
+void CImapStream::SetPassword(LPCSTR pPassword)
+{
+	m_szPassword = pPassword;
+}
+
+void CImapStream::SetKrbDllName(LPCSTR pKrbLibName)
+{
+	m_szKrbLibName = pKrbLibName;
+}
+
+void CImapStream::SetDesDllName(LPCSTR pDesLibName)
+{
+	m_szDesLibName = pDesLibName;
+}
+
+void CImapStream::SetGssDllName(LPCSTR pGssLibName)
+{
+	m_szGssLibName = pGssLibName;
+}
 
 
 

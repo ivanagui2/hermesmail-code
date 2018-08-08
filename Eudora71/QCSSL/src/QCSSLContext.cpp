@@ -25,7 +25,7 @@ DAMAGE. */
 
 #include "stdafx.h"
 
-#include<afx.h>
+#include <afx.h>
 
 // Define CRTDBG_MAP_ALLOC and include the files in the correct order
 // to allow leak checking with malloc.

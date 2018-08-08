@@ -34,7 +34,7 @@ DAMAGE. */
 #include "QCRas.h"
 
 #include "QCUtils.h"   //for IsMainThreadMT
-#include "pop.h"
+#include "HermesPop.h"
 
 #include "address.h"
 
@@ -56,7 +56,7 @@ int QCNetworkSettings::GrabSettings()
 	// for this personality.  Set it back when done.
 	//
 	CString	CachePersonality =	g_Personalities.GetCurrent();
-	g_Personalities.SetCurrent( m_strPersona );
+	g_Personalities.SetCurrent( m_strPersona.GetBuffer() );
 
 	m_bDoCaching				= GetIniShort(IDS_INI_NETWORK_CACHING)	?true:false;
 	m_bConnectOffline			= GetIniShort(IDS_INI_CONNECT_OFFLINE)	?true:false;

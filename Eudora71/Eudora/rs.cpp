@@ -62,6 +62,8 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
 
 #include "stdafx.h"
 
+#include <direct.h>
+
 #include <QCUtils.h>
 #include "resource.h"
 

@@ -68,7 +68,7 @@ ConnectionInfoMap::~ConnectionInfoMap()
 //	this code will need to change as well.  All in all, this technique is
 //	probably a little too fragile, but for now it will do. -dwiggins
 //
-ConnectionInfo *ConnectionInfoMap::AddConnectionInfo(const CString &uniquename)
+ConnectionInfo *ConnectionInfoMap::AddConnectionInfo(const CStringA &uniquename)
 {
 	m_Mutex.Lock();
 	ConnectionInfo *pConnectionInfo = NULL;
@@ -79,7 +79,7 @@ ConnectionInfo *ConnectionInfoMap::AddConnectionInfo(const CString &uniquename)
 		// can share the ConnectionInfo object so don't delete the object
 		// if this is an IMAP connection.
 		bool	 bIsIMAP = false;
-		char	*strProtocol = strchr(uniquename, '\n');
+		const char	*strProtocol = strchr((const char *)uniquename, '\n');
 		if (strProtocol)
 		{
 			++strProtocol;

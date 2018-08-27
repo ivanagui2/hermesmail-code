@@ -58,7 +58,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
     Removed DisplayFeatureNotInFreeMessage procedure from the LinkHistoryList
     class because Hermes is not shareware.
-
+*/
 
 #ifndef __LinkHistoryList_H__
 #define __LinkHistoryList_H__

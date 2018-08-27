@@ -30,7 +30,9 @@ DAMAGE. */
 
 
 #include <uxtheme.h>
-#include <tmschema.h>
+
+// Replaced "<tmschema.h>" by "<vssym32.h>".  The latter header obsoletes the former.  (Pete Maclean 27-Aug-2018)
+#include <vssym32.h>
 
 
 class CXPThemedAppearance

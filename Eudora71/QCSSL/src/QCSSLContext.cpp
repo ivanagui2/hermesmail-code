@@ -913,7 +913,7 @@ bool CleanQCSSLDll()
 	g_cerstoreRootStore.Close();
 
 	// Clean up OpenSSL objects.
-	CRYPTO_cleanup_all_ex_data();
+//	CRYPTO_cleanup_all_ex_data(); // calling this is not always safe...
 	ERR_free_strings();
 	EVP_cleanup();
 

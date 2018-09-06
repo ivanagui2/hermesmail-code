@@ -8,6 +8,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 // Microsoft Foundation Class Library includes
 
+
 // Make sure we're at last on Windows XP, to accomodate MFC (sbrothy@gmail.com)
 #define WINVER 0x0501
 

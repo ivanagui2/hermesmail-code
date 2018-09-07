@@ -20,8 +20,8 @@ BEGIN
     BEGIN
         BLOCK "040904E4"    // Lang=US English, CharSet=Windows Multilingual
         BEGIN
-//          VALUE "CompanyName", "QUALCOMM Incorporated\0"
-//          VALUE "LegalCopyright", "Copyright \251 1991-2006\0"
+          VALUE "CompanyName", "Hermes\0"
+//          VALUE "LegalCopyright", "Copyright \251 2018-19 by Hermes.  All rights reserved.\0"
 
             VALUE "FileVersion", EUDORA_BUILD_VERSION
             VALUE "ProductVersion", EUDORA_BUILD_VERSION

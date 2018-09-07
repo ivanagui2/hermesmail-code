@@ -30,7 +30,9 @@ DAMAGE. */
 // Define CRTDBG_MAP_ALLOC and include the files in the correct order
 // to allow leak checking with malloc.
 #define CRTDBG_MAP_ALLOC
-#include <stdlib.h>
+#include <cassert>
+#include <cstdlib>
+#include <strsafe.h>
 #include <crtdbg.h>
 
 #include "QCSSLContext.h"
@@ -43,7 +45,7 @@ DAMAGE. */
 #include "resource.h"
 
 #include "OpenSSL\err.h"
-
+#include <openssl/crypto.h>
 #include "DebugNewHelpers.h"
 
 
@@ -497,7 +499,7 @@ bool SetupCertificates(SSL_CTX *pSSLCtx, QCSSLReference *pSSLReference)
 //	Set the list of cipher suites to offer to the server.
 //
 //	Note: With OpenSSL this call is optional because not specifying any cipher suites will result in
-//	the default cipher suite list to be offered.  The below code has the same effect as not calling
+//	the default cipher suite list being offered.  The code below has the same effect as not calling
 //	this function at all.  If at some point we want to change the list of cipher suites then we would
 //	need to change the below list and be sure to call this function.
 //
@@ -505,18 +507,53 @@ int SetCipherSuites(SSL_CTX *pSSLCtx)
 {
 	if (pSSLCtx != NULL)
 	{
-		const char		*szCiphers = "DHE-RSA-AES256-SHA:DHE-DSS-AES256-SHA:AES256-SHA:"
-									 "EDH-RSA-DES-CBC3-SHA:EDH-DSS-DES-CBC3-SHA:DES-CBC3-SHA:DES-CBC3-MD5:"
-									 "DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA:AES128-SHA:"
-									 "IDEA-CBC-SHA:IDEA-CBC-MD5:RC2-CBC-MD5:DHE-DSS-RC4-SHA:"
-									 "RC4-SHA:RC4-MD5:RC4-MD5:RC4-64-MD5:"
-									 "EXP1024-DHE-DSS-DES-CBC-SHA:EXP1024-DES-CBC-SHA:EXP1024-RC2-CBC-MD5:"
-									 "EDH-RSA-DES-CBC-SHA:EDH-DSS-DES-CBC-SHA:DES-CBC-SHA:DES-CBC-MD5:"
-									 "EXP1024-DHE-DSS-RC4-SHA:EXP1024-RC4-SHA:EXP1024-RC4-MD5:"
-									 "EXP-EDH-RSA-DES-CBC-SHA:EXP-EDH-DSS-DES-CBC-SHA:"
-									 "EXP-DES-CBC-SHA:EXP-RC2-CBC-MD5:EXP-RC2-CBC-MD5:EXP-RC4-MD5:EXP-RC4-MD5";
-		return SSL_CTX_set_cipher_list(pSSLCtx, szCiphers);
+		// This list includes exactly those ciphers from the original Eudora sources but with duplicates removed
+		// (there were four!), the list alphabetized and commented.
+		//
+		// The list includes four ciphers that appear to either not exist or to be obsolete.  This should not be
+		// a problem since SSL_CTX_set_cipher_list() is documented as ignoring any input that it does not recognize.
+		const char *szCiphers =
+			"AES128-SHA:"					// TLS_RSA_WITH_AES_128_CBC_SHA
+			"AES256-SHA:"					// TLS_RSA_WITH_AES_256_CBC_SHA
+			"DES-CBC-MD5:"					// (SSL2_DES_64_CBC_WITH_MD5 ???)
+			"DES-CBC-SHA:"					// TLS_RSA_WITH_DES_CBC_SHA
+			"DES-CBC3-MD5:"					// SSL_CK_DES_192_EDE3_CBC_WITH_MD5
+			"DES-CBC3-SHA:"					// SSL_RSA_WITH_3DES_EDE_CBC_SHA
+			"DHE-DSS-AES128-SHA:"			// TLS_DHE_DSS_WITH_AES_128_CBC_SHA
+			"DHE-DSS-AES256-SHA:"			// TLS_DHE_DSS_WITH_AES_256_CBC_SHA
+			"DHE-DSS-RC4-SHA:"				// TLS_DHE_DSS_WITH_RC4_128_SHA
+			"DHE-RSA-AES128-SHA:"			// TLS_DHE_RSA_WITH_AES_128_CBC_SHA
+			"DHE-RSA-AES256-SHA:"			// TLS_DHE_RSA_WITH_AES_256_CBC_SHA
+			"EDH-DSS-DES-CBC-SHA:"			// ???
+			"EDH-DSS-DES-CBC3-SHA:"			// SSL_DHE_DSS_WITH_3DES_EDE_CBC_SHA
+			"EDH-RSA-DES-CBC-SHA:"			// SSL_DHE_RSA_WITH_DES_CBC_SHA
+			"EDH-RSA-DES-CBC3-SHA:"			// SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA
+			"EXP1024-DES-CBC-SHA:"			// TLS_RSA_EXPORT1024_WITH_DES_CBC_SHA
+			"EXP1024-DHE-DSS-DES-CBC-SHA:"	// TLS_DHE_DSS_EXPORT1024_WITH_DES_CBC_SHA
+			"EXP1024-DHE-DSS-RC4-SHA:"		// TLS_DHE_DSS_EXPORT1024_WITH_RC4_56_SHA
+			"EXP1024-RC2-CBC-MD5:"			// ???
+			"EXP1024-RC4-SHA:"				// TLS_RSA_EXPORT1024_WITH_RC4_56_SHA
+			"EXP1024-RC4-MD5:"				// ???
+			"EXP-DES-CBC-SHA:"				// SSL_RSA_EXPORT_WITH_DES40_CBC_SHA
+			"EXP-EDH-DSS-DES-CBC-SHA:"		// TLS_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA
+			"EXP-EDH-RSA-DES-CBC-SHA:"		// SSL_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA
+			"EXP-RC2-CBC-MD5:"				// TLS_RSA_EXPORT_WITH_RC2_CBC_40_MD5
+			"EXP-RC4-MD5:"					// SSL_RSA_EXPORT_WITH_RC4_40_MD5
+			"IDEA-CBC-MD5:"					// SSL_CK_IDEA_128_CBC_WITH_MD5
+			"IDEA-CBC-SHA:"					// SSL_RSA_WITH_IDEA_CBC_SHA
+			"RC2-CBC-MD5:"					// SSL_CK_RC2_128_CBC_WITH_MD5
+			"RC4-64-MD5:"					// ???
+			"RC4-MD5:"						// SSL_RSA_WITH_RC4_128_MD5
+			"RC4-SHA"						// SSL_RSA_WITH_RC4_128_SHA
+			;
+
+		int iResult = SSL_CTX_set_cipher_list(pSSLCtx, szCiphers);
+
+		assert(1 == iResult);
+
+		return iResult;
 	}
+
 	return 0;
 }
 
@@ -527,7 +564,7 @@ int SetCipherSuites(SSL_CTX *pSSLCtx)
 //
 SSL_CTX *SetSSLVersion(QCSSLReference *pSSLReference)
 {
-	SSL_METHOD		*sslmethod = NULL;
+	const SSL_METHOD		*sslmethod = NULL;
 
 	if (!pSSLReference)
 	{
@@ -566,7 +603,7 @@ SSL_CTX *SetSSLVersion(QCSSLReference *pSSLReference)
 		pConnectionInfo->m_Outcome.AddComments(CResString(IDS_ERR_VERSIONINVALID));
 		break;
 	}
-	return SSL_CTX_new(sslmethod);
+	return SSL_CTX_new((SSL_METHOD *)sslmethod);
 }
 
 //
@@ -666,7 +703,7 @@ void FillInConnectionInfo(ConnectionInfo *pConnectionInfo, QCSSLReference *pSSLR
 	pConnectionInfo->m_ServerName = pSSLReference->m_ProtocolInfo.m_ServerName ;
 	pConnectionInfo->m_Port = pSSLReference->m_ProtocolInfo.m_Port ;
 
-	SSL_CIPHER		*pSSLCipher = SSL_get_current_cipher(pSSL);
+	const SSL_CIPHER		*pSSLCipher = SSL_get_current_cipher(pSSL);
 	if (pSSLCipher)
 	{
 		pConnectionInfo->m_CipherName = SSL_get_cipher(pSSL);
@@ -675,7 +712,7 @@ void FillInConnectionInfo(ConnectionInfo *pConnectionInfo, QCSSLReference *pSSLR
 		pConnectionInfo->m_CipherKeyBits = SSL_CIPHER_get_bits(pSSLCipher, &iBits);
 
 		char		 szBuf[128];
-		CString		 strCipherDesc = SSL_CIPHER_description(pSSLCipher, szBuf, 128);
+		CStringA	 strCipherDesc = SSL_CIPHER_description((SSL_CIPHER *)pSSLCipher, szBuf, 128);
 	}
 
 
@@ -722,6 +759,8 @@ void FillInConnectionInfo(ConnectionInfo *pConnectionInfo, QCSSLReference *pSSLR
 //
 bool BeginQCSSLSession(QCSSLReference *pSSLReference)
 {
+	int iResult;
+
 	g_Mutex.Lock();
 
 	int			 iRet = 0;
@@ -729,13 +768,15 @@ bool BeginQCSSLSession(QCSSLReference *pSSLReference)
 	// Set up the Connection Info object.
 	ConnectionInfo	*pConnectionInfo = SetupConnectionInfo(pSSLReference);
 
-	// Set up the SSL library.
+	// Set up the SSL library.  SSL_library_init() returns a value but it is always 1 so can be ignored.
 	SSL_load_error_strings();
 	SSL_library_init();
 
+	const char *pszVersion = SSLeay_version(SSLEAY_VERSION);
+
 	// Set the SSL version negotiation values.
 	SSL_CTX		*pSSLCtx = SetSSLVersion(pSSLReference);
-	if (!pSSLCtx)
+	if (NULL == pSSLCtx)
 	{
 		ASSERT(0);
 		g_Mutex.Unlock();
@@ -752,24 +793,28 @@ bool BeginQCSSLSession(QCSSLReference *pSSLReference)
 	SSL_CTX_set_verify(pSSLCtx, SSL_VERIFY_PEER, QCCertificateUtils::CertificateCallback);
 
 	// Create the SSL object.
-	SSL		*pSSL = NULL;
-	pSSL = SSL_new(pSSLCtx);
-	if (!pSSL)
+	SSL	*pSSL = SSL_new(pSSLCtx);
+	if (NULL == pSSL)
 	{
 		SSL_CTX_free(pSSLCtx);
 		g_Mutex.Unlock();
 		return false;
 	}
 
+	pSSL->ctx = pSSLCtx;
+
 	// Create the BIO for reading and writing.
-	BIO		*pBIO = BIO_new_ws((int)pSSLReference, BIO_NOCLOSE);
-	if (!pBIO)
+	BIO	*pBIO = BIO_new_ws((int)pSSLReference, BIO_NOCLOSE);
+	if (NULL == pBIO)
 	{
 		SSL_free(pSSL);
 		g_Mutex.Unlock();
 		return false;
 	}
 	SSL_set_bio(pSSL, pBIO, pBIO);
+
+	// The following was used for testing
+//	iResult = SSL_set_cipher_list(pSSL, "DHE-RSA-AES256-SHA");
 
 	// Specify client (connect) state.
 	SSL_set_connect_state(pSSL);
@@ -778,10 +823,17 @@ bool BeginQCSSLSession(QCSSLReference *pSSLReference)
 	// the user store.  Set these objects as extra data for the cert store so they can be retrieved
 	// inside the callback.
 	X509_STORE			*pX509Store = pSSL->ctx->cert_store;
-	if (pX509Store)
+	if (pX509Store != NULL)
 	{
-		CRYPTO_set_ex_data(&(pX509Store->ex_data), 0, pSSLReference);
-		CRYPTO_set_ex_data(&(pX509Store->ex_data), 1, &g_certstoreUserStore);
+		// The following statement is a horrible kludge that must be cleaned up at some point.  With version
+		// 0.9.6a of OpenSSL [pX509Store->ex_data.sk] at this point is set to an invalid address suggesting that
+		// is not initialized.  Leaving that as it is causes CRYPTO_set_ex_data() to fault.  Setting it to NULL
+		// here forces CRYPTO_set_ex_data() to allocate a new stack to hold the exdata and all goes well.
+		pX509Store->ex_data.sk = NULL;
+		iResult = CRYPTO_set_ex_data(&pX509Store->ex_data, 0, pSSLReference);
+		assert(1 == iResult);
+		iResult = CRYPTO_set_ex_data(&pX509Store->ex_data, 1, &g_certstoreUserStore);
+		assert(1 == iResult);
 	}
 
 	// Now that everything is created, set the parameters passed to us.
@@ -791,7 +843,7 @@ bool BeginQCSSLSession(QCSSLReference *pSSLReference)
 	bool		 bContinue = true;
 	bool		 bSuccess = false;
 	int			 iErr = SSL_ERROR_NONE;
-	while(!bSuccess && bContinue)
+	while (!bSuccess && bContinue)
 	{
 		iRet = SSL_do_handshake(pSSL);
 		if (iRet == 1)
@@ -810,18 +862,32 @@ bool BeginQCSSLSession(QCSSLReference *pSSLReference)
 					ASSERT(0);
 					bContinue = false;
 					break;
+
+				// An error of SSL_ERROR_SSL in this context means that the server closed the connection
+				// without completing the SSL negotiation.  This can happen, for example, because the server
+				// decided to time out.
+				//
+				// An error of SSL_ERROR_SYSCALL in this context means that the server aborted the SSL negotiation.
+				// This can happen, for example, because the server does not like our SSL certificate.
 				case SSL_ERROR_ZERO_RETURN:
 				case SSL_ERROR_SSL:
 				case SSL_ERROR_SYSCALL:
 					// Fatal error, stop trying.
 					bContinue = false;
 					break;
+
 				case SSL_ERROR_WANT_READ:
 				case SSL_ERROR_WANT_WRITE:
 				case SSL_ERROR_WANT_X509_LOOKUP:
 				case SSL_ERROR_WANT_CONNECT:
 				case SSL_ERROR_WANT_ACCEPT:
 					// Temporary failure, call SSL_do_handshake() again.
+					break;
+
+				default:
+					// Unknown error, stop trying.
+					ASSERT(0);
+					bContinue = false;
 					break;
 			}
 		}
@@ -845,8 +911,11 @@ bool BeginQCSSLSession(QCSSLReference *pSSLReference)
 
 	if (!bSuccess)
 	{
+		::OutputDebugStringA(__FUNCTION__ ":  returning 'false'\r\n");
 		return false;
 	}
+
+	::OutputDebugStringA(__FUNCTION__ ":  returning 'true'\r\n");
 
 	return true;
 }

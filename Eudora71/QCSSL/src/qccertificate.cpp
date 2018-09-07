@@ -8,12 +8,12 @@
 // Define CRTDBG_MAP_ALLOC and include the files in the correct order
 // to allow leak checking with malloc.
 #define CRTDBG_MAP_ALLOC
-#include <stdlib.h>
+#include <cstdlib>
 #include <crtdbg.h>
 
 #include <stdio.h>
 #include <string.h>
-#include<afx.h>
+#include <afx.h>
 #include "qccertificate.h"
 #include "qcssl.h"
 #include "cert.h"
@@ -29,42 +29,42 @@
 //
 //	Certificate handling callback.
 //
-int QCCertificateUtils::CertificateCallback(int iOK, X509_STORE_CTX *pX509StoreCtx)
+int QCCertificateUtils::CertificateCallback(
+	int iOK,						// [in] result of pre-verification
+	X509_STORE_CTX *pX509StoreCtx)	// [in] certificate received from server
 {
 	bool			 bInStore = false;
 	long			 lErrors = 0;
 
-	if (!pX509StoreCtx)
-	{
+	if (NULL == pX509StoreCtx)
 		return 0;
-	}
 
 	// Get the QCSSLReference and ConnectionInfo objects from the cert store's extra data.
-	QCSSLReference *pSSLReference = (QCSSLReference*)CRYPTO_get_ex_data(&(pX509StoreCtx->ctx->ex_data), 0);
+	QCSSLReference *pSSLReference = (QCSSLReference*)CRYPTO_get_ex_data(&pX509StoreCtx->ctx->ex_data, 0);
 	ConnectionInfo* pInfo = NULL;
-	if (pSSLReference)
+	if (pSSLReference != NULL)
 	{
 		pInfo = (ConnectionInfo*)pSSLReference->m_pConnectionManagerInfo;
 	}
-	if (!pInfo)
-	{
-		return 0;
-	}
 
-	// Get the user store object from the cert store's extra data.
-	CertificateStore	*pUserStore = (CertificateStore*)CRYPTO_get_ex_data(&(pX509StoreCtx->ctx->ex_data), 1);
+	if (NULL == pInfo)
+		return 0;
 
 	// Bail now if there is no cert.
-	if (!pX509StoreCtx->current_cert)
+	X509 *pX509 = X509_STORE_CTX_get_current_cert(pX509StoreCtx);
+	if (NULL == pX509)
 	{
 		pInfo->m_Outcome.AddErrors(IDS_CERTERR_NOCERT);
 		return 0;
 	}
 
+	// Get the user store object from the cert store's extra data.
+	CertificateStore	*pUserStore = (CertificateStore*)CRYPTO_get_ex_data(&pX509StoreCtx->ctx->ex_data, 1);
+
 	// If cert is not OK see if the user has added it to their trusted list.
 	if (iOK == 0)
 	{
-		bInStore = (CertIsInStore(pX509StoreCtx->current_cert, pUserStore) == 1);
+		bInStore = (CertIsInStore(pX509, pUserStore) == 1);
 		if (bInStore)
 		{
 			iOK = 1;
@@ -77,7 +77,7 @@ int QCCertificateUtils::CertificateCallback(int iOK, X509_STORE_CTX *pX509StoreC
 	if (iOK == 0)
 	{
 		lErrors = pX509StoreCtx->error;
-		switch(pX509StoreCtx->error)
+		switch (pX509StoreCtx->error)
 		{
 			case X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT_LOCALLY:
 				if (pInfo->m_Outcome.m_ErrorCode == 0)
@@ -161,7 +161,7 @@ int QCCertificateUtils::CertificateCallback(int iOK, X509_STORE_CTX *pX509StoreC
 	CertData		*pNewCertData = DEBUG_NEW CertData();
 	pInfo->m_CertDataList.AddTail(pNewCertData);
 	pNewCertData->m_bTrusted = (iOK == 1);
-	ExtractCertInfo(pX509StoreCtx->current_cert, pNewCertData);
+	ExtractCertInfo(pX509, pNewCertData);
 
 	// If we haven't yet matched the certificate name, test it now.  If the server returns a chain of
 	// certificates we only need to name match against one.
@@ -182,10 +182,8 @@ int QCCertificateUtils::CertificateCallback(int iOK, X509_STORE_CTX *pX509StoreC
 //
 int QCCertificateUtils::CertIsInStore(X509 *pX509, CertificateStore *pStore)
 {
-	if (!pX509 || !pStore || !pStore->m_hStore)
-	{
+	if (NULL == pX509 || NULL == pStore || NULL == pStore->m_hStore)
 		return 0;
-	}
 
 	CERT_CONTEXT	*pPrevContext = NULL;
 	CERT_CONTEXT	*pContext = NULL;
@@ -194,19 +192,21 @@ int QCCertificateUtils::CertIsInStore(X509 *pX509, CertificateStore *pStore)
 	do
 	{
 		pContext = (CERT_CONTEXT*)::CertEnumCertificatesInStore(pStore->m_hStore, pPrevContext);
-		if(pContext)
+		if (pContext)
 		{
 			// The function d2i_X509() (which is used to convert a cert from DER format (which is what
 			// we use to store the certs) into PEM format (which OpenSSL prefers)) modifies the data in
 			// place so we need to pass d2i_x509() a copy of the cert data, not the actual data.
 			pbCertEncoded = (unsigned char*)malloc(pContext->cbCertEncoded);
-			if (pbCertEncoded)
+			if (pbCertEncoded != NULL)
 			{
 				pbCertEncodedStart = pbCertEncoded;
 				memcpy(pbCertEncoded, pContext->pbCertEncoded, pContext->cbCertEncoded);
 
-				X509	*pX509Tmp = d2i_X509(NULL, (unsigned char **)(&pbCertEncoded), pContext->cbCertEncoded);
-				if (pX509Tmp)
+				X509	*pX509Tmp = d2i_X509(NULL,
+					(unsigned char **)(&pbCertEncoded),
+					pContext->cbCertEncoded);
+				if (pX509Tmp != NULL)
 				{
 					if (X509_cmp(pX509, pX509Tmp) == 0)
 					{
@@ -235,17 +235,20 @@ int QCCertificateUtils::CertIsInStore(X509 *pX509, CertificateStore *pStore)
 bool QCCertificateUtils::PatternMatchHostName(char * szCertsName, char* szGivenName)
 {
 	bool bReturn = false;
-	if(!szGivenName || !*szGivenName || !szCertsName || !*szCertsName)
+	if(NULL == szGivenName || 0 == *szGivenName || NULL == szCertsName || 0 == *szCertsName)
 		return false;
+
 	strlwr(szCertsName);
 	strlwr(szGivenName);
 	
 	const char *szGivenRelativeName;		
-	if((szGivenRelativeName = strchr(szGivenName, '.')) == NULL)
+	if ((szGivenRelativeName = strchr(szGivenName, '.')) == NULL)
 	{
 		char *szDomainPart = strchr(szCertsName, ',');
-		if(szDomainPart) 
+		if (szDomainPart)
+		{
 			*szDomainPart = '\0';
+		}
 	}
 	
 #ifndef NO_MOZILLA_REGEXP
@@ -253,21 +256,24 @@ bool QCCertificateUtils::PatternMatchHostName(char * szCertsName, char* szGivenN
 	if(!nIsRegexp) 
 	{
 #endif
-		if(stricmp(szCertsName, szGivenName) == 0) 
-		{
-			bReturn = true;
-		}
-		else if(szGivenRelativeName && stricmp(szGivenRelativeName, szCertsName) == 0) 
-		{
-			bReturn = true;
-		}
+
+	if (stricmp(szCertsName, szGivenName) == 0) 
+	{
+		bReturn = true;
+	}
+	else if (szGivenRelativeName && stricmp(szGivenRelativeName, szCertsName) == 0) 
+	{
+		bReturn = true;
+	}
 
 #ifndef NO_MOZILLA_REGEXP
 	} 
 	else 
 	{
-		if(PORT_RegExpCaseSearch((char *)szGivenName, szCertsName) == 0)
-			bReturn = true;		
+		if (PORT_RegExpCaseSearch((char *)szGivenName, szCertsName) == 0)
+		{
+			bReturn = true;
+		}
 	}		
 #endif
 
@@ -281,22 +287,23 @@ bool QCCertificateUtils::PatternMatchHostName(char * szCertsName, char* szGivenN
 //
 bool QCCertificateUtils::ExtractCertInfo(X509 *pX509, CertData *pNewCertData)
 {
-	if (!pX509 || !pNewCertData)
-	{
+	if (NULL == pX509 || NULL == pNewCertData)
 		return false;
-	}
 
 	// Extract the common name from pX509.  It seems to me there should be an OpenSSL call
 	// to do this but I cannot locate one so do it manually.
+	//
+	// Use of the X509_NAME_oneline() function is, apparently, now discouraged and it would be good to change this.
 	char		*szBuf = X509_NAME_oneline(X509_get_subject_name(pX509), NULL, 0);
-	CString		 strName = szBuf;
-	free(szBuf);
+	CStringA	 strName = szBuf;
+	OPENSSL_free(szBuf);
 
-	int				 iPos = strName.Find("/CN=", 0);
+	int		iPos = strName.Find("/CN=", 0);
 	if (iPos >= 0)
 	{
 		strName = strName.Right(strName.GetLength() - iPos - 4);
 	}
+
 	iPos = strName.Find("/", 0);
 	if (iPos >= 0)
 	{
@@ -304,17 +311,14 @@ bool QCCertificateUtils::ExtractCertInfo(X509 *pX509, CertData *pNewCertData)
 	}
 
 	// Convert the data in pX509 to DER format and use it to create a CertData object.
-	int				 iDataSize = 0;
-	unsigned char	*pcBuf = NULL;
-	unsigned char	*pcCertData = NULL;
-
-	iDataSize = i2d_X509(pX509, NULL);
-	pcBuf = (unsigned char*)malloc(iDataSize);
-	if (!pcBuf)
-	{
+	int iDataSize = i2d_X509(pX509, NULL);
+	unsigned char *pcBuf = (unsigned char*)malloc(iDataSize);
+	if (NULL == pcBuf)
 		return false;
-	}
-	pcCertData = pcBuf;
+
+	memset(pcBuf, 0, iDataSize);
+
+	unsigned char *pcCertData = pcBuf;
 	i2d_X509(pX509, &pcBuf);
 
 	Certificate cer;
@@ -337,10 +341,8 @@ bool QCCertificateUtils::ExtractCertInfo(X509 *pX509, CertData *pNewCertData)
 //
 int QCCertificateUtils::CheckCertificateName(char *szCertServer, QCSSLReference *pSSLReference)
 {
-	if (!szCertServer || !pSSLReference)
-	{
+	if (NULL == szCertServer || NULL == pSSLReference)
 		return IDS_CERTERR_DATANOTFOUND;
-	}
 
 	bool			 bResult = false;
 	const char		*szServer = LPCTSTR(pSSLReference->m_ProtocolInfo.m_ServerName);

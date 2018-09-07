@@ -5,22 +5,19 @@
 
 #include "stdafx.h"
 
-#include <stddef.h>		/* Contains definition of size_t */
-#include <stdlib.h>
-#include <string.h>
+#include <afx.h>
 
-#include<afx.h>
-
-#include "DebugNewHelpers.h"
+//
+// Loads a string from the DLL's resources.
+//
+// This function is not actually used!
 
 bool GetResourceString(UINT StringID, char * buffer, int maxbuf)
 {
-	// Set this so the resource gets loaded from the DLL's resource.
-	HINSTANCE hInstance = ::GetModuleHandle("QCSll.dll");
-	int nLen = ::LoadString(hInstance, StringID, buffer, maxbuf);
-	if(nLen >0)
-		return true;
-	else
-		return false;
-	
+	// Set this so the resource gets loaded from the DLL's resources.
+	//
+	// Corrected the name of the DLL here.  Was "QCSll.dll"!  (Pete Maclean 4-Sep-2018)
+	HINSTANCE hInstance = ::GetModuleHandleW(L"QCSSL.dll");
+	int nLen = ::LoadStringA(hInstance, StringID, buffer, maxbuf);
+	return (nLen > 0);
 }

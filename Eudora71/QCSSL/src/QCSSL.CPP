@@ -38,6 +38,7 @@ BOOL APIENTRY DllMain(HANDLE /*hInst*/, DWORD dwReason, LPVOID /*lpReserved*/)
     switch(dwReason)
 	{
 	case DLL_PROCESS_ATTACH:
+		::OutputDebugStringA(__FUNCTION__ "()\r\n");
 	case DLL_THREAD_ATTACH:
 	case DLL_THREAD_DETACH:
 	case DLL_PROCESS_DETACH:
@@ -49,56 +50,78 @@ BOOL APIENTRY DllMain(HANDLE /*hInst*/, DWORD dwReason, LPVOID /*lpReserved*/)
 
 bool APIENTRY QCSSLBeginSession(QCSSLReference *pSSLReference)
 {
+	::OutputDebugStringA(__FUNCTION__ "()\r\n");
+
 	return BeginQCSSLSession(pSSLReference);
 }
 
 bool APIENTRY QCSSLEndSession(void *pSSL)
 {
+	::OutputDebugStringA(__FUNCTION__ "()\r\n");
+
 	return EndQCSSLSession(pSSL);
 }
 
 bool APIENTRY QCSSLClean()
 {
+	::OutputDebugStringA(__FUNCTION__ "()\r\n");
+
 	return CleanQCSSLDll();
 }
 
 int APIENTRY QCSSLWrite(void *pData, int *piLen, void *pSSL)
 {
+	::OutputDebugStringA(__FUNCTION__ "()\r\n");
+
 	return WriteSSLData(pData, piLen, pSSL);
 }
 
 int APIENTRY QCSSLRead(void *pSSL, int *piLen, void *pData)
 {
+	::OutputDebugStringA(__FUNCTION__ "()\r\n");
+
 	return ReadSSLData(pSSL, piLen, pData);
 }
 
 ConnectionInfo* APIENTRY QCSSLGetConnectionInfo(const char * person, const char *protocol)												
 {
-    return GetConnectionInfo(person, protocol);
+	::OutputDebugStringA(__FUNCTION__ "()\r\n");
+
+	return GetConnectionInfo(person, protocol);
 }
 
 bool APIENTRY QCSSLAddTrustedCertFromFile(const char* filename)
 {
+	::OutputDebugStringA(__FUNCTION__ "()\r\n");
+
 	return AddTrustedCertFromFile(filename);
 }
 
 CPtrList* APIENTRY QCSSLGetRootCertList()
 {
+	::OutputDebugStringA(__FUNCTION__ "()\r\n");
+
 	return GetRootCertList();
 }
 
 CPtrList* APIENTRY QCSSLGetUserCertList()
 {
+	::OutputDebugStringA(__FUNCTION__ "()\r\n");
+
 	return GetUserCertList();
 }
 
 bool APIENTRY QCSSLAddTrustedUserCert(CertData *pData, const char *person, const char *protocol)
 {
+	::OutputDebugStringA(__FUNCTION__ "()\r\n");
+
 	return AddTrustedUserCert(pData, person, protocol);
 }
 
 bool APIENTRY QCSSLDeleteTrustedUserCert(CertData *pData, const char *person, const char *proto)
 {
+	::OutputDebugStringA(__FUNCTION__ "()\r\n");
+
 	return DeleteTrustedUserCert(pData, person, proto);
 }
 

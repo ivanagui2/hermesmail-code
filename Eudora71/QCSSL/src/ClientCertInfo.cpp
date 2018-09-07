@@ -61,7 +61,6 @@ bool ClientCertInfo::Write(const CString& filename)
 	bool bSuccess = true;
 	if( !thisFile.Open(filename, CFile::modeCreate|CFile::modeWrite|CFile::typeText ) )
 		return false;
-	CString csTemp;
 	thisFile.WriteString("#Please edit this file(version 1.0) to change the heirarchy\r\n");
     thisFile.WriteString("version=1.0\r\n");
 	   

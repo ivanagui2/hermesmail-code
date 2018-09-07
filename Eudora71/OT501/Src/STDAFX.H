@@ -10,7 +10,9 @@
 //
 // Header file that's the nexus for PCH stuff.
 //  
-#define WINVER 0x0410
+
+// Make sure we're at last on Windows XP, to accomodate MFC (sbrothy@gmail.com)
+#define WINVER 0x0501
 
 // Turn on leak checking with malloc (must be defined before stdlib.h is included)
 #define _CRTDBG_MAP_ALLOC

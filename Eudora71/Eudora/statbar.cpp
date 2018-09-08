@@ -67,7 +67,10 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 8, 2018
 
 #include "statbar.h"
 
-#include "DebugNewHelpers.h"
+//  Commentedout this #include to a nonexistent file. Should it turn up again and prove useful,
+//  we can  uncomment it. I'm not optimistic  about it though. (8/9/18. soren <sbrothy@gmail.com>)
+//#include "DebugNewHelpers.h"
+
 
 // overwrite mode for editing is global state
 extern bool g_bOverwriteMode;

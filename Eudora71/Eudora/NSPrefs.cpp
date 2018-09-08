@@ -37,7 +37,10 @@ DAMAGE. */
 #include <io.h>
 
 
-#include "DebugNewHelpers.h"
+//  Commentedout this #include to a nonexistent file. Should it turn up again and prove useful,
+//  we can  uncomment it. I'm not optimistic  about it though. (8/9/18. soren <sbrothy@gmail.com>)
+//#include "DebugNewHelpers.h"
+
 
 
 // This preprocessor directive can be used in cases where the user wants to limit the association of other files in the Eudora branch

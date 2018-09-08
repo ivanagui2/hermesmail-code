@@ -119,7 +119,10 @@ File revised by Jeff Prickett                    on July 6, 2018
 #include <stdlib.h>
 #include <crtdbg.h>
 
-#include "DebugNewHelpers.h"
+//  Commentedout this #include to a nonexistent file. Should it turn up again and prove useful,
+//  we can  uncomment it. I'm not optimistic  about it though. (8/9/18. soren <sbrothy@gmail.com>)
+//#include "DebugNewHelpers.h"
+
 
 extern QCMailboxDirector	g_theMailboxDirector;
 

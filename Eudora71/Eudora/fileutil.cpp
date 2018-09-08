@@ -75,7 +75,10 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 6, 2018
 
 #include "rs.h"  //for CRString, EudoraEnvironVar, SetupINIFilename
 
-#include "DebugNewHelpers.h"
+//  Commentedout this #include to a nonexistent file. Should it turn up again and prove useful,
+//  we can  uncomment it. I'm not optimistic  about it though. (8/9/18. soren <sbrothy@gmail.com>)
+//#include "DebugNewHelpers.h"
+
 
 
 JJFile::JJFile(int _size /*= BUF_SIZE*/, BOOL bDisplayErrors /*= TRUE*/) :

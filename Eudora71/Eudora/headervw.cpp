@@ -128,7 +128,10 @@ File revised by Jeff Prickett                    on July 10, 2018
 #include "QCCommandStack.h"
 extern QCCommandStack		g_theCommandStack;
 
-#include "DebugNewHelpers.h"
+//  Commentedout this #include to a nonexistent file. Should it turn up again and prove useful,
+//  we can  uncomment it. I'm not optimistic  about it though. (8/9/18. soren <sbrothy@gmail.com>)
+//#include "DebugNewHelpers.h"
+
 
 
 // our own unique little windows message for scrolling stuff

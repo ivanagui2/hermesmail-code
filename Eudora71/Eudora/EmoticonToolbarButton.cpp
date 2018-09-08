@@ -73,7 +73,10 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 10, 2018
 #include "EmoticonToolbarButton.h"
 #include "EmoticonManager.h"
 
-#include "DebugNewHelpers.h"
+//  Commentedout this #include to a nonexistent file. Should it turn up again and prove useful,
+//  we can  uncomment it. I'm not optimistic  about it though. (8/9/18. soren <sbrothy@gmail.com>)
+//#include "DebugNewHelpers.h"
+
 
 const DWORD		MAGICROP		= 0xb8074a;
 

@@ -2,7 +2,10 @@
 #include "hsregex.h"
 
 
-#include "DebugNewHelpers.h"
+//  Commentedout this #include to a nonexistent file. Should it turn up again and prove useful,
+//  we can  uncomment it. I'm not optimistic  about it though. (8/9/18. soren <sbrothy@gmail.com>)
+//#include "DebugNewHelpers.h"
+
 
 CRegex::CRegex(CString strRegex, bool bCaseInsensitive /*= true*/)
 	:	m_strRegex(strRegex), m_bCaseInsensitive(bCaseInsensitive), m_bCompiled(false), m_nResult(0)

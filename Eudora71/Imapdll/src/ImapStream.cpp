@@ -44,7 +44,10 @@ DAMAGE. */
 #include "osdep.h"			// For fs_get and fs_give.
 #include "misc.h"
 
-#include "DebugNewHelpers.h"
+//  Commentedout this #include to a nonexistent file. Should it turn up again and prove useful,
+//  we can  uncomment it. I'm not optimistic  about it though. (8/9/18. soren <sbrothy@gmail.com>)
+//#include "DebugNewHelpers.h"
+
 
 // Global data structures
 BOOL (__cdecl *g_pTimeoutQuery)	() = NULL;

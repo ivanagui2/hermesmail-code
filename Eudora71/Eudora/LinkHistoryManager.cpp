@@ -81,7 +81,7 @@ File revised on by Jeff Prickett                 on July 10, 2018
 
 //  Commentedout this #include to a nonexistent file. Should it turn up again and prove useful,
 //  we can  uncomment it. I'm not optimistic  about it though. (8/9/18. soren <sbrothy@gmail.com>)
-//#include "DebugNewHelpers.h"
+#include "DebugNewHelpers.h"
 
 
 //	Static pointer to the one and only instance of the Link History Manager

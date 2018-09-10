@@ -225,7 +225,7 @@ CImapDownloader::CImapDownloader(unsigned long AccountID, CImapConnection* pImap
 
 	m_bForceAttachDownload = FALSE;
 
-	m_pTaskInfo = DEBUG_NEW_NOTHROW CTaskInfoMT;
+	m_pTaskInfo =/*  DEBUG_NEW_NOTHROW */ CTaskInfoMT;
 	if (m_pImap)	m_pImap->SetTaskInfo(m_pTaskInfo);
 }
 
@@ -772,7 +772,7 @@ HRESULT CImapDownloader::DownloadSingleMessage (CImapSum *pSum, BOOL bDownloadAt
 		// If the header object has not been allocated, do so now.
 		if (!m_pHd)
 		{
-			m_pHd = DEBUG_NEW_NOTHROW ImapHeaderDesc;
+			m_pHd =/*  DEBUG_NEW_NOTHROW */ ImapHeaderDesc;
 		}
 
 		if (!m_pHd)
@@ -3903,7 +3903,7 @@ BOOL CImapDownloader::DownloadSubMessage (IMAPUID uid, BODY *pBody, LPSTR pParen
 	//
 	ImapHeaderDesc *pOldHeaderDesc = m_pHd;
 
-	m_pHd = DEBUG_NEW_NOTHROW ImapHeaderDesc;
+	m_pHd =/*  DEBUG_NEW_NOTHROW */ ImapHeaderDesc;
 
 	if (!m_pHd)
 	{
@@ -4194,15 +4194,15 @@ void CImapDownloader::SetDecoder (unsigned short Encoding)
 	switch (Encoding)
 	{
 		case ENCBASE64:
-			m_Decoder = DEBUG_NEW_NOTHROW Base64Decoder;
+			m_Decoder =/*  DEBUG_NEW_NOTHROW */ Base64Decoder;
 			break;
 
 		case ENCQUOTEDPRINTABLE:
-			m_Decoder = DEBUG_NEW_NOTHROW QPDecoder;
+			m_Decoder =/*  DEBUG_NEW_NOTHROW */ QPDecoder;
 			break;
 
 		case ENCUUENCODE:
-			m_Decoder = DEBUG_NEW_NOTHROW ImapDecodeUU;
+			m_Decoder =/*  DEBUG_NEW_NOTHROW */ ImapDecodeUU;
 
 			// Must set this to TRUE:
 			m_bMustReadSingleLines = TRUE;
@@ -4210,7 +4210,7 @@ void CImapDownloader::SetDecoder (unsigned short Encoding)
 			break;
 
 		case ENCBINHEX:
-			m_Decoder = DEBUG_NEW_NOTHROW ImapDecodeBH;
+			m_Decoder =/*  DEBUG_NEW_NOTHROW */ ImapDecodeBH;
 			
 			// Must set this to TRUE:
 			m_bMustReadSingleLines = TRUE;
@@ -4258,7 +4258,7 @@ BOOL CImapDownloader::Write (const char *buffer, ULONG nBytes)
 	// Was our read buffer allocated?
 	if (!m_pReadBuffer)
 	{
-		m_pReadBuffer = DEBUG_NEW_NOTHROW char[BUFLEN + 4];
+		m_pReadBuffer =/*  DEBUG_NEW_NOTHROW */ char[BUFLEN + 4];
 		if (m_pReadBuffer)
 			m_nBufferSize = BUFLEN;
 	}
@@ -4266,7 +4266,7 @@ BOOL CImapDownloader::Write (const char *buffer, ULONG nBytes)
 	// Was our read buffer allocated?
 	if (!m_pWriteBuffer)
 	{
-		m_pWriteBuffer = DEBUG_NEW_NOTHROW char[BUFLEN + 4];
+		m_pWriteBuffer =/*  DEBUG_NEW_NOTHROW */ char[BUFLEN + 4];
 	}
 
 	// Must have buffers:
@@ -4384,7 +4384,7 @@ BOOL CImapDownloader::Write (readfn_t readfn, void * read_data, unsigned long si
 	// Was our read buffer allocated?
 	if (!m_pReadBuffer)
 	{
-		m_pReadBuffer = DEBUG_NEW_NOTHROW char[BUFLEN + 4];
+		m_pReadBuffer =/*  DEBUG_NEW_NOTHROW */ char[BUFLEN + 4];
 
 		m_nBufferSize = BUFLEN;
 	}
@@ -4399,7 +4399,7 @@ BOOL CImapDownloader::Write (readfn_t readfn, void * read_data, unsigned long si
 	// Was our write buffer allocated?
 	if (!m_pWriteBuffer)
 	{
-		m_pWriteBuffer = DEBUG_NEW_NOTHROW char[BUFLEN + 4];
+		m_pWriteBuffer =/*  DEBUG_NEW_NOTHROW */ char[BUFLEN + 4];
 	}
 
 	// Did we get a buffer??
@@ -5092,7 +5092,7 @@ BOOL CImapDownloader::ImapRebuildSummary (CImapSum *pSum, ImapHeaderDesc *pHd, J
 		return FALSE;
 
 	// Suck the whole header into a chunk of memory.
-	LPTSTR pHeader = DEBUG_NEW_NOTHROW TCHAR [lHeaderLength + 4];
+	LPTSTR pHeader =/*  DEBUG_NEW_NOTHROW */ TCHAR [lHeaderLength + 4];
 
 	if (pHeader)
 	{

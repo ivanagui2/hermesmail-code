@@ -138,41 +138,41 @@ SearchCriteria::SearchCriteria(const SearchCriteria &copy) // Copy constructor
 	m_bNeedFullMessage = false;
 
 	if (copy.m_pObj)
-		m_pObj = DEBUG_NEW_NOTHROW CriteriaObject(*copy.m_pObj);
+		m_pObj = /*DEBUG_NEW_NOTHROW */ */ CriteriaObject(*copy.m_pObj);
 
 	if (copy.m_pVerbTxtCmp)
-		m_pVerbTxtCmp = DEBUG_NEW_NOTHROW CriteriaVerbTextCompare(*copy.m_pVerbTxtCmp);
+		m_pVerbTxtCmp = /* DEBUG_NEW_NOTHROW */ CriteriaVerbTextCompare(*copy.m_pVerbTxtCmp);
 	if (copy.m_pVerbEqualCmp)
-		m_pVerbEqualCmp = DEBUG_NEW_NOTHROW CriteriaVerbEqualCompare(*copy.m_pVerbEqualCmp);
+		m_pVerbEqualCmp = /* DEBUG_NEW_NOTHROW */ CriteriaVerbEqualCompare(*copy.m_pVerbEqualCmp);
 	if (copy.m_pVerbNumCmp)
-		m_pVerbNumCmp = DEBUG_NEW_NOTHROW CriteriaVerbNumCompare(*copy.m_pVerbNumCmp);
+		m_pVerbNumCmp = /* DEBUG_NEW_NOTHROW */ CriteriaVerbNumCompare(*copy.m_pVerbNumCmp);
 	if (copy.m_pVerbDateCmp)
-		m_pVerbDateCmp = DEBUG_NEW_NOTHROW CriteriaVerbDateCompare(*copy.m_pVerbDateCmp);
+		m_pVerbDateCmp = /* DEBUG_NEW_NOTHROW */ CriteriaVerbDateCompare(*copy.m_pVerbDateCmp);
 
 	if (copy.m_pValueText)
-		m_pValueText = DEBUG_NEW_NOTHROW CriteriaValueText(*copy.m_pValueText);
+		m_pValueText = /* DEBUG_NEW_NOTHROW */ CriteriaValueText(*copy.m_pValueText);
 
 	if (copy.m_pValueAttachCount)
-		m_pValueAttachCount = DEBUG_NEW_NOTHROW CriteriaValueAttachCount(*copy.m_pValueAttachCount);
+		m_pValueAttachCount = /* DEBUG_NEW_NOTHROW */ CriteriaValueAttachCount(*copy.m_pValueAttachCount);
 	if (copy.m_pValueSize)
-		m_pValueSize = DEBUG_NEW_NOTHROW CriteriaValueSize(*copy.m_pValueSize);
+		m_pValueSize = /* DEBUG_NEW_NOTHROW */ CriteriaValueSize(*copy.m_pValueSize);
 	if (copy.m_pValueStatus)
-		m_pValueStatus = DEBUG_NEW_NOTHROW CriteriaValueStatus(*copy.m_pValueStatus);
+		m_pValueStatus = /* DEBUG_NEW_NOTHROW */ CriteriaValueStatus(*copy.m_pValueStatus);
 	if (copy.m_pValueLabel)
-		m_pValueLabel = DEBUG_NEW_NOTHROW CriteriaValueLabel(*copy.m_pValueLabel);
+		m_pValueLabel = /* DEBUG_NEW_NOTHROW */ CriteriaValueLabel(*copy.m_pValueLabel);
 	if (copy.m_pValuePersona)
-		m_pValuePersona = DEBUG_NEW_NOTHROW CriteriaValuePersona(*copy.m_pValuePersona);
+		m_pValuePersona = /* DEBUG_NEW_NOTHROW */ CriteriaValuePersona(*copy.m_pValuePersona);
 	if (copy.m_pValueJunkScore)
-		m_pValueJunkScore = DEBUG_NEW_NOTHROW CriteriaValueJunkScore(*copy.m_pValueJunkScore);
+		m_pValueJunkScore = /* DEBUG_NEW_NOTHROW */ CriteriaValueJunkScore(*copy.m_pValueJunkScore);
 	if (copy.m_pValuePriority)
-		m_pValuePriority = DEBUG_NEW_NOTHROW CriteriaValuePriority(*copy.m_pValuePriority);
+		m_pValuePriority = /* DEBUG_NEW_NOTHROW */ CriteriaValuePriority(*copy.m_pValuePriority);
 	if (copy.m_pValueDate)
-		m_pValueDate = DEBUG_NEW_NOTHROW CriteriaValueDate(*copy.m_pValueDate);
+		m_pValueDate =  /* DEBUG_NEW_NOTHROW */ CriteriaValueDate(*copy.m_pValueDate);
 	if (copy.m_pValueAge)
-		m_pValueAge = DEBUG_NEW_NOTHROW CriteriaValueAge(*copy.m_pValueAge);
+		m_pValueAge = /* DEBUG_NEW_NOTHROW */CriteriaValueAge(*copy.m_pValueAge);
 	
 	if (copy.m_pRegex)
-		m_pRegex = DEBUG_NEW_NOTHROW CRegex(*copy.m_pRegex);
+		m_pRegex = /* DEBUG_NEW_NOTHROW */ CRegex(*copy.m_pRegex);
 	
 	m_bNeedFullMessage = copy.m_bNeedFullMessage;
 }
@@ -182,41 +182,41 @@ SearchCriteria &SearchCriteria::operator=(const SearchCriteria &copy)
 	DeleteAll();
 
 	if (copy.m_pObj)
-		m_pObj = DEBUG_NEW_NOTHROW CriteriaObject(*copy.m_pObj);
+		m_pObj =/*  DEBUG_NEW_NOTHROW */ CriteriaObject(*copy.m_pObj);
 
 	if (copy.m_pVerbTxtCmp)
-		m_pVerbTxtCmp = DEBUG_NEW_NOTHROW CriteriaVerbTextCompare(*copy.m_pVerbTxtCmp);
+		m_pVerbTxtCmp =/*  DEBUG_NEW_NOTHROW */ CriteriaVerbTextCompare(*copy.m_pVerbTxtCmp);
 	if (copy.m_pVerbEqualCmp)
-		m_pVerbEqualCmp = DEBUG_NEW_NOTHROW CriteriaVerbEqualCompare(*copy.m_pVerbEqualCmp);
+		m_pVerbEqualCmp =/*  DEBUG_NEW_NOTHROW */ CriteriaVerbEqualCompare(*copy.m_pVerbEqualCmp);
 	if (copy.m_pVerbNumCmp)
-		m_pVerbNumCmp = DEBUG_NEW_NOTHROW CriteriaVerbNumCompare(*copy.m_pVerbNumCmp);
+		m_pVerbNumCmp =/*  DEBUG_NEW_NOTHROW */ CriteriaVerbNumCompare(*copy.m_pVerbNumCmp);
 	if (copy.m_pVerbDateCmp)
-		m_pVerbDateCmp = DEBUG_NEW_NOTHROW CriteriaVerbDateCompare(*copy.m_pVerbDateCmp);
+		m_pVerbDateCmp =/*  DEBUG_NEW_NOTHROW */ CriteriaVerbDateCompare(*copy.m_pVerbDateCmp);
 
 	if (copy.m_pValueText)
-		m_pValueText = DEBUG_NEW_NOTHROW CriteriaValueText(*copy.m_pValueText);
+		m_pValueText =/*  DEBUG_NEW_NOTHROW */ CriteriaValueText(*copy.m_pValueText);
 
 	if (copy.m_pValueAttachCount)
-		m_pValueAttachCount = DEBUG_NEW_NOTHROW CriteriaValueAttachCount(*copy.m_pValueAttachCount);
+		m_pValueAttachCount =/*  DEBUG_NEW_NOTHROW */ CriteriaValueAttachCount(*copy.m_pValueAttachCount);
 	if (copy.m_pValueSize)
-		m_pValueSize = DEBUG_NEW_NOTHROW CriteriaValueSize(*copy.m_pValueSize);
+		m_pValueSize =/*  DEBUG_NEW_NOTHROW */ CriteriaValueSize(*copy.m_pValueSize);
 	if (copy.m_pValueStatus)
-		m_pValueStatus = DEBUG_NEW_NOTHROW CriteriaValueStatus(*copy.m_pValueStatus);
+		m_pValueStatus =/*  DEBUG_NEW_NOTHROW */ CriteriaValueStatus(*copy.m_pValueStatus);
 	if (copy.m_pValueLabel)
-		m_pValueLabel = DEBUG_NEW_NOTHROW CriteriaValueLabel(*copy.m_pValueLabel);
+		m_pValueLabel =/*  DEBUG_NEW_NOTHROW */ CriteriaValueLabel(*copy.m_pValueLabel);
 	if (copy.m_pValuePersona)
-		m_pValuePersona = DEBUG_NEW_NOTHROW CriteriaValuePersona(*copy.m_pValuePersona);
+		m_pValuePersona =/*  DEBUG_NEW_NOTHROW */ CriteriaValuePersona(*copy.m_pValuePersona);
 	if (copy.m_pValueJunkScore)
-		m_pValueJunkScore = DEBUG_NEW_NOTHROW CriteriaValueJunkScore(*copy.m_pValueJunkScore);
+		m_pValueJunkScore =/*  DEBUG_NEW_NOTHROW */ CriteriaValueJunkScore(*copy.m_pValueJunkScore);
 	if (copy.m_pValuePriority)
-		m_pValuePriority = DEBUG_NEW_NOTHROW CriteriaValuePriority(*copy.m_pValuePriority);
+		m_pValuePriority =/*  DEBUG_NEW_NOTHROW */ CriteriaValuePriority(*copy.m_pValuePriority);
 	if (copy.m_pValueDate)
-		m_pValueDate = DEBUG_NEW_NOTHROW CriteriaValueDate(*copy.m_pValueDate);
+		m_pValueDate =/*  DEBUG_NEW_NOTHROW */ CriteriaValueDate(*copy.m_pValueDate);
 	if (copy.m_pValueAge)
-		m_pValueAge = DEBUG_NEW_NOTHROW CriteriaValueAge(*copy.m_pValueAge);
+		m_pValueAge =/*  DEBUG_NEW_NOTHROW */ CriteriaValueAge(*copy.m_pValueAge);
 
 	if (copy.m_pRegex)
-		m_pRegex = DEBUG_NEW_NOTHROW CRegex(*copy.m_pRegex);
+		m_pRegex =/*  DEBUG_NEW_NOTHROW */ CRegex(*copy.m_pRegex);
 	
 	m_bNeedFullMessage = copy.m_bNeedFullMessage;
 
@@ -539,7 +539,7 @@ CriteriaValueAge SearchCriteria::GetValueAge()	const
 bool SearchCriteria::SetCurObj(const CriteriaObject &obj) // Must set this before verb or value
 {
 	DeleteAll();
-	VERIFY(m_pObj = DEBUG_NEW_NOTHROW CriteriaObject(obj));
+	VERIFY(m_pObj =/*  DEBUG_NEW_NOTHROW */ CriteriaObject(obj));
 
 	switch(obj)
 	{
@@ -592,7 +592,7 @@ bool SearchCriteria::SetCurVerbTextCmp(const CriteriaVerbTextCompare &verb)
 	ASSERT(SearchCriteria::GetVerbType((*m_pObj)) == CRITERIA_VERB_TEXT_COMPARE_TYPE);
 
 	DeleteVerbs();
-	VERIFY(m_pVerbTxtCmp = DEBUG_NEW_NOTHROW CriteriaVerbTextCompare(verb));
+	VERIFY(m_pVerbTxtCmp =/*  DEBUG_NEW_NOTHROW */ CriteriaVerbTextCompare(verb));
 
 	return (m_pVerbTxtCmp != NULL);
 }
@@ -607,7 +607,7 @@ bool SearchCriteria::SetCurVerbEqualCmp(const CriteriaVerbEqualCompare &verb)
 	ASSERT(SearchCriteria::GetVerbType((*m_pObj)) == CRITERIA_VERB_EQUAL_COMPARE_TYPE);
 
 	DeleteVerbs();
-	VERIFY(m_pVerbEqualCmp = DEBUG_NEW_NOTHROW CriteriaVerbEqualCompare(verb));
+	VERIFY(m_pVerbEqualCmp =/*  DEBUG_NEW_NOTHROW */ CriteriaVerbEqualCompare(verb));
 
 	return (m_pVerbEqualCmp != NULL);
 }
@@ -622,7 +622,7 @@ bool SearchCriteria::SetCurVerbNumCmp(const CriteriaVerbNumCompare &verb)
 	ASSERT(SearchCriteria::GetVerbType((*m_pObj)) == CRITERIA_VERB_NUM_COMPARE_TYPE);
 
 	DeleteVerbs();
-	VERIFY(m_pVerbNumCmp = DEBUG_NEW_NOTHROW CriteriaVerbNumCompare(verb));
+	VERIFY(m_pVerbNumCmp =/*  DEBUG_NEW_NOTHROW */ CriteriaVerbNumCompare(verb));
 
 	return (m_pVerbNumCmp != NULL);
 }
@@ -637,7 +637,7 @@ bool SearchCriteria::SetCurVerbDateCmp(const CriteriaVerbDateCompare &verb)
 	ASSERT(SearchCriteria::GetVerbType((*m_pObj)) == CRITERIA_VERB_DATE_COMPARE_TYPE);
 
 	DeleteVerbs();
-	VERIFY(m_pVerbDateCmp = DEBUG_NEW_NOTHROW CriteriaVerbDateCompare(verb));
+	VERIFY(m_pVerbDateCmp =/*  DEBUG_NEW_NOTHROW */ CriteriaVerbDateCompare(verb));
 
 	return (m_pVerbDateCmp != NULL);
 }
@@ -652,7 +652,7 @@ bool SearchCriteria::SetCurValueText(const CriteriaValueText &val)
 	ASSERT(SearchCriteria::GetValueType((*m_pObj)) == CRITERIA_VALUE_TEXT_TYPE);
 
 	DeleteValues();
-	VERIFY(m_pValueText = DEBUG_NEW_NOTHROW CriteriaValueText(val));
+	VERIFY(m_pValueText =/*  DEBUG_NEW_NOTHROW */ CriteriaValueText(val));
 
 	return (m_pValueText != NULL);
 }
@@ -667,7 +667,7 @@ bool SearchCriteria::SetCurValueSize(const CriteriaValueSize &val)
 	ASSERT(SearchCriteria::GetValueType((*m_pObj)) == CRITERIA_VALUE_SIZE_TYPE);
 
 	DeleteValues();
-	VERIFY(m_pValueSize = DEBUG_NEW_NOTHROW CriteriaValueSize(val));
+	VERIFY(m_pValueSize =/*  DEBUG_NEW_NOTHROW */ CriteriaValueSize(val));
 
 	return (m_pValueSize != NULL);
 }
@@ -682,7 +682,7 @@ bool SearchCriteria::SetCurValueAttachCount(const CriteriaValueAttachCount &val)
 	ASSERT(SearchCriteria::GetValueType((*m_pObj)) == CRITERIA_VALUE_ATTACHCOUNT_TYPE);
 
 	DeleteValues();
-	VERIFY(m_pValueAttachCount = DEBUG_NEW_NOTHROW CriteriaValueAttachCount(val));
+	VERIFY(m_pValueAttachCount =/*  DEBUG_NEW_NOTHROW */ CriteriaValueAttachCount(val));
 
 	return (m_pValueAttachCount != NULL);
 }
@@ -698,7 +698,7 @@ bool SearchCriteria::SetCurValueStatus(const CriteriaValueStatus &val)
 	ASSERT(SearchCriteria::GetValueType((*m_pObj)) == CRITERIA_VALUE_STATUS_TYPE);
 
 	DeleteValues();
-	VERIFY(m_pValueStatus = DEBUG_NEW_NOTHROW CriteriaValueStatus(val));
+	VERIFY(m_pValueStatus =/*  DEBUG_NEW_NOTHROW */ CriteriaValueStatus(val));
 
 	return (m_pValueStatus != NULL);
 }
@@ -713,7 +713,7 @@ bool SearchCriteria::SetCurValueLabel(const CriteriaValueLabel &val)
 	ASSERT(SearchCriteria::GetValueType((*m_pObj)) == CRITERIA_VALUE_LABEL_TYPE);
 
 	DeleteValues();
-	VERIFY(m_pValueLabel = DEBUG_NEW_NOTHROW CriteriaValueLabel(val));
+	VERIFY(m_pValueLabel =/*  DEBUG_NEW_NOTHROW */ CriteriaValueLabel(val));
 
 	return (m_pValueLabel != NULL);
 }
@@ -728,7 +728,7 @@ bool SearchCriteria::SetCurValuePersona(const CriteriaValuePersona &val)
 	ASSERT(SearchCriteria::GetValueType((*m_pObj)) == CRITERIA_VALUE_PERSONA_TYPE);
 
 	DeleteValues();
-	VERIFY(m_pValuePersona = DEBUG_NEW_NOTHROW CriteriaValuePersona(val));
+	VERIFY(m_pValuePersona =/*  DEBUG_NEW_NOTHROW */ CriteriaValuePersona(val));
 
 	return (m_pValuePersona != NULL);
 }
@@ -743,7 +743,7 @@ bool SearchCriteria::SetCurValueJunkScore(const CriteriaValueJunkScore &val)
 	ASSERT(SearchCriteria::GetValueType((*m_pObj)) == CRITERIA_VALUE_JUNKSCORE_TYPE);
 
 	DeleteValues();
-	VERIFY(m_pValueJunkScore = DEBUG_NEW_NOTHROW CriteriaValueJunkScore(val));
+	VERIFY(m_pValueJunkScore =/*  DEBUG_NEW_NOTHROW */ CriteriaValueJunkScore(val));
 
 	return (m_pValueJunkScore != NULL);
 }
@@ -758,7 +758,7 @@ bool SearchCriteria::SetCurValuePriority(const CriteriaValuePriority &val)
 	ASSERT(SearchCriteria::GetValueType((*m_pObj)) == CRITERIA_VALUE_PRIORITY_TYPE);
 
 	DeleteValues();
-	VERIFY(m_pValuePriority = DEBUG_NEW_NOTHROW CriteriaValuePriority(val));
+	VERIFY(m_pValuePriority =/*  DEBUG_NEW_NOTHROW */ CriteriaValuePriority(val));
 
 	return (m_pValuePriority != NULL);
 }
@@ -773,7 +773,7 @@ bool SearchCriteria::SetCurValueDate(const CriteriaValueDate &val)
 	ASSERT(SearchCriteria::GetValueType((*m_pObj)) == CRITERIA_VALUE_DATE_TYPE);
 
 	DeleteValues();
-	VERIFY(m_pValueDate = DEBUG_NEW_NOTHROW CriteriaValueDate(val));
+	VERIFY(m_pValueDate =/*  DEBUG_NEW_NOTHROW */ CriteriaValueDate(val));
 
 	return (m_pValueDate != NULL);
 }
@@ -788,7 +788,7 @@ bool SearchCriteria::SetCurValueAge(const CriteriaValueAge &val)
 	ASSERT(SearchCriteria::GetValueType((*m_pObj)) == CRITERIA_VALUE_AGE_TYPE);
 
 	DeleteValues();
-	VERIFY(m_pValueAge = DEBUG_NEW_NOTHROW CriteriaValueAge(val));
+	VERIFY(m_pValueAge =/*  DEBUG_NEW_NOTHROW */ CriteriaValueAge(val));
 
 	return (m_pValueAge != NULL);
 }
@@ -807,11 +807,11 @@ void SearchCriteria::PreProcessForMatching()
 	{
 		if( *m_pVerbTxtCmp == CRITERIA_TEXT_COMPARE_MATCHESREGEXP)
 		{
-			m_pRegex = DEBUG_NEW_NOTHROW CRegex(GetValueText(), false);  //case-sensitive regex
+			m_pRegex =/*  DEBUG_NEW_NOTHROW */ CRegex(GetValueText(), false);  //case-sensitive regex
 		}
 		else if( *m_pVerbTxtCmp == CRITERIA_TEXT_COMPARE_MATCHESREGEXP_ICASE)
 		{
-			m_pRegex = DEBUG_NEW_NOTHROW CRegex(GetValueText(), true);  //case-insensitive regex
+			m_pRegex =/*  DEBUG_NEW_NOTHROW */ CRegex(GetValueText(), true);  //case-insensitive regex
 		}
 		else
 		{

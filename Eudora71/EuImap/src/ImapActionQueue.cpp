@@ -315,75 +315,75 @@ CImapActionXMLParser::ProcessDataForID(
 			{
 				if (strcmp(m_szElementData, kDataActionTypeStatus) == 0)
 				{
-					m_pImapAction = DEBUG_NEW_NOTHROW CImapChangeMsgStatusAction();
+					m_pImapAction =/*  DEBUG_NEW_NOTHROW */ CImapChangeMsgStatusAction();
 				}
 				else if (strcmp(m_szElementData, kDataActionTypeDelete) == 0)
 				{
-					m_pImapAction = DEBUG_NEW_NOTHROW CImapDeleteMsgAction();
+					m_pImapAction =/*  DEBUG_NEW_NOTHROW */ CImapDeleteMsgAction();
 				}
 				else if (strcmp(m_szElementData, kDataActionTypeUnDelete) == 0)
 				{
-					m_pImapAction = DEBUG_NEW_NOTHROW CImapUnDeleteMsgAction();
+					m_pImapAction =/*  DEBUG_NEW_NOTHROW */ CImapUnDeleteMsgAction();
 				}
 				else if (strcmp(m_szElementData, kDataActionTypeTransferSame) == 0)
 				{
-					m_pImapAction = DEBUG_NEW_NOTHROW CImapSameServerTransferMsgAction();
+					m_pImapAction =/*  DEBUG_NEW_NOTHROW */ CImapSameServerTransferMsgAction();
 				}
 				else if (strcmp(m_szElementData, kDataActionTypeCopySame) == 0)
 				{
-					m_pImapAction = DEBUG_NEW_NOTHROW CImapSameServerTransferMsgAction();
+					m_pImapAction =/*  DEBUG_NEW_NOTHROW */ CImapSameServerTransferMsgAction();
 				}
 				else if (strcmp(m_szElementData, kDataActionTypeTransferCross) == 0)
 				{
-					m_pImapAction = DEBUG_NEW_NOTHROW CImapCrossServerTransferMsgAction();
+					m_pImapAction =/*  DEBUG_NEW_NOTHROW */ CImapCrossServerTransferMsgAction();
 				}
 				else if (strcmp(m_szElementData, kDataActionTypeCopyCross) == 0)
 				{
-					m_pImapAction = DEBUG_NEW_NOTHROW CImapCrossServerTransferMsgAction();
+					m_pImapAction =/*  DEBUG_NEW_NOTHROW */ CImapCrossServerTransferMsgAction();
 				}
 				else if (strcmp(m_szElementData, kDataActionTypeTransferToLocal) == 0)
 				{
-					m_pImapAction = DEBUG_NEW_NOTHROW CImapToLocalTransferMsgAction();
+					m_pImapAction =/*  DEBUG_NEW_NOTHROW */ CImapToLocalTransferMsgAction();
 				}
 				else if (strcmp(m_szElementData, kDataActionTypeCopyToLocal) == 0)
 				{
-					m_pImapAction = DEBUG_NEW_NOTHROW CImapToLocalTransferMsgAction();
+					m_pImapAction =/*  DEBUG_NEW_NOTHROW */ CImapToLocalTransferMsgAction();
 				}
 				else if (strcmp(m_szElementData, kDataActionTypeTransferFromLocal) == 0)
 				{
-					m_pImapAction = DEBUG_NEW_NOTHROW CImapFromLocalTransferMsgAction();
+					m_pImapAction =/*  DEBUG_NEW_NOTHROW */ CImapFromLocalTransferMsgAction();
 				}
 				else if (strcmp(m_szElementData, kDataActionTypeCopyFromLocal) == 0)
 				{
-					m_pImapAction = DEBUG_NEW_NOTHROW CImapFromLocalTransferMsgAction();
+					m_pImapAction =/*  DEBUG_NEW_NOTHROW */ CImapFromLocalTransferMsgAction();
 				}
 				else if (strcmp(m_szElementData, kDataActionTypeCreateMbx) == 0)
 				{
-					m_pImapAction = DEBUG_NEW_NOTHROW CImapCreateMailboxAction();
+					m_pImapAction =/*  DEBUG_NEW_NOTHROW */ CImapCreateMailboxAction();
 				}
 				else if (strcmp(m_szElementData, kDataActionTypeRenameMbx) == 0)
 				{
-					m_pImapAction = DEBUG_NEW_NOTHROW CImapRenameMailboxAction();
+					m_pImapAction =/*  DEBUG_NEW_NOTHROW */ CImapRenameMailboxAction();
 				}
 				else if (strcmp(m_szElementData, kDataActionTypeDeleteMbx) == 0)
 				{
-					m_pImapAction = DEBUG_NEW_NOTHROW CImapDeleteMailboxAction();
+					m_pImapAction =/*  DEBUG_NEW_NOTHROW */ CImapDeleteMailboxAction();
 				}
 				else if (strcmp(m_szElementData, kDataActionTypeRefresh) == 0)
 				{
-					m_pImapAction = DEBUG_NEW_NOTHROW CImapRefreshMailboxesAction();
+					m_pImapAction =/*  DEBUG_NEW_NOTHROW */ CImapRefreshMailboxesAction();
 				}
 				else if (strcmp(m_szElementData, kDataActionTypeExpunge) == 0)
 				{
-					m_pImapAction = DEBUG_NEW_NOTHROW CImapExpungeAction();
+					m_pImapAction =/*  DEBUG_NEW_NOTHROW */ CImapExpungeAction();
 				}
 				else if (strcmp(m_szElementData, kDataActionTypeResync) == 0)
 				{
-					m_pImapAction = DEBUG_NEW_NOTHROW CImapResyncAction();
+					m_pImapAction =/*  DEBUG_NEW_NOTHROW */ CImapResyncAction();
 				}
 				else if (strcmp(m_szElementData, kDataActionTypeDownload) == 0)
 				{
-					m_pImapAction = DEBUG_NEW_NOTHROW CImapDownloadAction();
+					m_pImapAction =/*  DEBUG_NEW_NOTHROW */ CImapDownloadAction();
 				}
 			}
 			break;
@@ -3297,7 +3297,7 @@ void CImapResyncAction::DoPostProcessing()
 			QCPOPNotifier	*pPOPNotifier = NULL;
 			if (m_bUsesNotifier)
 			{
-				pPOPNotifier = DEBUG_NEW_NOTHROW QCPOPNotifier(1);
+				pPOPNotifier =/*  DEBUG_NEW_NOTHROW */ QCPOPNotifier(1);
 			}
 			pImapMailMgr->CheckMailOnServer(strAccountName,
 											m_pTocDoc,

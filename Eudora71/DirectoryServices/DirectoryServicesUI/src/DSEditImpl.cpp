@@ -248,7 +248,7 @@ void DSEdit::DoQueryAutoComplete(bool fullList)
 void DSEdit::InitListElements()
 {
 	if (!m_DSQueryACList){
-		m_DSQueryACList = DEBUG_NEW_NOTHROW AutoCompList(CRString(IDS_DSQUERY_HIST_LIST));
+		m_DSQueryACList =/*  DEBUG_NEW_NOTHROW */ AutoCompList(CRString(IDS_DSQUERY_HIST_LIST));
 		if (m_DSQueryACList)
 			m_DSQueryACList->ReadAutoCompleteList();
 	}

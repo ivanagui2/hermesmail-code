@@ -662,7 +662,7 @@ bool CImapAccount::MaybeSaveQueue(bool bDoItNow)
 			// write the queue as it will take to start the thread to do the action.
 			m_bWritingQueue = true;
 			SetIniInt(IDS_INI_IMAP_OFFLINE_QUEUE_EXISTS, iQueueFileAlphaExists);
-			CQueueWriter		*pQueueWriter = DEBUG_NEW_NOTHROW CQueueWriter(this);
+			CQueueWriter		*pQueueWriter =/*  DEBUG_NEW_NOTHROW */ CQueueWriter(this);
 			QCGetTaskManager()->QueueWorkerThread(pQueueWriter);
 			return true;
 		}
@@ -2068,7 +2068,7 @@ int CImapAccount::Insert(const char *mailbox, TCHAR delimiter, long attributes, 
 		pFolder->pParentMailbox = m_curParentMailbox;
 
 		// pImapName is a straight copy of mailbox. .
-		pFolder->pImapName = DEBUG_NEW_NOTHROW char[szMbox.GetLength () + 1];
+		pFolder->pImapName =/*  DEBUG_NEW_NOTHROW */ char[szMbox.GetLength () + 1];
 		if (pFolder->pImapName)
 		{
 			strcpy (pFolder->pImapName, szMbox);

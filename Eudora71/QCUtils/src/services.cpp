@@ -593,7 +593,7 @@ char* SafeStrdupMT(const char* pszString)
 	if (NULL == pszString)
 		return NULL;
 
-	char* pszNewString = DEBUG_NEW_NOTHROW char[strlen(pszString) + 1];
+	char* pszNewString = /* DEBUG_NEW_NOTHROW */ char[strlen(pszString) + 1];
 	if (pszNewString != NULL)
 		return ::strcpy(pszNewString, pszString);
 
@@ -1770,7 +1770,7 @@ DWORD FindifExecutingUsingToolHelp32(LPCTSTR lpszModuleName,DWORD *dwProductVers
 
 					
 					// Allocate data buffers of the proper sizes.						
-					LPSTR pVerData = DEBUG_NEW_NOTHROW TCHAR[dwSize];
+					LPSTR pVerData = /* DEBUG_NEW_NOTHROW */ TCHAR[dwSize];
 					if (NULL == pVerData)
 						return _FP_GENERIC_ERROR;
 											
@@ -1784,7 +1784,7 @@ DWORD FindifExecutingUsingToolHelp32(LPCTSTR lpszModuleName,DWORD *dwProductVers
 					}
 
 					LPSTR pVsFixedFileInfoData = NULL;
-					if (NULL == (pVsFixedFileInfoData = DEBUG_NEW_NOTHROW TCHAR [sizeof(VS_FIXEDFILEINFO)] ) )
+					if (NULL == (pVsFixedFileInfoData = /* DEBUG_NEW_NOTHROW */ TCHAR [sizeof(VS_FIXEDFILEINFO)] ) )
 					{
 						delete [] pVerData;
 						return _FP_GENERIC_ERROR;
@@ -1905,7 +1905,7 @@ DWORD FindifExecutingUsingPSAPI(LPCTSTR lpszModuleName,DWORD *dwProductVersionMS
 
 					
 					// Allocate data buffers of the proper sizes.						
-					LPSTR pVerData = DEBUG_NEW_NOTHROW TCHAR[dwSize];
+					LPSTR pVerData = /* DEBUG_NEW_NOTHROW */ TCHAR[dwSize];
 					if (NULL == pVerData)
 						return _FP_GENERIC_ERROR;
 											

@@ -394,7 +394,7 @@ POSITION CPtrUidList::OrderedInsert(unsigned long uid, unsigned long Imflags, BO
 
 	// If we get here, we need to add a new entry.
 	// Allocate mem CImapFlags object.
-	pNewFlags = DEBUG_NEW_NOTHROW CImapFlags;
+	pNewFlags = /* DEBUG_NEW_NOTHROW */ CImapFlags;
 	if (!pNewFlags)
 		return NULL;
 
@@ -546,7 +546,7 @@ BOOL CUidMap::OrderedInsert(unsigned long uid, unsigned long Imflags, BOOL IsNew
 	//
 	// Allocate mem CImapFlags object.
 	//
-	CImapFlags* pNewFlags = DEBUG_NEW_NOTHROW CImapFlags;
+	CImapFlags* pNewFlags = /* DEBUG_NEW_NOTHROW */ CImapFlags;
 	if (!pNewFlags)
 		return FALSE;
 

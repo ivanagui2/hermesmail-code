@@ -1366,7 +1366,7 @@ HRESULT CImapAppend::AppendMessageAcrossRemotes (BOOL InBackground /* = FALSE */
 
 	// Allocate buffer within the CImapApend object.
 	m_nBufferSize	= 4096;
-	m_pBuffer		= DEBUG_NEW_NOTHROW TCHAR[m_nBufferSize + 4];
+	m_pBuffer		=/*  DEBUG_NEW_NOTHROW */ TCHAR[m_nBufferSize + 4];
 
 	if (!m_pBuffer)
 		return FALSE;
@@ -1626,7 +1626,7 @@ int AppendMIME(const char* Filename, MIMEMap& mm, long EncoType, CFileWriter *pB
 		return -1;
 
 	// Allocate our buffer.
-	buf = DEBUG_NEW_NOTHROW char[lBufSize + 4];
+	buf =/*  DEBUG_NEW_NOTHROW */ char[lBufSize + 4];
 	if (!buf)
 		return -1;
 
@@ -1641,7 +1641,7 @@ int AppendMIME(const char* Filename, MIMEMap& mm, long EncoType, CFileWriter *pB
 		// If there are funny characters, check whether mostly text, so use QP
 		if (EncoType == ET_ASCII)
 		{
-			TheEncoder = DEBUG_NEW_NOTHROW EncodeCopy;
+			TheEncoder =/*  DEBUG_NEW_NOTHROW */ EncodeCopy;
 			if (!TheEncoder || AppendContentType(FALSE,0, pBodyFileWriter, &mm) < 0) break;
 		}
 		else
@@ -1656,17 +1656,17 @@ int AppendMIME(const char* Filename, MIMEMap& mm, long EncoType, CFileWriter *pB
 				if (Result < 0) break;
 				if (Result)
 				{
-					TheEncoder = DEBUG_NEW_NOTHROW QPEncoder;
+					TheEncoder =/*  DEBUG_NEW_NOTHROW */ QPEncoder;
 					IsQP = TRUE;
 				}
 				else
-					TheEncoder = DEBUG_NEW_NOTHROW EncodeCopy;
+					TheEncoder =/*  DEBUG_NEW_NOTHROW */ EncodeCopy;
 
 				if (!TheEncoder) break;
 			}
 			else
 			{
-				TheEncoder = DEBUG_NEW_NOTHROW Base64Encoder;
+				TheEncoder =/*  DEBUG_NEW_NOTHROW */ Base64Encoder;
 
 				if (!TheEncoder) break;
 		
@@ -1740,7 +1740,7 @@ int AppendMIME(const char* Filename, MIMEMap& mm, long EncoType, CFileWriter *pB
 		if (!SUCCEEDED ( InFile.Open(Filename, O_RDONLY) ) ) break;
 		if (IsQP)
 		{
-			char* buf2 = DEBUG_NEW_NOTHROW char[lBufSize * 3];
+			char* buf2 =/*  DEBUG_NEW_NOTHROW */ char[lBufSize * 3];
 			if (!buf2) break;
 			buf[lBufSize - 1] = 0;
 			ASSERT( lBufSize > 0 && lBufSize < 32767L );

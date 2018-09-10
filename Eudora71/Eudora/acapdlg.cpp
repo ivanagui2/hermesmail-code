@@ -35,8 +35,7 @@ DAMAGE. */
 #include "Base64.h"
 #include "QCNetSettings.h"
 
-//  Commentedout this #include to a nonexistent file. Should it turn up again and prove useful,
-//  we can  uncomment it. I'm not optimistic  about it though. (8/9/18. soren <sbrothy@gmail.com>)
+
 #include "DebugNewHelpers.h"
 
 

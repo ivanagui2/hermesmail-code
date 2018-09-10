@@ -216,7 +216,7 @@ DSRightView::OnActivateWazoo(WPARAM, LPARAM)
     ::ShouldUpdateIni(1);
 
     if (m_PB_NewDatabase.GetSafeHwnd() && (NULL == pDS)) {
-	pDS =/*  DEBUG_NEW_NOTHROW */ _directory_services;
+	pDS =DEBUG_NEW_NOTHROW _directory_services;
 
         HRESULT hRegCOM = ::RegisterCOMObjects();
 

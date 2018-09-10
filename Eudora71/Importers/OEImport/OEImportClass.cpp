@@ -585,7 +585,7 @@ bool OEImportClass::OLExtractValue(char ** ppDest, char *lpszKeyName, HKEY hChil
 	DWORD dwKeyDataType;
 	char * szData;
 
-	szData = /* DEBUG_NEW_NOTHROW */ char[dwDataBufSize];
+	szData = DEBUG_NEW_NOTHROW char[dwDataBufSize];
 	if (!szData)
 	{
 		return false;
@@ -602,7 +602,7 @@ bool OEImportClass::OLExtractValue(char ** ppDest, char *lpszKeyName, HKEY hChil
 			*ppDest = NULL;
 		}
 
-		*ppDest = /* DEBUG_NEW_NOTHROW */ char[dwDataBufSize+1];
+		*ppDest = DEBUG_NEW_NOTHROW char[dwDataBufSize+1];
 		if (!*ppDest)
 		{
 			delete [] szData;
@@ -682,7 +682,7 @@ bool OEImportClass::FindMailPath(CImportChild *pChild)
 							{
 								bFoundOE5 = TRUE;
 								// DRW 9/14/99 - We've gotten this far, remember what we just found.
-								pChild->lpszPathToMailData = /* DEBUG_NEW_NOTHROW */ char[_MAX_PATH + 1];
+								pChild->lpszPathToMailData = DEBUG_NEW_NOTHROW char[_MAX_PATH + 1];
 								if (pChild->lpszPathToMailData)
 								{
 									// DRW 9/14/99 - Expand the %UserProfile% portion.
@@ -941,7 +941,7 @@ CMessageStore* OEImportClass::LoadFolders(char *lpszFolderPath)
 			if (m_iOEVersion == OE_5_VERSION)
 			{
 				// DRW 9/13/99 - If OE5 read to next '\0'.
-				lpszFloater = /* DEBUG_NEW_NOTHROW */ char[256];
+				lpszFloater = DEBUG_NEW_NOTHROW char[256];
 				if (lpszFloater)
 				{
 					char	c = '\0';
@@ -3316,7 +3316,7 @@ bool OEImportClass::ProcessABEntry(LPMAPIPROP ABEntry)
 				}
 				totalSize ++;		// For the Null character
 
-				Entry->addresses = /* DEBUG_NEW_NOTHROW */ char[totalSize];
+				Entry->addresses = DEBUG_NEW_NOTHROW char[totalSize];
 				if (Entry->addresses == NULL)	// If it's too big, just screw it.
 					break;
 
@@ -3354,7 +3354,7 @@ bool OEImportClass::ProcessABEntry(LPMAPIPROP ABEntry)
 				}
 				totalSize ++;		// For the Null character
 
-				Entry->addresses = /* DEBUG_NEW_NOTHROW */ char[totalSize];
+				Entry->addresses = DEBUG_NEW_NOTHROW char[totalSize];
 				if (Entry->addresses == NULL)	// If it's too big, just screw it.
 					break;
 

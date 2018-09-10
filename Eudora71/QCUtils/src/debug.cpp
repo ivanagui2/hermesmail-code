@@ -91,7 +91,7 @@ BOOL QCLogFileMT::InitDebug(DWORD dwMask, DWORD dwSize, LPCTSTR strEudoraDir, LP
 	{
 		if (!s_pLogFile)
 		{
-			s_pLogFile = /* DEBUG_NEW_NOTHROW */ JJFileMT;
+			s_pLogFile = DEBUG_NEW_NOTHROW JJFileMT;
 			if(!s_pLogFile) return FALSE;
 		}
 

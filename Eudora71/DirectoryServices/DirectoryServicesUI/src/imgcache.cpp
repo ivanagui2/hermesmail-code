@@ -98,7 +98,7 @@ LPIMGITEM __stdcall CImgCache::Find(HBITMAP hBit)
 /* Protected */
 LPIMGITEM __stdcall CImgCache::AddBitmap(HBITMAP hBit)
 {
-	IMGITEM  *pItem =/*  DEBUG_NEW_NOTHROW */ IMGITEM;
+	IMGITEM  *pItem =DEBUG_NEW_NOTHROW IMGITEM;
 
    if (pItem) {
       pItem->hBit    = hBit;

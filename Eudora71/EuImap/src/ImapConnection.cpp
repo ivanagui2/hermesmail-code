@@ -671,7 +671,7 @@ void CImapConnection::UpdateNetworkSettings ()
 	//
 	if (!m_pNetSettings)
 	{
-		m_pNetSettings =/*  DEBUG_NEW_NOTHROW */ QCNetworkSettings (szPersona);
+		m_pNetSettings =DEBUG_NEW_NOTHROW QCNetworkSettings (szPersona);
 
 	}
 
@@ -1378,7 +1378,7 @@ HRESULT CImapConnection::FetchAttachmentContents(IMAPUID uid, const char *Filena
 	}
 
 	// Let's get the file
-	ATFile =/*  DEBUG_NEW_NOTHROW */ JJFileMT;
+	ATFile =DEBUG_NEW_NOTHROW JJFileMT;
 	if (!ATFile || !SUCCEEDED (ATFile->Open(Filename, O_CREAT | O_RDWR) ) )
 	{
 		if (ATFile)
@@ -1663,7 +1663,7 @@ void CImapConnection:: MailFetchThisLevel (LPCSTR pReference, CImapAccount *pAcc
 	if (m_pImapStream)
 	{
 		// Create a CMboxLister class to pass to c-client.
-		CMboxLister *pLister =/*  DEBUG_NEW_NOTHROW */ CMboxLister (pAccount);
+		CMboxLister *pLister =DEBUG_NEW_NOTHROW CMboxLister (pAccount);
 
 		if (pLister)
 		{
@@ -1854,7 +1854,7 @@ ImapMailboxNode* CImapConnection:: FetchMailboxAttributes (LPCSTR pImapName, Ima
 		return NULL;
 
 	// Create a CMboxLister class to pass to c-client.
-	CImapNodeLister *pLister =/*  DEBUG_NEW_NOTHROW */ CImapNodeLister (m_pAccount->GetAccountID());
+	CImapNodeLister *pLister =DEBUG_NEW_NOTHROW CImapNodeLister (m_pAccount->GetAccountID());
 
 	if (pLister)
 	{
@@ -2336,7 +2336,7 @@ HRESULT CImapConnection::FetchFlags (LPCSTR pSequence, CPtrUidList *pUidList, Im
 
 
 	// Instantiate our ELT writer.
-	CImapEltWriter *pEltWriter =/*  DEBUG_NEW_NOTHROW */ CImapEltWriter (pUidList);
+	CImapEltWriter *pEltWriter =DEBUG_NEW_NOTHROW CImapEltWriter (pUidList);
 	if (pEltWriter)
 	{
 		hResult = m_pImapStream->UIDFetchFlags (pSequence, pEltWriter);
@@ -2377,7 +2377,7 @@ HRESULT CImapConnection::FetchFlags (LPCSTR pSequence, CUidMap *pUidMap, ImapErr
 	}
 
 	// Instantiate our ELT writer.
-	CImapEltWriterMap *pEltWriter =/*  DEBUG_NEW_NOTHROW */ CImapEltWriterMap (pUidMap);
+	CImapEltWriterMap *pEltWriter =DEBUG_NEW_NOTHROW CImapEltWriterMap (pUidMap);
 	if (pEltWriter)
 	{
 		hResult = m_pImapStream->UIDFetchFlags (pSequence, pEltWriter);
@@ -3484,7 +3484,7 @@ HRESULT CImapConnection::__OpenMailbox (const char *Fullname, BOOL bSilent, Imap
 	// If this is NULL, create it now.
 	if (!m_pImapStream)
 	{
-		m_pImapStream =/*  DEBUG_NEW_NOTHROW */ CImapStream (
+		m_pImapStream =DEBUG_NEW_NOTHROW CImapStream (
 											(LPCSTR)m_Server, 
 											IDS_IMAP_SERVICE,
 											(LPCSTR)m_PortNum);
@@ -3587,7 +3587,7 @@ HRESULT CImapConnection::__OpenControlStream(CImapAccount *pAccount, BOOL bSilen
 	// If this is NULL, create it now.
 	if (!m_pImapStream)
 	{
-		m_pImapStream =/*  DEBUG_NEW_NOTHROW */ CImapStream (
+		m_pImapStream =DEBUG_NEW_NOTHROW CImapStream (
 											(LPCSTR)m_Server,
 											IDS_IMAP_SERVICE,
 											(LPCSTR)m_PortNum);

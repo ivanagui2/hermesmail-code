@@ -307,7 +307,7 @@ JJFileMT* OpenLocalAttachFile(char *pParentDir, char* Name, BOOL bCreateStub)
 	}
 
 	// Let's get the file
-	ATFile = /* DEBUG_NEW_NOTHROW */ JJFileMT; 
+	ATFile = DEBUG_NEW_NOTHROW JJFileMT; 
 	if (!ATFile || (!SUCCEEDED (ATFile->Open(buf, O_CREAT | O_WRONLY) ) ) ) 
 	{
 		if (ATFile)

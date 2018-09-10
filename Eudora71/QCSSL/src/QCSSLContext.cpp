@@ -574,28 +574,34 @@ SSL_CTX *SetSSLVersion(QCSSLReference *pSSLReference)
 
 	switch (pSSLReference->m_ProtocolInfo.m_ProtocolVersion)
 	{
-	case 0:
+	case 0:	// Undetermined
 		sslmethod = SSLv23_method();
 		break;
-	case 1:
+	case 1:	// SSL_Version_3_0_With_2_0_Hello
 		sslmethod = SSLv23_method();
 		break;
-	case 2:
+	case 2:	// SSL_Version_3_0_Only
 		sslmethod = SSLv3_method();
 		break;
-	case 3:
+	case 3:	// TLS_Version_1_0_Only
 		sslmethod = TLSv1_method();
 		break;
-	case 4:
+	case 4:	// TLS_Version_1_0_With_2_0_Hello
 		sslmethod = SSLv23_method();
 		break;
-	case 5:
-		sslmethod = SSLv2_method();
-		break;
-	case 6:
+
+	// I am obsoleting SSL 2.0 since it was prohibited in 2011 by RFC 6176.  This also serves to allow QCSSL to
+	// work with the newest versions of OpenSSL that do not contain a "SSLv2_method" entry point.
+	// (Pete Maclean 10-Sep-2018)
+//	case 5:	// SSL_Version_2_0
+//		sslmethod = SSLv2_method();
+//		break;
+
+	// This should also be obsoleted at some point since it was prohibited in June 2015 by RFC 7568.
+	case 6:	// SSL_Version_3_0
 		sslmethod = SSLv23_method();
 		break;
-	case 7:
+	case 7:	// TLS_Version_1_0
 		sslmethod = SSLv23_method();
 		break;
 	default:

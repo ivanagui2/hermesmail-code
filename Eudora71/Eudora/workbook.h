@@ -95,13 +95,13 @@ public:
 protected:
     //{{AFX_MSG(QCWorksheet)
 	afx_msg void OnCmdMdiRestore()
-		{ PostMessage(WM_SYSCOMMAND, SC_RESTORE, 0); }
+		{ PostMessage((HWND)WM_SYSCOMMAND, SC_RESTORE, 0); }
 	afx_msg void OnCmdMdiMinimize()
-		{ PostMessage(WM_SYSCOMMAND, SC_MINIMIZE, 0); }
+		{ PostMessage((HWND)WM_SYSCOMMAND, SC_MINIMIZE, 0); }
 	afx_msg void OnCmdMdiMaximize()
-		{ PostMessage(WM_SYSCOMMAND, SC_MAXIMIZE, 0); }
+		{ PostMessage((HWND)WM_SYSCOMMAND, SC_MAXIMIZE, 0); }
 	afx_msg void OnCmdMdiClose()
-		{ PostMessage(WM_SYSCOMMAND, SC_CLOSE, 0); }
+		{ PostMessage((HWND)WM_SYSCOMMAND, SC_CLOSE, 0); }
 	afx_msg void OnCmdUpdateMdiRestore(CCmdUI* pCmdUI);
 	afx_msg void OnCmdUpdateMdiMinimize(CCmdUI* pCmdUI);
 	afx_msg void OnCmdUpdateMdiMaximize(CCmdUI* pCmdUI);

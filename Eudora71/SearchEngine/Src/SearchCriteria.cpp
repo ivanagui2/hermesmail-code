@@ -168,7 +168,7 @@ SearchCriteria::SearchCriteria(const SearchCriteria &copy) // Copy constructor
 	if (copy.m_pValueDate)
 		m_pValueDate =  DEBUG_NEW_NOTHROW CriteriaValueDate(*copy.m_pValueDate);
 	if (copy.m_pValueAge)
-		m_pValueAge = DEBUG_NEW_NOTHROWCriteriaValueAge(*copy.m_pValueAge);
+		m_pValueAge = DEBUG_NEW_NOTHROW CriteriaValueAge(*copy.m_pValueAge);
 	
 	if (copy.m_pRegex)
 		m_pRegex = DEBUG_NEW_NOTHROW CRegex(*copy.m_pRegex);

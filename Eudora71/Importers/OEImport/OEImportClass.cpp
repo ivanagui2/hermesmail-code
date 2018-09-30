@@ -2220,8 +2220,8 @@ bool OEImportClass::ReadTilDone()
 			oeInfoList = DEBUG_NEW OEMessageHeaderInfoList[oeHeader.cbEntries];
 			
 
-
-			for( int oemh = 0; oemh < oeHeader.cbEntries; oemh++)
+			int oemh;
+			for(oemh = 0; oemh < oeHeader.cbEntries; oemh++)
 			{
 				fread((char*)&(oeInfoList[oemh].oeInfo), sizeof(OEMessageHeaderInfo), 1, m_fpiOEFile);	// Read the table
 				fseek(m_fpiOEFile, -1, SEEK_CUR);

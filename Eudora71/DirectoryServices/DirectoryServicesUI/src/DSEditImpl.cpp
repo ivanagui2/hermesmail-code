@@ -206,7 +206,11 @@ void DSEdit::DoQueryAutoComplete(bool fullList)
 
 	if (Matches)
 		NumEntries += Matches->GetCount();
-	ORM
+/*
+	Removed "ORM" string in the middle of nowhere?
+
+	Søren Bro Thygesen (sbrothy@£gmail.com)
+*/
 	if (NumEntries > 0)
 	{	
 		m_ACListBox->DoACListBox();	

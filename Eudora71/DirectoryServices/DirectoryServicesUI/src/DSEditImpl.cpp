@@ -206,7 +206,7 @@ void DSEdit::DoQueryAutoComplete(bool fullList)
 
 	if (Matches)
 		NumEntries += Matches->GetCount();
-
+	ORM
 	if (NumEntries > 0)
 	{	
 		m_ACListBox->DoACListBox();	
@@ -214,10 +214,16 @@ void DSEdit::DoQueryAutoComplete(bool fullList)
 		{
 			for (int i=0; i < Matches->GetCount(); i++)
 			{
-				CString temp = Matches->GetAt(Matches->FindIndex(i));
+				/*
+					temp varaiable hides previous declaration of temp above. Changed it's name to _temp
+					
+					Søren Bro Thygesen (sbrothy@gmail.com)
+				*/
 
-				char *tempChars = DEBUG_NEW char[temp.GetLength()+1];				
-				strcpy(tempChars, temp);
+				CString _temp = Matches->GetAt(Matches->FindIndex(i));
+
+				char *tempChars = DEBUG_NEW char[_temp.GetLength()+1];				
+				strcpy(tempChars, _temp);
 
 				m_ACListBox->AddToACListBox(tempChars, 0);
 

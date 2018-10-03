@@ -137,7 +137,7 @@ SearchCriteria::SearchCriteria(const SearchCriteria &copy) // Copy constructor
 	m_bNeedFullMessage = false;
 
 	if (copy.m_pObj)
-		m_pObj = /*DEBUG_NEW_NOTHROW */ */ CriteriaObject(*copy.m_pObj);
+		m_pObj = DEBUG_NEW_NOTHROW CriteriaObject(*copy.m_pObj);
 
 	if (copy.m_pVerbTxtCmp)
 		m_pVerbTxtCmp = DEBUG_NEW_NOTHROW CriteriaVerbTextCompare(*copy.m_pVerbTxtCmp);

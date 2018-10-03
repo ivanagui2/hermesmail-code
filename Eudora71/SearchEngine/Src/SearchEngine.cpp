@@ -1662,11 +1662,18 @@ char *QCStrstr(const char * str1,  const char * str2,
 {
        
 	if (bMatchCase && (QCSTR_SUBSTR_SEARCH == nWholeWord))
-		return strstr(str1, str2);
+		return (char *)strstr(str1, str2);
 	else
 	{
-        if ( !*str2 )
-            return((char *)str1);
+		if (!*str2)
+		{
+			/*
+				Cast away constness to avoid return error
+
+				Søren Bro Thygesen (sbrothy@gmail.com)
+			*/
+			return((char *)str1);
+		}
 
 		char *cp = (char *) str1;
         char *s1, *s2;

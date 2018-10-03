@@ -386,6 +386,13 @@ public      :
         return ( ::DestroyWindow ( m_hWnd ) ) ;
     }
 
+	/*
+		I made the following two functions static. See workbook.h for an explanation.
+
+		Søren Bro Thygesen, 3. Oct 2018 (sbrothy@gmail.com)
+	
+	*/
+
     LRESULT SendMessage ( UINT   uMsg       ,
                           WPARAM wParam = 0 ,
                           LPARAM lParam = 0  )

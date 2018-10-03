@@ -15,7 +15,13 @@ DSMail::OnAddress(UINT HeaderNum, CString& strMailees, CWnd *pParent,
 		  CFrameWnd *pParentFrame, BOOL bKeepOnTop)
 {
     // Code mostly duplicated from lookup.cpp.
-    CMainFrame *pMainFrame  = static_cast<CMainFrame *>(::AfxGetMainWnd());
+	/*
+		Removed static_cast where ordinary cast will do.
+
+		Søren Bro Thygesen (sbrothy@gmail.com)
+	*/
+
+    CMainFrame *pMainFrame  = (CMainFrame *)::AfxGetMainWnd());
     ASSERT_KINDOF(CMainFrame, pMainFrame);
 
     CWazooWnd *pParentWazoo = static_cast<CWazooWnd *>(pParent);

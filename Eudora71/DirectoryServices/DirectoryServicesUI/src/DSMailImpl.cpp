@@ -21,7 +21,7 @@ DSMail::OnAddress(UINT HeaderNum, CString& strMailees, CWnd *pParent,
 		Søren Bro Thygesen (sbrothy@gmail.com)
 	*/
 
-    CMainFrame *pMainFrame  = (CMainFrame *)::AfxGetMainWnd());
+    CMainFrame *pMainFrame  = (CMainFrame *)::AfxGetMainWnd();
     ASSERT_KINDOF(CMainFrame, pMainFrame);
 
     CWazooWnd *pParentWazoo = static_cast<CWazooWnd *>(pParent);

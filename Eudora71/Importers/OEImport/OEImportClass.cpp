@@ -1296,7 +1296,13 @@ char * OEImportClass::GetFirstOE4Mbox(char *lpszStorePathName)
 // matching mboxes
 char * OEImportClass::GetNextOE4Mbox()
 {
-	static bIteratingFiles = true;
+	/*
+		Fixed mising type specifier. From the hungariran notation and the "true" keyword it is obvious it was supposed to be a bool
+
+		Søren Bro Thygesen (sbrothy@gmail.com)
+	*/
+
+	static bool bIteratingFiles = true;
 	WIN32_FIND_DATA wfd;
 	char *lpszSearchKey = DEBUG_NEW char [_MAX_PATH];
 

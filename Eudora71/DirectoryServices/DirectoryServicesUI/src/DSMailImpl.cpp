@@ -22,7 +22,14 @@ DSMail::OnAddress(UINT HeaderNum, CString& strMailees, CWnd *pParent,
 	*/
 
     CMainFrame *pMainFrame  = (CMainFrame *)::AfxGetMainWnd();
-    ASSERT_KINDOF(CMainFrame, pMainFrame);
+
+	/*
+		Removed this ASSERT_KINDOF() CMainFrame has no member named IsKindOf and it seemingly isn't used anywhere.
+	
+
+		Søren Bro Thygesen (sbrothy@gmail.com)
+	*/
+    //ASSERT_KINDOF(CMainFrame, pMainFrame);
 
     CWazooWnd *pParentWazoo = static_cast<CWazooWnd *>(pParent);
     ASSERT_KINDOF(CWazooWnd, pParentWazoo);

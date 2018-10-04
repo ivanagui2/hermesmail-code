@@ -91,41 +91,18 @@ public:
 	// method in order to work correctly.
 	void DestroyDockBars();
 
-	/*
-		Change codeword: Azur.
-
-		The PostMessages below are not the Windows ones but those found in JWnd.h
-
-		Since they're actually member functions, as I see it there are 3 solutions:
-
-		1.)	Instatiate a JWnd object on the stack (But I'm not sure how memory intensive it is).
-
-		2.)	Instatiate a JWnd object on the heap. This has the added benefit that it would be obvious that it's only instantiated 
-			for calling these functions.
-
-		3.) Making the relevant functions in JWnd static. Since I cannot find them used elsewhere (or even a JWnd object being instantiated)
-			I would've gone with this option, if it weren't for the fact that the JWnd's SendMessage and PostMessage functions use a member
-			variable called m_hWnd.
-
-		As an aside JWnd overrides operator HWND.
-	
-	Søren Bro Thygesen, 3. Oct 2018 (sbrothy@gmail.com)
-	
-	*/
-#include "JWnd.h"  // Azur. See comment above.
-	
 
 // Generated message map functions
 protected:
     //{{AFX_MSG(QCWorksheet)
 	afx_msg void OnCmdMdiRestore()
-		{ JWnd *wnd = new JWnd(); wnd->PostMessage(WM_SYSCOMMAND, SC_RESTORE, 0); delete *wnd; } // Azur.
+		{ PostMessage(WM_SYSCOMMAND, SC_RESTORE, 0); delete *wnd; } // Azur.
 	afx_msg void OnCmdMdiMinimize()
-		{ JWnd *wnd = new JWnd();  wnd->PostMessage(WM_SYSCOMMAND, SC_MINIMIZE, 0); delete *wnd; } // Azur.
+		{ PostMessage(WM_SYSCOMMAND, SC_MINIMIZE, 0); delete *wnd; } // Azur.
 	afx_msg void OnCmdMdiMaximize()
-		{ JWnd *wnd = new JWnd();  wnd->PostMessage(WM_SYSCOMMAND, SC_MAXIMIZE, 0); delete *wnd; } // Azur.
+		{ PostMessage(WM_SYSCOMMAND, SC_MAXIMIZE, 0); delete *wnd; } // Azur.
 	afx_msg void OnCmdMdiClose()
-		{ JWnd *wnd = new JWnd();  wnd->PostMessage(WM_SYSCOMMAND, SC_CLOSE, 0); delete *wnd; } // Azur.
+		{ PostMessage(WM_SYSCOMMAND, SC_CLOSE, 0); delete *wnd; } // Azur.
 	afx_msg void OnCmdUpdateMdiRestore(CCmdUI* pCmdUI);
 	afx_msg void OnCmdUpdateMdiMinimize(CCmdUI* pCmdUI);
 	afx_msg void OnCmdUpdateMdiMaximize(CCmdUI* pCmdUI);
@@ -133,8 +110,6 @@ protected:
 	afx_msg void OnDestroy();
     //}}AFX_MSG
     DECLARE_MESSAGE_MAP();
-
-	delete wnd; // Azur
 };
 
 
@@ -170,23 +145,16 @@ protected:
 	virtual ~QCControlBarWorksheet();
 	virtual void RecalcLayout(BOOL bNotify = TRUE);
 
-	/*
-		Azur. See comment above.
-
-	Søren Bro Thygesen, 3. Oct 2018 (sbrothy@gmail.com)
-
-	*/
-
 	// Generated message map functions
 	//{{AFX_MSG(QCControlBarWorksheet)
 	afx_msg void OnCmdMdiRestore()
-		{ JWnd *wnd = new JWnd(); wnd->PostMessage(WM_SYSCOMMAND, SC_RESTORE, 0); delete *wnd; } // Azur.
+		{ PostMessage(WM_SYSCOMMAND, SC_RESTORE, 0); delete *wnd; } // Azur.
 	afx_msg void OnCmdMdiMinimize()
-		{ JWnd *wnd = new JWnd();  wnd->PostMessage(WM_SYSCOMMAND, SC_MINIMIZE, 0); delete *wnd; } // Azur.
+		{ PostMessage(WM_SYSCOMMAND, SC_MINIMIZE, 0); delete *wnd; } // Azur.
 	afx_msg void OnCmdMdiMaximize()
-	{ JWnd *wnd = new JWnd();  wnd->PostMessage(WM_SYSCOMMAND, SC_MAXIMIZE, 0); delete *wnd; } // Azur.
+	{ PostMessage(WM_SYSCOMMAND, SC_MAXIMIZE, 0); delete *wnd; } // Azur.
 	afx_msg void OnCmdMdiClose()
-	{  JWnd *wnd = new JWnd();  wnd->PostMessage(WM_SYSCOMMAND, SC_CLOSE, 0); delete *wnd; } // Azur.
+	{  PostMessage(WM_SYSCOMMAND, SC_CLOSE, 0); delete *wnd; } // Azur.
 	afx_msg void OnCmdUpdateMdiRestore(CCmdUI* pCmdUI);
 	afx_msg void OnCmdUpdateMdiMinimize(CCmdUI* pCmdUI);
 	afx_msg void OnCmdUpdateMdiMaximize(CCmdUI* pCmdUI);
@@ -194,8 +162,6 @@ protected:
 	afx_msg void OnClose();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
-
-	delete wnd; // // Azur.
 };
 
 

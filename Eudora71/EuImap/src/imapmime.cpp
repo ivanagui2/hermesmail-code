@@ -137,7 +137,7 @@ static int LOCAL_CheckName(const char* Dir, const char* FName, char* FinalFname,
 		strncat(FinalFname, FName, (strlen(FName)-Difference));
 
 		char * floater;
-		floater = strrchr(FName, '.');
+		floater = (char *)strrchr(FName, '.');
 		
 		if (floater)	// There's a period, so there's an extension.
 		{
@@ -164,7 +164,7 @@ static int LOCAL_CheckName(const char* Dir, const char* FName, char* FinalFname,
 	CString sResWord;
 	char *DOSptr;
 	//store in tmp the file name without the extension
-	DOSptr = strchr(FName, '.');
+	DOSptr = (char *)strchr(FName, '.');
 	len = (DOSptr? DOSptr - FName : strlen(FName));
 	strncpy(tmp, FName, len);
 	tmp[len] = 0;
@@ -211,7 +211,7 @@ static int LOCAL_CheckName(const char* Dir, const char* FName, char* FinalFname,
 		// one of the reserved DOS device names
 		pReserved = (char *)(LPCTSTR)sReservedWords;
 
-		ptr = strrchr(FName, '.');
+		ptr = (char *)strrchr(FName, '.');
 		len = (ptr? ptr - FName : strlen(FName));
 		if (bLongFileNameSupport)
 			BaseLen = 255;

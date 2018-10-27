@@ -528,17 +528,17 @@ class CSumList
 	CSummary *&				GetNext(POSITION& rPosition)
 								{ return reinterpret_cast<CSummary *&>( m_ObList.GetNext(rPosition) ); }
 	const CSummary *&		GetNext(POSITION& rPosition) const
-								{ return reinterpret_cast<const CSummary *&>( m_ObList.GetNext(rPosition) ); }
+								{ CObject *p = m_ObList.GetNext(rPosition); return reinterpret_cast<const CSummary *&>( p ); }
 	CSummary *&				GetPrev(POSITION& rPosition)
 								{ return reinterpret_cast<CSummary *&>( m_ObList.GetPrev(rPosition) ); }
 	const CSummary *&		GetPrev(POSITION& rPosition) const
-								{ return reinterpret_cast<const CSummary *&>( m_ObList.GetPrev(rPosition) ); }
+								{ CObject *p = m_ObList.GetPrev(rPosition);  return reinterpret_cast<const CSummary *&>(p); }
 
 	// getting/modifying an element at a given position
 	CSummary *&				GetAt(POSITION position)
 								{ return reinterpret_cast<CSummary *&>( m_ObList.GetAt(position) ); }
 	const CSummary *&		GetAt(POSITION position) const
-								{ return reinterpret_cast<const CSummary *&>( m_ObList.GetAt(position) ); }
+								{ CObject *p = m_ObList.GetAt(position); return reinterpret_cast<const CSummary *&>(p); }
 	void					SetAt(POSITION position, CSummary * in_pSummary);
 	void					RemoveAt(POSITION position);
 

@@ -304,7 +304,7 @@ public:
 				m_Globals(globals),
 				m_fnFreeFunc(NULL),
 				m_IdleFreq(idleFreq),
-				m_LastTimeCalled(0),
+				m_LastTimeCalled(0))
 				{}
 
 	

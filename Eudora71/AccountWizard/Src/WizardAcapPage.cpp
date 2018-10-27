@@ -5,7 +5,7 @@
 
 #include "rs.h"
 #include "persona.h"
-#include "guiutils.h"DebugNewHelprs
+#include "guiutils.h"
 #include "acapdlg.h"
 #include "WizardPropSheet.h"
 

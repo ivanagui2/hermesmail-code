@@ -47,9 +47,11 @@
 
 #include "regexp.h"
 
-// Define CRTDBG_MAP_ALLOC and include the files in the correct order
-// to allow leak checking with malloc.
+// Define CRTDBG_MAP_ALLOC and include the files in the correct order to allow leak-checking with malloc.
 #define CRTDBG_MAP_ALLOC
+
+// C/C++ includes:
+#include <ctype.h>
 #include <stdlib.h>
 #include <crtdbg.h>
 
@@ -63,7 +65,7 @@
 #define PR_TRUE   true
 
 #define PORT_Alloc(x)  malloc(x)
-#define PORT_Free(x)  		free(x)
+#define PORT_Free(x)  	free(x)
 
 
 static char *PORT_Strdup(const char *szString)
@@ -75,8 +77,13 @@ static char *PORT_Strdup(const char *szString)
 	return(szNew);
 }
 
-#define isalnum(x) ((x >= '0' && x <= '9') || (x >= 'a' || x <='z') ||(x >= 'A' || x <='Z'))
-#define toupper(x) ((x >= 'a' && x <= 'z') ? (x & ~0x20) : x)
+// The original Eudora code locally defined "isalnum" here as:
+//
+//	#define isalnum(x) ((x >= '0' && x <= '9') || (x >= 'a' || x <='z') || (x >= 'A' || x <='Z'))
+//
+// This is of course broken.  It will return TRUE for any character!  The original code also locally defined
+// toupper(x) -- correctly.  I removed both definitions and inserted the "#include <ctype.h>" above to use the
+// C-standard versions of these functions.  (Pete Maclean 26-Sep-2018)
 
 
 /* ----------------------------- shexp_valid ------------------------------ */

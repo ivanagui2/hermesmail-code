@@ -30,7 +30,7 @@ DAMAGE. */
 
 #include "QCSSL.h"
 
-#include <openssl/ssl.h>
+#include <ssl.h>
 
 #include <afxcoll.h>
 

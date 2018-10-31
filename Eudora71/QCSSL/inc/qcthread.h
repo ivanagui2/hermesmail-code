@@ -4,8 +4,7 @@
  
 #include <windows.h>
 
- 
-
+ // This class wraps a Windows Mutex
 class QCMutex
 {
 	HANDLE  m_hObject;

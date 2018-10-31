@@ -339,19 +339,19 @@ BIO *BIO_new_ws(int iWorkerSocket, int iCloseFlag)
 
 
 //
-//	FileExists()
+//	DoesFileExist()
 //
 //	Returns true if the specified file exists, false otherwise.  This is used to determine where the
-//	cert files reside.
+//	certificate files reside.  Revised by Pete Maclean on 24-Sep-2018 to eliminate use of MFC and renamed
+//	(from "FileExists").
 //
-bool FileExists(const char* fileName)
+bool DoesFileExist(
+	const TCHAR *pszFilePath)	// [in] putative file path
 {
-	CFileStatus		 unused;
+	DWORD dwFileAttributes = ::GetFileAttributes(pszFilePath);
 
-	if (CFile::GetStatus(fileName, unused) == 0)
-	{
+	if ((dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0)
 		return false;
-	}
 
 	return true;
 }
@@ -396,38 +396,38 @@ ConnectionInfo *SetupConnectionInfo(QCSSLReference *pSSLReference)
 //	Eudora ships with root and user certificate files in ExecutableDir.  The above functionality
 //	allows the user to effectively ignore these files by placing their own copies in EudoraDir.
 //
-void ChooseCertFileDirectory(CString &strDirectory, const CString &strFile)
+void ChooseCertFileDirectory(
+	CString &strDirectory,		// [in] "<EudoraDir>\r\n<ExecutableDir>", [out] the directory where the file is found
+	const CString &strFile)		// [in] the name of the expected certificates file (usually "rootcerts.p7b" or "usercerts.p7b")
 {
-	CString		 strDir1;
-	CString		 strDir2;
-	int			 nPos = strDirectory.Find("\r\n");
+	int	nPos = strDirectory.Find("\r\n");
 	
-	// Extract the directory data preceding the "\r\n" and append a '\' if necessary.
-	strDir1 = strDirectory.Left(nPos);
-	if (strDir1.GetAt(strDir1.GetLength() - 1) != '\\')
+	// Extract the directory path preceding the "\r\n" and append a '\' if necessary.
+	CString strEudoraDir = strDirectory.Left(nPos);
+	if (strEudoraDir.GetAt(strEudoraDir.GetLength() - 1) != '\\')
 	{
-		strDir1 += "\\";
+		strEudoraDir += "\\";
 	}
 
-	// Extract the directory data following the "\r\n" and append a '\' if necessary.
-	strDir2 = strDirectory.Mid(nPos + 2);
-	if (strDir2.GetAt(strDir2.GetLength() - 1) != '\\')
+	// Extract the directory path following the "\r\n" and append a '\' if necessary.
+	CString strExecutableDir = strDirectory.Mid(nPos + 2);
+	if (strExecutableDir.GetAt(strExecutableDir.GetLength() - 1) != '\\')
 	{
-		strDir2 += "\\";
+		strExecutableDir += "\\";
 	}
 	
 	// Default to the first directory (EudoraDir).
-	strDirectory = strDir1;
+	strDirectory = strEudoraDir;
 
-	if (FileExists(strDir1 + strFile))
+	if (DoesFileExist(strEudoraDir + strFile))
 	{
 		// File exists in EudoraDir.
-		strDirectory = strDir1;
+		strDirectory = strEudoraDir;
 	}
-	else if (FileExists(strDir2 + strFile))
+	else if (DoesFileExist(strExecutableDir + strFile))
 	{
 		// File exists in ExecutableDir.
-		strDirectory = strDir2;
+		strDirectory = strExecutableDir;
 	}
 }
 
@@ -445,7 +445,7 @@ void ChooseCertFileDirectory(CString &strDirectory, const CString &strFile)
 //
 void ChooseCertFileDirectories(QCSSLReference *pSSLReference)
 {
-	if (pSSLReference)
+	if (pSSLReference != NULL)
 	{
 		ChooseCertFileDirectory(pSSLReference->m_CertificateInfo.m_RootCertStoreDir, szRootCertFileName);
 		ChooseCertFileDirectory(pSSLReference->m_CertificateInfo.m_UserCertStoreDir, szUserCertFileName);
@@ -604,6 +604,13 @@ SSL_CTX *SetSSLVersion(QCSSLReference *pSSLReference)
 	case 7:	// TLS_Version_1_0
 		sslmethod = SSLv23_method();
 		break;
+	case 8:	// TLS_Version_1_1
+		sslmethod = TLSv1_1_client_method();
+		break;
+	case 9:	// TLS_Version_1_2
+		sslmethod = TLSv1_2_client_method();
+		break;
+
 	default:
 		ConnectionInfo *pConnectionInfo = (ConnectionInfo*) pSSLReference->m_pConnectionManagerInfo;
 		pConnectionInfo->m_Outcome.AddComments(CResString(IDS_ERR_VERSIONINVALID));
@@ -652,8 +659,8 @@ void FillInConnectionInfo(ConnectionInfo *pConnectionInfo, QCSSLReference *pSSLR
 
 					X509		*pX509 = NULL;
 					pX509 = d2i_X509(NULL,
-									 (unsigned char **)(&pcCertBlob),
-									 pCertData->m_CertBlobLength);
+									 (const unsigned char **)(&pcCertBlob),
+									 (long) pCertData->m_CertBlobLength);
 
 					if (pX509)
 					{
@@ -798,6 +805,18 @@ bool BeginQCSSLSession(QCSSLReference *pSSLReference)
 	// Set the certificate verification callback.
 	SSL_CTX_set_verify(pSSLCtx, SSL_VERIFY_PEER, QCCertificateUtils::CertificateCallback);
 
+#if 0
+	// Set up groups
+//	SSL_CTX_set1_curves_list(pSSLCtx, "P-521:P-384:P-256");
+
+	// Set up groups to emulate "openssl s_client -connect..." with no curves= argument
+	int iCurvesResult = SSL_CTX_set1_curves_list(pSSLCtx,
+		"P-256:P-521:brainpoolP512r1:brainpoolP384r1:P-384:brainpoolP256r1:secp256k1:"
+		"B-571:K-571:K-409:B-409:K-283:B-283");
+
+	assert(1 == iCurvesResult);
+#endif
+
 	// Create the SSL object.
 	SSL	*pSSL = SSL_new(pSSLCtx);
 	if (NULL == pSSL)
@@ -808,6 +827,10 @@ bool BeginQCSSLSession(QCSSLReference *pSSLReference)
 	}
 
 	pSSL->ctx = pSSLCtx;
+
+	const char* const PREFERRED_CIPHERS = "HIGH:!aNULL:!kRSA:!PSK:!SRP:!MD5:!RC4";
+	int iCipherListResult = SSL_set_cipher_list(pSSL, PREFERRED_CIPHERS);
+	assert(1 == iCipherListResult);
 
 	// Create the BIO for reading and writing.
 	BIO	*pBIO = BIO_new_ws((int)pSSLReference, BIO_NOCLOSE);

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 
+#include <cassert>
 #include <process.h>
 #include "qcthread.h"
 
@@ -8,10 +9,12 @@
 
 #include <process.h>
 
-QCMutex::QCMutex(bool bInitiallyOwn, LPCTSTR pstrName,
-	LPSECURITY_ATTRIBUTES lpsaAttribute )
+QCMutex::QCMutex(
+	bool bInitiallyOwn,					// [in] ? should caller obtain initial ownership of the Mutex
+	LPCTSTR pstrName,					// [in] name for the Mutex (or NULL)
+	LPSECURITY_ATTRIBUTES lpsaAttribute)// [in] security attributes (or NULL)
 {
-	m_hObject = ::CreateMutex(lpsaAttribute, bInitiallyOwn, pstrName);
+	m_hObject = ::CreateMutex(lpsaAttribute, (BOOL) bInitiallyOwn, pstrName);
 //	if (m_hObject == NULL)
 //		;//throw exception
 }
@@ -19,29 +22,31 @@ QCMutex::QCMutex(bool bInitiallyOwn, LPCTSTR pstrName,
 
 QCMutex::~QCMutex()
 {
-		CloseHandle(m_hObject);
+	::CloseHandle(m_hObject);
 }
 
 bool QCMutex::Lock(DWORD dwTimeout)
 {
-	DWORD	waitResult;
-	waitResult = WaitForSingleObject( m_hObject, dwTimeout );
+	assert(m_hObject != NULL);
+
+	DWORD waitResult = ::WaitForSingleObject( m_hObject, dwTimeout );
 	switch ( waitResult ) 
-		{
+	{
 		case WAIT_OBJECT_0:
 		case WAIT_ABANDONED:
-			return TRUE;
-			break;
+			return true;
+
 		case WAIT_TIMEOUT:
 		case WAIT_FAILED:
 		default:
-			return FALSE;
-			break;
-		}
+			return false;
+	}
 }
 
 bool QCMutex::Unlock( )
 {
-		return (ReleaseMutex(m_hObject) != FALSE);
+	assert(m_hObject != NULL);
+
+	return (::ReleaseMutex(m_hObject) != FALSE);
 }
 

@@ -309,7 +309,7 @@ unsigned long CertificateStore::AddCertificatesToContext(SSL_CTX *pSSLCtx)
 
 				X509		*pX509 = NULL;
 				pX509 = d2i_X509(NULL,
-								 (unsigned char **)(&pbCertEncoded),
+								 (const unsigned char **)(&pbCertEncoded),
 								 pContext->cbCertEncoded);
 
 				if (pX509)

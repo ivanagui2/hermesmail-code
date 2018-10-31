@@ -204,7 +204,7 @@ int QCCertificateUtils::CertIsInStore(X509 *pX509, CertificateStore *pStore)
 				memcpy(pbCertEncoded, pContext->pbCertEncoded, pContext->cbCertEncoded);
 
 				X509	*pX509Tmp = d2i_X509(NULL,
-					(unsigned char **)(&pbCertEncoded),
+					(const unsigned char **)(&pbCertEncoded),
 					pContext->cbCertEncoded);
 				if (pX509Tmp != NULL)
 				{
@@ -232,10 +232,12 @@ int QCCertificateUtils::CertIsInStore(X509 *pX509, CertificateStore *pStore)
 //
 //	Standard code for calling mozilla routines for host mismatch.
 //
-bool QCCertificateUtils::PatternMatchHostName(char * szCertsName, char* szGivenName)
+bool QCCertificateUtils::PatternMatchHostName(
+	char * szCertsName,
+	char * szGivenName)
 {
 	bool bReturn = false;
-	if(NULL == szGivenName || 0 == *szGivenName || NULL == szCertsName || 0 == *szCertsName)
+	if (NULL == szGivenName || 0 == *szGivenName || NULL == szCertsName || 0 == *szCertsName)
 		return false;
 
 	strlwr(szCertsName);
@@ -257,14 +259,14 @@ bool QCCertificateUtils::PatternMatchHostName(char * szCertsName, char* szGivenN
 	{
 #endif
 
-	if (stricmp(szCertsName, szGivenName) == 0) 
-	{
-		bReturn = true;
-	}
-	else if (szGivenRelativeName && stricmp(szGivenRelativeName, szCertsName) == 0) 
-	{
-		bReturn = true;
-	}
+		if (stricmp(szCertsName, szGivenName) == 0) 
+		{
+			bReturn = true;
+		}
+		else if (szGivenRelativeName && stricmp(szGivenRelativeName, szCertsName) == 0) 
+		{
+			bReturn = true;
+		}
 
 #ifndef NO_MOZILLA_REGEXP
 	} 

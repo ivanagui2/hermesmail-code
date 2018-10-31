@@ -57,6 +57,10 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
 #include "DebugNewHelpers.h"
 
 
+// I had to make the following change to get this to link in debug mode (Pete Maclean 4-Sep-2018)
+#undef DEBUG_NEW_NOTHROW
+#define DEBUG_NEW_NOTHROW new(std::nothrow)
+
 bool		QCLogFileMT::s_bOutputEudoraStatusInfoNow = true;
 DebugMaskType	QCLogFileMT::DebugMask = 0;
 long		QCLogFileMT::DebugLogSize;
@@ -190,8 +194,7 @@ void QCLogFileMT::PutLineHeader(DebugMaskType ID)
 	char DigitString[32];
 	time_t Now = time(NULL);
 
-	// Close and reopen the file every minute so that when running under
-	// OSes like Win 3.1 the file gets updated
+	// Close and reopen the file every minute so that when running under OSes like Win 3.1 the file gets updated
 	ASSERT(s_pLogFile);
 	if ((Now - MarkerTime) % 60 == 0)
 	{
@@ -237,13 +240,15 @@ void QCLogFileMT::PutLineHeader(DebugMaskType ID)
 
 	//First write the thread ID
 	if (::IsMainThreadMT())
+	{
 		strcpy(DigitString, "MAIN ");
+	}
 	else
 	{
 		if (m_bIsNT)
-			wsprintfA(DigitString, "%-4.0u ", GetCurrentThreadId());  //reuse the digitstring
+			wsprintfA(DigitString, "%-4.0u ", ::GetCurrentThreadId());  //reuse the digitstring
 		else
-			wsprintfA(DigitString, "%-4.0X ", GetCurrentThreadId() & 0xFFFF);  //reuse the digitstring
+			wsprintfA(DigitString, "%-4.0X ", ::GetCurrentThreadId() & 0xFFFF);  //reuse the digitstring
 	}
 	if (FAILED(s_pLogFile->Put(DigitString))) return;
 	

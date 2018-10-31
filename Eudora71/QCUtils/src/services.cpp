@@ -20,12 +20,13 @@
 #include "rs.h"
 #include "resource.h"
 
-const char chrBackSlash = '\\';
-
-
 #include "DebugNewHelpers.h"
 
+const char chrBackSlash = '\\';
 
+// I had to make the following change to get this to link in debug mode (Pete Maclean 4-Sep-2018)
+#undef DEBUG_NEW_NOTHROW
+#define DEBUG_NEW_NOTHROW new(std::nothrow)
 
 // API definitions
 #ifndef REPLACEFILE_WRITE_THROUGH
@@ -362,7 +363,7 @@ static BOOL IsDaylightSavingsTimeMT()
 	int nMonth = pTimeInfo->tm_mon;
 	
 	if (nMonth < 3 || nMonth > 9)
-		return (FALSE);		// Months 0 - 2, and 10 - 11 are always not DST
+		return FALSE;		// Months 0 - 2, and 10 - 11 are always not DST
 	if (nMonth > 3 && nMonth < 9)
 		return TRUE;		// Months 4 - 8 are always DST
 

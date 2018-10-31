@@ -186,8 +186,7 @@ HDIB BitmapToDIB(HBITMAP hBitmap, HPALETTE hPal)
 
     lpbi = (LPBITMAPINFOHEADER)GlobalLock(hDIB);
 
-    // call GetDIBits with a NON-NULL lpBits param, and actualy get the
-    // bits this time
+    // call GetDIBits with a NON-NULL lpBits param, and actualy get the bits this time
 
     if (GetDIBits(hDC, hBitmap, 0, (UINT)bi.biHeight, (LPSTR)lpbi +
             (WORD)lpbi->biSize + PaletteSize((LPSTR)lpbi), (LPBITMAPINFO)lpbi,

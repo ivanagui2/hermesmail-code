@@ -1466,7 +1466,9 @@ static void apply_hyperlinks (const memory_ref source_links, memory_ref target_l
 	pg_hyperlink_ptr		first_source, source, target;
 	long					index, source_qty;
 	pg_char_ptr				string, URL;
-	short					string_length;
+
+	// 'string_length' changed from a 'short' to a 'size_t' -- Pete Maclean 5-Nov-2018)
+	size_t					string_length;
 
 	
 	source = pgFindHypertextRun(source_links, src_range->begin, NULL);

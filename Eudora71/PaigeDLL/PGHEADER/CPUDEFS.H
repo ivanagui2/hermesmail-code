@@ -692,7 +692,12 @@ typedef HRGN			pg_region;			/* Used as a region */
 /* Time types for Paige based time (ie seconds since 00:00 01 JAN 1900: */
 
 #define PLATFORM_DELTA_TIME		0
-typedef time_t					pg_time_t;
+
+/*
+** 5-Nov-2018:  I changed 'pg_time_t' from a 'time_t' to a '__time32_t' to avoid compilation warnings.  This should
+** probably be a temporary thing and eventually it should be made a '__time64_t' -- Pete Maclean
+*/
+typedef __time32_t				pg_time_t;
 typedef	struct tm				pg_datetime;
 typedef pg_time_t PG_FAR *		pg_time_ptr;
 typedef pg_datetime PG_FAR *	pg_datetime_ptr;

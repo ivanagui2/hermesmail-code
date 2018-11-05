@@ -1,0 +1,529 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <SccProjectName>"$/Eudora/Paige DLL/PAIGE32", KTYBAAAA</SccProjectName>
+    <SccLocalPath>.</SccLocalPath>
+    <ProjectGuid>{1B71D7B0-2E57-445A-87D0-56133879C0BF}</ProjectGuid>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>14.0.25420.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>Build\Release\</OutDir>
+    <IntDir>Build\Release\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>Build\Debug\</OutDir>
+    <IntDir>Build\Debug\</IntDir>
+    <LinkIncremental />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MinSpace</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>..\PGHEADER;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader />
+      <PrecompiledHeaderOutputFile>Build\Release\Paige32.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>Build\Release\</AssemblerListingLocation>
+      <ObjectFileName>Build\Release\</ObjectFileName>
+      <ProgramDataBaseFileName>Build\Release\</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <OutputFile>Build\Release\Paige32.dll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>Build\Release\Paige32.pdb</ProgramDatabaseFile>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapFileName>Build\Release\Paige32.map</MapFileName>
+      <SubSystem>Windows</SubSystem>
+      <BaseAddress>%40..\..\Addresses.txt,$(ProjectName)</BaseAddress>
+      <ImportLibrary>Build\Release\Paige32.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Build\Release/Paige32.tlb</TypeLibraryName>
+      <HeaderFileName />
+    </Midl>
+    <PostBuildEvent>
+      <Command>CALL PostProcessRel Paige32</Command>
+    </PostBuildEvent>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\PGHEADER;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader />
+      <PrecompiledHeaderOutputFile>.\Build\Debug/Paige32.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Build\Debug/</AssemblerListingLocation>
+      <ObjectFileName>.\Build\Debug/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Build\Debug/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <OutputFile>Build\Debug\Paige32.dll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>Build\Debug\Paige32.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <BaseAddress>%40..\..\Addresses.txt,$(ProjectName)</BaseAddress>
+      <ImportLibrary>Build\Debug\Paige32.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Build\Debug/Paige32.tlb</TypeLibraryName>
+      <HeaderFileName />
+    </Midl>
+    <PostBuildEvent>
+      <Command>.\PostProcessDbg Paige32</Command>
+    </PostBuildEvent>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Pgdebug\Pgdebug.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\PGHLEVEL\PGHLEVEL.C">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgplatfo\Pgdll32.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgplatfo\Pgio.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgplatfo\Pgmemmgr.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgplatfo\Pgosutl.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgplatfo\Pgscrap.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgplatfo\Pgwin.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgbasics.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgboxes.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgclipbd.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgdefpar.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgdefstl.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgedit.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgembed.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgexceps.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgfiles.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgfonts.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\PGSOURCE\PGFRAME.C">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pggrafx.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pghtext.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pginit.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pglines.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pglists.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgmerge.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgnboxes.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgpar.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgprint.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgread.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgscript.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgscroll.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgselect.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgshapes.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgstlsht.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgstyles.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgsubref.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgtables.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgtabs.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgtext.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgtxr.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgtxtblk.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgtxtutl.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgtxtwid.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgutils.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\Pgsource\Pgwrite.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NDEBUG;WIN32;_WINDOWS;CREATE_MS_DLL;WIN32_COMPILE</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Paige32.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\PGHEADER\CPUDEFS.H" />
+    <ClInclude Include="..\PGHEADER\DEFPROCS.H" />
+    <ClInclude Include="..\PGHEADER\MACHINE.H" />
+    <ClInclude Include="..\PGHEADER\NOTIFY.H" />
+    <ClInclude Include="..\PGHEADER\PACKDEFS.H" />
+    <ClInclude Include="..\PGHEADER\PAIGE.H" />
+    <ClInclude Include="..\PGHEADER\PGAFX.H" />
+    <ClInclude Include="..\PGHEADER\PGBASICS.H" />
+    <ClInclude Include="..\PGHEADER\PGBREAK.H" />
+    <ClInclude Include="..\PGHEADER\PGCLIPBD.H" />
+    <ClInclude Include="..\PGHEADER\PGCNTL.H" />
+    <ClInclude Include="..\PGHEADER\PGCTLUTL.H" />
+    <ClInclude Include="..\PGHEADER\PGDEFPAR.H" />
+    <ClInclude Include="..\PGHEADER\PGDEFSTL.H" />
+    <ClInclude Include="..\PGHEADER\PGDEFTBL.H" />
+    <ClInclude Include="..\PGHEADER\PGEDIT.H" />
+    <ClInclude Include="..\PGHEADER\PGEMBED.H" />
+    <ClInclude Include="..\PGHEADER\PGERRORS.H" />
+    <ClInclude Include="..\PGHEADER\PGEXCEPS.H" />
+    <ClInclude Include="..\PGHEADER\PGFILES.H" />
+    <ClInclude Include="..\PGHEADER\PGFRAME.H" />
+    <ClInclude Include="..\PGHEADER\PGGRAFX.H" />
+    <ClInclude Include="..\PGHEADER\PGHDRFTR.H" />
+    <ClInclude Include="..\PGHEADER\PGHLEVEL.H" />
+    <ClInclude Include="..\PGHEADER\PGHTEXT.H" />
+    <ClInclude Include="..\PGHEADER\PGHTMDEF.H" />
+    <ClInclude Include="..\PGHEADER\PGIO.H" />
+    <ClInclude Include="..\PGHEADER\PGLBOX.H" />
+    <ClInclude Include="..\PGHEADER\PGLISTS.H" />
+    <ClInclude Include="..\PGHEADER\PGMEMMGR.H" />
+    <ClInclude Include="..\PGHEADER\PGMTRAPS.H" />
+    <ClInclude Include="..\PGHEADER\PGOSUTL.H" />
+    <ClInclude Include="..\PGHEADER\PGPAR.H" />
+    <ClInclude Include="..\PGHEADER\PGPICT.H" />
+    <ClInclude Include="..\PGHEADER\PGREGION.H" />
+    <ClInclude Include="..\PGHEADER\PGRSRC.H" />
+    <ClInclude Include="..\PGHEADER\PGRTFDEF.H" />
+    <ClInclude Include="..\PGHEADER\PGSCRAP.H" />
+    <ClInclude Include="..\PGHEADER\PGSCRIPT.H" />
+    <ClInclude Include="..\PGHEADER\PGSELECT.H" />
+    <ClInclude Include="..\PGHEADER\PGSETJMP.H" />
+    <ClInclude Include="..\PGHEADER\PGSHAPES.H" />
+    <ClInclude Include="..\PGHEADER\PGSTYLES.H" />
+    <ClInclude Include="..\PGHEADER\PGSUBREF.H" />
+    <ClInclude Include="..\PGHEADER\PGTABLES.H" />
+    <ClInclude Include="..\PGHEADER\PGTEXT.H" />
+    <ClInclude Include="..\PGHEADER\PGTRAPS.H" />
+    <ClInclude Include="..\PGHEADER\PGTXR.H" />
+    <ClInclude Include="..\PGHEADER\PGTXRCPP.H" />
+    <ClInclude Include="..\PGHEADER\PGTXTWID.H" />
+    <ClInclude Include="..\PGHEADER\PGUTILS.H" />
+    <ClInclude Include="..\PGHEADER\PGWINDEF.H" />
+    <ClInclude Include="..\PGHEADER\PGWMF.H" />
+    <ClInclude Include="..\PGHEADER\USERDEFS.H" />
+    <ClInclude Include="..\PGHEADER\VERSION.H" />
+    <ClInclude Include="..\PGHEADER\W16NLS.H" />
+    <ClInclude Include="..\PGHEADER\WIN16JMP.H" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

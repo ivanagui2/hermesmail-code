@@ -12,7 +12,7 @@
 class CRString : public CString
 {
 public:
-	CRString(UINT StringID) { LoadString(StringID); }
+	CRString(UINT StringID) { CString::LoadString(StringID); }
 };
 
 

@@ -44,6 +44,8 @@ File revised by Jeff Prickett (kg4ygs@gmail.com) on July 4, 2018
 #include "stdafx.h"
 #include "resource.h"
 
+#include <strsafe.h>
+
 #include "debug.h"
 
 #include "QCUtils.h"
@@ -76,8 +78,29 @@ BOOL		QCLogFileMT::m_bIsNT = FALSE;
 CString QCLogFileMT::m_AssertFmtStr = "ASSERT FAILED: [\"%s\"] %s (%d)";
 
 
-BOOL QCLogFileMT::InitDebug(DWORD dwMask, DWORD dwSize, LPCTSTR strEudoraDir, LPCTSTR strLogFileName)
+// In enabling this function for Hermes so that the original Eudora executable could work with a newly built
+// QCUtils.dll (using MSVC version 14), I found that I had to add an extra parameter.  My guess is that the
+// version of MSVC used to build Eudora.exe used a different calling convention for static class methods that
+// included an instance reference!  When the main executable is rebuilt for Hermes, this [dwIgnore] parameter
+// should be removed.  Pete Maclean, 9-Nov-2018.
+
+BOOL QCLogFileMT::InitDebug(
+	DWORD dwIgnore,			// [in] ??? artefact of old MSVC??
+	DWORD dwMask,			// [in] debugging options (set of DEBUG_MASK_xxx values)
+	DWORD dwSize,			// [in] size for the log file in KB
+	LPCTSTR strEudoraDir,	// [in] the Eudora directory
+	LPCTSTR strLogFileName)	// [in] the (unqualified) name for the Eudora log file
 {
+#if _DEBUG
+//	__debugbreak();
+
+	char szDebug[512];
+	StringCchPrintfA(szDebug, _countof(szDebug),
+		"QCLogFileMT::InitDebug(Mask = 0x%X, Size = %u, EudoraDirectory = \"%s\", LogFileName = \"%s\"\r\n",
+		(unsigned int)dwMask, (unsigned int)dwSize, strEudoraDir, strLogFileName);
+	::OutputDebugStringA(szDebug);
+#endif
+
 	ASSERT(::IsMainThreadMT());
 	
 	DebugMask = dwMask;
@@ -109,10 +132,13 @@ BOOL QCLogFileMT::InitDebug(DWORD dwMask, DWORD dwSize, LPCTSTR strEudoraDir, LP
 		{
 			// Format the error string (just like JJFile does)
 			CString		strError;
+			char szWriting[16] = "writing";
+			char szDiagnostic[256] = { 0 };
 
-			::AfxFormatString2( strError, IDS_ERR_FILE_OPEN,
-								static_cast<const char *>(g_strLogFileName),
-								static_cast<const char *>(CRString(IDS_ERR_FILE_OPEN_WRITING)) );
+			::LoadStringA(NULL, IDS_ERR_FILE_OPEN_WRITING, szWriting, _countof(szWriting));
+
+			::AfxFormatString2(strError, IDS_ERR_FILE_OPEN,
+				static_cast<const char *>(g_strLogFileName), szWriting);
 
 			// Format the error message (just like JJFile does)
 			int nError = s_pLogFile->GetLastError_();
@@ -123,9 +149,9 @@ BOOL QCLogFileMT::InitDebug(DWORD dwMask, DWORD dwSize, LPCTSTR strEudoraDir, LP
 
 			CString		strErrorMessage;
 
-			strErrorMessage.Format( IDS_DOS_ERR_FORMAT, static_cast<const char *>(strError),
-									static_cast<const char *>(CRString(IDS_FILE_BASE_ERROR + nError)),
-									nError );
+			::LoadStringA(NULL, IDS_FILE_BASE_ERROR + nError, szDiagnostic, _countof(szDiagnostic));
+
+			strErrorMessage.Format(IDS_DOS_ERR_FORMAT, static_cast<const char *>(strError), szDiagnostic, nError);
 
 			// Combine the file error message with message explaining that Eudora
 			// can't work without the ability to write to Eudora.log.
@@ -228,7 +254,12 @@ void QCLogFileMT::PutLineHeader(DebugMaskType ID)
 
 		// Write out the time and version of Eudora
 		if (FAILED(s_pLogFile->PutLine(ctime(&Now), 24))) return;
-		if (FAILED(s_pLogFile->PutLine(CRString(IDS_VERSION)))) return;
+
+		// The version string is something like "Version 7.1.0.9"
+		char szVersion[32] = { 0 };
+		::LoadStringA(NULL, IDS_VERSION, szVersion, _countof (szVersion));
+
+		if (FAILED(s_pLogFile->PutLine(szVersion))) return;
 
 		// Write out the log level
 		sprintf(DigitString, "LogLevel %d (0x%X)", QCLogFileMT::DebugMask, QCLogFileMT::DebugMask);
@@ -263,13 +294,27 @@ void QCLogFileMT::PutLineHeader(DebugMaskType ID)
 	if (FAILED(s_pLogFile->Put(DigitString))) return;
 	if (FAILED(s_pLogFile->Put(" "))) return;
 
+	UINT uDebugID = 0;
+
 	switch (ID)
 	{
-	case DEBUG_MASK_TRANS:	s_pLogFile->Put(CRString(IDS_DEBUG_SENT));		break;
-	case DEBUG_MASK_RCV:	s_pLogFile->Put(CRString(IDS_DEBUG_RECEIVED));	break;
-	case DEBUG_MASK_DIALOG:	s_pLogFile->Put(CRString(IDS_DEBUG_DIALOG));	break;
+	case DEBUG_MASK_TRANS:		uDebugID = IDS_DEBUG_SENT;		break;
+	case DEBUG_MASK_RCV:		uDebugID = IDS_DEBUG_RECEIVED;	break;
+	case DEBUG_MASK_DIALOG:		uDebugID = IDS_DEBUG_DIALOG;	break;
 	case DEBUG_MASK_TRANS_BASIC:	
-	case DEBUG_MASK_TRANS_ADV:	s_pLogFile->Put(CRString(IDS_DEBUG_TRANS));	break;
+	case DEBUG_MASK_TRANS_ADV:	uDebugID = IDS_DEBUG_TRANS;	break;
+	}
+
+	if (uDebugID != 0)
+	{
+		char szDebug[32] = { 0 };
+
+		::LoadStringA(NULL, uDebugID, szDebug, _countof(szDebug));
+
+		if (szDebug[0] != 0)
+		{
+			s_pLogFile->Put(szDebug);
+		}
 	}
 }
 
@@ -378,9 +423,13 @@ void QCLogFileMT::WriteDebugLog(DebugMaskType ID, LPCTSTR Buffer, int Length /*=
 	if (statbuf.st_size > (DebugLogSize * 1024))
 	{
 		char Filename[_MAX_PATH + 1];
-		//strcpy(Filename, EudoraDir);
+		char szLogFileNameOld[_MAX_FNAME] = { 0 };
+
+		// Load the name for old log files (e.g. "eudorlog.old")
+		::LoadStringA(NULL, IDS_DEBUG_LOG_FILE_NAME_OLD, szLogFileNameOld, _countof(szLogFileNameOld));
+
 		strcpy(Filename, g_strEudoraDir);
-		strcat(Filename, CRString(IDS_DEBUG_LOG_FILE_NAME_OLD));
+		strcat(Filename, szLogFileNameOld);
 		::FileRemoveMT(Filename);
 		s_pLogFile->Rename(Filename);
 		s_pLogFile->Close();

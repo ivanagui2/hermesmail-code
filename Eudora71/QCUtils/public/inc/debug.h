@@ -79,7 +79,7 @@ class AFX_EXT_CLASS QCLogFileMT
 
 public:
 	// Load debug values from EUDORA.INI
-	static BOOL InitDebug(DWORD dwMask, DWORD dwSize, LPCTSTR strEudoraDir, LPCTSTR strLogFileName);
+	static BOOL InitDebug(DWORD dwIgnore, DWORD dwMask, DWORD dwSize, LPCTSTR strEudoraDir, LPCTSTR strLogFileName);
 
 	// Notify INI change
 	static void NotifyIniChange(UINT nStringNum, long nValue);

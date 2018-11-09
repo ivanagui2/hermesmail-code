@@ -41,12 +41,12 @@
 // sect_attribs.h is a Microsoft header file included in older editions of MSVC (the last may be 12).  If the
 // following #include statement fails, find a copy of this file, create the "crt" and "src" directories as
 // necessary and put the header into it.  (Pete Maclean, 27-Jul-2018)
-#include <..\crt\src\sect_attribs.h>
+//#include <..\crt\src\sect_attribs.h>
 //#include <..\crt\src\internal.h>
 #include <windows.h>
 #include <stdlib.h>
 
-#include "qcsecfail.h"
+//#include "qcsecfail.h"
 
 #pragma warning(disable : 4100)
 

@@ -4,3 +4,10 @@ LIBRARY      "QCUtils"
 
 EXPORTS
     ; Explicit exports can go here
+	;
+	; The following exports serve as a way of allowing the original Eudora.exe (built with MSVC version ???) to call
+	; class functions in QCUtils built with MSVC version 14 given different ways of decorating names in the two cases.
+	?FormatTimeMT@@YA?AV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@JPBD@Z=?FormatTimeMT@@YA?AV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@JPBD@Z
+	?GetFName@JJFileMT@@QBEJPAPAG@Z=?GetFName@JJFileMT@@QBEJPAPA_W@Z
+	;?InitDebug@QCLogFileMT@@SAHKKFPBD0@Z=?InitDebug@QCLogFileMT@@SAHKKPBD0@Z
+	?InitDebug@QCLogFileMT@@SAHKKFPBD0@Z=?InitDebug@QCLogFileMT@@SAHKKKPBD0@Z

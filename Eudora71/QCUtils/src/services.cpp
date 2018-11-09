@@ -22,7 +22,27 @@
 
 #include "DebugNewHelpers.h"
 
-const char chrBackSlash = '\\';
+// The following strings were originally stored in Eudora as resources.  This makes little sense since they are used
+// for interpreting date-time values that have day and month names that are always expressed in English.  So, for
+// Hermes, I have made them embedded strings.  This is simpler, more efficient and, I believe, more portable.  Pete
+// Maclean, 8-Nov-2018.
+
+// Days of the week.  Was resource IDS_WEEKDAYS.
+static const char szWeekdays_M[] = "SunMonTueWedThuFriSat";
+
+// Months of the year.  Was resource IDS_MONTHS.
+static const char szMonths_M[] = "JanFebMarAprMayJunJulAugSepOctNovDec";
+
+// Was resource IDS_SCAN_DATE_1.
+static const char szScanDate1_M[] = "%3s %d %d:%d:%d %d";
+
+// Was resource IDS_SCAN_DATE_2.
+static const char szScanDate2_M[] = "%d %3s %d %d:%d:%d";
+
+// Was resource IDS_SCAN_DATE_3.
+static const char szScanDate3_M[] = "%d %3s %d %d:%d:%d";
+
+static const char chrBackSlash = '\\';
 
 // I had to make the following change to get this to link in debug mode (Pete Maclean 4-Sep-2018)
 #undef DEBUG_NEW_NOTHROW
@@ -152,8 +172,9 @@ ULONG HashMTIgnoreCase(const char* pszStr)
 ////////////////////////////////////////////////////////////////////////
 BOOL IsMainThreadMT()
 {
-	ASSERT(::AfxGetApp()->m_nThreadID);
-	return (::GetCurrentThreadId() == ::AfxGetApp()->m_nThreadID);
+	return TRUE;	//PM
+//	ASSERT(::AfxGetApp()->m_nThreadID);
+//	return (::GetCurrentThreadId() == ::AfxGetApp()->m_nThreadID);
 }
 
 
@@ -209,7 +230,8 @@ char* TimeDateStringFormatMT(char* buf, long Seconds, int TimeZoneMinutes, const
 
 	if (Seconds < 0)
 		Seconds = 1;
-	struct tm *TheTime = ::localtime((const time_t *) &Seconds);
+//	struct tm *TheTime = ::localtime((const time_t *) &Seconds);
+	struct tm *TheTime = ::_localtime32((const __time32_t *)&Seconds);
 
 	// Find out types are in the format string
 	BOOL bHasTime = FALSE;
@@ -330,17 +352,20 @@ char* TimeDateStringFormatMT(char* buf, long Seconds, int TimeZoneMinutes, const
 // FormatTimeMT [extern, exported]
 //
 ////////////////////////////////////////////////////////////////////////
-CString FormatTimeMT( time_t theTime, const char * pFormat )
-{
-	char    szBuffer[ 128 ];
 
-	struct tm* ptmTemp = ::localtime( &theTime );
+CString FormatTimeMT( __time32_t theTime, const char * pFormat )
+{
+	char szTimeBuffer[128];
+
+	struct tm* ptmTemp = ::_localtime32( &theTime );
 	ASSERT(ptmTemp != NULL); // make sure the time has been initialized!
 
-	if (!::strftime(szBuffer, sizeof(szBuffer), pFormat, ptmTemp))
-		szBuffer[0] = '\0';
+	if (!::strftime(szTimeBuffer, sizeof(szTimeBuffer), pFormat, ptmTemp))
+	{
+		szTimeBuffer[0] = '\0';
+	}
 
-	return szBuffer;
+	return szTimeBuffer;
 }
 
 
@@ -1111,15 +1136,20 @@ GetFileNameAndParentPath(
 	CString *				out_szFileName)
 {
 	// Get the full path to the parent directory for the old file name
-	LPTSTR		lpszFileName;
+	LPTSTR	lpszFileName = NULL;
 	::GetFullPathNameA(in_szFullPath, in_nParentPathBufferSize, out_szParentPathBuffer, &lpszFileName);
 
 	// If the caller wanted the file name copy it before NULL terminating
-	if (out_szFileName)
+	if (out_szFileName != NULL)
+	{
 		*out_szFileName = lpszFileName;
+	}
 	
 	// NULL terminate so that in_nParentPathBufferSize is just the path
-	*lpszFileName = '\0';
+	if (lpszFileName != NULL)
+	{
+		*lpszFileName = '\0';
+	}
 }
 
 
@@ -2117,23 +2147,17 @@ int ComposeDateMT(char* DateBuf, unsigned long GMTTime, int TimeZoneMinutes, BOO
 		// We need to use the string resources that have English month and day of week abbreviations
 		// because Date: headers should always be in English.  All other routines wind up using
 		// strftime(), which localizes month and day of week names in to the current language.
-		CRString Weekdays(IDS_WEEKDAYS);
-		CRString Months(IDS_MONTHS);
-		const char* ThisWeekday = ((LPCTSTR)Weekdays) + (Time.GetDayOfWeek() - 1) * 3;
-		const char* ThisMonth = ((LPCTSTR)Months) + (Time.GetMonth() - 1) * 3;
+		const char* ThisWeekday = &szWeekdays_M[(Time.GetDayOfWeek() - 1) * 3];
+		const char* ThisMonth = &szMonths_M[(Time.GetMonth() - 1) * 3];
 
-		CString csDateFormat;
-		csDateFormat.LoadString(IDS_SMTP_DATE_FORMAT);
-						
-		if (!bEudorasSMTPFormat)
-		{
-			int nMatchFound = -1;
-			nMatchFound = csDateFormat.Find(':');
-			if (nMatchFound != -1)
-				csDateFormat = csDateFormat.Right(csDateFormat.GetLength() - nMatchFound - 1);
-		}
+		// In Eudora, this format string was stored as a resource string (IDS_SMTP_DATE_FORMAT).  Since I see no
+		// reason that it need be such, I have hard-wired it here for Hermes.  Pete Maclean, 8-Nov-2018.
+		static const char szSMTPDateFormat[] = "Date: %0.3s, %02d %0.3s %4d %02d:%02d:%02d";
+		static const char szDateFormat[] =           "%0.3s, %02d %0.3s %4d %02d:%02d:%02d";
 
-		sprintf(DateBuf, csDateFormat,
+		const char *pszFormat = (bEudorasSMTPFormat) ? szSMTPDateFormat : szDateFormat;
+
+		sprintf(DateBuf, pszFormat,
 							ThisWeekday,
 							Time.GetDay(),
 							ThisMonth,
@@ -2143,7 +2167,7 @@ int ComposeDateMT(char* DateBuf, unsigned long GMTTime, int TimeZoneMinutes, BOO
 							Time.GetSecond());
 		::TimeDateStringFormatMT(DateBuf + strlen(DateBuf), 0, TimeZoneMinutes, " %4");
 
-		return (TRUE);
+		return TRUE;
 	}
 	else
 		return FALSE;
@@ -2155,9 +2179,7 @@ BOOL Weekday(const char* Line)
 {
 	ASSERT(Line);
 	
-	CRString Weekdays(IDS_WEEKDAYS);
-
-	for (LPCTSTR w = Weekdays; *w; w += 3)
+	for (LPCTSTR w = szWeekdays_M; *w; w += 3)
 	{
 		if (strnicmp(Line, w, 3) == 0)
 			return TRUE;
@@ -2167,13 +2189,14 @@ BOOL Weekday(const char* Line)
 }
 
 
-// GetTime
+// GetTimeMT
 //
-// If FromLine is TRUE and Line is not a valid Unix-style From line, then
-// return 0L.  Otherwise, return the time given in the line, if parsable. 
+// If FromLine is TRUE and Line is not a valid Unix-style From line, then return 0L.  Otherwise, return the time given
+// in the line, if parsable, formatted as a time_t and cast as a 'long'. 
+//
 // Here's a sample From line:
 //   From beckley@qualcomm.com Thu Oct 15 16:15:08 1992 
-//
+
 long GetTimeMT(const char* Line, BOOL FromLine)
 {
 	// alternate from line
@@ -2182,8 +2205,8 @@ long GetTimeMT(const char* Line, BOOL FromLine)
 	// the timezone string portion - using sscanf without this is begging for
 	// a buffer overflow crash, which is exactly what we were seeing for certain
 	// corrupt mailboxes before this was added.
-	const char* AltFromScan1 = "%3s %d %d:%d 7%s %d";
-	const char* AltFromScan2 = "%3s %d %d:%d:%d 7%s %d";
+	static const char* AltFromScan1 = "%3s %d %d:%d 7%s %d";
+	static const char* AltFromScan2 = "%3s %d %d:%d:%d 7%s %d";
 	char timeZone[8];
 
 	struct tm time;
@@ -2226,7 +2249,7 @@ long GetTimeMT(const char* Line, BOOL FromLine)
 			return (0L);
 
 		// Read in rest of date
-		if (sscanf(Line, CRString(IDS_SCAN_DATE_1), month, &time.tm_mday,
+		if (sscanf(Line, szScanDate1_M, month, &time.tm_mday,
 			&time.tm_hour, &time.tm_min, &time.tm_sec, &time.tm_year) != 6)
 		{
 			if (sscanf(Line, AltFromScan1, month, &time.tm_mday, &time.tm_hour,
@@ -2243,9 +2266,9 @@ long GetTimeMT(const char* Line, BOOL FromLine)
 			Line++;
 		if (!*Line)
 			return (0L);
-		if ((sscanf(Line, CRString(IDS_SCAN_DATE_2), &time.tm_mday, month,
+		if ((sscanf(Line, szScanDate2_M, &time.tm_mday, month,
 			&time.tm_year, &time.tm_hour, &time.tm_min, &time.tm_sec) < 5) &&
-			(sscanf(Line, CRString(IDS_SCAN_DATE_3), &time.tm_mday, month,
+			(sscanf(Line, szScanDate3_M, &time.tm_mday, month,
 			&time.tm_year, &time.tm_hour, &time.tm_min, &time.tm_sec, &fraction) < 7))
 		{
 			return (0L);
@@ -2253,10 +2276,9 @@ long GetTimeMT(const char* Line, BOOL FromLine)
 	}
 
 	// Find corresponding month number
-	CRString Months(IDS_MONTHS);
-	LPCTSTR MonthIndex = Months;
+	const char *MonthIndex = szMonths_M;
 	mon = -1;
-	for (int i = 0; *MonthIndex; MonthIndex += 3, i++)
+	for (int i = 0; *MonthIndex != 0; MonthIndex += 3, i++)
 	{
 		if (strnicmp(month, MonthIndex, 3) == 0)
 		{

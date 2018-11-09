@@ -16,7 +16,7 @@ __declspec(dllexport) BOOL IsMainThreadMT();
 //
 __declspec(dllexport) char* TimeDateStringMT(char* buf, long Seconds, BOOL DoDate);
 __declspec(dllexport) char* TimeDateStringFormatMT(char* buf, long Seconds, int TimeZoneMinutes, const char* Format);
-__declspec(dllexport) CString FormatTimeMT( time_t theTime, const char * pFormat );
+__declspec(dllexport) CString FormatTimeMT(__time32_t theTime, const char * pFormat);
 __declspec(dllexport) HRESULT GetGMTOffsetMT(const char* pszTimeZone, int* pOffset);
 
 //

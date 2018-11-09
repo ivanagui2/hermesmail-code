@@ -51,8 +51,11 @@
 
 // I am not clear why malloc.h should not be #included here but there may be a problem (see note in layout.h).
 // (Pete Maclean 27-Jul-2018)
-//#include <malloc.h>
+#ifdef _DEBUG
 extern "C" void *          __cdecl _alloca(size_t);
+#else
+#include <malloc.h>
+#endif
 
 #ifndef _DEBUG
 

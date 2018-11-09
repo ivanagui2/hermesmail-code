@@ -22,7 +22,6 @@ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVE
 DAMAGE. */
 
 //
-
 #include "stdafx.h"
 
 #include <afxpriv.h>		// for T2COLE()
@@ -411,11 +410,11 @@ HRESULT JJFileMT::Stat(struct stat* sptr)
 
 
 ////////////////////////////////////////////////////////////////////////
-// GetFName [public]
+// GetFName [public]:  Outputs the filename as an OLE Unicode string.
 //
 ////////////////////////////////////////////////////////////////////////
 HRESULT JJFileMT::GetFName(BSTR* pBStr) const
-{ 
+{
 	if (NULL == pBStr)
 	{
 		ASSERT(0);

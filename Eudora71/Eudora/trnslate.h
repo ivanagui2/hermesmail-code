@@ -287,14 +287,9 @@ class CTransAPI
 {
 public:
     // The constructor for the API interface
-	CTransAPI(const char *path,				// Path to DLL
-				HINSTANCE libHndl,			// DLL Instance
-				short moduleID,				// ID
-				short APIVersion,
-				char *desc,
-				HICON *icn,
-				void FAR*globals,
-				long idleFreq):				// Initialize member in contructor
+	CTransAPI(const char *path,	/* Path to DLL */  HINSTANCE libHndl, /* DLL Instance */ short moduleID, /* ID */ short APIVersion, char *desc, HICON *icn, void FAR*globals, long idleFreq)
+		:
+			/* Initialize members in contructor */
 				m_Path(path), 
 				m_HInstance(libHndl), 
 				m_ModuleID(moduleID), 
@@ -304,8 +299,10 @@ public:
 				m_Globals(globals),
 				m_fnFreeFunc(NULL),
 				m_IdleFreq(idleFreq),
-				m_LastTimeCalled(0))
-				{}
+				m_LastTimeCalled(0)
+	{
+	}
+
 
 	
 	virtual ~CTransAPI();

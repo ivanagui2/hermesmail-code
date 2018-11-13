@@ -86,6 +86,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <NMakeReBuildCommandLine>nmake /f "ms\nt.mak" /a</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>echo === Must clean OpenSSL manually ===</NMakeCleanCommandLine>
     <NMakeOutput>OpenSSL.exe</NMakeOutput>
+    <NMakePreprocessorDefinitions>
+_CRT_SECURE_NO_WARNINGS</NMakePreprocessorDefinitions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>.\Release\</OutDir>

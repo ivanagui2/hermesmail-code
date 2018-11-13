@@ -93,6 +93,8 @@ DAMAGE.
     <NMakeReBuildCommandLine>NMAKE /f build50.mak ota50d /a</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>echo === Must clean OT501 manually ===</NMakeCleanCommandLine>
     <NMakeOutput>..\..\Lib\Debug\OTA50D.LIB</NMakeOutput>
+    <NMakePreprocessorDefinitions>
+_CRT_SECURE_NO_WARNINGS</NMakePreprocessorDefinitions>
   </PropertyGroup>
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>

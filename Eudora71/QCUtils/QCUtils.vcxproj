@@ -140,7 +140,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>Regex\Include;.\public\inc;.\inc;..\Eudora;..\EuMemMgr\Include;D:\Source\Eudora\Eudora_W_source\Eudora71\QCUtils\public\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>COMMERCIAL;WIN32;_DEBUG;_WINDOWS;_AFXEXT;WINVER=0x0501;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>COMMERCIAL;WIN32;_DEBUG;_WINDOWS;_AFXEXT;WINVER=0x0501;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions); _CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>

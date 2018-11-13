@@ -96,7 +96,7 @@ DAMAGE.
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\SearchEngine\PublicInc;..\SpeechSDK\Include;..\AccountWizard\PublicInc;..\PaigeDLL\PGHEADER;..\Qt3.x\CIncludes;..\QCUtils\public\inc;..\QCSocket\inc;..\OT501\Include;..\EuImap\public\inc;..\imapdll\public\inc;..\DirectoryServices\DirectoryServicesUI\public\inc;..\PlaylistClient\plstclnt_dll;..\EuLang\public\inc;..\EuMemMgr\Include;..\tae;..\..\opensourcelibs\libexpat-R_2_2_5\expat\Source\lib;..\QCSSL\public\inc;..\QCSSL\SSLPlus\include;..\QCSSL\SSLPlus\tools\securitybuilder\win32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_DEBUG;COMMERCIAL;WIN32;_WINDOWS;OEMRESOURCE;WIN32_COMPILE;IMAP4;EXPFLAG;THREADED;WINVER=0x0501;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;COMMERCIAL;WIN32;_WINDOWS;OEMRESOURCE;WIN32_COMPILE;IMAP4;EXPFLAG;THREADED;WINVER=0x0501;%(PreprocessorDefinitions); _CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>

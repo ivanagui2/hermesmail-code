@@ -1,4 +1,4 @@
-// stdafx.h : include file for standard system include files,
+w// stdafx.h : include file for standard system include files,
 //  or project specific include files that are used frequently, but
 //      are changed infrequently
 //
@@ -21,11 +21,6 @@
 
 
 #define VC_EXTRALEAN
-
-// Turn off compiler warnings about deprecated functions such as strcpy().  This should be temporary.  In time we will
-// convert all use of deprecated functions to new and safe ones, especially those in strsafe.h.  #Defining this symbol
-// will eliminate masses of clutter in compiler output in the meantime.  (Pete Maclean 27-Aug-2018)
-#define _CRT_SECURE_NO_WARNINGS
 
 #include <afxwin.h>					// MFC core and standard components
 #include <afxext.h>					// MFC extensions (including VB)
@@ -51,6 +46,8 @@
 
 #include "qcassert.h"		// ASSERT/VERIFY logging
 
+
+#include <dbghelp.h>
 
 ///////////////////////////////////////////////////////////////////////////////
 // Warning exclusions

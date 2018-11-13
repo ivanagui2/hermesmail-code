@@ -61,7 +61,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\SearchEngine\PublicInc;..\QCUtils\public\inc;..\Eudora;..\EuMemMgr\Include;.\public\inc;..\OT501\Include;..\Imapdll\public\inc;..\;..\expat\Source\lib;..\PlaylistClient\plstclnt_dll;..\QCSocket\inc;..\tae;..\QCSSL\SSLPlus\include;..\QCSSL\SSLPlus\tools\securitybuilder\win32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_DEBUG;COMMERCIAL=1;OEMRESOURCE;WIN32_COMPILE;WIN32;_WINDOWS;IMAP4;THREADED;WINVER=0x0501;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;COMMERCIAL=1;OEMRESOURCE;WIN32_COMPILE;WIN32;_WINDOWS;IMAP4;THREADED;WINVER=0x0501;%(PreprocessorDefinitions); _CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>

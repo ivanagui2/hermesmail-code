@@ -91,7 +91,7 @@ DAMAGE.
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>.\inc;.\public\inc;..\QCUtils\public\inc;..\QCSocket\inc;..\Eudora;..\EuMemMgr\Include;..\QCSSL\SSLPlus\include;..\QCSSL\SSLPlus\tools\securitybuilder\win32\include;..\QCSSL\public\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>COMMERCIAL;_DEBUG;WIN32;_WINDOWS;_AFXEXT;THREADED;IMAP4;WINVER=0x0501;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>COMMERCIAL;_DEBUG;WIN32;_WINDOWS;_AFXEXT;THREADED;IMAP4;WINVER=0x0501;%(PreprocessorDefinitions); _CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>

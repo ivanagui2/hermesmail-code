@@ -1,12 +1,14 @@
 ////////////////////////////////////////////////////////////////////////
 // CMCFUNC.CPP
 //
-// CMC entry points for 16-bit/32-bit Eudora MAPI DLL.
+// CMC entry points for 32-bit Hermes MAPI DLL.
 ////////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
 #include <stdio.h>
 #include <string.h>
+#include <strsafe.h>
+
 //#include <afxwin.h>		// FORNOW, might be better to use precompiled AFX headers
 
 #include "xcmc.h"
@@ -258,17 +260,17 @@ DBG_UNREFERENCED_PARAMETER(logon_extensions);
 	msg += character_set;
 	msg += "\n";
 
-	wsprintf(numbuf, "%lu", ui_id);
+	StringCchPrintfA(numbuf, _countof (numbuf), "%lu", ui_id);
 	msg += "  ui_id = ";
 	msg += numbuf;
 	msg += "\n";
 
-	wsprintf(numbuf, "%hu", caller_cmc_version);
+	StringCchPrintfA(numbuf, _countof(numbuf), "%hu", caller_cmc_version);
 	msg += "  caller_cmc_version = ";
 	msg += numbuf;
 	msg += "\n";
 
-	wsprintf(numbuf, "%#lX", logon_flags);
+	StringCchPrintfA(numbuf, _countof(numbuf), "%#lX", logon_flags);
 	msg += "  logon_flags = ";
 	msg += numbuf;
 	msg += "\n";

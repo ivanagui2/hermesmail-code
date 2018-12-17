@@ -9,6 +9,8 @@
 #include "stdafx.h"
 //#include <afxwin.h>		// FORNOW, should probably use precompiled header
 
+#include <strsafe.h>
+
 #include "recip.h"
 
 const long ENTRY_ID = 42L;
@@ -29,7 +31,7 @@ CString MakeFullAddress(MapiRecipDesc* RecipDesc)
 		// Only add address field if it exists and is different from the name.
 		// We want to avoid addresses of the form:
 		//		foo@bar.com <foo@bar.com>
-		if (addr && *addr && stricmp(FullAddress, addr))
+		if (addr && *addr && _stricmp(FullAddress, addr))
 		{
 			// Have to quote specials
 			if (FullAddress.FindOneOf("()<>[]:;@\\,.") >= 0)
@@ -42,7 +44,7 @@ CString MakeFullAddress(MapiRecipDesc* RecipDesc)
 			// MAPI allows addressing on the form [SMTP:a@foo.com] and SMTP:a@foo.com
 			if ('[' == *addr)
 				addr++;
-			if (strnicmp(addr, "SMTP:", 5) == 0)
+			if (_strnicmp(addr, "SMTP:", 5) == 0)
 				addr += 5;
 
 			FullAddress += addr;
@@ -117,11 +119,14 @@ BOOL CMapiRecipDesc::SetName(const char* pName)
 {
 	ASSERT(pName != NULL);
 	ASSERT(NULL == lpszName);
-	lpszName = new char[strlen(pName) + 1];
+
+	size_t cchName = strlen(pName) + 1;
+
+	lpszName = new char[cchName];
 	if (NULL == lpszName)
 		return FALSE;
 
-	strcpy(lpszName, pName);
+	StringCchCopyA(lpszName, cchName, pName);
 	return TRUE;
 }
 
@@ -134,11 +139,14 @@ BOOL CMapiRecipDesc::SetAddress(const char* pAddress)
 {
 	ASSERT(pAddress != NULL);
 	ASSERT(NULL == lpszAddress);
-	lpszAddress = new char[strlen(pAddress) + 1];
+
+	size_t cchAddress = strlen(pAddress) + 1;
+
+	lpszAddress = new char[cchAddress];
 	if (NULL == lpszAddress)
 		return FALSE;
 
-	strcpy(lpszAddress, pAddress);
+	StringCchCopyA(lpszAddress, cchAddress, pAddress);
 	return TRUE;
 }
 

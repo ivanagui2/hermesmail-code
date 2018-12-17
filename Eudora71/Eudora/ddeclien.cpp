@@ -20,9 +20,7 @@ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVE
 DAMAGE. */
 
 //
-
-
-#include "stdafx.h"
+#include "..\MAPI\stdafx.h"
 
 #include "ddestr.h"
 #include "ddeclien.h"
@@ -78,11 +76,7 @@ CDDEClient::~CDDEClient(void)
 // Callback function for DDE messages.
 //
 ////////////////////////////////////////////////////////////////////////
-#ifdef WIN32
 HDDEDATA CALLBACK CDDEClient::DDECallback(
-#else
-HDDEDATA _export CALLBACK CDDEClient::DDECallback(
-#endif // WIN32
 	UINT wType, 
 	UINT wFmt, 
 	HCONV hConv,
@@ -197,7 +191,7 @@ DWORD CDDEClient::QueryServers(
 // Sends a WWW_RegisterProtocol or a WWW_UnRegisterProtocol
 // request to a running instance of Netscape, 
 // which is supposed to configure Netscape to delegate handling of
-// the registered protocol back to Eudora.
+// the registered protocol back to Hermes.
 //
 // See the Netscape DDE documentation at
 // http://www.netscape.com/newsref/std/ddeapi.html for details on the
@@ -246,7 +240,7 @@ BOOL CDDEClient::RegisterNetscapeProtocol(const char* pProtocol, BOOL isRegister
 	{
 		//
 		// We always want to instruct Netscape to delegate the
-		// given protocol to Eudora, so we must format the item
+		// given protocol to Hermes, so we must format the item
 		// string as follows:
 		//
 		// EUDORA,PROTOCOL
@@ -442,7 +436,7 @@ BOOL CDDEClient::OpenNetscapeURL(const char* pURL)
 ////////////////////////////////////////////////////////////////////////
 // GetEudoraOriginator [public]
 //
-// Fetch the "originator" address from Eudora and place it in the
+// Fetch the "originator" address from Hermes and place it in the
 // provided originatorName object.
 //
 ////////////////////////////////////////////////////////////////////////
@@ -475,11 +469,11 @@ BOOL CDDEClient::GetEudoraOriginator(CString& originatorName)
 	if (! h_conv)
 	{
 		DoLogoff_();
-		return FALSE;		// Eudora is probably not running
+		return FALSE;		// Hermes is probably not running
 	}
 
 	//
-	// Send the Originator request.  Eudora returns the data
+	// Send the Originator request.  Hermes returns the data
 	// and we are responsible for deleting the memory.
 	//
 	BOOL status = TRUE;		// innocent until proven guilty
@@ -533,7 +527,7 @@ BOOL CDDEClient::GetEudoraOriginator(CString& originatorName)
 ////////////////////////////////////////////////////////////////////////
 // GetEudoraNicknames [public]
 //
-// Fetch a comma-separated list of nickname names from Eudora and place 
+// Fetch a comma-separated list of nickname names from Hermes and place 
 // it in the provided nickNames object.
 //
 ////////////////////////////////////////////////////////////////////////
@@ -566,11 +560,11 @@ BOOL CDDEClient::GetEudoraNicknames(CString& nickNames)
 	if (! h_conv)
 	{
 		DoLogoff_();
-		return FALSE;		// Eudora is probably not running
+		return FALSE;		// Hermes is probably not running
 	}
 
 	//
-	// Send the Nicknames request.  Eudora returns the data
+	// Send the Nicknames request.  Hermes returns the data
 	// and we are responsible for deleting the memory.
 	//
 	BOOL status = TRUE;		// innocent until proven guilty
@@ -601,21 +595,6 @@ BOOL CDDEClient::GetEudoraNicknames(CString& nickNames)
 			DWORD len = DdeGetData(h_ddedata, NULL, 0, 0);
 			if (len > 0)
 			{
-#ifndef WIN32
-				//
-				// For 16-bit code, forcibly truncate the list at
-				// 32Kb.  If we don't do this, then the CString
-				// 'nickNames' will overflow and bad things will
-				// happen.  Note that the last nickname could get
-				// truncated into a bogus nickname.
-				//
-				if (len >= 0x7FFF)
-				{
-					ASSERT(0);
-					len = 0x7FF0;		// a little less than 32Kb
-				}
-#endif // !WIN32
-
 				DdeGetData(h_ddedata, LPBYTE(nickNames.GetBuffer(int(len))), len, 0);
 				nickNames.ReleaseBuffer();
 			}
@@ -639,12 +618,12 @@ BOOL CDDEClient::GetEudoraNicknames(CString& nickNames)
 ////////////////////////////////////////////////////////////////////////
 // ExpandEudoraNickname [public]
 //
-// Given a Eudora nickname, fetch a comma-separated nickname expansion
-// from Eudora.  Return TRUE if successful.
+// Given a Hermes nickname, fetch a comma-separated nickname expansion
+// from Hermes.  Return TRUE if successful.
 //
 ////////////////////////////////////////////////////////////////////////
 BOOL CDDEClient::ExpandEudoraNickname(
-	const char* nickName,		//(i) single Eudora nickname
+	const char* nickName,		//(i) single Hermes nickname
 	CString& expandedNames)		//(o) comma-separated nickname expansion
 {
 	expandedNames.Empty();		// good hygiene
@@ -674,11 +653,11 @@ BOOL CDDEClient::ExpandEudoraNickname(
 	if (! h_conv)
 	{
 		DoLogoff_();
-		return FALSE;		// Eudora is probably not running
+		return FALSE;		// Hermes is probably not running
 	}
 
 	//
-	// Send the ExpandNickname request.  Eudora returns the data
+	// Send the ExpandNickname request.  Hermes returns the data
 	// and we are responsible for deleting the memory.
 	//
 	BOOL status = TRUE;		// innocent until proven guilty
@@ -706,21 +685,6 @@ BOOL CDDEClient::ExpandEudoraNickname(
 			DWORD len = DdeGetData(h_ddedata, NULL, 0, 0);
 			if (len > 0)
 			{
-#ifndef WIN32
-				//
-				// For 16-bit code, forcibly truncate the list at
-				// 32Kb.  If we don't do this, then the CString
-				// 'nickNames' will overflow and bad things will
-				// happen.  Note that the last nickname could get
-				// truncated into a bogus nickname.
-				//
-				if (len >= 0x7FFF)
-				{
-					ASSERT(0);
-					len = 0x7FF0;		// a little less than 32Kb
-				}
-#endif // !WIN32
-
 				DdeGetData(h_ddedata, LPBYTE(expandedNames.GetBuffer(int(len))), len, 0);
 				expandedNames.ReleaseBuffer();
 			}
@@ -744,7 +708,7 @@ BOOL CDDEClient::ExpandEudoraNickname(
 ////////////////////////////////////////////////////////////////////////
 // GetNextMessageId [public]
 //
-// Given a Eudora message id, fetch the next message id from Eudora,
+// Given a Hermes message id, fetch the next message id from Hermes,
 // returning it in the caller provided string object.  Return TRUE if
 // successful.
 //
@@ -776,11 +740,11 @@ BOOL CDDEClient::GetNextMessageId(CString& messageId, BOOL sortByDate, BOOL unre
 	if (! h_conv)
 	{
 		DoLogoff_();
-		return FALSE;		// Eudora is probably not running
+		return FALSE;		// Hermes is probably not running
 	}
 
 	//
-	// Send the get next message id request.  Eudora returns the data
+	// Send the get next message id request.  Hermes returns the data
 	// and we are responsible for deleting the memory.
 	//
 	BOOL status = TRUE;		// innocent until proven guilty
@@ -795,7 +759,7 @@ BOOL CDDEClient::GetNextMessageId(CString& messageId, BOOL sortByDate, BOOL unre
 		//
 		// A dwMessageId value of 0xFFFFFFFF indicates an that this is
 		// the first request.  Otherwise, it should be a valid
-		// non-zero Eudora message id.
+		// non-zero Hermes message id.
 		//
 		// A non-zero dwSortByDate value indicates that the next item
 		// it to be returned in ascending order by the message
@@ -866,8 +830,8 @@ BOOL CDDEClient::GetNextMessageId(CString& messageId, BOOL sortByDate, BOOL unre
 ////////////////////////////////////////////////////////////////////////
 // GetMessageById [public]
 //
-// Given a Eudora message id, fetch the requested message data from
-// the Eudora Inbox.  The data is placed in a string in the same
+// Given a Hermes message id, fetch the requested message data from
+// the Hermes Inbox.  The data is placed in a string in the same
 // format used by the WM_COPYDATA data buffer used by MAPISendMail().
 // Returns TRUE if successful.
 //
@@ -914,11 +878,11 @@ BOOL CDDEClient::GetMessageById(
 	if (! h_conv)
 	{
 		DoLogoff_();
-		return FALSE;		// Eudora is probably not running
+		return FALSE;		// Hermes is probably not running
 	}
 
 	//
-	// Send the get message request.  Eudora returns the message data
+	// Send the get message request.  Hermes returns the message data
 	// in a string and we are responsible for deleting the memory.
 	//
 	BOOL status = TRUE;		// innocent until proven guilty
@@ -930,7 +894,7 @@ BOOL CDDEClient::GetMessageById(
 		//
 		// where all arguments are formatted as 32-bit hex numbers.
 		//
-		// The dwMessageId value must be a valid, non-zero Eudora
+		// The dwMessageId value must be a valid, non-zero Hermes
 		// message id returned by GetNextMessageId().
 		//
 		// A non-zero dwBodyAsFile value indicates that the message
@@ -943,7 +907,7 @@ BOOL CDDEClient::GetMessageById(
 		//
 		// A non-zero dwMarkAsRead value indicates that unread
 		// messages, if successfully read, is to be marked as read in
-		// the Eudora Inbox.
+		// the Hermes Inbox.
 		//
 		// A non-zero dwWantAttachments value indicates that the
 		// attachments for the message are to be returned as temporary
@@ -991,47 +955,8 @@ BOOL CDDEClient::GetMessageById(
 			DWORD len = DdeGetData(h_ddedata, NULL, 0, 0);
 			if (len > 0)
 			{
-#ifndef WIN32
-				//
-				// For 16-bit code, forcibly truncate messages at
-				// 32Kb.  If we don't do this, then the CString
-				// 'messageData' will overflow and bad things will
-				// happen.  Note that since attachment lines are at
-				// the end, there could be a loss of attachment files
-				// if the truncation occurs.
-				//
-				if (len >= 0x7FFF)
-				{
-					ASSERT(0);
-					len = 0x7FF0;		// a little less than 32Kb
-				}
-#endif // !WIN32
-
 				DdeGetData(h_ddedata, LPBYTE(messageData.GetBuffer(int(len))), len, 0);
 				messageData.ReleaseBuffer();
-
-#ifndef WIN32
-				if (0x7FF0 == len)
-				{
-					//
-					// Since we brutally truncated the data buffer
-					// from the Eudora DDE server, we need to make
-					// sure we end up with something that it is
-					// properly terminated with a blank line.
-					//
-					int last_newline_idx = messageData.ReverseFind('\n');
-					if (-1 == last_newline_idx)
-					{
-						messageData.Empty();
-						status = FALSE;			// corrupted buffer (missing newlines)
-					}
-					else if (last_newline_idx < (messageData.GetLength() - 1))
-					{
-						messageData = messageData.Left(last_newline_idx + 1);		// throw away unterminated last line
-						messageData += '\n';
-					}
-				}
-#endif // !WIN32
 
 				ASSERT('\n' == messageData[messageData.GetLength() - 1]);
 			}
@@ -1055,14 +980,14 @@ BOOL CDDEClient::GetMessageById(
 ////////////////////////////////////////////////////////////////////////
 // PutMessageById [public]
 //
-// Given a valid Eudora message id, overwrite the existing message in
-// the Eudora Inbox.  
+// Given a valid Hermes message id, overwrite the existing message in
+// the Hermes Inbox.  
 //
 // Otherwise, if we're not given a message id, then append a new
-// message to the Eudora Inbox.  In this case, Eudora returns the
+// message to the Hermes Inbox.  In this case, Hermes returns the
 // message id for the newly added message.
 //
-// The message data sent to Eudora is in the same format used by the
+// The message data sent to Hermes is in the same format used by the
 // WM_COPYDATA data buffer used by MAPISendMail().
 //
 // Returns TRUE if successful.
@@ -1103,11 +1028,11 @@ BOOL CDDEClient::PutMessageById(
 	if (! h_conv)
 	{
 		DoLogoff_();
-		return FALSE;		// Eudora is probably not running
+		return FALSE;		// Hermes is probably not running
 	}
 
 	//
-	// Send the "put message" request.  Eudora returns the message id
+	// Send the "put message" request.  Hermes returns the message id
 	// data in a string and we are responsible for deleting the memory.
 	//
 	BOOL status = TRUE;		// innocent until proven guilty
@@ -1166,8 +1091,8 @@ BOOL CDDEClient::PutMessageById(
 ////////////////////////////////////////////////////////////////////////
 // DeleteMessageById [public]
 //
-// Given a Eudora message id, tell Eudora to delete the message from
-// the Eudora Inbox.
+// Given a Hermes message id, tell Hermes to delete the message from
+// the Hermes Inbox.
 //
 ////////////////////////////////////////////////////////////////////////
 BOOL CDDEClient::DeleteMessageById(const char* messageId)
@@ -1206,7 +1131,7 @@ BOOL CDDEClient::DeleteMessageById(const char* messageId)
 	if (! h_conv)
 	{
 		DoLogoff_();
-		return FALSE;		// Eudora is probably not running
+		return FALSE;		// Hermes is probably not running
 	}
 
 	//
@@ -1263,15 +1188,13 @@ BOOL CDDEClient::GetEudoraMAPIServerVersion(CString& versionInfo)
 	if (! DoLogon_())
 		return FALSE;
 
-#ifdef WIN32
 	//
 	// Wait a little bit between the initialization of DDE and the
 	// first connection.  This turns out to be necessary when you are
-	// starting up a copy of Eudora.exe as a result of a MAPILogon
+	// starting up a copy of Hermes.exe as a result of a MAPILogon
 	// call.
 	//
-	Sleep(1000);
-#endif
+	::Sleep(1000);
 
 	//
 	// Initiate a conversation for the "GetMAPIServerVersion" topic.  Open
@@ -1292,7 +1215,7 @@ BOOL CDDEClient::GetEudoraMAPIServerVersion(CString& versionInfo)
 	if (! h_conv)
 	{
 		DoLogoff_();
-		return FALSE;		// Eudora is probably not running
+		return FALSE;		// Hermes is probably not running
 	}
 
 	//

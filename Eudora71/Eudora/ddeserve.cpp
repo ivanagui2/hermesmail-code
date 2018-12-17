@@ -7,12 +7,8 @@
 
 #include "stdafx.h"
 
-#ifdef WIN32
 #include <afxcmn.h>
 #include <afxrich.h>
-#else
-typedef unsigned long ULONG;
-#endif
 
 #include "ddestr.h"
 #include "ddeserve.h"
@@ -42,7 +38,7 @@ typedef unsigned long ULONG;
 CDDEServer* CDDEServer::m_pTheServer = NULL;
 
 // Defined in eudora.cpp
-extern bool g_bDefaultMailto;	// This variable specifies if Eudora is set to the default mailer or not
+extern bool g_bDefaultMailto;	// This variable specifies if Hermes is set to the default mailer or not
 
 ////////////////////////////////////////////////////////////////////////
 // CDDEServer [public, constructor]
@@ -116,11 +112,7 @@ BOOL CDDEServer::Initialize(void)
 	//
 	CDDEServer::m_pTheServer = this;
 
-#ifdef WIN32
 	m_pCallbackFn = (PFNCALLBACK) DDEServerCallback;
-#else
-	m_pCallbackFn = (PFNCALLBACK) MakeProcInstance((FARPROC) DDEServerCallback, AfxGetInstanceHandle());
-#endif // WIN32
 	if (NULL == m_pCallbackFn)
 	{
 		Uninitialize();
@@ -331,9 +323,6 @@ void CDDEServer::Uninitialize(void)
 
 	if (m_pCallbackFn != NULL)
 	{
-#ifndef WIN32
-	    FreeProcInstance(FARPROC(m_pCallbackFn));
-#endif // WIN32
 		m_pCallbackFn = NULL;
 	}
 
@@ -527,7 +516,7 @@ HDDEDATA CDDEServer::OnRequest(
 
 			//
 			// Break the mailto parameter string into individual
-			// parameters that Eudora can use.  The original mailto
+			// parameters that Hermes can use.  The original mailto
 			// string is assumed to be of the form:
 			//
 			//    "mailto:address@domain.com","",4,0,"tempfile","",
@@ -611,7 +600,7 @@ HDDEDATA CDDEServer::OnRequest(
 				CString subject;
 				CString body;
 
-				// This condition is added so that Eudora does not handle the newsgroup messages.
+				// This condition is added so that Hermes does not handle the newsgroup messages.
 				if ( (strstr(mailto,"mailto:?newsgroups=")) ||
 					 (strstr(mailto,"&newshost=")) )
 
@@ -621,7 +610,7 @@ HDDEDATA CDDEServer::OnRequest(
 				else if (CURLEdit::ParseMailtoArgs(mailto, to, cc, bcc, xeudora, subject, body))
 				{
 					//
-					// Create Eudora composition window with as many fields
+					// Create Hermes composition window with as many fields
 					// filled as possible, then display it.
 					//
 					CMainFrame* p_mainframe = (CMainFrame *) AfxGetMainWnd();
@@ -700,7 +689,7 @@ HDDEDATA CDDEServer::OnRequest(
 				//
 				// For example:
 				//
-				//    "Eudora Pro MAPI Server, Version 4.0",4,0,32
+				//    "Hermes Pro MAPI Server, Version 4.0",4,0,32
 				//
 				// Note that the double-quotes are needed to allow embedded 
 				// commas in strings.
@@ -717,11 +706,7 @@ HDDEDATA CDDEServer::OnRequest(
 				//        which are marked as needing a return receipt.
 				//
 //				TRACE0("CDDEServer::OnRequest, got MAPI/ServerVersion!\n");
-#ifdef WIN32
-				CString version("\"Eudora Pro MAPI Server, Version 4.0 (32)\",4,0,32");		// FORNOW, hardcoded
-#else
-				CString version("\"Eudora Pro MAPI Server, Version 4.0 (16)\",4,0,16");		// FORNOW, hardcoded
-#endif //WIN32
+				CString version("\"Hermes Pro MAPI Server, Version 4.0 (32)\",4,0,32");		// FORNOW, hardcoded
 				return DdeCreateDataHandle(m_InstId, LPBYTE((const char *) version), version.GetLength() + 1, 0, hszItem, CF_TEXT, 0);
 			}
 		}
@@ -772,7 +757,7 @@ HDDEDATA CDDEServer::OnRequest(
 			ASSERT(params.IsEmpty());
 
 			//
-			// Get a pointer to the Eudora Inbox object, then let it
+			// Get a pointer to the Hermes Inbox object, then let it
 			// do all the work.
 			//
 			CTocDoc* p_inbox = ::GetInToc();
@@ -844,7 +829,7 @@ HDDEDATA CDDEServer::OnRequest(
 			ASSERT(params.IsEmpty());
 
 			//
-			// Get a pointer to the Eudora Inbox object, then let it
+			// Get a pointer to the Hermes Inbox object, then let it
 			// do all the work.
 			//
 			CTocDoc* p_inbox = ::GetInToc();
@@ -880,7 +865,7 @@ HDDEDATA CDDEServer::OnRequest(
 				return NULL;
 
 			//
-			// Get a pointer to the Eudora Inbox object, then let it
+			// Get a pointer to the Hermes Inbox object, then let it
 			// do all the work. 
 			//
 			CTocDoc* p_inbox = ::GetInToc();
@@ -927,7 +912,7 @@ HDDEDATA CDDEServer::OnRequest(
 			ASSERT(params.IsEmpty());
 
 			//
-			// Get a pointer to the Eudora Inbox object, then let it
+			// Get a pointer to the Hermes Inbox object, then let it
 			// do all the work.
 			//
 			CTocDoc* p_inbox = ::GetInToc();
@@ -974,7 +959,7 @@ void CDDEServer::OnRegister(
 		if (p_mainframe)
 		{
 			//
-			// Register this instance of Eudora as the handler for
+			// Register this instance of Hermes as the handler for
 			// mailto URL's in Netscape.  It is better to do this
 			// asynchronously by posting a message rather than
 			// doing it here ... otherwise, the DDE thread
@@ -1017,11 +1002,7 @@ void CDDEServer::OnUnregister(
 // DDEServerCallback [private, static]
 //
 ////////////////////////////////////////////////////////////////////////
-#ifdef WIN32
 HDDEDATA CALLBACK CDDEServer::DDEServerCallback(
-#else
-HDDEDATA _export CALLBACK CDDEServer::DDEServerCallback(
-#endif // WIN32
 	UINT wType, 
 	UINT wFmt, 
 	HCONV hConv,

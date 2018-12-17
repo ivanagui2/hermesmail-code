@@ -10,6 +10,8 @@
 #include "stdafx.h"
 //#include <afxwin.h>			// FORNOW, probably should use precompiled header
 
+#include <strsafe.h>
+
 #include "..\Eudora\eumapi.h"
 #include "recip.h"
 #include "message.h"
@@ -61,14 +63,14 @@ private:
 		{
 		case OBJ_MAPI_MESSAGE:
 #ifdef _DEBUG
-			sprintf(buf, "FreeBuffer: MapiMessage at <%p>\n", m_pBuffer);
+			StringCchPrintfA(buf, _countof (buf), "FreeBuffer: MapiMessage at <%p>\n", m_pBuffer);
 			OUTPUTDEBUGSTRING(buf);
 #endif // _DEBUG
 			delete ((CMapiMessage *) m_pBuffer);
 			break;
 		case OBJ_MAPI_RECIP_DESC_ARRAY:
 #ifdef _DEBUG
-			sprintf(buf, "FreeBuffer: MapiRecipDescArray at <%p>\n", m_pBuffer);
+			StringCchPrintfA(buf, _countof(buf), "FreeBuffer: MapiRecipDescArray at <%p>\n", m_pBuffer);
 			OUTPUTDEBUGSTRING(buf);
 #endif // _DEBUG
 			delete [] ((CMapiRecipDesc *) m_pBuffer);
@@ -237,7 +239,7 @@ CMapiMessage* CMapiSessionMgr::NewMapiMessage(void)
 
 #ifdef _DEBUG
 	char buf[100];
-	sprintf(buf, "NewMapiMessage: alloc at <%p>\n", p_mapi_message);
+	StringCchPrintfA(buf, _countof(buf), "NewMapiMessage: alloc at <%p>\n", p_mapi_message);
 	ASSERT(sizeof(buf) > strlen(buf));		// better late than never
 	OUTPUTDEBUGSTRING(buf);
 #endif // _DEBUG
@@ -260,8 +262,7 @@ CMapiRecipDesc* CMapiSessionMgr::NewMapiRecipDescArray(ULONG numElements)
 		return NULL;		// out of memory
 
 	//
-	// Save a copy of the pointer to the array in the master memory 
-	// buffer list.
+	// Save a copy of the pointer to the array in the master memory buffer list.
 	//
 	CBufferListNode* p_new_node = new CBufferListNode(CBufferListNode::OBJ_MAPI_RECIP_DESC_ARRAY, p_recip_array);
 	if (NULL == p_new_node)
@@ -273,7 +274,7 @@ CMapiRecipDesc* CMapiSessionMgr::NewMapiRecipDescArray(ULONG numElements)
 
 #ifdef _DEBUG
 	char buf[100];
-	sprintf(buf, "NewMapiRecipDescArray: alloc at <%p>\n", p_recip_array);
+	StringCchPrintfA(buf, _countof(buf), "NewMapiRecipDescArray: alloc at <%p>\n", p_recip_array);
 	ASSERT(sizeof(buf) > strlen(buf));		// better late than never
 	OUTPUTDEBUGSTRING(buf);
 #endif // _DEBUG

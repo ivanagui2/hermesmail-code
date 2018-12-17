@@ -9,6 +9,8 @@
 #include "stdafx.h"
 //#include <afxwin.h>			// FORNOW, should probably be precompiled header
 
+#include <strsafe.h>
+
 #ifdef _DEBUG
 #include <ctype.h>
 #endif // _DEBUG
@@ -172,7 +174,7 @@ BOOL CMapiMessage::ReadMessageData(const CString& messageData)
 			nFileCount++;
 
 		// skip to start of next line
-		char* pszNewline = strchr(pszMessageData, '\n');
+		const char* pszNewline = strchr(pszMessageData, '\n');
 		if (pszNewline)
 			pszMessageData = pszNewline + 1;
 		else
@@ -227,11 +229,11 @@ BOOL CMapiMessage::ReadMessageData(const CString& messageData)
 		// empty) data.
 		//
 		char szKeyword[7];
-		strncpy(szKeyword, pszMessageData, 6);
+		StringCchCopyA(szKeyword, _countof (szKeyword), pszMessageData);
 		szKeyword[6] = '\0';
 
 		// grab the data for the current line
-		char* pszNewline = strchr(pszMessageData, '\n');
+		const char* pszNewline = strchr(pszMessageData, '\n');
 		if (pszNewline)
 		{
 			const char* pszStart = pszMessageData + 6;	// strip off leading keyword
@@ -290,9 +292,10 @@ BOOL CMapiMessage::ReadMessageData(const CString& messageData)
 		else if (strcmp("SUBJ: ", szKeyword) == 0)
 		{
 			ASSERT(NULL == lpszSubject);		// there should only be one subject line
-			lpszSubject = new char[current_line.GetLength() + 1];
-			if (lpszSubject)
-				strcpy(lpszSubject, current_line);
+			size_t cchSubject = current_line.GetLength() + 1;
+			lpszSubject = new char[cchSubject];
+			if (lpszSubject != NULL)
+				StringCchCopyA(lpszSubject, cchSubject, current_line);
 			else
 				return FALSE;
 		}
@@ -332,9 +335,10 @@ BOOL CMapiMessage::ReadMessageData(const CString& messageData)
 		else if (strcmp("DATE: ", szKeyword) == 0)
 		{
 			ASSERT(NULL == lpszDateReceived);	// should only be one DATE line
-			lpszDateReceived = new char[current_line.GetLength() + 1];
-			if (lpszDateReceived)
-				strcpy(lpszDateReceived, current_line);
+			size_t cchDateReceived = current_line.GetLength() + 1;
+			lpszDateReceived = new char[cchDateReceived];
+			if (lpszDateReceived != NULL)
+				StringCchCopyA(lpszDateReceived, cchDateReceived, current_line);
 			else
 				return FALSE;
 		}
@@ -392,9 +396,10 @@ BOOL CMapiMessage::ReadMessageData(const CString& messageData)
 	//
 	if (! body_text.IsEmpty())
 	{
-		lpszNoteText = new char[body_text.GetLength() + 1];
-		if (lpszNoteText)
-			strcpy(lpszNoteText, body_text);
+		size_t cchNoteText = body_text.GetLength() + 1;
+		lpszNoteText = new char[cchNoteText];
+		if (lpszNoteText != NULL)
+			StringCchCopyA(lpszNoteText, cchNoteText, body_text);
 		else
 			return FALSE;
 	}
@@ -420,7 +425,7 @@ BOOL CMapiMessage::WriteMessageData(CString& messageData, BOOL wantAutoSend, BOO
 		//
 		// Convert any newline characters in the subject string to
 		// spaces in order to convert a multi-line subject string
-		// into the single-line subject string assumed by Eudora.
+		// into the single-line subject string assumed by Hermes.
 		//
 		// FORNOW, not implemented.
 
@@ -460,18 +465,18 @@ BOOL CMapiMessage::WriteMessageData(CString& messageData, BOOL wantAutoSend, BOO
 	}
 
 	//
-	// Give Eudora a clue whether or not to attempt automatically
+	// Give Hermes a clue whether or not to attempt automatically
 	// sending the message without user intervention.
 	//
 	if (wantAutoSend)
 	{
-		messageData += "AUTO: ";	// tell Eudora to attempt auto-send
+		messageData += "AUTO: ";	// tell Hermes to attempt auto-send
 
 extern DWORD g_dwAuthentication;
 		if (g_dwAuthentication)
 		{
 			char buf[16];
-			sprintf(buf, "%lu", g_dwAuthentication);
+			StringCchPrintfA(buf, _countof(buf), "%lu", g_dwAuthentication);
 			messageData += buf;
 		}
 		
@@ -480,17 +485,17 @@ extern DWORD g_dwAuthentication;
 
 	//
 	// Okay, now the important part ...  the list of attachment
-	// files.  We also pass the filename part to Eudora since
+	// files.  We also pass the filename part to Hermes since
 	// some MAPI clients use a nonsense temp file name in the
 	// pathname part, then specify the meaningful, user-oriented
 	// file name in the filename part (can you say Excel 5.0c??).
 	//
-	for (idx = 0; idx < nFileCount; idx++)
+	for (int idx = 0; idx < nFileCount; idx++)
 	{
 		ASSERT(lpFiles);
 
 		//
-		// Pass the optional filename part first so that Eudora
+		// Pass the optional filename part first so that Hermes
 		// can associate it with the required pathname part to
 		// follow.
 		//
@@ -510,15 +515,14 @@ extern DWORD g_dwAuthentication;
 		messageData += "PATH: ";
 		if (useShortFilenames)
 		{
-#ifdef WIN32
 			CString shortpath;
-			const int PATHLEN = strlen(lpFiles[idx].lpszPathName) + 32;		// slop factor
-			char* p_path = shortpath.GetBuffer(PATHLEN);
+			const int iPathLength = strlen(lpFiles[idx].lpszPathName) + 32;		// slop factor
+			char* p_path = shortpath.GetBuffer(iPathLength);
 			if (p_path)
 			{
-				DWORD dwStatus = ::GetShortPathName(lpFiles[idx].lpszPathName, p_path, PATHLEN);
+				DWORD dwStatus = ::GetShortPathName(lpFiles[idx].lpszPathName, p_path, iPathLength);
 				shortpath.ReleaseBuffer();
-				if (dwStatus && (int(dwStatus) < PATHLEN))
+				if (dwStatus && (int(dwStatus) < iPathLength))
 					messageData += shortpath;
 				else
 				{
@@ -527,16 +531,12 @@ extern DWORD g_dwAuthentication;
 				}
 			}
 			else
+			{
 				messageData += lpFiles[idx].lpszPathName;		// oh, well ... we tried
-#else
-			messageData += lpFiles[idx].lpszPathName;
-#endif
+			}
 		}
 		else
 		{
-#ifndef WIN32
-			ASSERT(0);			// under Win 16, all filenames are short, by definition
-#endif // !WIN32
 			messageData += lpFiles[idx].lpszPathName;
 		}
 		messageData += "\n";
@@ -544,16 +544,8 @@ extern DWORD g_dwAuthentication;
 
 	if (lpszNoteText)
 	{
-#ifdef WIN32
 		messageData.GetBufferSetLength(messageData.GetLength() + strlen(lpszNoteText) + (8 * (strlen(lpszNoteText) / 60)));
 		messageData.ReleaseBuffer();
-#else
-		if (strlen(lpszNoteText) > 0x7F00)
-		{
-			ASSERT(0);
-			return FALSE;			// message text too big for 16-bit CString
-		}
-#endif // !WIN32
 
 		//
 		// Strip control characters from the Note text.
@@ -608,29 +600,14 @@ extern DWORD g_dwAuthentication;
 
 			//
 			// Check for "\n" only termination and convert it to
-			// "\r\n" termination required by Eudora edit control.
+			// "\r\n" termination required by Hermes edit control.
 			//
 			if (bodyline[bodyline.GetLength() - 1] != '\r')
 				bodyline += "\r";
 			bodyline += "\n";
-#ifdef WIN32
+
 			// output body line
 			messageData += bodyline;
-#else
-			//
-			// Check for 32Kb CString overflow on 16-bit Windows.  Note
-			// that we fudge the overflow length a bit to make sure that
-			// we have room for the final empty line below.
-			//
-			if (long(messageData.GetLength()) + long(bodyline.GetLength()) + 1L >= 0x00007FF0)
-			{
-				ASSERT(0);
-				return FALSE;
-			}
-			else
-				messageData += bodyline;
-#endif // WIN32
-
 			//
 			// Remove the current line from the body text.
 			//
@@ -642,23 +619,9 @@ extern DWORD g_dwAuthentication;
 		//
 		CString lastline;
 		lastline.Format("BODY: %s\n", pszBody);
-#ifdef WIN32
+
 		// output last line
 		messageData += lastline;
-#else
-		//
-		// Check for 32Kb CString overflow on 16-bit Windows.  Note that
-		// we fudge the overflow length a bit to make sure we have room
-		// for the final empty line below.
-		//
-		if (long(messageData.GetLength()) + long(lastline.GetLength()) + 1L >= 0x00007FF0)
-		{
-			ASSERT(0);
-			return FALSE;
-		}
-		else
-			messageData += lastline;
-#endif // WIN32
 	}
 
 	//

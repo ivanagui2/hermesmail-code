@@ -1,18 +1,17 @@
 ////////////////////////////////////////////////////////////////////////
 // MAPIFUNC.CPP
 //
-// MAPI entry points for 16-bit/32-bit Eudora MAPI DLL.
+// MAPI entry points for 32-bit Hermes MAPI DLL.
 ////////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
 
 #include <stdio.h>
 #include <string.h>
+#include <strsafe.h>
+
 //#include <afxwin.h>		// FORNOW, might be better to use precompiled AFX headers
 #include <shellapi.h>
-#ifndef WIN32
-#include <time.h>
-#endif //!WIN32
 
 #include "mapires.h"
 #include "..\Eudora\eumapi.h"	// includes the hacked MAPI.H
@@ -32,7 +31,7 @@
 // handles NULL char* args properly by quietly inserting a "(null)"
 // string.
 //
-#define OutputDebugString(_dbg_Msg_) ::MessageBox(NULL, _dbg_Msg_, "Eudora MAPI Debug Output", MB_OK)
+#define OutputDebugString(_dbg_Msg_) ::MessageBox(NULL, _dbg_Msg_, "Hermes MAPI Debug Output", MB_OK)
 
 #ifdef _DEBUG
 #define OUTPUTDEBUGSTRING(_dbg_Msg_) OutputDebugString(_dbg_Msg_)
@@ -47,6 +46,29 @@
 //
 static CMapiSessionMgr s_SessionMgr;
 
+// Prototypes for internal functions:
+
+extern "C" ULONG FAR PASCAL MAPILogonA(
+	ULONG ulUIParam,
+	LPSTR lpszProfileName,
+	LPSTR lpszPassword,
+	FLAGS flFlags,
+	ULONG ulReserved,
+	LPLHANDLE lplhSession);
+
+extern "C" ULONG FAR PASCAL MAPISendMailA(
+	LHANDLE lhSession,
+	ULONG ulUIParam,
+	lpMapiMessage lpMessage,
+	FLAGS flFlags,
+	ULONG ulReserved);
+
+extern "C" ULONG FAR PASCAL MAPISendDocumentsA(
+	ULONG ulUIParam,
+	LPSTR lpszDelimChar,
+	LPSTR lpszFilePaths,
+	LPSTR lpszFileNames,
+	ULONG ulReserved);
 
 ////////////////////////////////////////////////////////////////////////
 // EnumWindowsProc [static]
@@ -54,7 +76,7 @@ static CMapiSessionMgr s_SessionMgr;
 // Global callback entry point for Windows EnumWindows() API call.
 // We assume that the caller stuffs a pointer to a CDWordArray
 // object in the LPARAM.  We stuff this CDWordArray with all of the
-// HWNDs for all running instances of Eudora.
+// HWNDs for all running instances of Hermes.
 ////////////////////////////////////////////////////////////////////////
 BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM lParam)
 {
@@ -68,9 +90,9 @@ BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM lParam)
 	char classname[100];
 	if (::GetClassName(hWnd, classname, sizeof(classname)))
 	{
-		if (stricmp(classname, EudoraMainWindowClass) == 0)
+		if (_stricmp(classname, EudoraMainWindowClass) == 0)
 		{
-			TRACE1("EnumWindowsProc: Found a running instance of Eudora (HWND=0x%08X)\n", hWnd);
+			TRACE1("EnumWindowsProc: Found a running instance of Hermes (HWND=0x%08X)\n", hWnd);
 			p_array->Add(DWORD(hWnd));
 		}
 	}
@@ -80,12 +102,12 @@ BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM lParam)
 
 static BOOL GetCommandLine(CString& CommandLine)
 {
-	// The 32-bit Eudora stores the command line identically under
+	// The 32-bit Hermes stores the command line identically under
 	// HKEY_CLASSES_CURRENT_USER and HKEY_CLASSES_ROOT, while the
-	// 16-bit Eudora can only store the command line under
+	// 16-bit Hermes can only store the command line under
 	// HKEY_CLASSES_ROOT.  The 32-bit MAPI looks for the command line
 	// under "CURRENT_USER" first, then under "ROOT" if it is not
-	// found (e.g.  user is running 16-bit Eudora).  The 16-bit MAPI
+	// found (e.g.  user is running 16-bit Hermes).  The 16-bit MAPI
 	// is restricted to look only under "ROOT".
 	//
 	HKEY hkey_eudora_cmdline = 0;
@@ -94,9 +116,9 @@ static BOOL GetCommandLine(CString& CommandLine)
 
 	//
 	// First try ...  look in HKEY_CLASSES_ROOT first, so that we are
-	// more likely to find the last run instance of 16-bit Eudora in
-	// the screwy case where you run both 16-bit and 32-bit Eudora on
-	// the same system.  Remember that 16-bit Eudora doesn't have the
+	// more likely to find the last run instance of 16-bit Hermes in
+	// the screwy case where you run both 16-bit and 32-bit Hermes on
+	// the same system.  Remember that 16-bit Hermes doesn't have the
 	// ability to access HKEY_CURRENT_USER.
 	//
 	if (::RegOpenKey(HKEY_CLASSES_ROOT,
@@ -125,7 +147,6 @@ static BOOL GetCommandLine(CString& CommandLine)
 		hkey_eudora_cmdline = 0;
 	}
 
-#ifdef WIN32
 	if (CommandLine.IsEmpty())
 	{
 		//
@@ -163,7 +184,6 @@ static BOOL GetCommandLine(CString& CommandLine)
 			hkey_eudora_cmdline = 0;
 		}
 	}
-#endif // WIN32
 
 	return (!CommandLine.IsEmpty());
 }
@@ -172,12 +192,12 @@ static BOOL GetCommandLine(CString& CommandLine)
 ////////////////////////////////////////////////////////////////////////
 // GetEudoraWindowHandle [static]
 //
-// Returns an HWND for the running instance of Eudora.  If there is no
-// running instance of Eudora, then try to auto-launch Eudora using the 
+// Returns an HWND for the running instance of Hermes.  If there is no
+// running instance of Hermes, then try to auto-launch Hermes using the 
 // last known good command line in the registry.
 //
 // If that still doesn't work and we can't find a running instance of
-// Eudora, return a NULL value.
+// Hermes, return a NULL value.
 // 
 ////////////////////////////////////////////////////////////////////////
 static HWND GetEudoraWindowHandle(HWND clientHwnd)
@@ -193,7 +213,7 @@ static HWND GetEudoraWindowHandle(HWND clientHwnd)
 	}
 
 	//
-	// Acquire the HWNDs of all running instances of Eudora.
+	// Acquire the HWNDs of all running instances of Hermes.
 	//
 	CDWordArray hwnd_array;
 	::EnumWindows(EnumWindowsProc, LPARAM(&hwnd_array));
@@ -202,7 +222,7 @@ static HWND GetEudoraWindowHandle(HWND clientHwnd)
 	{
 	case 0:
 		//
-		// Need to launch Eudora ourselves, so drop through to code below...
+		// Need to launch Hermes ourselves, so drop through to code below...
 		//
 		break;
 	case 1:
@@ -211,7 +231,7 @@ static HWND GetEudoraWindowHandle(HWND clientHwnd)
 	default:
 		{
 			//
-			// Uh, oh.  Multiple instances of Eudora detected.  FORNOW,
+			// Uh, oh.  Multiple instances of Hermes detected.  FORNOW,
 			// put up an error message and bail.
 			//
 			CString errmsg;
@@ -223,10 +243,10 @@ static HWND GetEudoraWindowHandle(HWND clientHwnd)
 		return NULL;
 	}
 
-	HWND hwnd = NULL;			// HWND for Eudora main window
+	HWND hwnd = NULL;			// HWND for Hermes main window
 
 	//
-	// If we get this far, Eudora is not running, so attempt to fetch
+	// If we get this far, Hermes is not running, so attempt to fetch
 	// the last known command line from the registry.
 	CString cmdline;
 	if (GetCommandLine(cmdline))
@@ -237,29 +257,10 @@ static HWND GetEudoraWindowHandle(HWND clientHwnd)
 		OUTPUTDEBUGSTRING("GetEudoraWindowHandle() - launching command line\n");
 		switch (WinExec(cmdline, SW_SHOWNORMAL))
 		{
-#ifdef WIN32
 		case 0:						// The system is out of memory or resources.
 		case ERROR_BAD_FORMAT:		// The .EXE file is invalid (non-Win32 .EXE or error in .EXE image).
 		case ERROR_FILE_NOT_FOUND:	// The specified file was not found.
 		case ERROR_PATH_NOT_FOUND:	// The specified path was not found.
-#else
-		case 0:		// System was out of memory, executable file was corrupt, or relocations were invalid. 
-		case 2:		// File was not found. 
-		case 3:		// Path was not found. 
-		case 5:		// Attempt was made to dynamically link to a task, or there was a sharing or network-protection error. 
-		case 6:		// Library required separate data segments for each task. 
-		case 8:		// There was insufficient memory to start the application. 
-		case 10:	// Windows version was incorrect. 
-		case 11:	// Executable file was invalid. Either it was not a Windows application or there was an error in the .EXE image. 
-		case 12:	// Application was designed for a different operating system. 
-		case 13:	// Application was designed for MS-DOS 4.0. 
-		case 14:	// Type of executable file was unknown. 
-		case 15:	// Attempt was made to load a real-mode application (developed for an earlier version of Windows). 
-		case 16:	// Attempt was made to load a second instance of an executable file containing multiple data segments that were not marked read-only. 
-		case 19:	// Attempt was made to load a compressed executable file. The file must be decompressed before it can be loaded. 
-		case 20:	// Dynamic-link library (DLL) file was invalid. One of the DLLs required to run this application was corrupt. 
-		case 21:	// Application requires Microsoft Windows 32-bit extensions. 
-#endif // WIN32
 			{
 				//
 				// WinExec() not successful, so post error dialog.
@@ -280,7 +281,7 @@ static HWND GetEudoraWindowHandle(HWND clientHwnd)
 	
 		//
 		// If we get this far, the launch was apparently successful,
-		// so let's wait for Eudora to show up.  If she doesn't show
+		// so let's wait for Hermes to show up.  If she doesn't show
 		// up after 60 seconds, then give up.
 		// 
 		int retry_count = 120;
@@ -290,34 +291,7 @@ static HWND GetEudoraWindowHandle(HWND clientHwnd)
 				break;			// She's alive...
 			else
 			{
-#ifdef WIN32
-				Sleep(500);	// 500ms
-#else
-				//
-				// Stall this thread for about 0.5 second (on average).  
-				// The granularity of the 'time()' function is one second.
-				//
-				time_t start_time, now;
-				time(&start_time);
-				now = start_time;
-				while (start_time != now)
-				{
-					//
-					// So if you're paying attention here, you're probably
-					// wondering why the hell we're making a DDE call
-					// and then doing nothing with the returned string.
-					// It turns out all we want to do here is to stall this
-					// thread for awhile and give Eudora a chance to come
-					// up, and the DDEML library has some very nice ways
-					// to cleanly stall and cooperatively let other
-					// applications get some processing time.  Cool, huh?
-					//
-					CDDEClient dde_client;
-					CString unused;
-					dde_client.GetEudoraMAPIServerVersion(unused);
-					time(&now);
-				}
-#endif
+				::Sleep(500);	// 500ms
 			}
 			OUTPUTDEBUGSTRING("GetEudoraWindowHandle() - FindWindow() failed, retrying...\n");
 			retry_count--;
@@ -344,7 +318,7 @@ static HWND GetEudoraWindowHandle(HWND clientHwnd)
 //
 // Returns TRUE or FALSE as follows:
 //
-// MAPI DLL     Eudora      Returns
+// MAPI DLL     Hermes      Returns
 // --------     ------      -------
 // 16-bit       unknown     TRUE
 // 16-bit       16-bit      TRUE
@@ -356,18 +330,9 @@ static HWND GetEudoraWindowHandle(HWND clientHwnd)
 ////////////////////////////////////////////////////////////////////////
 static BOOL UseShortFilenames()
 {
-#ifdef WIN32
 	// We're just going to assume that if you're using the 32-bit MAPI client that
-	// you're also using the 32-bit Eudora.  What's the likelihood that someone is
-	// running a 3.x 16-bit Eudora with this 4.x 32-bit MAPI dll.  It saves us from
-	// making the DDE calls to get the Eudora version, which sometimes hangs.
+	// you're also using the 32-bit Hermes.
 	return FALSE;
-#else
-	//
-	// 16-bit DLL should always send short filename, by definition.
-	//
-	return TRUE;
-#endif // WIN32
 }
 
 
@@ -397,13 +362,13 @@ DWORD g_dwAuthentication = 0;
 // order to authenticate to the client.
 //
 // pDesktopMode - If not NULL, the function will put in one of the following values:
-//    0 - Desktop Eudora is in Ad/Sponsored mode
-//    1 - Desktop Eudora is in Light mode
-//    2 - Desktop Eudora is in Paid mode
-//    0xFFFFFFFF - Desktop Eudora version is earlier than 4.3 or cannot tell mode
+//    0 - Desktop Hermes is in Ad/Sponsored mode
+//    1 - Desktop Hermes is in Light mode
+//    2 - Desktop Hermes is in Paid mode
+//    0xFFFFFFFF - Desktop Hermes version is earlier than 4.3 or cannot tell mode
 //
 // Reserved - Not used for now.  In the future, may be a regcode structure
-// that can be filled out with regcode, and first and last name of Desktop Eudora.
+// that can be filled out with regcode, and first and last name of Desktop Hermes.
 ////////////////////////////////////////////////////////////////////////
 extern "C" VOID FAR PASCAL IsEudoraMapi(LPDWORD pAuthentication, LPDWORD pDesktopMode, LPVOID Reserved)
 {
@@ -471,7 +436,7 @@ extern "C" VOID FAR PASCAL IsEudoraMapi(LPDWORD pAuthentication, LPDWORD pDeskto
 				ASSERT(0);	// What happened?
 			else
 			{
-				// We need to make sure this is at least the 4.3 version of Eudora because
+				// We need to make sure this is at least the 4.3 version of Hermes because
 				// mode was introduced in version 4.3.
 				TCHAR szString[1024] = {0};
 				DWORD dwHandle = 0;
@@ -494,7 +459,7 @@ extern "C" VOID FAR PASCAL IsEudoraMapi(LPDWORD pAuthentication, LPDWORD pDeskto
 						// then pass the string in the buffer.  This, for some inexplicable
 						// reason, works under all Windows OSes.
 						//
-						strcpy(szString, "\\");
+						StringCchCopyA(szString, _countof (szString), "\\");
 						
 						if (VerQueryValue(pData, szString, (void **)&pFileInfo, &uBufSize) && uBufSize && pFileInfo)
 						{
@@ -585,7 +550,7 @@ extern "C" ULONG FAR PASCAL MAPILogonA(
 	*lplhSession = 0;
 
 	//
-	// Acquire HWND of running instance of Eudora, launching Eudora
+	// Acquire HWND of running instance of Hermes, launching Hermes
 	// first, if necessary.
 	//
 	HWND hWnd = GetEudoraWindowHandle(HWND(ulUIParam));
@@ -593,7 +558,7 @@ extern "C" ULONG FAR PASCAL MAPILogonA(
 		return MAPI_E_FAILURE;
 
 	//
-	// Eudora's implementation always creates a new session since it
+	// Hermes's implementation always creates a new session since it
 	// doesn't do implicit logons ... only the MAPI client apps call
 	// MAPILogon() ... so if that's what they want, that's what they're
 	// gonna get.
@@ -607,7 +572,7 @@ extern "C" ULONG FAR PASCAL MAPILogonA(
 	if (flFlags & MAPI_FORCE_DOWNLOAD)
 	{
 		//
-		// Send a message to Eudora to force it to check for new mail.
+		// Send a message to Hermes to force it to check for new mail.
 		//
 		ASSERT(hWnd != NULL);
 		CString buf("CHEK: \n\n");
@@ -801,17 +766,17 @@ extern "C" ULONG FAR PASCAL MAPISendMailA(
 
 	HWND hWnd = GetEudoraWindowHandle(HWND(ulUIParam));
 	if (NULL == hWnd)
-		return MAPI_E_FAILURE;		// Eudora is not running
+		return MAPI_E_FAILURE;		// Hermes is not running
 
 	//
-	// Determine what type of Eudora we're talking to (16 vs 32) and
+	// Determine what type of Hermes we're talking to (16 vs 32) and
 	// decide whether or not to use short attachment file names.
 	//
 	BOOL use_short_filenames = UseShortFilenames();
 
 	//
 	// Write the MapiMessage record data into a simple, line-oriented
-	// textual format that Eudora can understand.
+	// textual format that Hermes can understand.
 	//
 	CString buf;
 	BOOL want_auto_send = (flFlags & MAPI_DIALOG) ? FALSE : TRUE;
@@ -825,7 +790,7 @@ extern "C" ULONG FAR PASCAL MAPISendMailA(
 #endif // _DEBUG
 
 	//
-	// Transmit the message data to Eudora via WM_COPYDATA.
+	// Transmit the message data to Hermes via WM_COPYDATA.
 	//
 	COPYDATASTRUCT cds;
 	cds.dwData = EUM_SEND_MAIL;
@@ -895,7 +860,7 @@ extern "C" ULONG FAR PASCAL MAPISendDocumentsA(
 	
 	HWND hWnd = GetEudoraWindowHandle(HWND(ulUIParam));
 	if (NULL == hWnd)
-		return MAPI_E_FAILURE;		// Eudora is not running
+		return MAPI_E_FAILURE;		// Hermes is not running
 
 	CString databuf;					// outgoing data buffer
 	CString pathnames(lpszFilePaths);	// working copy of delimited pathnames string
@@ -966,20 +931,18 @@ extern "C" ULONG FAR PASCAL MAPISendDocumentsA(
 
 		if (use_short_filenames)
 		{
-#ifdef WIN32
 			CString shortpath;
-			const int PATHLEN = strlen(pathname) + 32;		// slop factor
-			char* p_path = shortpath.GetBuffer(PATHLEN);
+			const int iPathLength = strlen(pathname) + 32;		// slop factor
+			char* p_path = shortpath.GetBuffer(iPathLength);
 			if (p_path)
 			{
-				DWORD dwStatus = ::GetShortPathName(pathname, p_path, PATHLEN);
+				DWORD dwStatus = ::GetShortPathName(pathname, p_path, iPathLength);
 				shortpath.ReleaseBuffer();
-				if (dwStatus && (int(dwStatus) < PATHLEN))
+				if (dwStatus && (int(dwStatus) < iPathLength))
 					pathname = shortpath;
 				else
 					ASSERT(0);
 			}
-#endif
 		}
 		databuf += "PATH: " + pathname + "\n";
 	}
@@ -1066,7 +1029,7 @@ extern "C" ULONG FAR PASCAL MAPIFindNext(
 		message_id = lpszSeedMessageID;
 
 	//
-	// Okay, now we're all set to ask Eudora for the next Inbox message
+	// Okay, now we're all set to ask Hermes for the next Inbox message
 	// identifier via DDE.
 	//
 	CDDEClient dde_client;
@@ -1143,7 +1106,7 @@ extern "C" ULONG FAR PASCAL MAPIReadMail(
 
 	//
 	// Fetch the message data corresponding to the given message id via
-	// DDE to Eudora.
+	// DDE to Hermes.
 	//
 	CDDEClient dde_client;
 	CString message_data;
@@ -1265,7 +1228,7 @@ extern "C" ULONG FAR PASCAL MAPISaveMail(
 	if (NULL == lpszMessageID)
 		return MAPI_E_FAILURE;			// caller blew it
 	else if (strlen(lpszMessageID) > 0)
-		return MAPI_E_NOT_SUPPORTED;	// Eudora doesn't support overwrite of existing messages
+		return MAPI_E_NOT_SUPPORTED;	// Hermes doesn't support overwrite of existing messages
 	else if (NULL == lpMessage)
 		return MAPI_E_FAILURE;			// caller blew it
 
@@ -1279,7 +1242,7 @@ extern "C" ULONG FAR PASCAL MAPISaveMail(
 	{
 		//
 		// Well, we don't do implicit logons, so let's just make sure
-		// that Eudora is around.
+		// that Hermes is around.
 		//
 		ASSERT(message_id.IsEmpty());
 		HWND hWnd = GetEudoraWindowHandle(HWND(ulUIParam));
@@ -1290,21 +1253,21 @@ extern "C" ULONG FAR PASCAL MAPISaveMail(
 		return MAPI_E_INVALID_SESSION;
 
 	//
-	// Determine what type of Eudora we're talking to (16 vs 32) and
+	// Determine what type of Hermes we're talking to (16 vs 32) and
 	// decide whether or not to use short attachment file names.
 	//
 	BOOL use_short_filenames = UseShortFilenames();
 
 	//
 	// Convert the MapiMessage data into a simple, line-oriented textual
-	// format that Eudora can understand.
+	// format that Hermes can understand.
 	//
 	CString message_data;
 	if (! ((CMapiMessage *) lpMessage)->WriteMessageData(message_data, FALSE, use_short_filenames))
 		return MAPI_E_FAILURE;
 
 	//
-	// Send the message data with the given message id to Eudora via DDE.
+	// Send the message data with the given message id to Hermes via DDE.
 	//
 	CDDEClient dde_client;
 	if (! dde_client.PutMessageById(message_data, message_id))
@@ -1366,7 +1329,7 @@ extern "C" ULONG FAR PASCAL MAPIDeleteMail(
 		return MAPI_E_INVALID_MESSAGE;
 
 	//
-	// Use DDE to tell Eudora to delete the message.
+	// Use DDE to tell Hermes to delete the message.
 	//
 	CDDEClient dde_client;
 	if (! dde_client.DeleteMessageById(lpszMessageID))
@@ -1797,7 +1760,7 @@ extern "C" ULONG FAR PASCAL MAPIResolveName(
 	//
 	// Allocate, populate, and return a new MapiRecipDesc containing
 	// the "resolved" address name (the joke is that ALL names are
-	// resolved by Eudora, even if it is total garbage).
+	// resolved by Hermes, even if it is total garbage).
 	//
 	CMapiRecipDesc* p_recip = s_SessionMgr.NewMapiRecipDescArray(1);		// array of one
 	if (NULL == p_recip)

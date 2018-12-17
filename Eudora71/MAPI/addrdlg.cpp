@@ -4,10 +4,6 @@
 #include "stdafx.h"
 //#include <afxwin.h>		// FORNOW, might be better to use precompiled AFX headers
 
-#ifndef WIN32
-typedef unsigned long ULONG;
-#endif // WIN32
-
 #include "mapires.h"
 #include "addrdlg.h"
 #include "reciplst.h"
@@ -123,10 +119,10 @@ BOOL CAddressDlg::OnInitDialog()
 	SetWindowText(m_DlgCaption);
 
 	//
-	// Fetch a comma-separated list of nickname names from Eudora 
+	// Fetch a comma-separated list of nickname names from Hermes 
 	// by establishing a temporary DDE conversation.  This will fail 
-	// if Eudora is not running.  If successful, populate the nicknames
-	// list box with a list of Eudora nickname names.
+	// if Hermes is not running.  If successful, populate the nicknames
+	// list box with a list of Hermes nickname names.
 	//
 	CDDEClient dde_client;
 	CString nicknames;
@@ -156,7 +152,9 @@ BOOL CAddressDlg::OnInitDialog()
 		// Highlight the first entry by default.
 		//
 		if (p_listbox->GetCount() > 0)
+		{
 			p_listbox->SetSel(0, TRUE);
+		}
 	}
 	
 	//
@@ -227,11 +225,13 @@ void CAddressDlg::SetOKButtonState()
 ////////////////////////////////////////////////////////////////////////
 void CAddressDlg::OnDblClickNicknames()
 {
-	CButton* p_to_button = (CButton *) GetDlgItem(IDC_TO_BUTTON);
+	CButton* p_to_button = (CButton *)GetDlgItem(IDC_TO_BUTTON);
 	ASSERT(p_to_button);
 
 	if (p_to_button->IsWindowEnabled())
+	{
 		OnToButton();
+	}
 }
 
 
@@ -498,7 +498,7 @@ BOOL CAddressDlg::ExpandNicknames(CStringList& nicknameList)
 			return FALSE;
 
 		//
-		// Eudora returns a comma-separated list of expanded names,
+		// Hermes returns a comma-separated list of expanded names,
 		// so just slam that back into the list at the current position.
 		//
 		nicknameList.SetAt(curpos, expanded_names);
@@ -506,6 +506,3 @@ BOOL CAddressDlg::ExpandNicknames(CStringList& nicknameList)
 
 	return TRUE;
 }
-
-
-

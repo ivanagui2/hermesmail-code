@@ -1,0 +1,29 @@
+// Hermes.idl : type library source for Hermes.exe
+
+// This file will be processed by the MIDL compiler to produce the
+// type library (Hermes.tlb).
+
+[ uuid(6b3a6d57-93fb-47ee-b3f2-3ff80def1ac8), version(1.0) ]
+library Hermes
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+
+	//  Primary dispatch interface for CHermesDoc
+
+	[ uuid(bf8a6846-3e36-45a1-84fc-087fd0f4da95) ]
+	dispinterface IHermes
+	{
+		properties:
+
+		methods:
+	};
+
+	//  Class information for CHermesDoc
+
+	[ uuid(cffe5a27-8dc2-4f5f-8376-91d3f72da784) ]
+	coclass CHermesDoc
+	{
+		[default] dispinterface IHermes;
+	};
+};
